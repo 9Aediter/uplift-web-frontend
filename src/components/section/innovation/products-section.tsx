@@ -1,5 +1,6 @@
-'use client';
-
+"use client"
+import Link from 'next/link';
+import { ProductSectionSkeleton } from '@/components/skeleton/product-section';
 import React, { useEffect } from 'react'
 import { Section } from '@/components/ui/section'
 import { IconMap, getGradient } from '@/data/products';
@@ -18,7 +19,7 @@ const ProductsSection = () => {
   }, []);  // ✅ เรียกครั้งเดียว
 
   if (isLoading) {
-    return <div className="text-center py-10">Loading products...</div>;
+    return <ProductSectionSkeleton />;
   }
 
   if (error) {
@@ -85,11 +86,12 @@ const ProductsSection = () => {
                     </div>
                   ))}
                 </div>
-                <button
-                  className={`px-6 py-2 rounded-lg bg-gradient-to-r ${getGradient(product.color)} text-white font-medium hover:opacity-90 transition-opacity`}
+                <Link
+                  href={`/innovation/${product.id}`}
+                  className={`px-6 py-2 rounded-lg bg-gradient-to-r ${getGradient(product.color)} text-white font-medium hover:opacity-90 transition-opacity inline-block`}
                 >
                   Learn More
-                </button>
+                </Link>
               </div>
             </div>
           </Section>
@@ -100,3 +102,4 @@ const ProductsSection = () => {
 };
 
 export default ProductsSection;
+

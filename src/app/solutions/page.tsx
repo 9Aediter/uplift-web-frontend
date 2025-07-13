@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Nav from '@/components/nav/resnav'
-import Footer from '@/components/section/uplift/footer'
+import Footer from '@/components/footer/footer'
 import { SolutionHero } from '@/components/section/solution/hero'
 import { FeaturedArticles } from '@/components/section/solution/featured-articles'
 import { AllArticles } from '@/components/section/solution/all-articles'
@@ -125,14 +125,14 @@ const SolutionsPage = () => {
                 >
                     <Particles />
                 </div>
-                <SolutionHero 
+                <SolutionHero
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
                     activeCategory={activeCategory}
                     setActiveCategory={setActiveCategory}
                     categories={categories}
                 />
-                
+
                 <AllArticles articles={articles} filteredArticles={filteredArticles} />
                 <FeaturedArticles />
                 <Newsletter />

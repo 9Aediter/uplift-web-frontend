@@ -11,7 +11,7 @@ import {
 
 import React, { useRef, useState } from "react";
 import Link from "next/link";
-
+import Image from "next/image";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -234,18 +234,18 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
+    <Link
       href="/"
-      className="relative mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
+      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
-      <img
+      <Image
         src="/vercel.svg"
         alt="logo"
         width={30}
         height={30}
       />
       <span className="font-black text-black dark:text-white">UPLIFT</span>
-    </a>
+    </Link>
   );
 };
 

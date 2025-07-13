@@ -2,7 +2,7 @@ import React from "react";
 import { Timeline } from "@/components/ui/timeline";
 import Nav from "@/components/nav/resnav";
 import { Founder } from "@/components/section/story/founder";
-import Footer from "@/components/section/uplift/footer";
+import Footer from "@/components/footer/footer";
 
 const page = () => {
     const data = [

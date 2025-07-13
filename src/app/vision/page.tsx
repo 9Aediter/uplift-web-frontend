@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from '@/components/nav/resnav'
-import Footer from '@/components/section/uplift/footer'
+import Footer from '@/components/footer/footer'
 import { VisionHero } from '@/components/section/vision/hero'
 import { CoreValues } from '@/components/section/vision/core'
 import { BrandPersonality } from '@/components/section/vision/brand'
@@ -10,7 +10,7 @@ const VisionPage = () => {
   return (
     <>
       <Nav />
-      <main>
+      <main className="w-full inset-0 ">
         <VisionHero />
         <CoreValues />
         <BrandPersonality />

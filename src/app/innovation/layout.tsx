@@ -1,5 +1,5 @@
 import Nav from "@/components/nav/resnav";
-import Footer from "@/components/section/uplift/footer";
+import Footer from "@/components/footer/footer";
 
 export default function InnovationLayout({
   children,

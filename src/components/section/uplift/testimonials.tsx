@@ -1,5 +1,6 @@
 "use client";
-import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import dynamic from "next/dynamic";
+const AnimatedTestimonials = dynamic(() => import("@/components/ui/animated-testimonials"), { ssr: false });
 
 export default function AnimatedTestimonialsDemo() {
   const testimonials = [

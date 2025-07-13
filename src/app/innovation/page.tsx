@@ -1,5 +1,5 @@
 import React from 'react'
-import Footer from '@/components/section/uplift/footer'
+import Footer from '@/components/footer/footer'
 import Nav from '@/components/nav/resnav'
 import Hero from '@/components/section/innovation/hero'
 import ProductsSection from '@/components/section/innovation/products-section'
@@ -9,23 +9,15 @@ import { Particles } from '@/components/section/uplift/hero/particles'
 const Innovation = () => {
   return (
     <>
-      <Nav />
+
       <main className='w-full'>
 
-        <div
-          className="absolute inset-0 z-0 h-[100vh] w-full"
-          style={{
-            maskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
-          }}
-        >
-          <Particles />
-        </div>
+        <Particles />
         <Hero />
         <ProductsSection />
         <FinalCtaSection />
       </main>
-      <Footer />
+
     </>
   )
 }

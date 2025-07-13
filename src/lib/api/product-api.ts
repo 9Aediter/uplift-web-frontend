@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// The base URL for your Strapi API
-const STRAPI_API_URL = 'http://localhost:1337';
+const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
 /**
  * Fetches all "softwares" from the Strapi API and returns the raw data.
@@ -9,7 +8,7 @@ const STRAPI_API_URL = 'http://localhost:1337';
  */
 export const fetchAllProducts = async (): Promise<any[]> => {
   const endpoint = '/api/softwares?populate=image';
-  console.log(`Fetching raw data from Strapi: ${STRAPI_API_URL}${endpoint}`);
+  // console.log(`Fetching raw data from Strapi: ${STRAPI_API_URL}${endpoint}`);
 
   try {
     const response = await axios.get(`${STRAPI_API_URL}${endpoint}`);
@@ -18,15 +17,15 @@ export const fetchAllProducts = async (): Promise<any[]> => {
       return response.data.data; // Return the raw array of softwares
     }
     
-    console.warn('Strapi response format might have changed. Expected { data: [...] }');
+    // console.warn('Strapi response format might have changed. Expected { data: [...] }');
     return [];
 
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error(`Axios error fetching from Strapi: ${error.message}`);
+      // console.error(`Axios error fetching from Strapi: ${error.message}`);
       throw new Error(`Could not connect to or fetch from Strapi: ${error.code}`);
     } else {
-      console.error('Unexpected error fetching from Strapi:', error);
+      // console.error('Unexpected error fetching from Strapi:', error);
       throw new Error('An unexpected error occurred while fetching from Strapi.');
     }
   }

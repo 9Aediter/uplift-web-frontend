@@ -18,7 +18,7 @@ export const VisionHero = () => {
     return (
         <>
             {/* Hero */}
-            <Section className="lg:h-[80vh] flex justify-between items-end mx-auto pt-28 md:pt-32 bg-gradient-to-b from-black to-gray-900/30">
+            <Section className="inset-0 lg:h-[100vh] flex justify-between items-end mx-auto pt-28 md:pt-32 bg-gradient-to-b from-black to-gray-900/30">
                 <div className="max-w-7xl mx-auto">
                     {/* Main */}
                     <div className="text-center mb-20">

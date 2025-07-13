@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import Image, { ImageProps } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
+import Link from "next/link";
 
 
 interface CarouselProps {
@@ -27,7 +28,8 @@ type Card = {
     src: string;
     title: string;
     category: string;
-    content: React.ReactNode;
+    content?: React.ReactNode;
+    link?: string;
 };
 
 export const CarouselContext = createContext<{
@@ -38,6 +40,7 @@ export const CarouselContext = createContext<{
     currentIndex: 0,
 });
 
+// This is the main Carousel component, responsible for rendering the scrollable list of cards.
 export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     const carouselRef = React.useRef<HTMLDivElement>(null);
     const [canScrollLeft, setCanScrollLeft] = React.useState(false);
@@ -134,7 +137,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                         ))}
                     </div>
                 </div>
-                <div className="mr-10 flex justify-end gap-2">
+                {/* <div className="mr-10 flex justify-end gap-2">
                     <button
                         className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
                         onClick={scrollLeft}
@@ -149,7 +152,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                     >
                         <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
                     </button>
-                </div>
+                </div> */}
             </div>
         </CarouselContext.Provider>
     );
@@ -198,7 +201,8 @@ export const Card = ({
 
     return (
         <>
-            <AnimatePresence>
+            {/* Modal View: This section renders the full-screen modal when a card is clicked. */}
+            {/* <AnimatePresence>
                 {open && (
                     <div className="fixed inset-0 z-50 h-screen overflow-auto">
                         <motion.div
@@ -237,34 +241,51 @@ export const Card = ({
                         </motion.div>
                     </div>
                 )}
-            </AnimatePresence>
-            <motion.button
-                layoutId={layout ? `card-${card.title}` : undefined}
-                onClick={handleOpen}
-                className="relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[40rem] md:w-96 dark:bg-neutral-900"
-            >
-                <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />
-                <div className="relative z-40 p-8">
-                    <motion.p
-                        layoutId={layout ? `category-${card.category}` : undefined}
-                        className="text-left font-sans text-sm font-medium text-white md:text-base"
-                    >
-                        {card.category}
-                    </motion.p>
-                    <motion.p
-                        layoutId={layout ? `title-${card.title}` : undefined}
-                        className="mt-2 max-w-xs text-left font-sans text-xl font-semibold [text-wrap:balance] text-white md:text-3xl"
-                    >
-                        {card.title}
-                    </motion.p>
-                </div>
-                <BlurImage
-                    src={card.src}
-                    alt={card.title}
-                    fill
-                    className="absolute inset-0 z-10 object-cover"
-                />
-            </motion.button>
+            </AnimatePresence> */}
+            {/* Carousel View: This section renders the card as it appears within the carousel. */}
+            <Link href={card.link || '#'}>
+                <motion.button
+                    layoutId={layout ? `card-${card.title}` : undefined}
+                    onClick={handleOpen}
+                    className="relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[40rem] md:w-96 dark:bg-neutral-900"
+                >
+                    {/* Gradient */}
+                    <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-black/80" />
+
+                    {/* Content */}
+                    <div className="relative z-40 p-8 text-left">
+                        {/* Catagory */}
+                        <motion.p
+                            layoutId={layout ? `category-${card.category}` : undefined}
+                            className="mb-4 inline-flex items-center px-4 py-1 rounded-full bg-gray-800/80 
+     border border-gray-700"
+                        >
+                            <span className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2"></span>
+                            <span className="text-sm font-medium text-white">
+                                {card.category}
+                            </span>
+                        </motion.p>
+
+                        {/* Title */}
+                        <motion.p
+                            layoutId={layout ? `title-${card.title}` : undefined}
+                            className="mt-2 max-w-xs text-left font-sans text-xl font-semibold [text-wrap:balance] text-white md:text-3xl"
+                        >
+                            {card.title}
+                        </motion.p>
+
+
+                    </div>
+
+                    {/* Image */}
+                    <BlurImage
+                        src={card.src}
+                        alt={card.title}
+                        fill
+                        className="absolute inset-0 z-10 object-cover"
+                    />
+                </motion.button>
+            </Link>
         </>
     );
 };
@@ -279,7 +300,7 @@ export const BlurImage = ({
 }: ImageProps) => {
     const [isLoading, setLoading] = useState(true);
     return (
-        <img
+        <Image
             className={cn(
                 "h-full w-full transition duration-300",
                 isLoading ? "blur-sm" : "blur-0",

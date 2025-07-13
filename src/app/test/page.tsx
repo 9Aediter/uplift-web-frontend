@@ -18,6 +18,16 @@ const TestIndexPage = () => {
             Test Service Data (Landing Store vs. Raw API)
           </Link>
         </li>
+        <li>
+          <Link href="/test/footer" className="text-blue-400 hover:underline">
+            Test Footer Data (Store vs. Raw API)
+          </Link>
+        </li>
+        <li>
+          <Link href="/test/software" className="text-blue-400 hover:underline">
+            Test Software Data (Raw API)
+          </Link>
+        </li>
       </ul>
     </div>
   );

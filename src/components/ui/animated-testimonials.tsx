@@ -12,7 +12,7 @@ type Testimonial = {
     designation: string;
     src: string;
 };
-export const AnimatedTestimonials = ({
+const AnimatedTestimonials = ({
     testimonials,
     autoplay = false,
 }: {
@@ -164,3 +164,5 @@ export const AnimatedTestimonials = ({
         </Section>
     );
 };
+
+export default AnimatedTestimonials

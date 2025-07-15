@@ -3,7 +3,7 @@ import { Section } from "@/components/ui/section"
 
 export const Newsletter = () => {
     return (
-        <Section className="flex items-center h-[20vh] lg:h-[40vh] rounded-lg border bg-black border-gray-800 p-8">
+        <Section className="flex items-center h-fit lg:h-[40vh] rounded-lg border bg-black border-gray-800 p-8">
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row items-center">
                     {/* Text */}

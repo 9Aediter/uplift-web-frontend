@@ -57,26 +57,27 @@ const HeroSection = () => {
     ];
 
     return (
-        <section className="h-[70vh] relative w-full text-white">
+        <section className="h-[100vh] lg:h-[70vh] relative w-full text-white">
 
             {/* BG */}
             <HeroBgAnimate />
 
             {/* Content */}
-            <div className="flex items-end h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20 relative z-10">
+            <div className="flex items-center lg:items-end h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20 relative z-10">
                 <AnimateEffect index={0}> {/* ห่อหุ้มด้วย AnimateEffect */}
                     <div className="w-full">
                         <AnimateEffect index={0}> {/* H1 */}
-                            <div className="text-5xl md:text-7xl font-bold mb-6">
+                            <div className="text-5xl text-center lg:text-left md:text-7xl font-bold mb-6">
                                 Run Your Gym
                                 <ContainerTextFlip
+                                    className="text-5xl pt-4"
                                     words={["Smarter", "Modern", "Awesome"]}
                                 />
                             </div >
 
                         </AnimateEffect>
                         <AnimateEffect index={1}> {/* P */}
-                            <p className="text-xl md:text-2xl mb-8">
+                            <p className="text-center md:text-left text-xl md:text-2xl mb-8">
                                 Pay once. Use it forever. Simple monthly maintenance for peace of
                                 mind.
                             </p>

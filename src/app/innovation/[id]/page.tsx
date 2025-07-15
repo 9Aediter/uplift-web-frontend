@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '@/components/ui/section';
-import { getInnovationDetail } from '@/app/actions/innovationActions';
+import { getInnovationDetail } from '@/lib/actions/innovationActions';
 import { notFound } from 'next/navigation';
 import { InnovationImageAnimate } from '@/components/section/innovation/innovation-image-animate';
 
@@ -15,31 +15,19 @@ import { ExampleScreensSection } from '@/components/section/innovation/example-s
 import { FAQSection } from '@/components/section/innovation/faq-section';
 import { CallToActionSection } from '@/components/section/innovation/call-to-action-section';
 
-interface InnovationDetailPageProps {
-  params: { id: string };
-}
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
 
-// Metadata for SEO
-export async function generateMetadata({ params }: InnovationDetailPageProps) {
-  const softwareData = await getInnovationDetail(params.id);
-  if (!softwareData) {
-    return { title: "Innovation Not Found" };
-  }
-  return {
-    title: `${softwareData.title} — Everything You Need to Know Before Implementing One in Your Business`,
-    description: softwareData.description,
-  };
-}
 
-export default async function InnovationDetailPage({ params }: InnovationDetailPageProps) {
-  const { id } = params;
-
+  const { id } = await params;
   const softwareData = await getInnovationDetail(id);
 
   if (!softwareData) {
     notFound();
   }
-
   const product = softwareData;
 
   return (
@@ -59,7 +47,7 @@ export default async function InnovationDetailPage({ params }: InnovationDetailP
 
       {/* Main Content Sections */}
       <div className="max-w-7xl mx-auto px-4">
-        <OverviewSection description={product.description} />
+        {/* <OverviewSection description={product.description} /> */}
         <WhatIsSection systemName={product.title} />
         <WhyNeedItSection />
         <CoreFeaturesSection features={product.features} />
@@ -70,7 +58,7 @@ export default async function InnovationDetailPage({ params }: InnovationDetailP
       </div>
 
       {/* Call to Action Section (Full Width) */}
-      <CallToActionSection systemName={product.title} />
+      {/* <CallToActionSection systemName={product.title} /> */}
     </main>
   );
 }

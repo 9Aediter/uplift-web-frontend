@@ -68,7 +68,7 @@ const ProblemCardList: React.FC<ProblemCardListProps> = ({ cards }) => (
 
 const ProblemsSection = () => {
     return (
-        <section className="h-[80vh] bg-black py-16 md:py-24" id="problems">
+        <section className="h-fit lg:h-[80vh] bg-black py-16 md:py-24" id="problems">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-14">
                     <AnimateEffect index={0}> {/* H2 */}

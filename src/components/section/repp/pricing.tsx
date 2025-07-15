@@ -10,7 +10,7 @@ import { MdUpgrade } from "react-icons/md";
 
 const PricingSection = () => {
     return (
-        <section className="bg-background py-16 md:py-24" id="pricing">
+        <section className="h-fit bg-background py-16 md:py-24" id="pricing">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <AnimateEffect index={0}>
@@ -25,7 +25,7 @@ const PricingSection = () => {
                     </AnimateEffect>
                 </div>
 
-                <AnimateEffect index={2}>
+                <AnimateEffect index={1}>
                     <PricingCardList plans={pricingPlansData} />
                 </AnimateEffect>
 

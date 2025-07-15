@@ -59,7 +59,7 @@ const categories = [
 
 export const FeaturedArticles = () => {
     return (
-        <Section className="h-[60vh] flex justify-center items-center bg-gradient-to-b from-gray-900/30 to-black">
+        <Section className="h-fit lg:h-[60vh] flex justify-center items-center bg-gradient-to-b from-gray-900/30 to-black">
             <div className='max-w-7xl mx-auto'>
                 <h2 className="text-2xl md:text-3xl font-bold mb-8">
                     <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">

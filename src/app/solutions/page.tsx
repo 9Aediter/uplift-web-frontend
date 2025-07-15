@@ -115,9 +115,9 @@ const SolutionsPage = () => {
     return (
         <>
             <Nav />
-            <main className="w-full">
+            <main className="w-full z-0">
                 <div
-                    className="absolute inset-0 z-0 h-[100vh] w-full"
+                    className="absolute z-0 h-[100vh] w-full"
                     style={{
                         maskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
                         WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',

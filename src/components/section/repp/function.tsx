@@ -60,7 +60,7 @@ export function Function() {
   const tabsData = getTabData();
 
   return (
-    <div className="h-[20rem] md:h-[40rem] [perspective:1000px] relative b flex flex-col max-w-7xl mx-auto w-full  items-start justify-start my-40">
+    <div className="p-6 h-[25rem] md:h-[40rem] [perspective:1000px] relative b flex flex-col max-w-7xl mx-auto w-full items-start justify-start my-40">
 
       <Tabs tabs={tabsData} />
 

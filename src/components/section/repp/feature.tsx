@@ -107,7 +107,7 @@ const FeatureGroup = ({ group }: { group: typeof features.member }) => (
 
 const FeaturesSection = () => {
   return (
-    <section className="bg-gradient-to-b from-black/10 to-white/20 py-16 md:py-24" id="features">
+    <section className="h-fit bg-gradient-to-b from-black/10 to-white/20 py-16 md:py-24" id="features">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 reveal">
           <AnimateEffect index={0}> {/* H2 */}
@@ -125,7 +125,7 @@ const FeaturesSection = () => {
           <AnimateEffect index={2}> {/* Member Features */}
             <FeatureGroup group={features.member} />
           </AnimateEffect>
-          <AnimateEffect index={2}> {/* Owner Features */}
+          <AnimateEffect index={3}> {/* Owner Features */}
             <FeatureGroup group={features.owner} />
           </AnimateEffect>
         </div>

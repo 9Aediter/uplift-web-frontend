@@ -14,7 +14,7 @@ export const CallToActionSection: React.FC<CallToActionSectionProps> = ({ system
         Let’s build your own {systemName} today.
       </h2>
       <div className="flex flex-wrap justify-center gap-4">
-        <Button size="lg" variant="primary" className="flex px-6 py-6">
+        <Button size="lg" variant="default" className="flex px-6 py-6">
           <RocketIcon className="w-5 h-5 mr-2" />
           Request Demo
         </Button>

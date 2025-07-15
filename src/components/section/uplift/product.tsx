@@ -2,7 +2,7 @@ import React from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 import { Section } from "@/components/ui/section";
 import { AnimateEffect } from "@/components/animate-effect";
-import { getProducts } from "@/app/actions/productActions";
+import { getProducts } from "@/lib/actions/productActions";
 
 export const Product = async () => {
     const products = await getProducts();

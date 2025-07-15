@@ -45,7 +45,7 @@ export default function DesktopNav() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <>
+        <nav id="nav" className="z-50">
             {/* Desktop Navigation */}
             <Navbar className="hidden lg:block">
                 {[<NavBody key="nav-body">
@@ -68,7 +68,7 @@ export default function DesktopNav() {
                         <Button variant="ghost" size="icon" onClick={() => console.log("Search clicked")}>
                             <SearchIcon className="h-5 w-5" />
                         </Button>
-                        
+
                         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon">
@@ -120,7 +120,7 @@ export default function DesktopNav() {
                     </div>
                 </MobileNavHeader>
             </MobileNav>
-            
-        </>
+
+        </nav>
     );
 }

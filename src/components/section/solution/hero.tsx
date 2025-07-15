@@ -17,7 +17,7 @@ interface SolutionHeroProps {
 
 export const SolutionHero: React.FC<SolutionHeroProps> = ({ searchTerm, setSearchTerm, activeCategory, setActiveCategory, categories }) => {
     return (
-        <Section className=" mx-auto h-[60vh] flex flex-col justify-end bg-gradient-to-b from-black to-gray-900/30">
+        <Section className="mx-auto h-[100vh] lg:h-[60vh] flex flex-col justify-center lg:justify-end bg-gradient-to-b from-black to-gray-900/30">
             <div className="max-w-7xl w-full mx-auto">
                 <div className="text-center mb-14">
                     <h1 className="text-5xl md:text-6xl font-bold mb-6">

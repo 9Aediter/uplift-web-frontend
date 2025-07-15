@@ -47,4 +47,6 @@ jobs:
             docker pull ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
             docker stop frontend || true
             docker rm frontend || true
-            docker run -d --name frontend -p 3000:3000 -e NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }} -e NEXT_PUBLIC_STRAPI_API_URL=${{ vars.NEXT_PUBLIC_STRAPI_API_URL }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
+            docker network create uplifttech || true
+
+            docker run -d --name frontend --network uplifttech -p 3000:3000 -e NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }} -e NEXT_PUBLIC_STRAPI_API_URL=${{ vars.NEXT_PUBLIC_STRAPI_API_URL }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest

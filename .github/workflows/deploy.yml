@@ -27,15 +27,15 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ vars.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} .
+          docker build -t ${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }} .
 
       - name: Tag image for ECR
         run: |
-          docker tag ${{ vars.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker tag ${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
       - name: Push image to ECR
         run: |
-          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}
 
       - name: SSH into EC2 and deploy container
         uses: appleboy/ssh-action@v1.0.3

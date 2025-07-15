@@ -31,7 +31,7 @@ jobs:
 
       - name: Tag image for ECR
         run: |
-          docker tag ${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker tag ${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}
 
       - name: Push image to ECR
         run: |

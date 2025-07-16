@@ -37,6 +37,17 @@ jobs:
         run: |
           docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}
 
+      - name: SSH EC2 and login to ECR
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "✅ Logging in to Amazon ECR..."
+            aws ecr get-login-password --region ap-southeast-1 \
+              | docker login --username AWS --password-stdin ${{ vars.ECR_REGISTRY }}
+
       - name: SSH into EC2 and deploy container
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -50,3 +61,6 @@ jobs:
             docker network create uplifttech || true
 
             docker run -d --name frontend --network uplifttech -p 3000:3000 -e NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }} -e NEXT_PUBLIC_STRAPI_API_URL=${{ vars.NEXT_PUBLIC_STRAPI_API_URL }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
+
+            docker image prune -a -f
+

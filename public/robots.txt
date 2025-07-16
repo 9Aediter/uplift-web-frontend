@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://uplifttech.dev
+Host: https://uplifttech.store
 
 # Sitemaps
-Sitemap: https://uplifttech.dev/sitemap.xml
+Sitemap: https://uplifttech.store/sitemap.xml

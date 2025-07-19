@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "@/style/globals.css";
 import Script from 'next/script';
 import AnalyticsProvider from "@/lib/analytics-provider";
+import { getDictionary } from '@/lib/i18n'
+import { headers } from 'next/headers'
 
 // Font Inter
 const inter = Inter({
@@ -11,37 +13,101 @@ const inter = Inter({
 });
 
 // SEO Metadata
-export const metadata: Metadata = {
-  title: "UPLIFT",
-  description: "Uplift your Business with IT Solutions",
-  keywords: ["UPLIFT", "CMS", "ระบบจัดการเว็บไซต์", "Next.js", "Prisma", "Tailwind"],
-  authors: [{ name: "Uplift Team" }],
-  creator: "UPLIFT",
-  metadataBase: new URL("https://uplifttech.dev"),
-  openGraph: {
-    title: "UPLIFT CMS",
-    description: "Uplift your Business with IT Solutions",
-    url: "https://uplifttech.dev",
-    siteName: "UPLIFT",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+// export const metadata: Metadata = {
+//   title: "UPLIFT",
+//   description: "Uplift your Business with IT Solutions",
+//   keywords: ["UPLIFT", "CMS", "ระบบจัดการเว็บไซต์", "Next.js", "Prisma", "Tailwind"],
+//   authors: [{ name: "Uplift Team" }],
+//   creator: "UPLIFT",
+//   metadataBase: new URL("https://uplifttech.dev"),
+//   openGraph: {
+//     title: "UPLIFT CMS",
+//     description: "Uplift your Business with IT Solutions",
+//     url: "https://uplifttech.store",
+//     siteName: "UPLIFT",
+//     type: "website",
+//   },
+//   robots: {
+//     index: true,
+//     follow: true,
+//     googleBot: {
+//       index: true,
+//       follow: true,
+//     },
+//   },
+// };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers()
+  const locale = headersList.get('x-next-locale') || 'en'
+  const dict = await getDictionary(locale)
+  const baseURL = 'https://uplifttech.store'
+
+  return {
+    title: {
+      default: dict.title,
+      template: `%s | UPLIFTTECH`
+    },
+    description: dict.description,
+    keywords: dict.keywords,
+    authors: [{ name: 'Uplift Team', url: `${baseURL}/about` }],
+    creator: 'UPLIFTTECH',
+    publisher: 'UPLIFTTECH',
+    metadataBase: new URL(`${baseURL}`),
+    openGraph: {
+      title: dict.title,
+      description: dict.description,
+      url: `${baseURL}/${locale === 'en' ? '' : locale}`,
+      siteName: 'UPLIFTTECH',
+      type: 'website',
+      locale: locale === 'th' ? 'th_TH' : 'en_US',
+      images: [
+        {
+          url: `${baseURL}/og/cover.jpg`,
+          width: 1200,
+          height: 630,
+          alt: dict.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: dict.title,
+      description: dict.description,
+      images: [`${baseURL}/og/cover.jpg`],
+      creator: '@uplifttech',
+    },
+    robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-snippet': -1,
+        'max-image-preview': 'large',
+        'max-video-preview': -1,
+      },
     },
-  },
-};
+    alternates: {
+      canonical: `${baseURL}/${locale === 'en' ? '' : locale}`,
+      languages: {
+        en: `${baseURL}`,
+        th: `${baseURL}/th`,
+      },
+    },
+  }
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers()
+  const locale = headersList.get('x-next-locale') || 'en'
+
   return (
-    <html lang="en" className="dark overflow-x-hidden">
+    <html lang={locale} className="dark overflow-x-hidden">
       <body
         className={`${inter.variable} antialiased w-full overflow-hidden`}
       >
@@ -65,12 +131,8 @@ export default function RootLayout({
           }}
         />
         <AnalyticsProvider />
-
-        {/* Main content */}
-        <div>
-          {children}
-        </div>
-
+        {/* Main content */}      
+        {children}       
       </body>
     </html>
   );

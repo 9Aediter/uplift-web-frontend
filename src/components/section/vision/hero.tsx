@@ -21,7 +21,7 @@ export const VisionHero = () => {
             <Section className="inset-0 lg:h-[100vh] flex justify-between items-end mx-auto pt-28 md:pt-32 bg-gradient-to-b from-black to-gray-900/30">
                 <div className="max-w-7xl mx-auto">
                     {/* Main */}
-                    <div className="text-center mb-20">
+                    <div className="text-center my-10">
 
                         {/* Vision */}
                         <h1 className="text-5xl md:text-7xl font-bold mb-8">
@@ -32,7 +32,7 @@ export const VisionHero = () => {
                         {/* Line */}
                         <div className="w-20 h-1 bg-gradient-to-r from-blue-400 to-cyan-300 mx-auto mb-8"></div>
                         {/* Describe */}
-                        <div className="text-4xl md:text-5xl font-light text-white max-w-4xl mx-auto leading-tight">
+                        <div className="text-3xl md:text-4xl font-light text-white max-w-4xl mx-auto leading-tight">
                             เราสร้างเทคโนโลยี<br></br>เพื่อเปลี่ยนแปลงให้
                             <span className="text-cyan-400 font-normal">
                                 {' '}
@@ -41,7 +41,7 @@ export const VisionHero = () => {
                         </div>
                     </div>
                     {/* Card */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mb-16">
                         {/* Our Mission */}
                         <CardSpotlight className="p-12 rounded-lg border border-gray-700 bg-gray-800/50">
                             <div className="flex items-center mb-8">

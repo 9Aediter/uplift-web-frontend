@@ -7,10 +7,11 @@ import {
     LightbulbIcon,
     BrainIcon,
     LineChartIcon,
-    CompassIcon, // Add CompassIcon if not already imported
-    UsersIcon, // Add UsersIcon if not already imported
-    SparklesIcon, // Add SparklesIcon if not already imported
+    CompassIcon,
+    UsersIcon,
+    SparklesIcon,
 } from 'lucide-react'
+import { Dictionary } from '@/lib/types/dictionary';
 
 // Define IconMap for dynamic icon rendering
 const IconMap: Record<string, React.ElementType> = {
@@ -22,30 +23,34 @@ const IconMap: Record<string, React.ElementType> = {
     SparklesIcon,
 };
 
-export const Founder = () => {
+interface FounderProps {
+    dictionary: Dictionary['story']['founder'];
+}
+
+export const Founder: React.FC<FounderProps> = ({ dictionary }) => {
     const teamMembers = [
         {
-            name: 'Anon Suphatphon',
-            role: 'Founder',
-            quote: 'Building the impossible is our mission',
+            name: dictionary.members[0].name,
+            role: dictionary.members[0].role,
+            quote: dictionary.members[0].quote,
             icon: 'RocketIcon',
-            skills: ['Vision', 'Strategy', 'Leadership', 'Innovation'],
+            skills: dictionary.members[0].skills,
             imageUrl: 'https://randomuser.me/api/portraits/men/70.jpg', // Example image URL
         },
         {
-            name: 'Alex Chen',
-            role: 'CTO & Product Architect',
-            quote: 'Technology should solve real problems',
+            name: dictionary.members[1].name,
+            role: dictionary.members[1].role,
+            quote: dictionary.members[1].quote,
             icon: 'BrainIcon',
-            skills: ['AI/ML', 'System Design', 'Blockchain', 'Cloud Architecture'],
+            skills: dictionary.members[1].skills,
             imageUrl: 'https://randomuser.me/api/portraits/women/71.jpg', // Example image URL
         },
         {
-            name: 'Maya Patel',
-            role: 'Creative Director',
-            quote: 'Design is how innovation speaks',
+            name: dictionary.members[2].name,
+            role: dictionary.members[2].role,
+            quote: dictionary.members[2].quote,
             icon: 'LightbulbIcon',
-            skills: ['UX/UI', 'Brand Strategy', 'Visual Design', 'User Research'],
+            skills: dictionary.members[2].skills,
             imageUrl: 'https://randomuser.me/api/portraits/women/72.jpg', // Example image URL
         },
     ]
@@ -55,12 +60,11 @@ export const Founder = () => {
                 <div className="text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">
                         <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                            The Innovators
+                            {dictionary.title}
                         </span>
                     </h2>
                     <p className="text-gray-400 max-w-2xl mx-auto">
-                        Meet the visionaries behind UPLIFT - pushing boundaries and redefining
-                        what's possible.
+                        {dictionary.description}
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -10,7 +10,7 @@ const VisionPage = () => {
   return (
     <>
       <Nav />
-      <main className="w-full inset-0 ">
+      <main className="w-full">
         <VisionHero />
         <CoreValues />
         <BrandPersonality />

@@ -34,7 +34,7 @@ export const ScrollIndicator: React.FC = () => {
     };
 
     return (
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20 animate-bounce cursor-pointer" onClick={handleClick}
+        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20 animate-bounce cursor-pointer" onClick={handleClick}
         >
             <div className="h-10 w-6 rounded-full border border-gray-500 flex justify-center">
                 <div className="h-2 w-2 rounded-full bg-cyan-400 mt-1 animate-pulse"></div>

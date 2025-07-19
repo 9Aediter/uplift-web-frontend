@@ -1,0 +1,52 @@
+{
+  "title": "UPLIFT | Tailored Software Solutions",
+  "description": "We build custom CMS, POS, ERP and backend systems for real businesses.",
+  "keywords": ["UPLIFTTECH", "ERP System", "POS Software", "SME website development", "UX/UI design service", "mobile app development"]
+,
+  "story": {
+    "title": "Our Story",
+    "description": "A timeline of our journey and milestones.",
+    "hero": {
+      "title": "Changelog from my journey",
+      "description": "I've been working on Aceternity for the past 2 years. Here's a timeline of my journey."
+    },
+    "timeline": [
+      {
+        "title": "2024",
+        "content": "Built and launched Aceternity UI and Aceternity UI Pro from scratch"
+      },
+      {
+        "title": "Early 2023",
+        "content": "I usually run out of copy, but when I see content this big, I try to integrate lorem ipsum. Lorem ipsum is for people who are too lazy to write copy. But we are not. Here are some more example of beautiful designs I built."
+      },
+      {
+        "title": "Changelog",
+        "content": "Deployed 5 new components on Aceternity today\n✅ Card grid component\n✅ Startup template Aceternity\n✅ Random file upload lol\n✅ Himesh Reshammiya Music CD\n✅ Salman Bhai Fan Club registrations open"
+      }
+    ],
+    "founder": {
+      "title": "The Innovators",
+      "description": "Meet the visionaries behind UPLIFT - pushing boundaries and redefining what's possible.",
+      "members": [
+        {
+          "name": "Anon Suphatphon",
+          "role": "Founder",
+          "quote": "Building the impossible is our mission",
+          "skills": ["Vision", "Strategy", "Leadership", "Innovation"]
+        },
+        {
+          "name": "Alex Chen",
+          "role": "CTO & Product Architect",
+          "quote": "Technology should solve real problems",
+          "skills": ["AI/ML", "System Design", "Blockchain", "Cloud Architecture"]
+        },
+        {
+          "name": "Maya Patel",
+          "role": "Creative Director",
+          "quote": "Design is how innovation speaks",
+          "skills": ["UX/UI", "Brand Strategy", "Visual Design", "User Research"]
+        }
+      ]
+    }
+  }
+}

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       "picsum.photos",
     ],
   },
+  
 };
 
 export default nextConfig;

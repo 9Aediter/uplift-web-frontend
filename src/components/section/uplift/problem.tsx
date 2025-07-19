@@ -48,7 +48,7 @@ const Problems = React.forwardRef<HTMLDivElement>(async (props, ref) => {
   ];
   return (
     <Section ref={ref} id="problem" className="bg-black flex flex-col justify-center h-full md:h-[100vh]">
-      <div className="w-full max-w-7xl px-8 mx-auto">
+      <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">

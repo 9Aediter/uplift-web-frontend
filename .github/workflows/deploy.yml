@@ -27,15 +27,15 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --build-arg NEXT_PUBLIC_NOTION_TOKEN=${{ vars.NEXT_PUBLIC_NOTION_TOKEN }} --build-arg NEXT_PUBLIC_NOTION_DATABASE_ID=${{ vars.NEXT_PUBLIC_NOTION_DATABASE_ID }} --build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }} --build-arg NEXT_PUBLIC_STRAPI_API_URL=${{ vars.NEXT_PUBLIC_STRAPI_API_URL }} -t ${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }} .
+          docker build --build-arg NEXT_PUBLIC_NOTION_TOKEN=${{ vars.NEXT_PUBLIC_NOTION_TOKEN }} --build-arg NEXT_PUBLIC_NOTION_DATABASE_ID=${{ vars.NEXT_PUBLIC_NOTION_DATABASE_ID }} --build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }} --build-arg NEXT_PUBLIC_STRAPI_API_URL=${{ vars.NEXT_PUBLIC_STRAPI_API_URL }} -t ${{ vars.ECR_REPOSITORY }}:latest .
 
       - name: Tag image for ECR
         run: |
-          docker tag ${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }} ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}
+          docker tag ${{ vars.ECR_REPOSITORY }}:latest ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
 
       - name: Push image to ECR
         run: |
-          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}
+          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
 
       - name: SSH EC2 and login to ECR
         uses: appleboy/ssh-action@v1.0.3
@@ -47,20 +47,6 @@ jobs:
             echo "✅ Logging in to Amazon ECR..."
             aws ecr get-login-password --region ap-southeast-1 \
               | docker login --username AWS --password-stdin ${{ vars.ECR_REGISTRY }}
-
-      # - name: SSH EC2 and Upload .env file to EC2
-      #   uses: appleboy/ssh-action@v1.0.3
-      #   with:
-      #     host: ${{ secrets.EC2_HOST }}
-      #     username: ${{ secrets.EC2_USER }}
-      #     key: ${{ secrets.EC2_SSH_KEY }}
-      #     script: |
-      #       mkdir -p ~/frontend
-      #       cat <<EOF > ~/frontend/.env.frontend
-      #       PORT=3000
-      #       NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
-      #       NEXT_PUBLIC_STRAPI_API_URL=${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
-      #       EOF
 
       - name: SSH into EC2 and deploy container
         uses: appleboy/ssh-action@v1.0.3

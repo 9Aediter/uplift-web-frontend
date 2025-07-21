@@ -5,30 +5,28 @@ import React from 'react';
 
 const TestIndexPage = () => {
   return (
-    <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700">
-      <h2 className="text-2xl font-semibold mb-4 text-cyan-400">Available Test Pages:</h2>
-      <ul className="list-disc list-inside space-y-2">
-        <li>
-          <Link href="/test/product" className="text-blue-400 hover:underline">
-            Test Product Data (Store vs. Raw API)
-          </Link>
-        </li>
-        <li>
-          <Link href="/test/service" className="text-blue-400 hover:underline">
-            Test Service Data (Landing Store vs. Raw API)
-          </Link>
-        </li>
-        <li>
-          <Link href="/test/footer" className="text-blue-400 hover:underline">
-            Test Footer Data (Store vs. Raw API)
-          </Link>
-        </li>
-        <li>
-          <Link href="/test/software" className="text-blue-400 hover:underline">
-            Test Software Data (Raw API)
-          </Link>
-        </li>
-      </ul>
+    <div className="min-h-screen bg-gray-900 text-white p-8 flex flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold mb-8">Test Pages</h1>
+      <div className="flex flex-col space-y-4">
+        <Link href="/test/articles" className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-md text-lg font-medium text-center transition-colors">
+          Go to Articles Test Page
+        </Link>
+        <Link href="/test/article-detail" className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-md text-lg font-medium text-center transition-colors">
+          Go to Article Detail Test Page
+        </Link>
+        <Link href="/test/product" className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-md text-lg font-medium text-center transition-colors">
+          Go to Product Test Page
+        </Link>
+        <Link href="/test/service" className="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 rounded-md text-lg font-medium text-center transition-colors">
+          Go to Service Test Page
+        </Link>
+        <Link href="/test/footer" className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-md text-lg font-medium text-center transition-colors">
+          Go to Footer Test Page
+        </Link>
+        <Link href="/test/software" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-md text-lg font-medium text-center transition-colors">
+          Go to Software Test Page
+        </Link>
+      </div>
     </div>
   );
 };

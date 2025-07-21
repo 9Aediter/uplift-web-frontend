@@ -2,10 +2,28 @@ import React from 'react'
 
 import { Section } from '@/components/ui/section'
 import { Card } from '@/components/card'
-import { services, IconMap, getGradient } from '@/data/services'; // Import from new data file
+import { IconMap, getGradient } from '@/data/services'; // Import from new data file
 import { AnimateEffect } from "@/components/animate-effect"; // นำเข้า AnimateEffect
 
-const Services = React.forwardRef<HTMLDivElement>((props, ref) => {
+interface ServiceItem {
+    title: string;
+    description: string;
+    icon: string;
+    color: string;
+}
+
+interface ServiceSectionContent {
+    title: string;
+    subtitle: string;
+    items: ServiceItem[];
+}
+
+interface ServicesProps {
+    serviceSectionContent: ServiceSectionContent;
+}
+
+const Services = React.forwardRef<HTMLDivElement, ServicesProps>(({ serviceSectionContent }, ref) => {
+    const { title, subtitle, items } = serviceSectionContent;
     return (
         <Section
             ref={ref}
@@ -16,16 +34,15 @@ const Services = React.forwardRef<HTMLDivElement>((props, ref) => {
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">
                         <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                            What I Offer
+                            {title}
                         </span>
                     </h2>
                     <p className="text-gray-400 max-w-2xl mx-auto">
-                        Core services designed to transform your digital infrastructure from
-                        the ground up.
+                        {subtitle}
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {services.map((service, index) => {
+                    {items.map((service, index) => {
                         const IconComponent = IconMap[service.icon]; // Get the icon component from IconMap
 
                         return (

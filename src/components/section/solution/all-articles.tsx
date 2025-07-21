@@ -1,7 +1,8 @@
 import React, { JSX } from 'react'
 import { Section } from '@/components/ui/section'
 import { Card } from '@/components/card'
-import { CalendarIcon, SearchIcon, TrendingUpIcon, LayoutIcon, ZapIcon, BarChartIcon, FileTextIcon } from 'lucide-react'
+import { CalendarIcon, SearchIcon } from 'lucide-react'
+import Link from 'next/link'
 
 interface Article {
     title: string;
@@ -13,7 +14,6 @@ interface Article {
     readTime: string;
     icon: JSX.Element;
 }
-
 interface AllArticlesProps {
     articles: Article[];
     filteredArticles: Article[];
@@ -47,6 +47,7 @@ const categories = [
 ]
 
 export const AllArticles: React.FC<AllArticlesProps> = ({ articles, filteredArticles }) => {
+
     return (
         <Section className="bg-gradient-to-b from-gray-900/30 to-black">
             <div className="max-w-7xl mx-auto py-8 md:py-16">
@@ -70,6 +71,7 @@ export const AllArticles: React.FC<AllArticlesProps> = ({ articles, filteredArti
                                 }
                             >
                                 <div className="relative h-48 overflow-hidden">
+
                                     <img
                                         src={article.image}
                                         alt={article.title}
@@ -96,18 +98,19 @@ export const AllArticles: React.FC<AllArticlesProps> = ({ articles, filteredArti
                                     </div>
                                 </div>
                             </Card>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center py-12 bg-gray-900/30 rounded-lg border border-gray-800">
-                        <SearchIcon className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-                        <h3 className="text-xl font-bold mb-2">No articles found</h3>
-                        <p className="text-gray-400">
-                            Try adjusting your search or filter criteria
-                        </p>
-                    </div>
-                )}
+                           
+                ))}
             </div>
-        </Section>
+            ) : (
+            <div className="text-center py-12 bg-gray-900/30 rounded-lg border border-gray-800">
+                <SearchIcon className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+                <h3 className="text-xl font-bold mb-2">No articles found</h3>
+                <p className="text-gray-400">
+                    Try adjusting your search or filter criteria
+                </p>
+            </div>
+                )}
+        </div>
+        </Section >
     )
 }

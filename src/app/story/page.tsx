@@ -1,10 +1,11 @@
 import React from "react";
 import { Timeline } from "@/components/ui/timeline";
 import Nav from "@/components/nav/resnav";
-import { Founder } from "@/components/section/story/founder";
+import Me from "@/components/section/story/me";
 import Footer from "@/components/footer/footer";
 import { headers } from 'next/headers';
 import { getDictionary } from '@/lib/i18n';
+import { Skills } from "@/components/section/story/tech"
 
 export async function generateMetadata() {
     const headersList = await headers();
@@ -144,9 +145,10 @@ const StoryPage = async () => {
                         {dict.story.hero.description}
                     </p>
                 </div>
-
-                <Founder dictionary={dict.story.founder} />
                 <Timeline data={data} />
+                <Me />
+                <Skills />
+
             </main>
             <Footer />
         </>

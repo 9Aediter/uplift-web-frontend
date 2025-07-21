@@ -1,0 +1,46 @@
+{
+  "hero": {
+    "badge": "Innovating the Future",
+    "title_part1": "เปลี่ยน IDEAS",
+    "title_part2": "ให้กลายเป็น",
+    "title_gradient1": "นวัตกรรมระดับ",
+    "title_gradient2": "Revolutionary",
+    "subtitle": "เราไม่ใช่แค่สตาร์ทอัพด้านเทคโนโลยี แต่เรากำลังสร้างอนาคต",
+    "launch_button": "เปิดตัววิสัยทัศน์ของคุณ",
+    "explore_button": "สำรวจนวัตกรรมของเรา"
+  },
+  "problem_section": {
+    "title": "ปัญหาคุณแก้ได้",
+    "subtitle": "ในโลกที่เปลี่ยนเร็ว นวัตกรรมไม่ใช่ทางเลือก — แต่คือสิ่งจำเป็น",
+    "items": [
+      {
+        "title": "ยังทำงานแบบเดิมอยู่",
+        "description": "ธุรกิจแบบเดิมเสี่ยงจะถูกแทนที่ เราช่วยให้คุณก้าวทันก่อนใคร",
+        "icon": "TrendingUpIcon",
+        "glowColor": "cyan",
+        "iconColorClass": "text-cyan-400"
+      },
+      {
+        "title": "ใช้ Excel หรือระบบที่กระจัดกระจาย",
+        "description": "ข้อมูลไม่เชื่อมกัน? เรายกระดับให้คุณมีระบบที่ทำงานราบรื่นในทุกขั้นตอน",
+        "icon": "ZapIcon",
+        "glowColor": "magenta",
+        "iconColorClass": "text-fuchsia-400"
+      },
+      {
+        "title": "มีข้อมูลแต่ไม่รู้จะใช้ยังไง",
+        "description": "เราสร้าง Dashboard และรายงานที่ใช้งานได้จริง ตัดสินใจได้แม่นยำขึ้น",
+        "icon": "BarChartIcon",
+        "glowColor": "blue",
+        "iconColorClass": "text-amber-400"
+      },
+      {
+        "title": "พัฒนาอะไรก็ช้า ไม่ทันตลาด",
+        "description": "เราช่วยวางแผนแบบ Agile สร้าง MVP ได้เร็ว ปรับได้ไว ไม่เสียเวลา",
+        "icon": "RefreshCcwIcon",
+        "glowColor": "lime",
+        "iconColorClass": "text-green-400"
+      }
+    ]
+  }
+}

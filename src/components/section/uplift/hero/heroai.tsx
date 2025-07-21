@@ -5,7 +5,11 @@ import { ScrollIndicator } from "./scroll-indicator";
 import { HeroAnimate, AnimatedContent } from "./hero-animate";
 import { Badge, Heading, Subheading, ActionButtons } from "./content";
 
-export const Hero = React.forwardRef<HTMLDivElement>((props, ref) => {
+interface HeroProps {
+  heroContent: any; // Define a more specific type if needed
+}
+
+export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(({ heroContent }, ref) => {
   return (
     <section
       ref={ref}
@@ -17,10 +21,10 @@ export const Hero = React.forwardRef<HTMLDivElement>((props, ref) => {
           <div className="h-[100vh] max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-12">
             <AnimatedContent
               className="w-full h-full lg:w-1/2"
-              badge={<Badge />}
-              heading={<Heading />}
-              subheading={<Subheading />}
-              buttons={<ActionButtons />}
+              badge={<Badge text={heroContent.badge} />}
+              heading={<Heading part1={heroContent.title_part1} part2={heroContent.title_part2} gradient1={heroContent.title_gradient1} gradient2={heroContent.title_gradient2} />}
+              subheading={<Subheading text={heroContent.subtitle} />}
+              buttons={<ActionButtons launchText={heroContent.launch_button} exploreText={heroContent.explore_button} />}
             />
             <div className="hidden w-full lg:block lg:w-1/2">
               <Globe />

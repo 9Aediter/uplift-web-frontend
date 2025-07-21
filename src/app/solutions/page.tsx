@@ -126,13 +126,12 @@ const SolutionsPage = () => {
                     <Particles />
                 </div>
                 <SolutionHero
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                    activeCategory={activeCategory}
-                    setActiveCategory={setActiveCategory}
-                    categories={categories}
+                    // searchTerm={searchTerm}
+                    // setSearchTerm={setSearchTerm}
+                    // activeCategory={activeCategory}
+                    // setActiveCategory={setActiveCategory}
+                    // categories={categories}
                 />
-
                 <AllArticles articles={articles} filteredArticles={filteredArticles} />
                 <FeaturedArticles />
                 <Newsletter />

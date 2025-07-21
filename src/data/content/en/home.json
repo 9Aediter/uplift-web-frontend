@@ -1,0 +1,46 @@
+{
+  "hero": {
+    "badge": "Innovating the Future",
+    "title_part1": "Transforming",
+    "title_part2": "Ideas Into",
+    "title_gradient1": "Revolutionary",
+    "title_gradient2": "Solutions",
+    "subtitle": "We're not just another tech startup. We're building the Future.",
+    "launch_button": "Launch Your Vision",
+    "explore_button": "Explore Our Innovations"
+  },
+  "problem_section": {
+    "title": "Challenges We Solve",
+    "subtitle": "In today's rapidly evolving landscape, innovation isn't optional—it's essential for survival.",
+    "items": [
+      {
+        "title": "Stuck in Traditional Ways",
+        "description": "You risk being left behind. We help future-proof your business before others take your place.",
+        "icon": "TrendingUpIcon",
+        "glowColor": "cyan",
+        "iconColorClass": "text-cyan-400"
+      },
+      {
+        "title": "Outdated Tools & Processes",
+        "description": "Manual spreadsheets? Scattered data? We modernize your operations with seamless systems.",
+        "icon": "ZapIcon",
+        "glowColor": "magenta",
+        "iconColorClass": "text-fuchsia-400"
+      },
+      {
+        "title": "No Clarity from Your Data",
+        "description": "We turn confusing data into clear dashboards and insights you can act on.",
+        "icon": "BarChartIcon",
+        "glowColor": "blue",
+        "iconColorClass": "text-amber-400"
+      },
+      {
+        "title": "Slow to Adapt to Change",
+        "description": "Our agile team helps you move fast. MVP first. Iterate later. You stay ahead of your market.",
+        "icon": "RefreshCcwIcon",
+        "glowColor": "lime",
+        "iconColorClass": "text-green-400"
+      }
+    ]
+  }
+}

@@ -78,7 +78,7 @@ export const AnimatedContent: React.FC<AnimatedContentProps> = ({ className, bad
                     </motion.div>
                 </div>
             </motion.div>
-            <FloatingTechElements />
+            {/* <FloatingTechElements /> */}
         </div>
     );
 };

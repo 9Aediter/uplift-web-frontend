@@ -11,24 +11,42 @@ import { ProblemSectionSkeleton } from "@/components/skeleton/uplift/problem-sec
 import { HeroSectionSkeleton } from "@/components/skeleton/uplift/hero-section";
 import { ProductSectionSkeleton } from "@/components/skeleton/uplift/product-section";
 import { Suspense } from "react";
+import { getLocalizedPageContent } from '@/lib/content';
+import { headers } from 'next/headers';
 
-export default function Home() {
+export default async function Home() {
+  const headersList = headers();
+  const locale = (await headersList).get('x-next-locale') || 'en';
+  const homePageContent = await getLocalizedPageContent(locale, 'home');
+  const servicesContent = await getLocalizedPageContent(locale, 'services');
+
+  if (!homePageContent || !homePageContent.hero) {
+    // Handle case where content is not found or hero section is missing
+    return <div>Error: Home page content not found for {locale}</div>;
+  }
+
+  if (!servicesContent || !servicesContent.service) {
+    // Handle case where services content is not found or service section is missing
+    return <div>Error: Services content not found for {locale}</div>;
+  }
 
   return (
     <>
       <Nav />
       <main className="w-full inset-0 ">
         <Suspense fallback={<HeroSectionSkeleton />}>
-          <Hero />
+          <Hero heroContent={homePageContent.hero} />
         </Suspense>
         <Suspense fallback={<ProblemSectionSkeleton />}>
-          <Problems />
+          <Problems problemSectionContent={homePageContent.problem_section} />
         </Suspense>
         <Suspense fallback={<ProductSectionSkeleton />}>
           <Product />
         </Suspense>
         <Suspense fallback={<ProblemSectionSkeleton />}>
-        <Service />
+        <Service 
+          serviceSectionContent={servicesContent.service} 
+        />
         </Suspense>
         <Show />
         <Vision />

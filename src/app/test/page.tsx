@@ -26,6 +26,9 @@ const TestIndexPage = () => {
         <Link href="/test/software" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-md text-lg font-medium text-center transition-colors">
           Go to Software Test Page
         </Link>
+        <Link href="/test/service-detail-action" className="px-6 py-3 bg-orange-600 hover:bg-orange-700 rounded-md text-lg font-medium text-center transition-colors">
+          Go to Service Detail Action Test Page
+        </Link>
       </div>
     </div>
   );

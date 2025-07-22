@@ -4,19 +4,8 @@ import type { NextRequest } from 'next/server'
 const PUBLIC_FILE_REGEX = /\.(.*)$/
 
 const i18n = {
-  defaultLocale: 'en',
+  defaultLocale: 'th',
   locales: ['en', 'th'],
-}
-
-function getLocale(request: NextRequest): string | undefined {
-  const negotiatorHeaders: Record<string, string> = {}
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
-
-  // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales)
-  const locale = match(languages, locales, i18n.defaultLocale)
-  return locale
 }
 
 export function middleware(request: NextRequest) {
@@ -32,14 +21,10 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
 
-  // Redirect if there is no locale
+  // If no locale is in the pathname, redirect to the default locale
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(request)
-
-    // e.g. incoming request is /products
-    // The new URL is now /en-US/products
     return NextResponse.redirect(
-      new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, request.url)
+      new URL(`/${i18n.defaultLocale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, request.url)
     )
   }
 

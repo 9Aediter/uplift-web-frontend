@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SearchIcon } from "lucide-react";
+import { IoLanguage } from "react-icons/io5";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import {
     Sheet,
@@ -20,17 +21,21 @@ import {
     SheetTrigger,
     SheetClose,
 } from "@/components/ui/sheet";
+import { useRouter, usePathname } from 'next/navigation'; // Import useRouter and usePathname
 
 
 export default function DesktopNav() {
+    const router = useRouter();
+    const pathname = usePathname();
+
     const navItems = [
         {
             name: "Story",
             link: "/story",
         },
         {
-            name: "Visions",
-            link: "/vision",
+            name: "Service",
+            link: "/service",
         },
         {
             name: "Solution",
@@ -44,6 +49,13 @@ export default function DesktopNav() {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+    const handleLanguageSwitch = () => {
+        const currentLocale = pathname.split('/')[1]; // Get current locale from path (e.g., 'en' from '/en/story')
+        const newLocale = currentLocale === 'en' ? 'th' : 'en';
+        const newPath = `/${newLocale}${pathname.substring(currentLocale.length + 1)}`;
+        router.push(newPath);
+    };
+
     return (
         <nav id="nav" className="z-50">
             {/* Desktop Navigation */}
@@ -52,9 +64,12 @@ export default function DesktopNav() {
                     <NavbarLogo />
                     <NavItems items={navItems} />
                     <div className="flex items-center gap-4">
-                        <Button variant="ghost" size="icon" onClick={() => console.log("Search clicked")}>
+                        {/* <Button variant="ghost" size="icon" onClick={() => console.log("Search clicked")}>
                             <SearchIcon className="h-5 w-5" />
-                        </Button>
+                        </Button> */}
+                        <NavbarButton variant="ghost" onClick={handleLanguageSwitch}>
+                            <IoLanguage />
+                        </NavbarButton>
                         <NavbarButton variant="primary" className="flex items-center">Consult <LuExternalLink className="ml-2 h-4 w-4" /></NavbarButton>
                     </div>
                 </NavBody>]}

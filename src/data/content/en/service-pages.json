@@ -1,0 +1,441 @@
+[
+  {
+    "slug": "web-development",
+    "title": "Business Website Development",
+    "subtitle": "Beautiful, stylish, and growth-ready websites.",
+    "overview": "We design and develop websites for companies, shops, and profile pages, tailored to your brand, mobile-responsive, and with basic SEO optimization.",
+    "carouselItems": [
+      {
+        "image": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+        "caption": "Website loads in under 500ms"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+        "caption": "Supports all screen sizes"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1581291518707-4422bf59a758?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+        "caption": "SEO ready for Google ranking"
+      }
+    ],
+    "highlights": [
+      {
+        "icon": "Zap",
+        "headline": "Lightning Fast",
+        "description": "Website loads within 1 second, ensuring users don't wait."
+      },
+      {
+        "icon": "Smartphone",
+        "headline": "Responsive",
+        "description": "Displays beautifully on all devices: mobile, tablet, and PC."
+      },
+      {
+        "icon": "Search",
+        "headline": "SEO Ready",
+        "description": "Optimized meta tags, sitemap, and schema markup for Google ranking."
+      },
+      {
+        "icon": "Edit",
+        "headline": "Easy to Edit",
+        "description": "User-friendly content management system, no coding required."
+      }
+    ],
+    "problems": [
+      {
+        "icon": "Clock",
+        "text": "Current website loads slowly, causing users to leave.",
+        "image": "https://images.unsplash.com/photo-1600267204091-5c1e90a58df8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "Smartphone",
+        "text": "Website is not mobile-responsive, making it difficult to use on mobile devices.",
+        "image": "https://images.unsplash.com/photo-1579412690850-bd41cd0af397?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "Search",
+        "text": "Cannot find your website on Google, losing business opportunities.",
+        "image": "https://images.unsplash.com/photo-1571867424488-4565932edb41?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      }
+    ],
+    "features": [
+      {
+        "icon": "Code",
+        "name": "Cutting-edge Technology",
+        "description": "Developed with Next.js, React, and Tailwind CSS for maximum performance.",
+        "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "Edit",
+        "name": "Easy-to-use CMS",
+        "description": "Manage website content yourself through an intuitive system, no coding knowledge required.",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "BarChart",
+        "name": "Comprehensive Analytics",
+        "description": "Track user behavior with Google Analytics and Tag Manager.",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "Shield",
+        "name": "High Security",
+        "description": "Protect against cyber attacks with international standard security systems.",
+        "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "Globe",
+        "name": "Multi-language",
+        "description": "Supports multiple languages to reach customers worldwide.",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      }
+    ],
+    "benefits": [
+      {
+        "metric": "+120%",
+        "description": "Increase in website click-through rate"
+      },
+      {
+        "metric": "-40%",
+        "description": "Reduction in bounce rate"
+      },
+      {
+        "metric": "+200%",
+        "description": "Increase in customer conversion"
+      },
+      {
+        "metric": "Top 5",
+        "description": "Ranked in Google for key keywords"
+      }
+    ],
+    "useCases": [
+      "SME businesses needing a profile page",
+      "Small online stores",
+      "Campaign landing pages"
+    ],
+    "whyUplift": [
+      "Complete team (Dev + Design + SEO)",
+      "Customizable to budget",
+      "30-day post-delivery support"
+    ],
+    "caseStudies": [
+      {
+        "name": "Beans&Brew Coffee Shop",
+        "result": "Clicks increased by 120%",
+        "logo": "https://via.placeholder.com/150",
+        "testimonial": "“The new website significantly increased foot traffic. Customers love how easy it is to order online.”",
+        "company": "Ms. Manee - Owner"
+      },
+      {
+        "name": "GreenLeaf Organic",
+        "result": "Online sales increased by 85%",
+        "logo": "https://via.placeholder.com/150",
+        "testimonial": "“The backend system is easy to use, and I can update products myself, which has greatly boosted online business.”",
+        "company": "Ms. Napa - Marketing Manager"
+      },
+      {
+        "name": "FitHub Gym",
+        "result": "New members increased by 65%",
+        "logo": "https://via.placeholder.com/150",
+        "testimonial": "“The online class booking system makes it easy for members to book, and we can manage it conveniently.”",
+        "company": "Mr. Ek - Manager"
+      }
+    ],
+    "pricing": [
+      {
+        "name": "Basic",
+        "price": "฿30,000",
+        "description": "Suitable for startups",
+        "features": [
+          "5 website pages",
+          "Responsive Design",
+          "Basic SEO",
+          "1-year Domain",
+          "1-year Hosting",
+          "30-day Support"
+        ]
+      },
+      {
+        "name": "Professional",
+        "price": "฿60,000",
+        "description": "Suitable for growing businesses",
+        "features": [
+          "10 website pages",
+          "Responsive Design",
+          "Full SEO",
+          "CMS Content Management System",
+          "Google Analytics",
+          "1-year Domain",
+          "1-year Hosting",
+          "90-day Support"
+        ],
+        "isPopular": true
+      },
+      {
+        "name": "Enterprise",
+        "price": "฿120,000+",
+        "description": "Suitable for large businesses",
+        "features": [
+          "Unlimited pages",
+          "Custom Design",
+          "Full SEO",
+          "CMS Content Management System",
+          "E-commerce System",
+          "Payment Gateway",
+          "Google Analytics + Tag Manager",
+          "2-year Domain",
+          "2-year Hosting",
+          "1-year Support",
+          "Team Training"
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How long does website development take?",
+        "answer": "Typically 4-8 weeks, depending on project complexity. Basic websites may take less, while complex ones may take more."
+      },
+      {
+        "question": "Are there monthly or annual fees?",
+        "answer": "There are annual fees for domain and hosting, included in the package for the first 1-2 years (depending on package). After that, approximately 5,000-15,000 Baht per year, depending on website size."
+      },
+      {
+        "question": "Can I edit website content myself?",
+        "answer": "Yes, we provide an easy-to-use Content Management System (CMS). No coding knowledge is required. You can edit text, images, and other content yourself."
+      },
+      {
+        "question": "Do you support languages other than English?",
+        "answer": "Yes, we can develop multi-language websites, especially for Thai, Chinese, and Japanese. There will be additional costs for content translation."
+      },
+      {
+        "question": "Do you provide website maintenance after development?",
+        "answer": "Yes, we offer monthly and annual website maintenance and support services, covering system updates, data backups, and troubleshooting."
+      },
+      {
+        "question": "What does the SEO included in the package cover?",
+        "answer": "Basic SEO covers meta tags, sitemap, schema markup, and URL structure optimization. Full SEO includes keyword research, content optimization, and backlink building."
+      }
+    ],
+    "color": "from-blue-500 to-cyan-400",
+    "icon": "Globe"
+  },
+  {
+    "slug": "erp-systems",
+    "title": "ERP Systems & Business Software",
+    "subtitle": "One system to manage all your business processes",
+    "overview": "We develop POS, WMS, TMS, and backend software that lets you control inventory, logistics, and your storefront from a single platform.",
+    "carouselItems": [
+      {
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+        "caption": "User-friendly POS system"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1586528116493-7f9864d3c3b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+        "caption": "Real-time warehouse management"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+        "caption": "Detailed business analytics reports"
+      }
+    ],
+    "highlights": [
+      {
+        "icon": "BarChart2",
+        "headline": "Real-time Data",
+        "description": "Monitor sales, stock, and shipments in real time."
+      },
+      {
+        "icon": "Layers",
+        "headline": "All-in-One System",
+        "description": "Manage storefront, warehouse, and logistics in one place."
+      },
+      {
+        "icon": "Users",
+        "headline": "Multi-Branch Support",
+        "description": "Handle multiple locations with role-based access control."
+      },
+      {
+        "icon": "Link",
+        "headline": "Easy Integration",
+        "description": "API connects seamlessly with external systems."
+      }
+    ],
+    "problems": [
+      {
+        "icon": "AlertCircle",
+        "text": "Scattered data leads to poor decision-making",
+        "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1772&q=80"
+      },
+      {
+        "icon": "Clock",
+        "text": "Wasted time on redundant tasks across multiple platforms",
+        "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "Truck",
+        "text": "Inability to track stock and shipments efficiently",
+        "image": "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80"
+      }
+    ],
+    "features": [
+      {
+        "icon": "ShoppingCart",
+        "name": "POS System",
+        "description": "Easy-to-use point-of-sale with barcode scanning and automated receipts.",
+        "image": "https://images.unsplash.com/photo-1556742031-c6961e8560b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "Package",
+        "name": "Warehouse Management",
+        "description": "Real-time inventory tracking, movement alerts, and low-stock notifications.",
+        "image": "https://images.unsplash.com/photo-1553413077-190dd305871c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "Truck",
+        "name": "Transportation Management",
+        "description": "Route planning, shipment tracking, and real-time status reports.",
+        "image": "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80"
+      },
+      {
+        "icon": "PieChart",
+        "name": "Business Intelligence",
+        "description": "In-depth analytics with charts and key performance indicators.",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80"
+      }
+    ],
+    "benefits": [
+      {
+        "metric": "-90%",
+        "description": "Error rate reduction in order processing"
+      },
+      {
+        "metric": "+50%",
+        "description": "Increase in operational efficiency"
+      },
+      {
+        "metric": "-30%",
+        "description": "Reduction in operating costs"
+      },
+      {
+        "metric": "100%",
+        "description": "Accurate, up-to-date data"
+      }
+    ],
+    "useCases": [
+      "Government welfare outlets",
+      "Small to medium-sized factories",
+      "Logistics companies"
+    ],
+    "whyUplift": [
+      "Custom development tailored to your workflow",
+      "Scalable without rewrites",
+      "In-house team training"
+    ],
+    "caseStudies": [
+      {
+        "name": "FastMove Logistics",
+        "result": "90% error reduction in shipments",
+        "logo": "https://via.placeholder.com/150",
+        "testimonial": "“The new system significantly reduced tracking errors, boosting customer satisfaction.”",
+        "company": "Somchai – Logistics Manager"
+      }
+    ],
+    "pricing": [
+      {
+        "name": "Starter",
+        "price": "฿150,000",
+        "description": "Ideal for small businesses",
+        "features": [
+          "Basic POS functionality",
+          "Inventory management",
+          "Basic reporting",
+          "Supports 1 branch",
+          "1-day training",
+          "3 months support"
+        ]
+      },
+      {
+        "name": "Business",
+        "price": "฿300,000",
+        "description": "Ideal for medium-sized businesses",
+        "features": [
+          "Full-featured POS",
+          "Inventory management",
+          "Basic TMS",
+          "Detailed reporting",
+          "Supports 3 branches",
+          "API integration",
+          "3-day training",
+          "6 months support"
+        ],
+        "isPopular": true
+      },
+      {
+        "name": "Enterprise",
+        "price": "฿600,000+",
+        "description": "Ideal for large-scale operations",
+        "features": [
+          "Full-featured POS",
+          "Advanced warehousing",
+          "Comprehensive TMS",
+          "Business intelligence",
+          "Unlimited branch support",
+          "API integration",
+          "E-commerce integration",
+          "Comprehensive training",
+          "1-year support"
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How many users can the system support?",
+        "answer": "Our system supports unlimited users with customizable access permissions."
+      },
+      {
+        "question": "Are future upgrades included?",
+        "answer": "Yes, we regularly release feature updates and security patches. Support plan customers receive free upgrades."
+      },
+      {
+        "question": "How long does deployment take?",
+        "answer": "Typically 2–3 months for development and implementation, plus training for your team."
+      },
+      {
+        "question": "Can it integrate with existing software?",
+        "answer": "Yes, our API allows integration with accounting, CRM, and e-commerce platforms."
+      },
+      {
+        "question": "Do you offer post-deployment maintenance?",
+        "answer": "Yes, we provide monthly and annual maintenance plans covering updates, backups, and support."
+      }
+    ],
+    "color": "from-purple-600 to-fuchsia-500",
+    "icon": "Server"
+  },
+  {
+    "id": "mobile-app",
+    "title": "Mobile & Desktop App Development",
+    "description": "We build mobile and desktop applications for both B2C customers and internal teams (B2E) using React Native, Expo, and PWA. Our apps deliver smooth, high-performance experiences, with support for notifications and offline mode—ideal for businesses with a loyal user base.",
+    "icon": "SmartphoneIcon",
+    "iconColor": "blue-400",
+    "gradientFrom": "blue-600",
+    "gradientTo": "indigo-500",
+    "features": [
+      { "text": "React Native / Expo / PWA", "icon": "SmartphoneIcon" },
+      {
+        "text": "For B2C customers or internal B2E teams",
+        "icon": "UsersIcon"
+      },
+      { "text": "Smooth, high-performance UX", "icon": "ZapIcon" },
+      { "text": "Supports notifications & offline mode", "icon": "BellIcon" },
+      {
+        "text": "Ideal for businesses with a loyal user base",
+        "icon": "WifiIcon"
+      }
+    ],
+    "image": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+    "image_alt": "Mobile App Development",
+    "layout": "image-right",
+    "read_more_text": "Read more",
+    "read_more_link": "/services/mobile-app"
+  }
+]

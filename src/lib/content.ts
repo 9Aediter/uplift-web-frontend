@@ -14,13 +14,15 @@ export async function getLocalizedPageContent(
   pageName: string
 ): Promise<PageContent | null> {
   const filePath = path.join(contentDirectory, locale, `${pageName}.json`);
+  console.log(`[getLocalizedPageContent] Attempting to load: ${filePath}`);
 
   try {
     const fileContents = await fs.readFile(filePath, 'utf8');
     const content = JSON.parse(fileContents);
+    console.log(`[getLocalizedPageContent] Successfully loaded content for ${locale}/${pageName}`);
     return content;
   } catch (error) {
-    console.error(`Failed to load localized content for ${locale}/${pageName}:`, error);
+    console.error(`[getLocalizedPageContent] Failed to load localized content for ${locale}/${pageName}:`, error);
     return null;
   }
 }

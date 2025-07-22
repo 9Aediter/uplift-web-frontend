@@ -1,4 +1,4 @@
-import { LayoutIcon, ServerIcon, CodeIcon, CheckCircleIcon, GitBranchIcon, HeadphonesIcon } from 'lucide-react';
+import { LayoutIcon, ServerIcon, CodeIcon, CheckCircleIcon, GitBranchIcon, HeadphonesIcon, SmartphoneIcon } from 'lucide-react';
 
 // Define the IconMap for services, similar to products.ts
 export const IconMap: Record<string, React.ComponentType<any>> = {
@@ -8,6 +8,7 @@ export const IconMap: Record<string, React.ComponentType<any>> = {
   CheckCircleIcon,
   GitBranchIcon,
   HeadphonesIcon,
+  SmartphoneIcon, // Added SmartphoneIcon
 };
 
 export const services = [

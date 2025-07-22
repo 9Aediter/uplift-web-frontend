@@ -84,4 +84,5 @@ export const getInnovationDetail = async (slug: string): Promise<ProductDetail |
     console.error(`Failed to fetch innovation detail for slug ${slug}:`, error);
     return null;
   }
+  
 };

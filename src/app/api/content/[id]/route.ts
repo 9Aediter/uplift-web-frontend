@@ -25,11 +25,12 @@ const updateContentSchema = z.object({
 // GET - Fetch single content by ID
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const content = await prisma.content.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         fields: {
           orderBy: { order: "asc" }
@@ -106,9 +107,10 @@ export async function GET(
 // PATCH - Update content fields and buttons
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions)
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -135,7 +137,7 @@ export async function PATCH(
 
     // Get current content
     const currentContent = await prisma.content.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         fields: true,
         buttons: true
@@ -150,16 +152,16 @@ export async function PATCH(
     const updatedContent = await prisma.$transaction(async (tx) => {
       // Delete existing fields and buttons
       await tx.contentField.deleteMany({
-        where: { contentId: params.id }
+        where: { contentId: id }
       })
       
       await tx.contentButton.deleteMany({
-        where: { contentId: params.id }
+        where: { contentId: id }
       })
 
       // Create new fields and buttons
       const content = await tx.content.update({
-        where: { id: params.id },
+        where: { id },
         data: {
           updatedBy: session.user.id,
           status: "DRAFT", // Reset to draft when content is updated
@@ -197,7 +199,7 @@ export async function PATCH(
     // Log the update
     await prisma.contentHistory.create({
       data: {
-        contentId: params.id,
+        contentId: id,
         action: "updated",
         userId: session.user.id,
         changes: {
@@ -228,9 +230,10 @@ export async function PATCH(
 // DELETE - Delete content
 export async function DELETE(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions)
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -253,7 +256,7 @@ export async function DELETE(
     }
 
     const content = await prisma.content.findUnique({
-      where: { id: params.id }
+      where: { id }
     })
 
     if (!content) {
@@ -262,13 +265,13 @@ export async function DELETE(
 
     // Delete the content (cascade will handle fields and buttons)
     await prisma.content.delete({
-      where: { id: params.id }
+      where: { id }
     })
 
     // Log the deletion
     await prisma.contentHistory.create({
       data: {
-        contentId: params.id,
+        contentId: id,
         action: "deleted",
         userId: session.user.id,
         changes: {

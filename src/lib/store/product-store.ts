@@ -7,7 +7,7 @@ export interface Product {
   title: string;
   subtitle: string;
   description: string;
-  features: string[];
+  features: Array<{ title: string; description: string; icon: string }>;
   image?: string;
   color: string;
   icon: keyof typeof IconMap;

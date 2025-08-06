@@ -22,7 +22,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { PlusIcon, TrashIcon, PencilIcon } from '@heroicons/react/24/outline';
+import { Plus, Trash2, Pencil } from 'lucide-react';
+import { CoverImageCard } from '@/components/image';
 
 interface ProductCard {
   id: string;
@@ -30,6 +31,7 @@ interface ProductCard {
   description: string;
   icon?: string;
   iconColor?: string;
+  imageUrl?: string;
   order: number;
 }
 
@@ -74,6 +76,7 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
     description: '',
     icon: '',
     iconColor: '',
+    imageUrl: '',
     order: 0,
   });
 
@@ -167,6 +170,7 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
       description: card.description,
       icon: card.icon || '',
       iconColor: card.iconColor || '',
+      imageUrl: card.imageUrl || '',
       order: card.order,
     });
     setIsEditDialogOpen(true);
@@ -178,6 +182,7 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
       description: '',
       icon: '',
       iconColor: '',
+      imageUrl: '',
       order: 0,
     });
   };
@@ -199,7 +204,7 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button size="sm">
-              <PlusIcon className="w-4 h-4 mr-2" />
+              <Plus className="w-4 h-4 mr-2" />
               Add Card
             </Button>
           </DialogTrigger>
@@ -227,6 +232,15 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
                   rows={3}
                 />
               </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="card-image">Card Image</Label>
+                <CoverImageCard
+                  imageUrl={formData.imageUrl}
+                  onImageChange={(imageUrl) => setFormData(prev => ({ ...prev, imageUrl: imageUrl || '' }))}
+                />
+              </div>
+              
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="card-icon">Icon</Label>
@@ -318,14 +332,14 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
                       size="sm"
                       onClick={() => openEditDialog(card)}
                     >
-                      <PencilIcon className="w-4 h-4" />
+                      <Pencil className="w-4 h-4" />
                     </Button>
                     <Button
                       variant="destructive"
                       size="sm"
                       onClick={() => handleDeleteCard(card.id)}
                     >
-                      <TrashIcon className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
@@ -359,6 +373,14 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
                 onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                 placeholder="Card description"
                 rows={3}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="edit-card-image">Card Image</Label>
+              <CoverImageCard
+                imageUrl={formData.imageUrl}
+                onImageChange={(imageUrl) => setFormData(prev => ({ ...prev, imageUrl: imageUrl || '' }))}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">

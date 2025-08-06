@@ -1,7 +1,7 @@
 // src/lib/actions/serviceActions.ts
 'use server';
 
-import { getLocalizedPageContent } from '@/lib/content';
+import { getLGPageJSON } from '@/lib/content';
 
 // Define the Service interface based on the structure in service-pages.json
 export interface Service {
@@ -57,7 +57,7 @@ export interface Service {
 
 export async function getServiceById(locale: string, id: string): Promise<Service | null> {
   console.log(`[getServiceById] Attempting to fetch service for locale: ${locale}, ID: ${id}`);
-  const servicePagesContent = await getLocalizedPageContent(locale, 'service-pages');
+  const servicePagesContent = await getLGPageJSON(locale, 'service-pages');
 
   if (!servicePagesContent || !Array.isArray(servicePagesContent)) {
     console.error(`[getServiceById] Service pages content not found or invalid for locale: ${locale}`, servicePagesContent);

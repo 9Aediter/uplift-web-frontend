@@ -72,6 +72,14 @@ export async function GET(
             contentType: true,
             size: true
           }
+        },
+        productSections: {
+          include: {
+            cards: {
+              orderBy: { order: 'asc' }
+            }
+          },
+          orderBy: { order: 'asc' }
         }
       }
     });

@@ -24,6 +24,8 @@ import { CoverImageCard } from '@/components/image';
 import { ImageGalleryCards } from '@/components/image/image-gallery-cards';
 import { ProductSectionManager } from '@/components/admin/product-section-manager';
 import { TechStackSectionManager } from '@/components/admin/tech-stack-section-manager';
+import { ProductFeatureManager } from '@/components/admin/product-feature-manager';
+import { useProductFeaturesStore } from '@/lib/store/product-features-store';
 
 interface Product {
   id?: string;
@@ -31,7 +33,6 @@ interface Product {
   subtitle?: string;
   slug: string;
   description: string;
-  features: string[];
   coverImage?: string;
   imageGallery: string[];
   caseStudy?: string;
@@ -91,7 +92,6 @@ export default function ProductEditPage() {
     subtitle: '',
     slug: '',
     description: '',
-    features: [''],
     coverImage: '',
     imageGallery: [],
     caseStudy: '',
@@ -123,7 +123,6 @@ export default function ProductEditPage() {
       if (response.ok) {
         setProduct({
           ...data,
-          features: data.features?.length > 0 ? data.features : [''],
           imageGallery: data.imageGallery || [],
           caseStudy: data.caseStudy || '',
         });
@@ -159,31 +158,6 @@ export default function ProductEditPage() {
     }
   };
 
-  const handleFeatureChange = (index: number, value: string) => {
-    const newFeatures = [...product.features];
-    newFeatures[index] = value;
-    setProduct(prev => ({
-      ...prev,
-      features: newFeatures,
-    }));
-  };
-
-  const addFeature = () => {
-    setProduct(prev => ({
-      ...prev,
-      features: [...prev.features, ''],
-    }));
-  };
-
-  const removeFeature = (index: number) => {
-    if (product.features.length > 1) {
-      const newFeatures = product.features.filter((_, i) => i !== index);
-      setProduct(prev => ({
-        ...prev,
-        features: newFeatures,
-      }));
-    }
-  };
 
 
   const addTag = () => {
@@ -238,11 +212,9 @@ export default function ProductEditPage() {
         return;
       }
 
-      // Filter out empty features and gallery images
+      // Filter out empty gallery images
       const cleanedProduct = {
         ...product,
-        features: product.features.filter(f => f.trim() !== ''),
-        featureCount: product.features.filter(f => f.trim() !== '').length,
         imageGallery: product.imageGallery.filter(img => img.trim() !== ''),
       };
 
@@ -403,36 +375,6 @@ export default function ProductEditPage() {
               </CardContent>
             </Card>
 
-            {/* Features */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Features</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {product.features.map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <Input
-                      value={feature}
-                      onChange={(e) => handleFeatureChange(index, e.target.value)}
-                      placeholder={`Feature ${index + 1}`}
-                    />
-                    {product.features.length > 1 && (
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => removeFeature(index)}
-                      >
-                        <TrashIcon className="w-4 h-4" />
-                      </Button>
-                    )}
-                  </div>
-                ))}
-                <Button variant="outline" onClick={addFeature}>
-                  <PlusIcon className="w-4 h-4 mr-2" />
-                  Add Feature
-                </Button>
-              </CardContent>
-            </Card>
 
 
             {/* Tags */}
@@ -608,13 +550,6 @@ export default function ProductEditPage() {
                       onChange={(e) => handleInputChange('clientCount', parseInt(e.target.value) || 0)}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label>Feature Count</Label>
-                    <Input
-                      value={product.features.filter(f => f.trim() !== '').length}
-                      disabled
-                    />
-                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -651,6 +586,9 @@ export default function ProductEditPage() {
         {!isNew && product.id && (
           <TechStackSectionManager productId={product.id} />
         )}
+        
+        {/* Core Features Management */}
+        <ProductFeatureManager productId={!isNew ? product.id : undefined} />
       </div>
     </>
   );

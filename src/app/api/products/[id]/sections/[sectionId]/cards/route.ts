@@ -35,7 +35,7 @@ export async function POST(
     const { sectionId } = await params;
     const body = await request.json();
 
-    const { title, description, icon, iconColor, order } = body;
+    const { title, description, icon, iconColor, imageUrl, order } = body;
 
     // Validate required fields
     if (!title || !description) {
@@ -64,6 +64,7 @@ export async function POST(
         description,
         icon,
         iconColor,
+        imageUrl,
         order: order || 0
       }
     });

@@ -1,22 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { auth } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 import { ContentStatus } from '@prisma/client';
-
-interface RouteParams {
-  params: {
-    id: string;
-  };
-}
 
 // POST /api/products/[id]/publish - Publish or unpublish product
 export async function POST(
   request: NextRequest,
-  { params }: RouteParams
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
-    const session = await auth();
+    const { id } = await params;
+    const session = await getServerSession(authOptions);
     
     if (!session?.user) {
       return NextResponse.json(
@@ -25,8 +20,8 @@ export async function POST(
       );
     }
 
-    const isAdmin = session.user.userRoles?.some(role => 
-      role.role === 'ADMIN' || role.role === 'SUPER_ADMIN'
+    const isAdmin = session.user.roles?.some((role: string) => 
+      role === 'ADMIN' || role === 'SUPER_ADMIN'
     );
 
     if (!isAdmin) {

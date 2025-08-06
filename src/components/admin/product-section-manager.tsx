@@ -22,7 +22,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { PlusIcon, TrashIcon, PencilIcon } from '@heroicons/react/24/outline';
+import { Plus, Trash2, Pencil } from 'lucide-react';
 import { ProductCardManager } from './product-card-manager';
 
 interface ProductSection {
@@ -40,6 +40,7 @@ interface ProductCard {
   description: string;
   icon?: string;
   iconColor?: string;
+  imageUrl?: string;
   order: number;
 }
 
@@ -48,6 +49,7 @@ interface ProductSectionManagerProps {
 }
 
 const SECTION_TYPE_OPTIONS = [
+  { value: 'what_is', label: 'What Is' },
   { value: 'why_need_it', label: 'Why Need It' },
   { value: 'core_features', label: 'Core Features' },
   { value: 'tech_stack', label: 'Tech Stack' },
@@ -226,7 +228,7 @@ export function ProductSectionManager({ productId }: ProductSectionManagerProps)
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
               <Button>
-                <PlusIcon className="w-4 h-4 mr-2" />
+                <Plus className="w-4 h-4 mr-2" />
                 Add Section
               </Button>
             </DialogTrigger>
@@ -320,14 +322,14 @@ export function ProductSectionManager({ productId }: ProductSectionManagerProps)
                       size="sm"
                       onClick={() => openEditDialog(section)}
                     >
-                      <PencilIcon className="w-4 h-4" />
+                      <Pencil className="w-4 h-4" />
                     </Button>
                     <Button
                       variant="destructive"
                       size="sm"
                       onClick={() => handleDeleteSection(section.id)}
                     >
-                      <TrashIcon className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>

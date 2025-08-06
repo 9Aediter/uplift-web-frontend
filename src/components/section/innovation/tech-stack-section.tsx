@@ -45,7 +45,6 @@ export const TechStackSection: React.FC<TechStackSectionProps> = ({
       speed={60}
       direction="left"
       pauseOnHover={true}
-      className="bg-gradient-to-b from-black/50 to-transparent"
     />
   );
 };

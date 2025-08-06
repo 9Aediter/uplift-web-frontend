@@ -18,7 +18,7 @@ interface ProductHeroProps {
   subtitle?: string;
   badge?: string;
   category?: string;
-  features?: string[];
+  features?: (Feature | string)[];
   ctaButtons?: Array<{
     text: string;
     href: string;
@@ -85,9 +85,18 @@ const ProductSubtitle: React.FC<{ text: string }> = ({ text }) => (
   </p>
 );
 
+// Feature interface
+interface Feature {
+  title: string;
+  description: string;
+  icon: string;
+}
+
 // Icon mapping for different feature types
-const getFeatureIcon = (feature: string, index: number) => {
-  const lowercaseFeature = feature.toLowerCase();
+const getFeatureIcon = (feature: Feature | string, index: number) => {
+  // Handle both old string format and new object format
+  const featureText = typeof feature === 'string' ? feature : feature.title;
+  const lowercaseFeature = featureText.toLowerCase();
   
   if (lowercaseFeature.includes('analytic') || lowercaseFeature.includes('chart') || lowercaseFeature.includes('data')) return BarChart3Icon;
   if (lowercaseFeature.includes('database') || lowercaseFeature.includes('storage')) return DatabaseIcon;
@@ -102,12 +111,15 @@ const getFeatureIcon = (feature: string, index: number) => {
   return defaultIcons[index % defaultIcons.length];
 };
 
-const FeaturesList: React.FC<{ features: string[] }> = ({ features }) => (
+const FeaturesList: React.FC<{ features: (Feature | string)[] }> = ({ features }) => (
   <div className="mb-6 md:mb-8">
     <h3 className="text-base sm:text-lg font-semibold text-white mb-3 md:mb-4">Key Features</h3>
     <div className="flex items-center gap-3 sm:gap-4 flex-wrap max-w-full sm:max-w-2xl">
       {features.slice(0, 4).map((feature, index) => {
         const IconComponent = getFeatureIcon(feature, index);
+        const featureTitle = typeof feature === 'string' ? feature : feature.title;
+        const featureDescription = typeof feature === 'string' ? '' : feature.description;
+        
         return (
           <div 
             key={index} 
@@ -120,8 +132,11 @@ const FeaturesList: React.FC<{ features: string[] }> = ({ features }) => (
             
             {/* Animated Text Tooltip - Hidden on mobile, shown on hover for desktop */}
             <div className="absolute -bottom-14 sm:-bottom-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out group-hover:translate-y-0 translate-y-2 pointer-events-none z-10 hidden sm:block">
-              <div className="bg-gray-900/90 backdrop-blur-sm text-white text-xs px-3 py-2 rounded-lg border border-cyan-500/30 whitespace-nowrap">
-                {feature}
+              <div className="bg-gray-900/90 backdrop-blur-sm text-white text-xs px-3 py-2 rounded-lg border border-cyan-500/30 whitespace-nowrap max-w-48">
+                <div className="font-medium">{featureTitle}</div>
+                {featureDescription && (
+                  <div className="text-gray-300 mt-1">{featureDescription}</div>
+                )}
                 {/* Arrow */}
                 <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-900/90 border-l border-t border-cyan-500/30 rotate-45"></div>
               </div>
@@ -129,7 +144,7 @@ const FeaturesList: React.FC<{ features: string[] }> = ({ features }) => (
 
             {/* Mobile: Show feature text below icons */}
             <div className="sm:hidden absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-active:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
-              <span className="text-xs text-gray-300 whitespace-nowrap text-center block">{feature.split(' ')[0]}</span>
+              <span className="text-xs text-gray-300 whitespace-nowrap text-center block">{featureTitle.split(' ')[0]}</span>
             </div>
           </div>
         );

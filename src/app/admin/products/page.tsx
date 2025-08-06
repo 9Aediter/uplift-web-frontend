@@ -16,7 +16,7 @@ interface Product {
   subtitle?: string;
   slug: string;
   description: string;
-  features: string[];
+  features: Array<{ title: string; description: string; icon: string }>;
   image?: string;
   color: string;
   icon: string;

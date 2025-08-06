@@ -9,7 +9,7 @@ export interface Product {
   title: string;
   subtitle: string;
   description: string;
-  features: string[];
+  features: Array<{ title: string; description: string; icon: string }>;
   image?: string;
   color: string;
   icon: keyof typeof IconMap;
@@ -60,7 +60,11 @@ const mapStrapiSoftwareToProduct = (
     title: strapiSoftware.title,
     subtitle: strapiSoftware.subtitle,
     description: strapiSoftware.description,
-    features: strapiSoftware.feature?.data || [],
+    features: (strapiSoftware.feature?.data || []).map((feature: any) => ({
+      title: typeof feature === 'string' ? feature : feature.title || feature.name || feature,
+      description: typeof feature === 'string' ? '' : feature.description || '',
+      icon: typeof feature === 'string' ? 'default' : feature.icon || 'default'
+    })),
     image: imageUrl,
     color: strapiSoftware.color,
     icon: icon,

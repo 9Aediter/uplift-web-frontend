@@ -87,8 +87,9 @@ import { Role } from "@prisma/client"
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id: userId } = await params;
   try {
     const session = await getServerSession(authOptions)
     
@@ -98,8 +99,6 @@ export async function GET(
         { status: 401 }
       )
     }
-
-    const userId = params.id
     const isOwner = session.user.id === userId
     const isAdmin = session.user.roles && (session.user.roles.includes(Role.ADMIN) || session.user.roles.includes(Role.SUPER_ADMIN))
 
@@ -147,7 +146,7 @@ export async function GET(
 
     return NextResponse.json(user)
   } catch (error) {
-    console.error(`GET /api/users/${params.id} error:`, error)
+    console.error(`GET /api/users/${userId} error:`, error)
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -233,8 +232,9 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id: userId } = await params;
   try {
     const session = await getServerSession(authOptions)
     
@@ -244,8 +244,6 @@ export async function PATCH(
         { status: 401 }
       )
     }
-
-    const userId = params.id
     const isOwner = session.user.id === userId
     const isAdmin = session.user.roles && (session.user.roles.includes(Role.ADMIN) || session.user.roles.includes(Role.SUPER_ADMIN))
 
@@ -329,7 +327,7 @@ export async function PATCH(
 
     return NextResponse.json(user)
   } catch (error) {
-    console.error(`PATCH /api/users/${params.id} error:`, error)
+    console.error(`PATCH /api/users/${userId} error:`, error)
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -391,8 +389,9 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id: userId } = await params;
   try {
     const session = await getServerSession(authOptions)
     
@@ -402,8 +401,6 @@ export async function DELETE(
         { status: 401 }
       )
     }
-
-    const userId = params.id
 
     if (session.user.id === userId) {
       return NextResponse.json(
@@ -421,7 +418,7 @@ export async function DELETE(
       { status: 200 }
     )
   } catch (error) {
-    console.error(`DELETE /api/users/${params.id} error:`, error)
+    console.error(`DELETE /api/users/${userId} error:`, error)
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

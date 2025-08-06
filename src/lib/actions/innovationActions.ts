@@ -9,7 +9,7 @@ export interface ProductDetail {
   title: string;
   subtitle: string;
   description: string;
-  features: string[];
+  features: Array<{ title: string; description: string; icon: string }>;
   techStackSection?: {
     id: string;
     title: string;
@@ -57,6 +57,23 @@ export interface ProductDetail {
       description: string;
       icon?: string;
       iconColor?: string;
+      imageUrl?: string;
+      order: number;
+    }>;
+  }>;
+  productSections?: Array<{
+    id: string;
+    sectionType: string;
+    title?: string;
+    subtitle?: string;
+    order: number;
+    cards: Array<{
+      id: string;
+      title: string;
+      description: string;
+      icon?: string;
+      iconColor?: string;
+      imageUrl?: string;
       order: number;
     }>;
   }>;
@@ -92,6 +109,7 @@ const mapProductToProductDetail = (product: any): ProductDetail => {
       description: card.description,
       icon: card.icon,
       iconColor: card.iconColor,
+      imageUrl: card.imageUrl,
       order: card.order,
     })) || []
   })) || [];
@@ -114,6 +132,7 @@ const mapProductToProductDetail = (product: any): ProductDetail => {
     price: product.price,
     clientCount: product.clientCount,
     sections: sections,
+    productSections: sections,
   };
 };
 

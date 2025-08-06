@@ -39,7 +39,7 @@ export async function PATCH(
     const { cardId } = await params;
     const body = await request.json();
 
-    const { title, description, icon, iconColor, order } = body;
+    const { title, description, icon, iconColor, imageUrl, order } = body;
 
     // Check if card exists
     const existingCard = await prisma.productCard.findUnique({
@@ -60,6 +60,7 @@ export async function PATCH(
         ...(description !== undefined && { description }),
         ...(icon !== undefined && { icon }),
         ...(iconColor !== undefined && { iconColor }),
+        ...(imageUrl !== undefined && { imageUrl }),
         ...(order !== undefined && { order })
       }
     });

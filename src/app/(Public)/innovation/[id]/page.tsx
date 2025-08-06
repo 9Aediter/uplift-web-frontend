@@ -59,11 +59,16 @@ export default async function Page({
       {/* Main Content Sections */}
       <div id="features" className="max-w-7xl mx-auto px-4">
         {/* <OverviewSection description={product.description} /> */}
-        <WhatIsSection systemName={product.title} />
+        <WhatIsSection 
+          title={product.productSections?.find(s => s.sectionType === 'what_is')?.title}
+          subtitle={product.productSections?.find(s => s.sectionType === 'what_is')?.subtitle}
+          cards={product.productSections?.find(s => s.sectionType === 'what_is')?.cards}
+          systemName={product.title}
+        />
         <WhyNeedItSection 
-          title={product.sections?.find(s => s.sectionType === 'why_need_it')?.title}
-          subtitle={product.sections?.find(s => s.sectionType === 'why_need_it')?.subtitle}
-          cards={product.sections?.find(s => s.sectionType === 'why_need_it')?.cards}
+          title={product.productSections?.find(s => s.sectionType === 'why_need_it')?.title}
+          subtitle={product.productSections?.find(s => s.sectionType === 'why_need_it')?.subtitle}
+          cards={product.productSections?.find(s => s.sectionType === 'why_need_it')?.cards}
         />
         <CoreFeaturesSection features={product.features} />
         <HowUpliftBuildsItSection />

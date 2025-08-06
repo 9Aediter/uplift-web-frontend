@@ -289,7 +289,7 @@ model Product {
   subtitle     String?
   slug         String        @unique
   description  String        @db.Text
-  features     String[]      // Array of feature strings
+  features     Json          // Array of feature objects with {title, description, icon}
   
   // Image handling - dual approach
   coverImage   String?       // Direct URL for unique cover image (also stored in Image table)
@@ -346,6 +346,7 @@ model Product {
   
   // Tech stack relation
   techStackSection TechStackSection?
+  
 }
 
 model ProductSection {
@@ -376,6 +377,7 @@ model ProductCard {
   description String @db.Text
   icon      String?        // Icon identifier (e.g., "LightbulbIcon", "TrendingUpIcon")
   iconColor String?        // Icon color (e.g., "text-yellow-400", "text-green-400")
+  imageUrl  String?        // Card image URL for carousel display
   order     Int @default(0) // Card order within section
   
   // Relations
@@ -446,3 +448,4 @@ model TechStackSectionTechnology {
   @@index([technologyId])
   @@index([order])
 }
+

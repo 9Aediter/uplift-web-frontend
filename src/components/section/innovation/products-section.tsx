@@ -75,7 +75,7 @@ const ProductsSection = async ({ products: propsProducts }: ProductsSectionProps
                       >
                         <CheckIcon className="h-4 w-4 text-white" />
                       </div>
-                      <span className="text-gray-300">{feature}</span>
+                      <span className="text-gray-300">{feature.title}</span>
                     </div>
                   ))}
                 </div>

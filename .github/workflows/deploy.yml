@@ -60,6 +60,20 @@ jobs:
             docker rm frontend || true
             docker network create uplifttech || true
 
-            docker run -d --name frontend --network uplifttech -p 3000:3000  ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
+            docker run -d \
+              --name frontend \
+              --network uplifttech \
+              -p 3000:3000 \
+              -e NEXTAUTH_SECRET="${{ secrets.NEXTAUTH_SECRET }}" \
+              -e NEXTAUTH_URL="${{ secrets.NEXTAUTH_URL }}" \
+              -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+              -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
+              -e AWS_BUCKET="${{ secrets.AWS_BUCKET }}" \
+              -e AWS_REGION="${{ secrets.AWS_REGION }}" \
+              -e AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
+              -e CDN_URL="${{ secrets.CDN_URL }}" \
+              -e GOOGLE_CLIENT_ID="${{ secrets.GOOGLE_CLIENT_ID }}" \
+              -e GOOGLE_CLIENT_SECRET="${{ secrets.GOOGLE_CLIENT_SECRET }}" \
+              ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
 
             docker image prune -a -f

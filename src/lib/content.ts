@@ -9,20 +9,20 @@ type PageContent = {
 
 const contentDirectory = path.join(process.cwd(), 'src', 'data', 'content');
 
-export async function getLocalizedPageContent(
+export async function getLGPageJSON(
   locale: string,
   pageName: string
 ): Promise<PageContent | null> {
   const filePath = path.join(contentDirectory, locale, `${pageName}.json`);
-  console.log(`[getLocalizedPageContent] Attempting to load: ${filePath}`);
+  console.log(`[getLGPageJSON] Attempting to load: ${filePath}`);
 
   try {
     const fileContents = await fs.readFile(filePath, 'utf8');
     const content = JSON.parse(fileContents);
-    console.log(`[getLocalizedPageContent] Successfully loaded content for ${locale}/${pageName}`);
+    console.log(`[getLGPageJSON] Successfully loaded content for ${locale}/${pageName}`);
     return content;
   } catch (error) {
-    console.error(`[getLocalizedPageContent] Failed to load localized content for ${locale}/${pageName}:`, error);
+    console.error(`[getLGPageJSON] Failed to load localized content for ${locale}/${pageName}:`, error);
     return null;
   }
 }

@@ -10,18 +10,28 @@ import { Product } from "@/components/section/uplift/product"
 import { ProblemSectionSkeleton } from "@/components/skeleton/uplift/problem-section";
 import { HeroSectionSkeleton } from "@/components/skeleton/uplift/hero-section";
 import { ProductSectionSkeleton } from "@/components/skeleton/uplift/product-section";
+import { AuthSuccessHandler } from "@/components/auth/auth-success-handler";
 import { Suspense } from "react";
-import { getLocalizedPageContent } from '@/lib/content';
+import { getLGPageDB } from '@/lib/content-db';
+import { getLGPageJSON } from '@/lib/content';
 import { headers } from 'next/headers';
 
 export default async function Home() {
   const headersList = headers();
   const locale = (await headersList).get('x-next-locale') || 'en';
-  const homePageContent = await getLocalizedPageContent(locale, 'home');
-  const servicesContent = await getLocalizedPageContent(locale, 'services');
+  
+  // Load hero from database, other content from JSON
+  const heroContent = await getLGPageDB(locale, 'home');
+  const homePageContent = await getLGPageJSON(locale, 'home');
+  const servicesContent = await getLGPageJSON(locale, 'services');
 
-  if (!homePageContent || !homePageContent.hero) {
-    // Handle case where content is not found or hero section is missing
+  if (!heroContent) {
+    // Handle case where hero content is not found in database
+    return <div>Error: Hero section not found in database for {locale}</div>;
+  }
+
+  if (!homePageContent) {
+    // Handle case where home page content is not found
     return <div>Error: Home page content not found for {locale}</div>;
   }
 
@@ -32,10 +42,11 @@ export default async function Home() {
 
   return (
     <>
+      <AuthSuccessHandler />
       <Nav />
       <main className="w-full inset-0 ">
         <Suspense fallback={<HeroSectionSkeleton />}>
-          <Hero heroContent={homePageContent.hero} />
+          <Hero heroContent={heroContent} />
         </Suspense>
         <Suspense fallback={<ProblemSectionSkeleton />}>
           <Problems problemSectionContent={homePageContent.problem_section} />

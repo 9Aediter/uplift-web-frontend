@@ -2,7 +2,7 @@ import React from 'react';
 import Nav from "@/components/nav/resnav";
 import Footer from "@/components/footer/footer";
 import { ServiceShowcaseSection } from "@/components/section/service/service";
-import { getLocalizedPageContent } from '@/lib/content';
+import { getLGPageJSON } from '@/lib/content';
 import { headers } from 'next/headers';
 import { HeroSection } from "@/components/section/service/hero"
 
@@ -14,7 +14,7 @@ interface ShowcaseSectionContent {
 export default async function ServicePage() {
   const headersList = headers();
   const locale = (await headersList).get('x-next-locale') || 'en';
-  const serviceShowcaseContent = await getLocalizedPageContent(locale, 'service-showcase');
+  const serviceShowcaseContent = await getLGPageJSON(locale, 'service-showcase');
 
   // Type Guard and Assertion
   if (!serviceShowcaseContent || !('showcase_items' in serviceShowcaseContent) || !Array.isArray(serviceShowcaseContent.showcase_items)) {

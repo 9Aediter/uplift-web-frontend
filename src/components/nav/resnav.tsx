@@ -14,14 +14,17 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SearchIcon } from "lucide-react";
 import { IoLanguage } from "react-icons/io5";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconMenu2 } from "@tabler/icons-react";
 import {
     Sheet,
     SheetContent,
     SheetTrigger,
-    SheetClose,
 } from "@/components/ui/sheet";
-import { useRouter, usePathname } from 'next/navigation'; // Import useRouter and usePathname
+import { useRouter, usePathname } from 'next/navigation';
+import { useSession } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { NavSheet } from "./nav-sheet";
+import { MobileNavSheet } from "./mobile-nav-sheet";
 
 
 export default function DesktopNav() {
@@ -48,6 +51,8 @@ export default function DesktopNav() {
     ];
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const { data: session, status } = useSession();
 
     const handleLanguageSwitch = () => {
         const currentLocale = pathname.split('/')[1]; // Get current locale from path (e.g., 'en' from '/en/story')
@@ -64,12 +69,36 @@ export default function DesktopNav() {
                     <NavbarLogo />
                     <NavItems items={navItems} />
                     <div className="flex items-center gap-4">
-                        {/* <Button variant="ghost" size="icon" onClick={() => console.log("Search clicked")}>
-                            <SearchIcon className="h-5 w-5" />
-                        </Button> */}
-                        <NavbarButton variant="ghost" onClick={handleLanguageSwitch}>
-                            <IoLanguage />
-                        </NavbarButton>
+                        {/* Show avatar if logged in, otherwise show language switcher */}
+                        {status === "authenticated" && session?.user ? (
+                            <Sheet open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
+                                <SheetTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="rounded-full p-0 h-10 w-10">
+                                        <Avatar className="h-8 w-8">
+                                            <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                                            <AvatarFallback className="text-xs">
+                                                {session.user.name?.charAt(0) || session.user.email?.charAt(0) || "U"}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </Button>
+                                </SheetTrigger>
+                                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                                    <NavSheet 
+                                        user={session.user}
+                                        onClose={() => setIsUserMenuOpen(false)}
+                                        onLanguageSwitch={() => {
+                                            handleLanguageSwitch();
+                                            setIsUserMenuOpen(false);
+                                        }}
+                                    />
+                                </SheetContent>
+                            </Sheet>
+                        ) : (
+                            <NavbarButton variant="ghost" onClick={handleLanguageSwitch}>
+                                <IoLanguage />
+                            </NavbarButton>
+                        )}
+                        
                         <NavbarButton variant="primary" className="flex items-center">Consult <LuExternalLink className="ml-2 h-4 w-4" /></NavbarButton>
                     </div>
                 </NavBody>]}
@@ -86,50 +115,30 @@ export default function DesktopNav() {
 
                         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon">
-                                    <IconMenu2 className="h-6 w-6 text-black dark:text-white" />
-                                </Button>
+                                {status === "authenticated" && session?.user ? (
+                                    <Button variant="ghost" size="icon" className="rounded-full p-0 h-10 w-10">
+                                        <Avatar className="h-8 w-8">
+                                            <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                                            <AvatarFallback className="text-xs">
+                                                {session.user.name?.charAt(0) || session.user.email?.charAt(0) || "U"}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </Button>
+                                ) : (
+                                    <Button variant="ghost" size="icon">
+                                        <IconMenu2 className="h-6 w-6 text-black dark:text-white" />
+                                    </Button>
+                                )}
                             </SheetTrigger>
                             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                                {/* <div className="flex justify-end">
-                                    <SheetClose asChild>
-                                        <Button variant="ghost" size="icon">
-                                            <IconX className="h-6 w-6 text-black dark:text-white" />
-                                        </Button>
-                                    </SheetClose>
-                                </div> */}
-                                <MobileNavMenu
-                                    key="mobile-menu"
+                                <MobileNavSheet
+                                    user={session?.user}
+                                    navItems={navItems}
                                     isOpen={isMobileMenuOpen}
                                     onClose={() => setIsMobileMenuOpen(false)}
-                                >
-                                    {navItems.map((item, idx) => (
-                                        <a
-                                            key={`mobile-link-${idx}`}
-                                            href={item.link}
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                            className="relative text-neutral-600 dark:text-neutral-300"
-                                        >
-                                            <span className="block">{item.name}</span>
-                                        </a>
-                                    ))}
-                                    <div className="flex w-full flex-col gap-4">
-                                        <NavbarButton
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                            variant="primary"
-                                            className="w-full"
-                                        >
-                                            Login
-                                        </NavbarButton>
-                                        <NavbarButton
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                            variant="primary"
-                                            className="w-full"
-                                        >
-                                            Book a call
-                                        </NavbarButton>
-                                    </div>
-                                </MobileNavMenu>
+                                    onLanguageSwitch={handleLanguageSwitch}
+                                    isAuthenticated={status === "authenticated"}
+                                />
                             </SheetContent>
                         </Sheet>
                     </div>

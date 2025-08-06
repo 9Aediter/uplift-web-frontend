@@ -2,14 +2,15 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
+
 interface InnovationImageAnimateProps {
   imageUrl: string;
 }
 
 export const InnovationImageAnimate: React.FC<InnovationImageAnimateProps> = ({ imageUrl }) => {
   return (
-    <div className="relative w-full h-[60vh]">
-      <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
+    <div className="relative w-full h-[100vh]">
+      <div className="absolute inset-0 z-0"></div>
       <AnimatePresence initial={false}>
         <motion.div
           key={imageUrl} // Key ที่เปลี่ยนเมื่อรูปภาพเปลี่ยน
@@ -24,7 +25,7 @@ export const InnovationImageAnimate: React.FC<InnovationImageAnimateProps> = ({ 
         ></motion.div>
       </AnimatePresence>
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 z-5 bg-gradient-to-b from-black/10 to-black/80"></div>
+      {/* <div className="absolute inset-0 z-5 bg-gradient-to-b from-black/0 to-black/60"></div> */}
     </div>
   );
 };

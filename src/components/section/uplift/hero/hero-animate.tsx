@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, useScroll, useTransform, useAnimation } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -47,19 +47,40 @@ interface AnimatedContentProps {
 
 export const AnimatedContent: React.FC<AnimatedContentProps> = ({ className, badge, heading, subheading, buttons }) => {
     const controls = useAnimation();
+    const [isMounted, setIsMounted] = React.useState(false);
+    
     const variants = {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 },
     };
 
+    // Ensure component is mounted before allowing animations
+    useEffect(() => {
+        setIsMounted(true);
+        // Start visible animation immediately when component mounts
+        controls.start("visible");
+    }, [controls]);
+
+    const handleViewportEnter = () => {
+        if (isMounted) {
+            controls.start("visible");
+        }
+    };
+
+    const handleViewportLeave = () => {
+        if (isMounted) {
+            controls.start("hidden");
+        }
+    };
+
     return (
         <div className={cn("w-full h-full flex items-center relative", className)}>
             <motion.div
-                initial="hidden"
+                initial="visible"
                 animate={controls}
                 variants={variants}
-                onViewportEnter={() => controls.start("visible")}
-                onViewportLeave={() => controls.start("hidden")}
+                onViewportEnter={handleViewportEnter}
+                onViewportLeave={handleViewportLeave}
                 viewport={{ amount: 0.2 }}
                 transition={{ duration: 0.5 }}
             >

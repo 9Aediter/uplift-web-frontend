@@ -1,75 +1,35 @@
 import { create } from 'zustand';
-import { fetchAllProducts } from '@/lib/api/product-api';
-import { IconMap } from '@/data/products'; // Keep IconMap for icon mapping
+import { IconMap } from '@/data/products';
 
 // Define the Product type that the frontend components expect
 export interface Product {
-  id: string; // Derived from Strapi's slug
+  id: string;
   title: string;
   subtitle: string;
   description: string;
-  features: string[]; // Flattened from Strapi's feature.data
-  image?: string; // Optional, as it's missing from provided Strapi data
+  features: string[];
+  image?: string;
   color: string;
-  icon: keyof typeof IconMap; // Still expects a string key for IconMap
-  // Add other fields if needed, e.g., slug, createdAt, etc.
-}
-
-// Interface for the raw data structure from Strapi's /api/softwares
-interface StrapiSoftware {
-  id: number;
-  documentId: string;
-  title: string;
+  icon: keyof typeof IconMap;
   slug: string;
+  category?: string;
+  tags: string[];
+  status: string;
+  isPublished: boolean;
+  publishedAt?: string;
+  price?: string;
+  featureCount?: number;
+  clientCount?: number;
+  language: string;
   createdAt: string;
   updatedAt: string;
-  publishedAt: string;
-  locale: string;
-  subtitle: string;
-  feature: {
-    data: string[];
-  };
-  color: string;
-  icon: string; // This will be a string like "DumbbellIcon"
-  description: string;
-  image?: Array<{
-    id: number;
-    url: string;
-    formats?: {
-      large?: { url: string; };
-      medium?: { url: string; };
-      small?: { url: string; };
-      thumbnail?: { url: string; };
-    };
-    // Add other image fields if necessary
-  }>;
-  // Add other fields if they exist in your Strapi response
 }
 
-/**
- * Maps raw Strapi software data to the Product type expected by the frontend.
- * @param strapiSoftware The raw software object from Strapi.
- * @returns A Product object.
- */
-const mapStrapiSoftwareToProduct = (strapiSoftware: StrapiSoftware): Product => {
-  // Basic validation for icon to ensure it exists in IconMap
-  const iconName = strapiSoftware.icon as keyof typeof IconMap;
-  const icon = IconMap[iconName] ? iconName : 'MonitorIcon'; // Default to MonitorIcon if not found
-
-  // Extract image URL
-  const imageUrl = strapiSoftware.image?.[0]?.formats?.large?.url || strapiSoftware.image?.[0]?.url || undefined;
-
-  return {
-    id: strapiSoftware.slug, // Use slug as id
-    title: strapiSoftware.title,
-    subtitle: strapiSoftware.subtitle,
-    description: strapiSoftware.description,
-    features: strapiSoftware.feature?.data || [], // Ensure features is an array
-    image: imageUrl, // Use extracted image URL
-    color: strapiSoftware.color,
-    icon: icon,
-  };
-};
+interface ProductsResponse {
+  products: Product[];
+  totalCount: number;
+  hasMore: boolean;
+}
 
 interface ProductState {
   products: Product[];
@@ -78,24 +38,76 @@ interface ProductState {
 }
 
 interface ProductActions {
-  fetchProducts: () => Promise<void>;
+  fetchProducts: (params?: { 
+    published?: boolean; 
+    category?: string; 
+    language?: string; 
+    limit?: number;
+    offset?: number;
+  }) => Promise<void>;
+  getProductBySlug: (slug: string) => Product | undefined;
+  clearError: () => void;
 }
 
-const useProductStore = create<ProductState & ProductActions>((set) => ({
+const useProductStore = create<ProductState & ProductActions>((set, get) => ({
   products: [],
   isLoading: false,
   error: null,
 
-  fetchProducts: async () => {
+  fetchProducts: async (params = {}) => {
     set({ isLoading: true, error: null });
     try {
-      const rawData = await fetchAllProducts(); // Get raw data
-      const products = rawData.map(mapStrapiSoftwareToProduct); // Map to Product type
+      const searchParams = new URLSearchParams();
+      
+      // Add query parameters
+      if (params.published !== undefined) {
+        searchParams.append('published', String(params.published));
+      }
+      if (params.category) {
+        searchParams.append('category', params.category);
+      }
+      if (params.language) {
+        searchParams.append('language', params.language);
+      } else {
+        searchParams.append('language', 'en'); // Default to English
+      }
+      if (params.limit) {
+        searchParams.append('limit', String(params.limit));
+      }
+      if (params.offset) {
+        searchParams.append('offset', String(params.offset));
+      }
+
+      const url = `/api/products${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch products: ${response.status} ${response.statusText}`);
+      }
+      
+      const data: ProductsResponse = await response.json();
+      
+      // Map the API response to match the expected Product interface
+      const products = data.products.map(product => ({
+        ...product,
+        subtitle: product.subtitle || '',
+        icon: (product.icon as keyof typeof IconMap) || 'MonitorIcon',
+      }));
+      
       set({ products, isLoading: false });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
       set({ isLoading: false, error: errorMessage });
     }
+  },
+
+  getProductBySlug: (slug: string) => {
+    const { products } = get();
+    return products.find(product => product.slug === slug);
+  },
+
+  clearError: () => {
+    set({ error: null });
   },
 }));
 

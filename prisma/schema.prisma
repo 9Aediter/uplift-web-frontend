@@ -1,0 +1,448 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          SocialProvider
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@index([provider])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  emailVerified DateTime?
+  password      String?
+  status        UserStatus     @default(ACTIVE)
+  lastLoginAt   DateTime?
+  accounts      Account[]
+  sessions      Session[]
+  profile       UserProfile?
+  userRoles     UserRole[]
+  
+  // Content management relations
+  createdContent  Content[] @relation("ContentCreator")
+  updatedContent  Content[] @relation("ContentUpdater") 
+  reviewedContent Content[] @relation("ContentReviewer")
+  publishedContent Content[] @relation("ContentPublisher")
+  contentHistory  ContentHistory[] @relation("ContentHistory")
+  
+  // Product management relations
+  createdProducts   Product[] @relation("ProductCreator")
+  updatedProducts   Product[] @relation("ProductUpdater")
+  reviewedProducts  Product[] @relation("ProductReviewer")
+  publishedProducts Product[] @relation("ProductPublisher")
+  
+  // Image management relations
+  uploadedImages    Image[]   @relation("ImageUploader")
+  
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
+model UserProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  firstName   String?
+  lastName    String?
+  displayName String?
+  avatar      String?
+  phone       String?
+  dateOfBirth DateTime?
+  address     String?
+  city        String?
+  country     String?
+  zipCode     String?
+  bio         String?  @db.Text
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model UserRole {
+  id        String   @id @default(cuid())
+  userId    String
+  role      Role
+  isActive  Boolean  @default(true)
+  assignedAt DateTime @default(now())
+  assignedBy String?  // ID of user who assigned this role
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, role])
+  @@index([userId])
+  @@index([role])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum SocialProvider {
+  GOOGLE
+  FACEBOOK
+  LINE
+  CREDENTIALS
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum ContentStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContentType {
+  HERO_SECTION
+  PROBLEM_SECTION
+  FEATURES_SECTION
+  TESTIMONIALS
+  FAQ
+}
+
+enum FieldType {
+  SHORT
+  LONG
+}
+
+model Content {
+  id          String        @id @default(cuid())
+  pageSlug    String        // e.g., "home", "about", "contact"
+  sectionType ContentType
+  language    String        @default("en") // "en", "th"
+  status      ContentStatus @default(DRAFT)
+  version     Int           @default(1)
+  
+  // Content data
+  fields      ContentField[]
+  buttons     ContentButton[]
+  
+  // Workflow
+  createdBy   String?
+  updatedBy   String?
+  reviewedBy  String?
+  publishedBy String?
+  publishedAt DateTime?
+  
+  // Timestamps  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  creator   User? @relation("ContentCreator", fields: [createdBy], references: [id])
+  updater   User? @relation("ContentUpdater", fields: [updatedBy], references: [id])
+  reviewer  User? @relation("ContentReviewer", fields: [reviewedBy], references: [id])
+  publisher User? @relation("ContentPublisher", fields: [publishedBy], references: [id])
+
+  @@unique([pageSlug, sectionType, language, status])
+  @@index([pageSlug, sectionType])
+  @@index([status])
+  @@index([language])
+  @@index([createdBy])
+}
+
+model ContentField {
+  id        String    @id @default(cuid())
+  contentId String
+  key       String    // field identifier (e.g., "badge", "title_part1")
+  label     String    // display label
+  type      FieldType @default(SHORT)
+  value     String    @db.Text
+  order     Int       @default(0)
+  
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([contentId, key])
+  @@index([contentId])
+}
+
+model ContentButton {
+  id        String @id @default(cuid())
+  contentId String
+  label     String // internal label (e.g., "Launch Button")
+  text      String // display text
+  url       String
+  order     Int    @default(0)
+  
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([contentId])
+}
+
+model ContentHistory {
+  id        String   @id @default(cuid())
+  contentId String
+  action    String   // "created", "updated", "published", "archived"
+  changes   Json?    // JSON of what changed
+  userId    String
+  
+  user User @relation("ContentHistory", fields: [userId], references: [id])
+  
+  createdAt DateTime @default(now())
+
+  @@index([contentId])
+  @@index([userId])
+}
+
+model Image {
+  id          String       @id @default(cuid())
+  url         String       @unique   // S3 URL
+  key         String       @unique   // S3 key for management
+  originalName String                // Original filename
+  contentType String                 // MIME type
+  size        Int                    // File size in bytes
+  uploadType  String       @default("general") // "general", "product", "user", etc.
+  
+  // Usage tracking
+  usageCount  Int          @default(0) // How many times this image is referenced
+  isActive    Boolean      @default(true)
+  
+  // Relations - Images can be used by multiple entities
+  products    Product[]    @relation("ProductImages")
+  
+  // Metadata
+  uploadedBy  String?
+  uploader    User?        @relation("ImageUploader", fields: [uploadedBy], references: [id])
+  
+  // Timestamps
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  @@index([uploadType])
+  @@index([isActive])
+  @@index([uploadedBy])
+  @@index([key])
+}
+
+model Product {
+  id           String        @id @default(cuid())
+  title        String
+  subtitle     String?
+  slug         String        @unique
+  description  String        @db.Text
+  features     String[]      // Array of feature strings
+  
+  // Image handling - dual approach
+  coverImage   String?       // Direct URL for unique cover image (also stored in Image table)
+  images       Image[]       @relation("ProductImages") // Multiple images from Image table
+  imageGallery String[]      // Array of image URLs for gallery display
+  caseStudy    String?       @db.Text // Case study content for example screens
+  
+  color        String        @default("blue") // Color theme for gradients
+  icon         String        @default("MonitorIcon") // Icon identifier for frontend
+  
+  // Categories and tagging
+  category     String?       // e.g., "Innovation", "Service", etc.
+  tags         String[]      // Array of tags for filtering
+  
+  // Status and publishing
+  status       ContentStatus @default(DRAFT)
+  isPublished  Boolean       @default(false)
+  publishedAt  DateTime?
+  
+  // Pricing and business info
+  price        String?       // e.g., "$999/month", "Contact us"
+  featureCount Int?          @default(0) // Number of features for admin display
+  clientCount  Int?          @default(0) // Number of clients using this product
+  
+  // Metadata
+  language     String        @default("en") // "en", "th"
+  locale       String?       // For multi-language support
+  
+  // Workflow management
+  createdBy    String?
+  updatedBy    String?
+  reviewedBy   String?
+  publishedBy  String?
+  
+  // Relations
+  creator      User?         @relation("ProductCreator", fields: [createdBy], references: [id])
+  updater      User?         @relation("ProductUpdater", fields: [updatedBy], references: [id])
+  reviewer     User?         @relation("ProductReviewer", fields: [reviewedBy], references: [id])
+  publisher    User?         @relation("ProductPublisher", fields: [publishedBy], references: [id])
+  
+  // Timestamps
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  
+  @@index([status])
+  @@index([isPublished])
+  @@index([category])
+  @@index([language])
+  @@index([createdBy])
+  @@index([slug])
+  
+  // Product sections relation
+  productSections ProductSection[]
+  
+  // Tech stack relation
+  techStackSection TechStackSection?
+}
+
+model ProductSection {
+  id          String @id @default(cuid())
+  productId   String
+  sectionType String        // "why_need_it", "core_features", "tech_stack", etc.
+  title       String?       // Optional section title
+  subtitle    String?       // Optional section subtitle
+  order       Int @default(0) // Section order in product page
+  
+  // Relations
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cards       ProductCard[]
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([productId, sectionType])
+  @@index([productId])
+  @@index([sectionType])
+}
+
+model ProductCard {
+  id        String @id @default(cuid())
+  sectionId String
+  title     String
+  description String @db.Text
+  icon      String?        // Icon identifier (e.g., "LightbulbIcon", "TrendingUpIcon")
+  iconColor String?        // Icon color (e.g., "text-yellow-400", "text-green-400")
+  order     Int @default(0) // Card order within section
+  
+  // Relations
+  section   ProductSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([sectionId])
+  @@index([order])
+}
+
+model Technology {
+  id        String @id @default(cuid())
+  name      String @unique  // Technology name (e.g., "React", "Node.js")
+  slug      String @unique  // URL-friendly version (e.g., "react", "nodejs")
+  svgCode   String @db.Text // SVG code as text
+  category  String?         // Category like "Frontend", "Backend", "Database"
+  isActive  Boolean @default(true)
+  
+  // Relations
+  techStackSections TechStackSectionTechnology[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([isActive])
+  @@index([category])
+}
+
+model TechStackSection {
+  id        String @id @default(cuid())
+  productId String
+  title     String? @default("Technology Stack")
+  subtitle  String? @default("Cutting-edge tools & technologies we use")
+  order     Int @default(0)
+  
+  // Relations
+  product      Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  technologies TechStackSectionTechnology[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([productId]) // One tech stack section per product
+  @@index([productId])
+}
+
+model TechStackSectionTechnology {
+  id              String @id @default(cuid())
+  techStackSectionId String
+  technologyId    String
+  order           Int @default(0)
+  
+  // Relations
+  techStackSection TechStackSection @relation(fields: [techStackSectionId], references: [id], onDelete: Cascade)
+  technology       Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([techStackSectionId, technologyId])
+  @@index([techStackSectionId])
+  @@index([technologyId])
+  @@index([order])
+}

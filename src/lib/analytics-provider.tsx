@@ -14,7 +14,7 @@ export default function AnalyticsProvider() {
   const pathname = usePathname();
 
   useEffect(() => {
-    window.gtag?.("config", "G-QZPW51MJ4X", {
+    window.gtag?.("config", "G-SNLN0CMP02", {
       page_path: pathname,
     });
   }, [pathname]);

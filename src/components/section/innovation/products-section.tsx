@@ -1,34 +1,27 @@
-"use client"
 import Link from 'next/link';
-import { ProductSectionSkeleton } from '@/components/skeleton/product-section';
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Section } from '@/components/ui/section'
 import { IconMap, getGradient } from '@/data/products';
 import { CheckIcon } from 'lucide-react';
-import useProductStore from '@/lib/store/product-store';
-import type { Product } from '@/lib/store/product-store';
+import { getAllInnovations, type ProductDetail } from '@/lib/actions/innovationActions';
 
-const ProductsSection = () => {
-  const fetchProducts = useProductStore((state) => state.fetchProducts);
-  const products = useProductStore((state) => state.products);
-  const isLoading = useProductStore((state) => state.isLoading);
-  const error = useProductStore((state) => state.error);
+interface ProductsSectionProps {
+  products?: ProductDetail[];
+}
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);  // ✅ เรียกครั้งเดียว
+const ProductsSection = async ({ products: propsProducts }: ProductsSectionProps) => {
+  // If products are not passed as props, fetch them server-side
+  const products = propsProducts || await getAllInnovations({ 
+    language: 'en' // Default to English, can be made dynamic based on locale
+  });
 
-  if (isLoading) {
-    return <ProductSectionSkeleton />;
-  }
-
-  if (error) {
-    return <div className="text-center py-10 text-red-500">Error: {error}</div>;
+  if (!products || products.length === 0) {
+    return <div className="text-center py-10 text-gray-500">No products available</div>;
   }
 
   return (
     <>
-      {products.map((product: Product, index) => {
+      {products.map((product: ProductDetail, index) => {
         const IconComponent = IconMap[product.icon]; // Get the icon component from IconMap
         return (
           <Section
@@ -43,7 +36,7 @@ const ProductsSection = () => {
               <div className="w-full md:w-1/2">
                 <div className="relative rounded-lg overflow-hidden border border-gray-800">
                   <img
-                    src={product.image}
+                    src={product.coverImage || product.image?.[0]?.url || '/placeholder-product.png'}
                     alt={product.title}
                     className="w-full h-64 md:h-96 object-cover"
                   />
@@ -87,7 +80,7 @@ const ProductsSection = () => {
                   ))}
                 </div>
                 <Link
-                  href={`/innovation/${product.id}`}
+                  href={`/innovation/${product.slug}`}
                   className={`px-6 py-2 rounded-lg bg-gradient-to-r ${getGradient(product.color)} text-white font-medium hover:opacity-90 transition-opacity inline-block`}
                 >
                   Learn More

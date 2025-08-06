@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/style/globals.css";
 import Script from 'next/script';
 import AnalyticsProvider from "@/lib/analytics-provider";
+import { SonnerProvider } from "@/lib/sonner-provider";
+import { ModalProvider } from "@/lib/modal-provider";
+import { AuthProvider } from "@/lib/auth-provider";
+import { ErrorHandler } from "@/components/error-handler";
 import { getDictionary } from '@/lib/i18n'
 import { headers } from 'next/headers'
+import "@/style/globals.css";
 
 // Font Inter
 const inter = Inter({
@@ -131,8 +135,14 @@ export default async function RootLayout({
           }}
         />
         <AnalyticsProvider />
-        {/* Main content */}      
-        {children}       
+        <AuthProvider>
+          <ModalProvider>
+            <SonnerProvider />
+            <ErrorHandler />
+            {/* Main content */}      
+            {children}
+          </ModalProvider>
+        </AuthProvider>       
       </body>
     </html>
   );

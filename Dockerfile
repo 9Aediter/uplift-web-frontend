@@ -16,6 +16,7 @@ ENV NEXT_PUBLIC_GA_MEASUREMENT_ID=$NEXT_PUBLIC_GA_MEASUREMENT_ID
 ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
 ENV NEXT_PUBLIC_NOTION_TOKEN=$NEXT_PUBLIC_NOTION_TOKEN
 ENV NEXT_PUBLIC_NOTION_DATABASE_ID=$NEXT_PUBLIC_NOTION_DATABASE_ID
+RUN npx prisma generate
 RUN npm run build
 
 # Run stage
@@ -26,6 +27,9 @@ ENV NODE_ENV=production
 
 COPY --from=builder /app/package.json /app/package-lock.json ./
 RUN npm ci --omit=dev
+
+COPY --from=builder /app/prisma ./prisma
+RUN npx prisma generate
 
 COPY --from=builder /app/.next .next
 COPY --from=builder /app/public ./public

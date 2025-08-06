@@ -184,12 +184,12 @@ async function main() {
       slug: 'ai-analytics-platform',
       description: 'Transform your business data into actionable insights with our cutting-edge AI analytics platform. Features real-time processing, predictive modeling, and intuitive dashboards.',
       features: [
-        'Real-time data processing',
-        'Predictive analytics',
-        'Interactive dashboards',
-        'Custom reporting',
-        'API integrations',
-        'Machine learning insights'
+        { title: 'Real-time data processing', description: 'Process data in real-time for instant insights', icon: 'performance' },
+        { title: 'Predictive analytics', description: 'Advanced AI-powered predictions', icon: 'analytics' },
+        { title: 'Interactive dashboards', description: 'Beautiful, responsive dashboard interfaces', icon: 'dashboard' },
+        { title: 'Custom reporting', description: 'Generate detailed custom reports', icon: 'analytics' },
+        { title: 'API integrations', description: 'Seamless integration with existing systems', icon: 'cloud' },
+        { title: 'Machine learning insights', description: 'AI-powered business intelligence', icon: 'processing' }
       ],
       coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
       color: 'blue',
@@ -209,12 +209,12 @@ async function main() {
       slug: 'cloud-infrastructure-manager',
       description: 'Streamline your cloud infrastructure management with automated deployment, monitoring, and scaling capabilities across multiple cloud providers.',
       features: [
-        'Multi-cloud support',
-        'Automated deployment',
-        'Resource monitoring',
-        'Auto-scaling',
-        'Cost optimization',
-        'Security compliance'
+        { title: 'Multi-cloud support', description: 'Works with AWS, GCP, Azure', icon: 'cloud' },
+        { title: 'Automated deployment', description: 'Deploy applications automatically', icon: 'processing' },
+        { title: 'Resource monitoring', description: 'Monitor all cloud resources', icon: 'dashboard' },
+        { title: 'Auto-scaling', description: 'Automatically scale based on demand', icon: 'performance' },
+        { title: 'Cost optimization', description: 'Optimize cloud spending', icon: 'analytics' },
+        { title: 'Security compliance', description: 'Ensure security standards', icon: 'security' }
       ],
       coverImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800',
       color: 'green',
@@ -234,12 +234,12 @@ async function main() {
       slug: 'mobile-app-dev-kit',
       description: 'Build stunning mobile applications faster with our comprehensive development kit featuring pre-built components, templates, and deployment tools.',
       features: [
-        'Cross-platform support',
-        'Pre-built UI components',
-        'Template library',
-        'Automated testing',
-        'CI/CD integration',
-        'App store deployment'
+        { title: 'Cross-platform support', description: 'iOS, Android, and Web', icon: 'global' },
+        { title: 'Pre-built UI components', description: 'Ready-to-use components', icon: 'dashboard' },
+        { title: 'Template library', description: 'Various app templates', icon: 'processing' },
+        { title: 'Automated testing', description: 'Built-in testing tools', icon: 'security' },
+        { title: 'CI/CD integration', description: 'Continuous deployment', icon: 'cloud' },
+        { title: 'App store deployment', description: 'Direct store deployment', icon: 'global' }
       ],
       coverImage: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800',
       color: 'purple',
@@ -259,12 +259,12 @@ async function main() {
       slug: 'digital-marketing-suite',
       description: 'Comprehensive digital marketing platform with email campaigns, social media management, analytics, and lead generation tools all in one place.',
       features: [
-        'Email campaign automation',
-        'Social media scheduling',
-        'Lead generation tools',
-        'Performance analytics',
-        'A/B testing',
-        'CRM integration'
+        { title: 'Email campaign automation', description: 'Automated email marketing', icon: 'processing' },
+        { title: 'Social media scheduling', description: 'Schedule posts across platforms', icon: 'global' },
+        { title: 'Lead generation tools', description: 'Generate and track leads', icon: 'users' },
+        { title: 'Performance analytics', description: 'Track marketing performance', icon: 'analytics' },
+        { title: 'A/B testing', description: 'Test different campaigns', icon: 'processing' },
+        { title: 'CRM integration', description: 'Connect with CRM systems', icon: 'cloud' }
       ],
       coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
       color: 'orange',
@@ -284,12 +284,12 @@ async function main() {
       slug: 'cybersecurity-shield',
       description: 'Protect your digital assets with enterprise-grade cybersecurity solutions including threat detection, vulnerability assessment, and incident response.',
       features: [
-        'Real-time threat detection',
-        'Vulnerability scanning',
-        'Incident response',
-        'Security compliance',
-        'Employee training',
-        '24/7 monitoring'
+        { title: 'Real-time threat detection', description: 'Detect threats as they happen', icon: 'security' },
+        { title: 'Vulnerability scanning', description: 'Scan for security vulnerabilities', icon: 'security' },
+        { title: 'Incident response', description: 'Quick response to security incidents', icon: 'performance' },
+        { title: 'Security compliance', description: 'Maintain security standards', icon: 'security' },
+        { title: 'Employee training', description: 'Security awareness training', icon: 'users' },
+        { title: '24/7 monitoring', description: 'Round-the-clock security monitoring', icon: 'dashboard' }
       ],
       coverImage: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800',
       color: 'red',

@@ -60,6 +60,20 @@ jobs:
             docker rm frontend || true
             docker network create uplifttech || true
 
+            # Run database migrations
+            echo "🔄 Running database migrations..."
+            docker run --rm \
+              -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+              ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest \
+              npx prisma migrate deploy
+
+            # Seed database if needed
+            echo "🌱 Seeding database..."
+            docker run --rm \
+              -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+              ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest \
+              npm run db:seed || echo "Seeding completed or skipped"
+
             docker run -d \
               --name frontend \
               --network uplifttech \

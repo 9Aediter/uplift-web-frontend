@@ -88,7 +88,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     };
 
     const isMobile = () => {
-        return window && window.innerWidth < 768;
+        return typeof window !== 'undefined' && window.innerWidth < 768;
     };
 
     return (
@@ -299,6 +299,19 @@ export const BlurImage = ({
     ...rest
 }: ImageProps) => {
     const [isLoading, setLoading] = useState(true);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Don't render image until mounted to prevent hydration mismatch
+    if (!mounted) {
+        return (
+            <div className={cn("h-full w-full bg-gray-800 animate-pulse", className)} />
+        );
+    }
+
     return (
         <Image
             className={cn(
@@ -307,6 +320,7 @@ export const BlurImage = ({
                 className,
             )}
             onLoad={() => setLoading(false)}
+            onError={() => setLoading(false)}
             src={src as string}
             width={width}
             height={height}

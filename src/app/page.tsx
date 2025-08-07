@@ -26,18 +26,18 @@ export default async function Home() {
   const servicesContent = await getLGPageJSON(locale, 'services');
 
   if (!heroContent) {
-    // Handle case where hero content is not found in database
-    return <div>Error: Hero section not found in database for {locale}</div>;
+    // Throw error to trigger error.tsx page
+    throw new Error(`Hero section not found in database for ${locale}. Please check if the database is seeded properly.`);
   }
 
   if (!homePageContent) {
-    // Handle case where home page content is not found
-    return <div>Error: Home page content not found for {locale}</div>;
+    // Throw error to trigger error.tsx page  
+    throw new Error(`Home page content not found for ${locale}. Please check the content files.`);
   }
 
   if (!servicesContent || !servicesContent.service) {
-    // Handle case where services content is not found or service section is missing
-    return <div>Error: Services content not found for {locale}</div>;
+    // Throw error to trigger error.tsx page
+    throw new Error(`Services content not found for ${locale}. Please check the services content files.`);
   }
 
   return (

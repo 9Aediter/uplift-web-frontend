@@ -2,19 +2,19 @@ import React from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 import { Section } from "@/components/ui/section";
 import { AnimateEffect } from "@/components/animate-effect";
-import { getProducts } from "@/lib/actions/productActions";
+import { getAllInnovations } from "@/lib/actions/innovationActions";
 
 export const Product = async () => {
-    const products = await getProducts();
+    const products = await getAllInnovations({ limit: 6 });
 
     const cards = products.map((product, index) => (
         <Card
             key={product.id}
             card={{
-                src: product.image || '',
+                src: product.coverImage || '',
                 title: product.title,
-                category: product.subtitle, // Using subtitle as category
-                link: product.link || '/coming-soon',
+                category: product.subtitle || product.category || 'Innovation', // Using subtitle, category, or default
+                link: `/innovation/${product.slug}`, // Using slug for innovation pages
             }}
             index={index}
         />

@@ -99,7 +99,7 @@ export default function DesktopNav() {
                             </NavbarButton>
                         )}
                         
-                        <NavbarButton variant="primary" className="flex items-center">Consult <LuExternalLink className="ml-2 h-4 w-4" /></NavbarButton>
+                        <NavbarButton href="/consult" variant="primary" className="flex items-center">Consult <LuExternalLink className="ml-2 h-4 w-4" /></NavbarButton>
                     </div>
                 </NavBody>]}
             </Navbar>

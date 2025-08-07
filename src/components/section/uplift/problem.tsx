@@ -58,26 +58,29 @@ const Problems = React.forwardRef<HTMLDivElement, ProblemsProps>(({ problemSecti
             return (
               <AnimateEffect key={index} index={index}>
                 <Card
-                  className="p-6 group hover:shadow-[0_0_15px_rgba(0,200,255,0.3)] transition-all duration-300"
+                  className="p-6 group hover:shadow-[0_0_15px_rgba(0,200,255,0.3)] transition-all duration-300 backdrop-blur-sm border border-gray-700/60"
                   glowColor={challenge.glowColor}
                 >
                   <div className="mb-4 relative">
-                    <div className="absolute -left-2 -top-2 w-14 h-14 bg-card/80 rounded-lg flex items-center justify-center border border-border group-hover:border-cyan-500/50 transition-colors">
+                    <div className="absolute -left-2 -top-2 w-14 h-14 bg-gray-800/80 rounded-lg flex items-center justify-center border border-gray-600/70 group-hover:border-cyan-500/50 transition-colors backdrop-blur-sm">
                       {IconComponent && <IconComponent className={`w-8 h-8 ${challenge.iconColorClass}`} />}
                     </div>
                     <div className="ml-16 pl-2">
-                      <h3 className="text-foreground text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">
+                      <h3 className="text-white text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">
                         {challenge.title}
                       </h3>
-                      <p className="text-muted-foreground group-hover:text-gray-300 transition-colors">
+                      <p className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm md:text-base">
                         {challenge.description}
                       </p>
                     </div>
                   </div>
                   <div className="mt-4 flex items-center">
-                    <div className="text-xs text-muted-foreground mr-2">Industry Impact:</div>
-                    <div className="w-full h-1 bg-input overflow-hidden rounded-full">
-                      <div className="h-full w-0 group-hover:w-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-1000 ease-out"></div>
+                    <div className="text-xs text-gray-500 mr-2">Industry Impact:</div>
+                    <div className="w-full h-1 bg-gray-800 overflow-hidden rounded-full">
+                      {/* Desktop: hover effect */}
+                      <div className="h-full w-0 md:group-hover:w-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-1000 ease-out hidden md:block"></div>
+                      {/* Mobile: always show full bar */}
+                      <div className="h-full w-full bg-gradient-to-r from-cyan-500 to-blue-500 block md:hidden"></div>
                     </div>
                   </div>
                 </Card>

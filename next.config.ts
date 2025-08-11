@@ -20,11 +20,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "via.placeholder.com",
       },
-      {
-        protocol: "https",
-        hostname: "Fimages.unsplash.com",
-      },
     ],
+    // Add loader config for problematic domains
+    loader: 'default',
+    // Disable optimization for S3 images temporarily
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Add timeout for image loading
+    minimumCacheTTL: 60,
   },
 };
 

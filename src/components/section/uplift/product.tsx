@@ -11,12 +11,18 @@ export const Product = async () => {
     console.log('Products loaded:', products.length);
     console.log('Sample coverImage:', products[0]?.coverImage);
 
-    const cards = products.map((product, index) => ({
-        src: product.coverImage || `https://images.unsplash.com/photo-${1518020382113 + index * 100}-2a4b9c7d4b4c?w=600&h=400&fit=crop&auto=format`,
-        title: product.title,
-        category: product.subtitle || product.category || 'Innovation', // Using subtitle, category, or default
-        link: `/innovation/${product.slug}`, // Using slug for innovation pages
-    }));
+    const cards = products.map((product, index) => {
+        // Check if S3 image exists and is valid, otherwise use fallback
+        const isS3Image = product.coverImage?.includes('s3.ap-southeast-1.amazonaws.com');
+        const fallbackImage = `https://images.unsplash.com/photo-${1518020382113 + index * 100}-2a4b9c7d4b4c?w=600&h=400&fit=crop&auto=format`;
+        
+        return {
+            src: isS3Image ? fallbackImage : (product.coverImage || fallbackImage),
+            title: product.title,
+            category: product.subtitle || product.category || 'Innovation',
+            link: `/innovation/${product.slug}`,
+        };
+    });
 
     return (
         <Section className="w-full h-[80vh] sm:h-[100vh] bg-gradient-to-b from-black to-gray-900/30 flex flex-col justify-center">

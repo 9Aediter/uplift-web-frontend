@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
+import { AppleCardsCarousel } from "@/components/carousel";
 import { Section } from "@/components/ui/section";
 import { AnimateEffect } from "@/components/animate-effect";
 import { getAllInnovations } from "@/lib/actions/innovationActions";
@@ -7,18 +7,12 @@ import { getAllInnovations } from "@/lib/actions/innovationActions";
 export const Product = async () => {
     const products = await getAllInnovations({ limit: 6 });
 
-    const cards = products.map((product, index) => (
-        <Card
-            key={product.id}
-            card={{
-                src: product.coverImage || '',
-                title: product.title,
-                category: product.subtitle || product.category || 'Innovation', // Using subtitle, category, or default
-                link: `/innovation/${product.slug}`, // Using slug for innovation pages
-            }}
-            index={index}
-        />
-    ));
+    const cards = products.map((product) => ({
+        src: product.coverImage || '',
+        title: product.title,
+        category: product.subtitle || product.category || 'Innovation', // Using subtitle, category, or default
+        link: `/innovation/${product.slug}`, // Using slug for innovation pages
+    }));
 
     return (
         <Section className="w-full h-[70vh] sm:h-[100vh] bg-gradient-to-b from-black to-gray-900/30 flex flex-col justify-center">
@@ -29,7 +23,7 @@ export const Product = async () => {
                     </h2>
                 </AnimateEffect>
                 <AnimateEffect index={1}>
-                    <Carousel items={cards} />
+                    <AppleCardsCarousel cards={cards} />
                 </AnimateEffect>
             </div>
         </Section>

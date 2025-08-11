@@ -1,5 +1,5 @@
 import React from 'react';
-import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
+import { AppleCardsCarousel } from "@/components/carousel";
 
 interface WhatIsSectionCard {
   id: string;
@@ -19,16 +19,16 @@ interface WhatIsSectionProps {
   systemName?: string;
 }
 
-export const WhatIsSection: React.FC<WhatIsSectionProps> = ({ 
+export const WhatIsSection: React.FC<WhatIsSectionProps> = ({
   title,
   subtitle,
   cards,
-  systemName 
+  systemName
 }) => {
   // Default fallback content if no database data
   const defaultTitle = title || `What is ${systemName}?`;
   const defaultSubtitle = subtitle || "Comprehensive solution designed for modern business needs";
-  
+
   const defaultCards = cards && cards.length > 0 ? cards : [
     {
       id: "1",
@@ -39,7 +39,7 @@ export const WhatIsSection: React.FC<WhatIsSectionProps> = ({
       order: 0
     },
     {
-      id: "2", 
+      id: "2",
       title: "Real-time Inventory",
       description: "จัดการสต็อกสินค้าแบบเรียลไทม์ ลดปัญหาของขาดหรือเกิน",
       icon: "PackageIcon",
@@ -50,7 +50,7 @@ export const WhatIsSection: React.FC<WhatIsSectionProps> = ({
       id: "3",
       title: "Data Analytics",
       description: "วิเคราะห์ข้อมูลการขายเพื่อช่วยในการตัดสินใจทางธุรกิจ",
-      icon: "TrendingUpIcon", 
+      icon: "TrendingUpIcon",
       iconColor: "text-purple-400",
       order: 2
     }
@@ -60,23 +60,17 @@ export const WhatIsSection: React.FC<WhatIsSectionProps> = ({
   const sortedCards = defaultCards.sort((a, b) => a.order - b.order);
 
   // Convert cards to carousel format
-  const carouselCards = sortedCards.map((card, index) => (
-    <Card 
-      key={card.id}
-      card={{
-        src: card.imageUrl && card.imageUrl.trim() !== "" 
-          ? card.imageUrl 
-          : `https://images.unsplash.com/photo-${1518020382113 + index}-2a4b9c7d4b4c?w=500&h=300&fit=crop`,
-        title: card.title,
-        category: "Feature",
-        content: <div className="p-6">
-          <h3 className="text-xl font-semibold text-white mb-4">{card.title}</h3>
-          <p className="text-gray-400 leading-relaxed">{card.description}</p>
-        </div>
-      }} 
-      index={index}
-    />
-  ));
+  const carouselCards = sortedCards.map((card, index) => ({
+    src: card.imageUrl && card.imageUrl.trim() !== ""
+      ? card.imageUrl
+      : `https://images.unsplash.com/photo-${1518020382113 + index}-2a4b9c7d4b4c?w=500&h=300&fit=crop`,
+    title: card.title,
+    category: "Feature",
+    content: <div className="p-6">
+      <h3 className="text-xl font-semibold text-white mb-4">{card.title}</h3>
+      <p className="text-gray-400 leading-relaxed">{card.description}</p>
+    </div>
+  }));
 
   return (
     <section className="py-12 md:py-20">
@@ -89,8 +83,8 @@ export const WhatIsSection: React.FC<WhatIsSectionProps> = ({
             {defaultSubtitle}
           </p>
         </div>
-        
-        <Carousel items={carouselCards} />
+
+        <AppleCardsCarousel cards={carouselCards} />
       </div>
     </section>
   );

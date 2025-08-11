@@ -7,6 +7,7 @@ import Vision from "@/components/section/uplift/vision";
 // import Testimonials from "@/components/section/uplift/testimonials";
 import Footer from "@/components/footer/footer";
 import { Product } from "@/components/section/uplift/product"
+import { Solution } from "@/components/section/uplift/solution"
 import { ProblemSectionSkeleton } from "@/components/skeleton/uplift/problem-section";
 import { HeroSectionSkeleton } from "@/components/skeleton/uplift/hero-section";
 import { ProductSectionSkeleton } from "@/components/skeleton/uplift/product-section";
@@ -54,6 +55,7 @@ export default async function Home() {
         <Suspense fallback={<ProductSectionSkeleton />}>
           <Product />
         </Suspense>
+        <Solution />
         <Suspense fallback={<ProblemSectionSkeleton />}>
         <Service 
           serviceSectionContent={servicesContent.service} 

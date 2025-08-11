@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '@/components/ui/section';
-import { FeaturesHoverEffect } from './features-hover-effect';
+import { FeaturesHoverEffect } from '../../gridcard/features-hover-effect';
 
 // Feature interface
 interface Feature {

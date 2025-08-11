@@ -29,6 +29,8 @@ const nextConfig: NextConfig = {
     // Add timeout for image loading
     minimumCacheTTL: 60,
   },
+  
+
 };
 
 export default nextConfig;

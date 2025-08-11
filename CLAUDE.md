@@ -8,10 +8,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Production build**: `npm run build`
 - **Start production server**: `npm start`
 - **Linting**: `npm run lint`
+- **Type checking**: `npx tsc --noEmit` (no dedicated typecheck script in package.json)
 - **Database operations**:
   - `npx prisma generate` - Generate Prisma client
   - `npx prisma migrate dev` - Run database migrations
   - `npm run db:seed` - Seed database with initial data
+  - `npx prisma studio` - Open Prisma Studio for database inspection
 - **Docker operations**:
   - `docker compose up -d` - Start PostgreSQL and pgAdmin containers
   - Access pgAdmin: `localhost:5050` (admin@uplift.com / admin123)
@@ -124,3 +126,22 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=your-ga-id
 - S3 bucket and IAM permissions required for file uploads
 - Social OAuth credentials needed for authentication
 - Environment variables must be configured for all services
+
+### Internationalization (i18n)
+- **Languages**: English (default) and Thai support
+- **Locale Handling**: Middleware-based locale detection and routing
+- **File Structure**: 
+  - `src/lib/dictionaries/en.json` - English translations
+  - `src/lib/dictionaries/th.json` - Thai translations
+- **URL Structure**: 
+  - Default (Thai): `/` 
+  - English: `/en/`
+- **Implementation**: Uses `next-intl` with custom middleware for locale routing
+
+### Key Architecture Patterns
+- **Route Groups**: App Router organizes routes with `(Public)` for marketing pages and `admin` for protected admin functionality
+- **Middleware Protection**: Authentication and role-based access control via middleware
+- **API Organization**: RESTful endpoints with nested routes for complex relationships (e.g., `/api/products/[id]/sections/[sectionId]/cards`)
+- **State Management**: Zustand stores for client-side state (article, footer, landing, product stores)
+- **Error Handling**: Global error boundary and toast notifications via Sonner
+- **Image Optimization**: Next.js Image component with remote patterns for S3 and external sources

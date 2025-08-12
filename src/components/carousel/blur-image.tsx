@@ -1,7 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image, { ImageProps } from "next/image";
 import { cn } from "@/lib/utils";
+
+interface BlurImageProps {
+  height?: number | string;
+  width?: number | string;
+  src: string;
+  className?: string;
+  alt?: string;
+  fill?: boolean;
+  style?: React.CSSProperties;
+}
 
 export const BlurImage = ({
   height,
@@ -9,8 +18,9 @@ export const BlurImage = ({
   src,
   className,
   alt,
-  ...rest
-}: ImageProps) => {
+  fill,
+  style,
+}: BlurImageProps) => {
   const [isLoading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -35,10 +45,14 @@ export const BlurImage = ({
     );
   }
 
+  const imgStyle = fill 
+    ? { position: 'absolute' as const, inset: 0, width: '100%', height: '100%', ...style }
+    : { width: width || 'auto', height: height || 'auto', ...style };
+
   return (
-    <Image
+    <img
       className={cn(
-        "h-full w-full transition duration-300",
+        "h-full w-full transition duration-300 object-cover",
         isLoading ? "blur-sm scale-105" : "blur-0 scale-100",
         className,
       )}
@@ -47,15 +61,11 @@ export const BlurImage = ({
         setLoading(false);
         setImageError(true);
       }}
-      src={src as string}
-      width={width}
-      height={height}
+      src={src}
+      style={imgStyle}
       loading="lazy"
       decoding="async"
-      placeholder="blur"
-      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejVityTkKXj8U8k9VKxbZRkkcuV2pz7jysjZt32dSfaH9jL4zBE4yb5dvk5y3n/1/x"
       alt={alt ? alt : "Background of a beautiful view"}
-      {...rest}
     />
   );
 };

@@ -3,11 +3,11 @@ import { Section } from '@/components/ui/section';
 import { BentoGrid, BentoGridItem } from '@/components/gridcard/bento-grid';
 import { AnimateEffect } from '@/components/animate-effect';
 import { cn } from '@/lib/utils';
-import { 
-  FaShippingFast, 
-  FaWarehouse, 
-  FaCashRegister, 
-  FaHotel, 
+import {
+  FaShippingFast,
+  FaWarehouse,
+  FaCashRegister,
+  FaHotel,
   FaTruck,
   FaDumbbell
 } from 'react-icons/fa';
@@ -42,6 +42,15 @@ const mockSolutionData: SolutionItem[] = [
     className: "md:col-span-1",
   },
   {
+    title: "Smart Gym Management",
+    description: "ระบบบริหารฟิตเนส สมาชิก อุปกรณ์ คลาส แบบครบวงจร",
+    icon: <FaDumbbell />,
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=600&fit=crop&auto=format",
+    bgColor: "bg-green-100 dark:bg-green-900/20",
+    iconColor: "bg-green-600",
+    className: "md:col-span-1",
+  },
+  {
     title: "Warehouse Management",
     description: "ระบบคลังสินค้าอัตโนมัติ เชื่อมต่อ Automation ลดต้นทุนแรงงาน",
     icon: <FaWarehouse />,
@@ -60,15 +69,6 @@ const mockSolutionData: SolutionItem[] = [
     className: "md:col-span-1",
   },
   {
-    title: "Hotel Booking System",
-    description: "ระบบจองโรงแรม 5 ดาว Dynamic Pricing เพิ่ม RevPAR",
-    icon: <FaHotel />,
-    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop&auto=format",
-    bgColor: "bg-purple-100 dark:bg-purple-900/20",
-    iconColor: "bg-purple-600",
-    className: "md:col-span-2",
-  },
-  {
     title: "Transport Management",
     description: "บริหารยานพาหนะ วางแผนเส้นทาง ติดตามเรียลไทม์",
     icon: <FaTruck />,
@@ -78,14 +78,14 @@ const mockSolutionData: SolutionItem[] = [
     className: "md:col-span-1",
   },
   {
-    title: "Smart Gym Management",
-    description: "ระบบบริหารฟิตเนส สมาชิก อุปกรณ์ คลาส แบบครบวงจร",
-    icon: <FaDumbbell />,
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=600&fit=crop&auto=format",
-    bgColor: "bg-green-100 dark:bg-green-900/20",
-    iconColor: "bg-green-600",
-    className: "md:col-span-1",
-  },
+    title: "Hotel Booking System",
+    description: "ระบบจองโรงแรม 5 ดาว Dynamic Pricing เพิ่ม RevPAR",
+    icon: <FaHotel />,
+    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop&auto=format",
+    bgColor: "bg-purple-100 dark:bg-purple-900/20",
+    iconColor: "bg-purple-600",
+    className: "md:col-span-2",
+  }
 ];
 
 export const Solution = () => {

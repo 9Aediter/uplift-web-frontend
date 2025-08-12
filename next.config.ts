@@ -7,27 +7,29 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "uplift-uploads.s3.ap-southeast-1.amazonaws.com",
+        port: "",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "via.placeholder.com",
+        port: "",
+        pathname: "/**",
       },
     ],
-    // Add loader config for problematic domains
-    loader: 'default',
-    // Disable optimization for S3 images temporarily
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Add timeout for image loading
-    minimumCacheTTL: 60,
+    domains: ["uplift-uploads.s3.ap-southeast-1.amazonaws.com"],
   },
   
 

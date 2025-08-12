@@ -8,6 +8,7 @@ import Vision from "@/components/section/uplift/vision";
 import Footer from "@/components/footer/footer";
 import { Product } from "@/components/section/uplift/product"
 import { Solution } from "@/components/section/uplift/solution"
+import { HeroScrollDemo } from "@/components/section/uplift/demoadmin";
 import { ProblemSectionSkeleton } from "@/components/skeleton/uplift/problem-section";
 import { HeroSectionSkeleton } from "@/components/skeleton/uplift/hero-section";
 import { ProductSectionSkeleton } from "@/components/skeleton/uplift/product-section";
@@ -20,7 +21,7 @@ import { headers } from 'next/headers';
 export default async function Home() {
   const headersList = headers();
   const locale = (await headersList).get('x-next-locale') || 'en';
-  
+
   // Load hero from database, other content from JSON
   const heroContent = await getLGPageDB(locale, 'home');
   const homePageContent = await getLGPageJSON(locale, 'home');
@@ -56,10 +57,11 @@ export default async function Home() {
           <Product />
         </Suspense>
         <Solution />
+        <HeroScrollDemo />
         <Suspense fallback={<ProblemSectionSkeleton />}>
-        <Service 
-          serviceSectionContent={servicesContent.service} 
-        />
+          <Service
+            serviceSectionContent={servicesContent.service}
+          />
         </Suspense>
         <Show />
         <Vision />

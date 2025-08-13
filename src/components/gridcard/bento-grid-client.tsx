@@ -1,13 +1,25 @@
-import { cn } from "@/lib/utils";
+"use client";
 
-// SSR-friendly base components without interactivity
-export const BentoGrid = ({
-  className,
-  children,
-}: {
+import React, { useState } from "react";
+import { cn } from "@/lib/utils";
+import { GlowingEffect } from "./glowing-effect";
+
+interface BentoGridClientProps {
   className?: string;
   children?: React.ReactNode;
-}) => {
+}
+
+interface BentoGridItemClientProps {
+  className?: string;
+  title?: string | React.ReactNode;
+  description?: string | React.ReactNode;
+  icon?: React.ReactNode;
+  image?: string;
+  bgColor?: string;
+  onClick?: () => void;
+}
+
+export const BentoGridClient = ({ className, children }: BentoGridClientProps) => {
   return (
     <div
       className={cn(
@@ -20,7 +32,7 @@ export const BentoGrid = ({
   );
 };
 
-export const BentoGridItem = ({
+export const BentoGridItemClient = ({
   className,
   title,
   description,
@@ -28,27 +40,28 @@ export const BentoGridItem = ({
   image,
   bgColor,
   onClick,
-}: {
-  className?: string;
-  title?: string | React.ReactNode;
-  description?: string | React.ReactNode;
-  icon?: React.ReactNode;
-  image?: string;
-  bgColor?: string;
-  onClick?: () => void;
-}) => {
+}: BentoGridItemClientProps) => {
   return (
     <div
       onClick={onClick}
       className={cn(
-        "group/bento row-span-1 h-full min-h-[14rem] list-none",
-        onClick && "cursor-pointer",
+        "group/bento row-span-1 h-full min-h-[14rem] list-none transition-all duration-300 ease-out",
+        onClick && "cursor-pointer hover:scale-[1.02] active:scale-[0.98]",
         className,
       )}
     >
       <div className="relative h-full rounded-2xl border p-2 md:rounded-3xl md:p-3">
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+        />
+        
         <div className={cn(
-          "relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-6",
+          "relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-6 transition-all duration-300",
+          onClick && "cursor-pointer hover:scale-[1.01]",
           bgColor || "bg-white dark:bg-black dark:shadow-[0px_0px_27px_0px_#2D2D2D]"
         )}>
           {/* Background Image with gradient overlay */}

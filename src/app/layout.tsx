@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Kanit } from "next/font/google";
 import Script from 'next/script';
 import AnalyticsProvider from "@/lib/analytics-provider";
 import { SonnerProvider } from "@/lib/sonner-provider";
@@ -14,6 +14,13 @@ import "@/style/globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+// Font Kanit
+const kanit = Kanit({
+  subsets: ["latin", "thai"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-kanit",
 });
 
 // SEO Metadata
@@ -113,7 +120,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="dark overflow-x-hidden">
       <body
-        className={`${inter.variable} antialiased w-full overflow-hidden`}
+        className={`${inter.variable} ${kanit.variable} antialiased w-full overflow-hidden`}
       >
         {/* Google Analytics - Global Site Tag (gtag.js) */}
         <Script

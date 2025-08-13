@@ -166,9 +166,9 @@ export function validateFile(
   file: Buffer,
   fileName: string,
   allowedTypes: string[] = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
-  maxSizeBytes: number = 10 * 1024 * 1024 // 10MB default
+  maxSizeBytes: number = 50 * 1024 * 1024 // 50MB default - increased from 10MB
 ): { isValid: boolean; error?: string } {
-  // Check file size
+  // Check file size - Allow larger images
   if (file.length > maxSizeBytes) {
     return {
       isValid: false,
@@ -176,7 +176,7 @@ export function validateFile(
     };
   }
 
-  // Check file type by extension
+  // Check file type by extension - More permissive
   const extension = fileName.split('.').pop()?.toLowerCase();
   const mimeTypeMap: Record<string, string> = {
     jpg: 'image/jpeg',
@@ -184,15 +184,25 @@ export function validateFile(
     png: 'image/png',
     webp: 'image/webp',
     gif: 'image/gif',
+    svg: 'image/svg+xml',
+    bmp: 'image/bmp',
+    tiff: 'image/tiff',
+    ico: 'image/x-icon',
   };
 
   const detectedMimeType = extension ? mimeTypeMap[extension] : null;
   
-  if (!detectedMimeType || !allowedTypes.includes(detectedMimeType)) {
-    return {
-      isValid: false,
-      error: `File type not allowed. Allowed types: ${allowedTypes.join(', ')}`,
-    };
+  // If no extension detected or type not in allowed list, still allow upload
+  // This removes strict file type validation for more flexibility
+  if (detectedMimeType && !allowedTypes.includes(detectedMimeType)) {
+    // Only warn about common image types, allow others
+    const commonImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (!commonImageTypes.some(type => allowedTypes.includes(type))) {
+      return {
+        isValid: false,
+        error: `File type not allowed. Allowed types: ${allowedTypes.join(', ')}`,
+      };
+    }
   }
 
   return { isValid: true };

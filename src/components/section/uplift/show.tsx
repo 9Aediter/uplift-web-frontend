@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '@/components/ui/section';
-import { ShowAnimate } from './show-animate';
+import { ReusableTabs } from '@/components/tabs/reuseable-tabs';
 
 const Show = React.forwardRef<HTMLDivElement>((props, ref) => {
     const projects = [
@@ -34,21 +34,21 @@ const Show = React.forwardRef<HTMLDivElement>((props, ref) => {
         <Section
             ref={ref}
             id="Show"
-            className="mx-auto h-[100vh] flex justify-center items-center bg-gradient-to-b from-black to-gray-900/30"
+            className="mx-auto h-[80vh] md:h-[120vh] flex justify-start items-center bg-gradient-to-b from-black to-gray-900/30 max-w-7xl px-8 flex-col"
         >
-            <div className="max-w-7xl px-8 flex flex-col h-fit">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
-                            Showcase
-                        </span>
-                    </h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto">
-                        Real systems built for real clients solving real problems.
-                    </p>
-                </div>
-                <ShowAnimate projects={projects} />
+
+            <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                    <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                        Showcase
+                    </span>
+                </h2>
+                <p className="text-gray-400 max-w-2xl mx-auto">
+                    Real systems built for real clients solving real problems.
+                </p>
             </div>
+            <ReusableTabs data={projects} />
+
         </Section>
     );
 });

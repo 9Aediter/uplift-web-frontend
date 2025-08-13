@@ -3,12 +3,13 @@ import { Hero } from "@/components/section/uplift/hero/heroai";
 import Problems from "@/components/section/uplift/problem";
 import Show from "@/components/section/uplift/show";
 import Service from "@/components/section/uplift/service";
-import Vision from "@/components/section/uplift/vision";
 // import Testimonials from "@/components/section/uplift/testimonials";
 import Footer from "@/components/footer/footer";
+import { DemoApp } from "@/components/section/uplift/demoapp";
 import { Product } from "@/components/section/uplift/product"
 import { Solution } from "@/components/section/uplift/solution"
-import { HeroScrollDemo } from "@/components/section/uplift/demoadmin";
+import { DemoAdmin } from "@/components/section/uplift/demoadmin";
+import { CalltoAction } from "@/components/section/uplift/cta";
 import { ProblemSectionSkeleton } from "@/components/skeleton/uplift/problem-section";
 import { HeroSectionSkeleton } from "@/components/skeleton/uplift/hero-section";
 import { ProductSectionSkeleton } from "@/components/skeleton/uplift/product-section";
@@ -50,21 +51,25 @@ export default async function Home() {
         <Suspense fallback={<HeroSectionSkeleton />}>
           <Hero heroContent={heroContent} />
         </Suspense>
-        <Suspense fallback={<ProblemSectionSkeleton />}>
-          <Problems problemSectionContent={homePageContent.problem_section} />
-        </Suspense>
+        <Problems />
+        {/* <Suspense fallback={<ProblemSectionSkeleton />}>
+          <Problems />
+        </Suspense> */}
         <Suspense fallback={<ProductSectionSkeleton />}>
           <Product />
         </Suspense>
+        <DemoApp />
+        <DemoAdmin />
         <Solution />
-        <HeroScrollDemo />
+        <Show />
         <Suspense fallback={<ProblemSectionSkeleton />}>
           <Service
             serviceSectionContent={servicesContent.service}
           />
         </Suspense>
-        <Show />
-        <Vision />
+
+        <CalltoAction />
+
 
       </main>
       <Footer />

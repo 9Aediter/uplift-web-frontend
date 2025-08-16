@@ -1,6 +1,6 @@
 import Nav from "@/components/nav/resnav";
 import { Hero } from "@/components/section/uplift/hero/heroai";
-import Problems from "@/components/section/uplift/problem";
+import Problems from "@/components/section/uplift/problem/problem";
 import Show from "@/components/section/uplift/show";
 import Service from "@/components/section/uplift/service";
 // import Testimonials from "@/components/section/uplift/testimonials";
@@ -51,10 +51,9 @@ export default async function Home() {
         <Suspense fallback={<HeroSectionSkeleton />}>
           <Hero heroContent={heroContent} />
         </Suspense>
-        <Problems />
-        {/* <Suspense fallback={<ProblemSectionSkeleton />}>
+        <Suspense fallback={<ProblemSectionSkeleton />}>
           <Problems />
-        </Suspense> */}
+        </Suspense>
         <Suspense fallback={<ProductSectionSkeleton />}>
           <Product />
         </Suspense>

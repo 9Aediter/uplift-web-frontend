@@ -4,26 +4,47 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const ProblemSectionSkeleton = () => {
   return (
-    <Section id="problem" className="bg-black flex flex-col justify-center h-full md:h-[100vh]">
-      <div className="w-full max-w-7xl px-8 mx-auto">
-        <div className="text-center mb-12">
-          <Skeleton className="h-10 w-3/4 mx-auto mb-4" /> {/* Title */}
-          <Skeleton className="h-6 w-1/2 mx-auto" /> {/* Description */}
+    <Section id="problem" className="bg-black flex flex-col justify-center py-30">
+      <div className="w-full max-w-7xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <Skeleton className="h-12 md:h-16 w-3/4 max-w-md mx-auto mb-6" /> {/* Title */}
+          <Skeleton className="h-6 w-2/3 max-w-2xl mx-auto" /> {/* Subtitle */}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(4)].map((_, index) => (
-            <div key={index} className="p-8 rounded-xl border-3 border-gray-800 bg-gray-900/50 group transition-all duration-300">
-              <div className="mb-4 relative">
-                <Skeleton className="absolute -left-2 -top-2 w-14 h-14 rounded-lg" /> {/* Icon background */}
-                <div className="ml-16 pl-2">
-                  <Skeleton className="h-6 w-3/4 mb-2" /> {/* Title */}
-                  <Skeleton className="h-4 w-full" /> {/* Description line 1 */}
-                  <Skeleton className="h-4 w-5/6 mt-1" /> {/* Description line 2 */}
+            <div key={index} className="relative h-80 bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 overflow-hidden">
+              {/* Background Gradient Line */}
+              <Skeleton className="absolute top-0 left-0 w-full h-1 rounded-none" />
+              
+              {/* Icon */}
+              <div className="mb-6 relative">
+                <Skeleton className="w-16 h-16 rounded-xl" />
+              </div>
+
+              {/* Content */}
+              <div className="space-y-4">
+                {/* Title */}
+                <Skeleton className="h-6 w-3/4" />
+                
+                {/* Description */}
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-2/3" />
                 </div>
               </div>
-              <div className="mt-4 flex items-center">
-                <Skeleton className="h-4 w-24 mr-2" /> {/* Industry Impact label */}
-                <Skeleton className="w-full h-1 rounded-full" /> {/* Progress bar */}
+
+              {/* Impact Badge */}
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/50 rounded-full px-4 py-2">
+                  <div className="flex items-center justify-between">
+                    <Skeleton className="h-3 w-12" />
+                    <Skeleton className="h-3 w-16" />
+                  </div>
+                </div>
               </div>
             </div>
           ))}

@@ -9,11 +9,23 @@ export interface Dictionary {
       title: string;
       description: string;
     };
-    timeline: Array<{
+    company?: {
+      title: string;
+      subtitle: string;
+      description: string;
+      timeline: Array<{
+        year: string;
+        title: string;
+        content: string;
+        achievements: string[];
+      }>;
+    };
+    timeline?: Array<{
       title: string;
       content: string;
     }>;
-    founder?: any; // Assuming founder might be an object, adjust as needed
+    founder?: any;
+    values?: any;
   };
   solutions: {
     title?: string;
@@ -30,8 +42,7 @@ export interface Dictionary {
       date: string;
       author: string;
       readTime: string;
-      icon?: any; // Assuming icon might be a React element or path, adjust as needed
+      icon?: any;
     }>;
   };
-  // Add other sections as needed
 }

@@ -8,8 +8,8 @@ export const Product = async () => {
     const products = await getAllInnovations({ limit: 6 });
     
     // Debug log for server issues
-    console.log('Products loaded:', products.length);
-    console.log('Sample coverImage:', products[0]?.coverImage);
+    // console.log('Products loaded:', products.length);
+    // console.log('Sample coverImage:', products[0]?.coverImage);
 
     const cards = products.map((product) => ({
         src: product.coverImage || '',

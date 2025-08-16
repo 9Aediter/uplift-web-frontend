@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { GlowingEffect } from "./glowing-effect";
 
@@ -67,10 +68,13 @@ export const BentoGridItemClient = ({
           {/* Background Image with gradient overlay */}
           {image && (
             <div className="absolute inset-0 z-0">
-              <img 
+              <Image 
                 src={image}
                 alt={typeof title === 'string' ? title : 'Solution'} 
-                className="w-full h-full object-cover rounded-xl"
+                fill
+                className="object-cover rounded-xl"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority={false}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 rounded-xl"></div>
             </div>

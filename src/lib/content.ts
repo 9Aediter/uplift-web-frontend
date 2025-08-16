@@ -14,12 +14,12 @@ export async function getLGPageJSON(
   pageName: string
 ): Promise<PageContent | null> {
   const filePath = path.join(contentDirectory, locale, `${pageName}.json`);
-  console.log(`[getLGPageJSON] Attempting to load: ${filePath}`);
+  // console.log(`[getLGPageJSON] Attempting to load: ${filePath}`);
 
   try {
     const fileContents = await fs.readFile(filePath, 'utf8');
     const content = JSON.parse(fileContents);
-    console.log(`[getLGPageJSON] Successfully loaded content for ${locale}/${pageName}`);
+    // console.log(`[getLGPageJSON] Successfully loaded content for ${locale}/${pageName}`);
     return content;
   } catch (error) {
     console.error(`[getLGPageJSON] Failed to load localized content for ${locale}/${pageName}:`, error);

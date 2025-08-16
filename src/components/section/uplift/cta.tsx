@@ -10,7 +10,7 @@ export function CalltoAction() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle newsletter subscription
-    console.log("Newsletter subscription:", email);
+    // console.log("Newsletter subscription:", email);
     setEmail("");
   };
 
@@ -22,31 +22,31 @@ export function CalltoAction() {
         
         {/* Glowing tech lines */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-1/4 left-1/4 w-96 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent rotate-45 animate-pulse"></div>
-          <div className="absolute top-3/4 right-1/4 w-80 h-0.5 bg-gradient-to-r from-transparent via-purple-500 to-transparent -rotate-45 animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent rotate-90 animate-pulse delay-2000"></div>
+          <div className="absolute top-1/4 left-1/4 w-48 sm:w-72 md:w-96 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent rotate-45 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-40 sm:w-64 md:w-80 h-0.5 bg-gradient-to-r from-transparent via-purple-500 to-transparent -rotate-45 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 w-32 sm:w-48 md:w-64 h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent rotate-90 animate-pulse delay-2000"></div>
         </div>
 
         {/* Abstract geometric shapes */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-32 h-32 border border-blue-500 rounded-full animate-spin-slow"></div>
-          <div className="absolute bottom-20 right-20 w-24 h-24 border border-purple-500 rounded-lg rotate-45 animate-bounce-slow"></div>
-          <div className="absolute top-1/2 right-40 w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full animate-pulse"></div>
+          <div className="absolute top-10 sm:top-20 left-10 sm:left-20 w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 border border-blue-500 rounded-full animate-spin-slow"></div>
+          <div className="absolute bottom-10 sm:bottom-20 right-10 sm:right-20 w-12 sm:w-18 md:w-24 h-12 sm:h-18 md:h-24 border border-purple-500 rounded-lg rotate-45 animate-bounce-slow"></div>
+          <div className="absolute top-1/2 right-10 sm:right-20 md:right-40 w-8 sm:w-12 md:w-16 h-8 sm:h-12 md:h-16 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full animate-pulse"></div>
         </div>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
         {/* Main CTA Card */}
         <motion.div 
-          className="bg-white rounded-3xl p-12 md:p-16 shadow-2xl shadow-blue-500/10 backdrop-blur-sm mx-auto max-w-7xl"
+          className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 shadow-2xl shadow-blue-500/10 backdrop-blur-sm mx-auto max-w-7xl"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="text-center space-y-8">
+          <div className="text-center space-y-6 sm:space-y-8">
             {/* Headline */}
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+            <div className="space-y-3 sm:space-y-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight px-2 sm:px-0">
                 Build Your Next{" "}
                 <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
                   Big Thing
@@ -55,41 +55,41 @@ export function CalltoAction() {
                 with Uplift Technology
               </h1>
               
-              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
                 Custom software solutions, from concept to launch. Empower your business 
                 with our cutting-edge technology and transform your ideas into reality.
               </p>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
               <motion.button 
-                className="bg-black text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center space-x-3 hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl group"
+                className="w-full sm:w-auto bg-black text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center justify-center space-x-2 sm:space-x-3 hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl group min-w-0"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <FaRocket className="text-white group-hover:animate-bounce" />
-                <span>Start Your Project</span>
-                <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                <FaRocket className="text-white group-hover:animate-bounce flex-shrink-0" />
+                <span className="truncate">Start Your Project</span>
+                <FaArrowRight className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
               </motion.button>
 
               <motion.button 
-                className="border-2 border-gray-300 text-gray-800 px-8 py-4 rounded-full font-semibold text-lg hover:border-gray-800 hover:bg-gray-50 transition-all duration-300"
+                className="w-full sm:w-auto border-2 border-gray-300 text-gray-800 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg hover:border-gray-800 hover:bg-gray-50 transition-all duration-300 min-w-0"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Get Free Consultation
+                <span className="truncate">Get Free Consultation</span>
               </motion.button>
             </div>
 
             {/* Trust indicators */}
-            <div className="pt-8 border-t border-gray-200">
-              <p className="text-sm text-gray-500 mb-4">Trusted by innovative companies worldwide</p>
-              <div className="flex justify-center items-center space-x-8 opacity-60">
-                <div className="text-2xl font-bold text-gray-400">STARTUP</div>
-                <div className="text-2xl font-bold text-gray-400">FINTECH</div>
-                <div className="text-2xl font-bold text-gray-400">ECOMMERCE</div>
-                <div className="text-2xl font-bold text-gray-400">HEALTHCARE</div>
+            <div className="pt-6 sm:pt-8 border-t border-gray-200">
+              <p className="text-sm text-gray-500 mb-3 sm:mb-4 px-2 sm:px-0">Trusted by innovative companies worldwide</p>
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 opacity-60">
+                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-400">STARTUP</div>
+                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-400">FINTECH</div>
+                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-400">ECOMMERCE</div>
+                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-400">HEALTHCARE</div>
               </div>
             </div>
           </div>

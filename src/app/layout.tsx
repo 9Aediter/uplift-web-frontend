@@ -8,6 +8,7 @@ import { AuthProvider } from "@/lib/auth-provider";
 import { ErrorHandler } from "@/components/error-handler";
 import { getDictionary } from '@/lib/i18n'
 import { headers } from 'next/headers'
+import { jsonLd, organizationSchema, websiteSchema, breadcrumbSchema, abs } from '@/lib/schema'
 import "@/style/globals.css";
 
 // Font Inter
@@ -23,31 +24,7 @@ const kanit = Kanit({
   variable: "--font-kanit",
 });
 
-// SEO Metadata
-// export const metadata: Metadata = {
-//   title: "UPLIFT",
-//   description: "Uplift your Business with IT Solutions",
-//   keywords: ["UPLIFT", "CMS", "ระบบจัดการเว็บไซต์", "Next.js", "Prisma", "Tailwind"],
-//   authors: [{ name: "Uplift Team" }],
-//   creator: "UPLIFT",
-//   metadataBase: new URL("https://uplifttech.dev"),
-//   openGraph: {
-//     title: "UPLIFT CMS",
-//     description: "Uplift your Business with IT Solutions",
-//     url: "https://uplifttech.store",
-//     siteName: "UPLIFT",
-//     type: "website",
-//   },
-//   robots: {
-//     index: true,
-//     follow: true,
-//     googleBot: {
-//       index: true,
-//       follow: true,
-//     },
-//   },
-// };
-
+// Metadata (Title and meta tags) generation for the root layout
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers()
   const locale = headersList.get('x-next-locale') || 'en'
@@ -141,6 +118,22 @@ export default async function RootLayout({
             `,
           }}
         />
+        
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLd([
+              organizationSchema(locale),
+              websiteSchema(locale),
+              breadcrumbSchema([{
+                name: locale === 'th' ? 'หน้าแรก' : 'Home',
+                item: abs(locale === 'en' ? '/' : `/${locale}`)
+              }])
+            ])
+          }}
+        />
+        
         <AnalyticsProvider />
         <AuthProvider>
           <ModalProvider>

@@ -4,18 +4,9 @@ import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { Calendar as CalendarIcon, Clock, User, Mail, Phone, MessageSquare, FileText, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { FloatingInput, FloatingTextarea, FloatingSelect } from '@/components/ui/floating-input';
 import { Calendar } from '@/components/ui/calendar';
 import { TimePicker } from '@/components/ui/time-picker';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import {
   Card,
   CardContent,
@@ -168,128 +159,123 @@ export function ConsultationForm() {
   };
 
   const renderStep1 = () => (
-    <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle className="text-white flex items-center gap-2">
-          <User className="h-5 w-5 text-cyan-400" />
+    <Card className="border-gray-700/30 bg-gray-800/30 backdrop-blur-sm shadow-2xl">
+      <CardHeader className="pb-8">
+        <CardTitle className="text-white flex items-center gap-3 text-xl">
+          <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
+            <User className="h-5 w-5 text-white" />
+          </div>
           Basic Information
         </CardTitle>
-        <CardDescription className="text-gray-400">
-          Tell us about yourself and what system interests you
+        <CardDescription className="text-gray-300 text-base">
+          Tell us about yourself and what system interests you most
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="name" className="text-white">Full Name *</Label>
-            <Input
-              id="name"
-              value={formData.name}
-              onChange={(e) => updateFormData('name', e.target.value)}
-              placeholder="Your full name"
-              className="bg-gray-700 border-gray-600 text-white"
-              required
-            />
-          </div>
-          <div>
-            <Label htmlFor="company" className="text-white">Company</Label>
-            <Input
-              id="company"
-              value={formData.company}
-              onChange={(e) => updateFormData('company', e.target.value)}
-              placeholder="Your company name (optional)"
-              className="bg-gray-700 border-gray-600 text-white"
-            />
-          </div>
+      <CardContent className="space-y-8 p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <FloatingInput
+            label="Full Name"
+            value={formData.name}
+            onChange={(e) => updateFormData('name', e.target.value)}
+            required
+            className="text-base"
+          />
+          <FloatingInput
+            label="Company Name"
+            value={formData.company || ''}
+            onChange={(e) => updateFormData('company', e.target.value)}
+            className="text-base"
+          />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="email" className="text-white">Email Address *</Label>
-            <Input
-              id="email"
-              type="email"
-              value={formData.email}
-              onChange={(e) => updateFormData('email', e.target.value)}
-              placeholder="your.email@company.com"
-              className="bg-gray-700 border-gray-600 text-white"
-              required
-            />
-          </div>
-          <div>
-            <Label htmlFor="phone" className="text-white">Phone Number</Label>
-            <Input
-              id="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => updateFormData('phone', e.target.value)}
-              placeholder="+66 xx xxx xxxx"
-              className="bg-gray-700 border-gray-600 text-white"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <FloatingInput
+            label="Email Address"
+            type="email"
+            value={formData.email}
+            onChange={(e) => updateFormData('email', e.target.value)}
+            required
+            className="text-base"
+          />
+          <FloatingInput
+            label="Phone Number"
+            type="tel"
+            value={formData.phone}
+            onChange={(e) => updateFormData('phone', e.target.value)}
+            className="text-base"
+          />
         </div>
 
         <div>
-          <Label htmlFor="system" className="text-white">System of Interest *</Label>
-          <Select value={formData.interestedSystem} onValueChange={(value) => updateFormData('interestedSystem', value)}>
-            <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-              <SelectValue placeholder="Select the system you're interested in" />
-            </SelectTrigger>
-            <SelectContent className="bg-gray-700 border-gray-600">
-              {INTERESTED_SYSTEMS.map((system) => (
-                <SelectItem key={system.value} value={system.value} className="text-white">
-                  {system.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <FloatingSelect
+            label="System of Interest"
+            value={formData.interestedSystem}
+            onValueChange={(value) => updateFormData('interestedSystem', value)}
+            required
+            options={INTERESTED_SYSTEMS}
+          >
+            {INTERESTED_SYSTEMS.map((system) => (
+              <div key={system.value} data-value={system.value}>
+                {system.label}
+              </div>
+            ))}
+          </FloatingSelect>
         </div>
       </CardContent>
     </Card>
   );
 
   const renderStep2 = () => (
-    <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle className="text-white flex items-center gap-2">
-          <MessageSquare className="h-5 w-5 text-cyan-400" />
+    <Card className="border-gray-700/30 bg-gray-800/30 backdrop-blur-sm shadow-2xl">
+      <CardHeader className="pb-8">
+        <CardTitle className="text-white flex items-center gap-3 text-xl">
+          <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center">
+            <MessageSquare className="h-5 w-5 text-white" />
+          </div>
           Project Details
         </CardTitle>
-        <CardDescription className="text-gray-400">
-          Describe your project and requirements in detail
+        <CardDescription className="text-gray-300 text-base">
+          Tell us about your project vision and technical requirements
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-8 p-8">
         <div>
-          <Label htmlFor="description" className="text-white">Project Description *</Label>
-          <Textarea
-            id="description"
+          <FloatingTextarea
+            label="Project Description"
             value={formData.projectDescription}
             onChange={(e) => updateFormData('projectDescription', e.target.value)}
-            placeholder="Please describe your project, current challenges, and what you hope to achieve..."
-            className="bg-gray-700 border-gray-600 text-white min-h-[120px]"
             required
+            rows={6}
+            className="text-base min-h-[140px]"
           />
+          <p className="text-gray-400 text-sm mt-3">
+            Describe your project goals, current challenges, and what you hope to achieve
+          </p>
         </div>
 
         <div>
-          <Label htmlFor="requirements" className="text-white">Technical Requirements</Label>
-          <Textarea
-            id="requirements"
-            value={formData.requirements}
+          <FloatingTextarea
+            label="Technical Requirements"
+            value={formData.requirements || ''}
             onChange={(e) => updateFormData('requirements', e.target.value)}
-            placeholder="Any specific technical requirements, integrations, or constraints? (Optional)"
-            className="bg-gray-700 border-gray-600 text-white min-h-[100px]"
+            rows={4}
+            className="text-base min-h-[120px]"
           />
+          <p className="text-gray-400 text-sm mt-3">
+            Any specific technical requirements, integrations, or constraints? (Optional)
+          </p>
         </div>
 
-        <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg">
-          <div className="flex items-start gap-3">
-            <FileText className="h-5 w-5 text-cyan-400 mt-0.5" />
+        <div className="p-6 bg-gradient-to-r from-cyan-900/20 to-blue-900/20 border border-cyan-500/20 rounded-xl backdrop-blur-sm">
+          <div className="flex items-start gap-4">
+            <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <FileText className="h-4 w-4 text-white" />
+            </div>
             <div>
-              <h4 className="text-cyan-400 font-medium">Have documents to share?</h4>
-              <p className="text-gray-300 text-sm mt-1">
-                You can share detailed requirements, wireframes, or project documents during our consultation call.
+              <h4 className="text-cyan-300 font-semibold text-base mb-2">Have documents to share?</h4>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                You can share detailed requirements, wireframes, technical specifications, or project documents 
+                during our consultation call. We'll review them together and provide tailored recommendations.
               </p>
             </div>
           </div>
@@ -299,74 +285,100 @@ export function ConsultationForm() {
   );
 
   const renderStep3 = () => (
-    <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle className="text-white flex items-center gap-2">
-          <CalendarIcon className="h-5 w-5 text-cyan-400" />
+    <Card className="border-gray-700/30 bg-gray-800/30 backdrop-blur-sm shadow-2xl">
+      <CardHeader className="pb-8">
+        <CardTitle className="text-white flex items-center gap-3 text-xl">
+          <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+            <CalendarIcon className="h-5 w-5 text-white" />
+          </div>
           Schedule Your Consultation
         </CardTitle>
-        <CardDescription className="text-gray-400">
-          Choose your preferred date and time for the consultation
+        <CardDescription className="text-gray-300 text-base">
+          Choose your preferred date and time for our 30-minute consultation
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-8 p-8">
         {/* Calendar and Time Picker Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Calendar */}
           <div>
-            <Label className="text-white text-base font-medium mb-3 block">Select Date *</Label>
-            <Calendar
-              selectedDate={formData.preferredDate}
-              onDateSelect={(date) => {
-                updateFormData('preferredDate', date);
-                // Clear time selection when date changes
-                if (formData.preferredTime) {
-                  updateFormData('preferredTime', '');
-                }
-              }}
-              minDate={new Date()}
-            />
+            <div className="text-white text-lg font-medium mb-4 flex items-center gap-2">
+              <CalendarIcon className="h-5 w-5 text-cyan-400" />
+              Select Date *
+            </div>
+            <div className="bg-gray-700/30 backdrop-blur-sm border border-gray-600/30 rounded-xl p-4">
+              <Calendar
+                selectedDate={formData.preferredDate}
+                onDateSelect={(date) => {
+                  updateFormData('preferredDate', date);
+                  // Clear time selection when date changes
+                  if (formData.preferredTime) {
+                    updateFormData('preferredTime', '');
+                  }
+                }}
+                minDate={new Date()}
+              />
+            </div>
           </div>
 
           {/* Time Picker */}
           <div>
-            <Label className="text-white text-base font-medium mb-3 block">Select Time *</Label>
-            <TimePicker
-              selectedTime={formData.preferredTime}
-              onTimeSelect={(time) => updateFormData('preferredTime', time)}
-              selectedDate={formData.preferredDate}
-            />
+            <div className="text-white text-lg font-medium mb-4 flex items-center gap-2">
+              <Clock className="h-5 w-5 text-green-400" />
+              Select Time *
+            </div>
+            <div className="bg-gray-700/30 backdrop-blur-sm border border-gray-600/30 rounded-xl p-4">
+              <TimePicker
+                selectedTime={formData.preferredTime}
+                onTimeSelect={(time) => updateFormData('preferredTime', time)}
+                selectedDate={formData.preferredDate}
+              />
+            </div>
           </div>
         </div>
 
         {/* Timezone Selection */}
         <div>
-          <Label htmlFor="timezone" className="text-white">Timezone</Label>
-          <Select value={formData.timezone} onValueChange={(value) => updateFormData('timezone', value)}>
-            <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-gray-700 border-gray-600">
-              {TIMEZONES.map((tz) => (
-                <SelectItem key={tz.value} value={tz.value} className="text-white">
-                  {tz.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <FloatingSelect
+            label="Timezone"
+            value={formData.timezone}
+            onValueChange={(value) => updateFormData('timezone', value)}
+            placeholder="Select your timezone"
+            options={TIMEZONES}
+          >
+            {TIMEZONES.map((tz) => (
+              <div key={tz.value} data-value={tz.value}>
+                {tz.label}
+              </div>
+            ))}
+          </FloatingSelect>
         </div>
 
         {/* What to expect section */}
-        <div className="p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
-          <div className="flex items-start gap-3">
-            <Clock className="h-5 w-5 text-green-400 mt-0.5" />
+        <div className="p-6 bg-gradient-to-r from-green-900/20 to-emerald-900/20 border border-green-500/20 rounded-xl backdrop-blur-sm">
+          <div className="flex items-start gap-4">
+            <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <Clock className="h-4 w-4 text-white" />
+            </div>
             <div>
-              <h4 className="text-green-400 font-medium">What to expect</h4>
-              <ul className="text-gray-300 text-sm mt-2 space-y-1">
-                <li>• 30-minute consultation call</li>
-                <li>• Expert analysis of your requirements</li>
-                <li>• Personalized technology recommendations</li>
-                <li>• Next steps and project timeline discussion</li>
+              <h4 className="text-green-300 font-semibold text-base mb-3">What to expect during your consultation</h4>
+              <ul className="text-gray-300 text-sm space-y-2">
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                  30-minute consultation call with our senior experts
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                  Comprehensive analysis of your project requirements
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                  Personalized technology recommendations and solutions
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                  Clear next steps, timeline, and investment estimates
+                </li>
               </ul>
             </div>
           </div>
@@ -376,7 +388,7 @@ export function ConsultationForm() {
   );
 
   return (
-    <div className="space-y-6">
+    <div id="consultation-form" className="space-y-6">
       {/* Progress Indicator */}
       <div className="flex items-center justify-center space-x-4 mb-8">
         {[1, 2, 3].map((step) => (
@@ -407,12 +419,12 @@ export function ConsultationForm() {
       {currentStep === 3 && renderStep3()}
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between pt-6">
+      <div className="flex justify-between items-center pt-8">
         <Button
           onClick={prevStep}
           variant="outline"
           disabled={currentStep === 1}
-          className="border-gray-600 text-gray-300 hover:bg-gray-700"
+          className="border-gray-600/50 text-gray-300 hover:bg-gray-700/50 hover:border-gray-500 backdrop-blur-sm px-6 py-3 text-base disabled:opacity-30"
         >
           Previous
         </Button>
@@ -420,7 +432,7 @@ export function ConsultationForm() {
         {currentStep < 3 ? (
           <Button
             onClick={nextStep}
-            className="bg-cyan-500 hover:bg-cyan-600 text-white"
+            className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-3 text-base font-semibold shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
           >
             Next Step
           </Button>
@@ -428,16 +440,16 @@ export function ConsultationForm() {
           <Button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white"
+            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-3 text-base font-semibold shadow-lg hover:shadow-green-500/25 transition-all duration-300 disabled:opacity-50"
           >
             {isSubmitting ? (
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Sending...
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Sending Request...
               </div>
             ) : (
-              <div className="flex items-center gap-2">
-                <Send className="h-4 w-4" />
+              <div className="flex items-center gap-3">
+                <Send className="h-5 w-5" />
                 Send Consultation Request
               </div>
             )}

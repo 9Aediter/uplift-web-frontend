@@ -26,7 +26,7 @@ export async function getLGPageDB(
   pageSlug: string = 'home'
 ): Promise<HeroContent | null> {
   try {
-    console.log(`[getLGPageDB] Loading ${pageSlug} hero for locale: ${locale}`);
+    // console.log(`[getLGPageDB] Loading ${pageSlug} hero for locale: ${locale}`);
 
     const content = await prisma.content.findFirst({
       where: {
@@ -62,7 +62,7 @@ export async function getLGPageDB(
       explore_button: content.buttons.find(b => b.label === 'Explore Button')?.text || 'Explore Our Innovations'
     };
 
-    console.log(`[getLGPageDB] Successfully loaded hero content for ${pageSlug}/${locale}`);
+    // console.log(`[getLGPageDB] Successfully loaded hero content for ${pageSlug}/${locale}`);
     return heroContent;
   } catch (error) {
     console.error(`[getLGPageDB] Error loading hero content for ${pageSlug}/${locale}:`, error);
@@ -78,7 +78,7 @@ export async function getLocalizedPageContentFromDB(
   pageName: string
 ): Promise<PageContent | null> {
   try {
-    console.log(`[getLocalizedPageContentFromDB] Loading content for ${locale}/${pageName}`);
+    // console.log(`[getLocalizedPageContentFromDB] Loading content for ${locale}/${pageName}`);
 
     // Load hero section from database
     const heroContent = await getLGPageDB(locale, pageName);
@@ -103,11 +103,11 @@ export async function getLocalizedPageContentFromDB(
         console.warn(`[getLocalizedPageContentFromDB] JSON fallback failed for ${locale}/${pageName}:`, jsonError);
       }
 
-      console.log(`[getLocalizedPageContentFromDB] Successfully loaded content from database for ${locale}/${pageName}`);
+      // console.log(`[getLocalizedPageContentFromDB] Successfully loaded content from database for ${locale}/${pageName}`);
       return content;
     } else {
       // Fallback to original JSON loader
-      console.log(`[getLocalizedPageContentFromDB] Falling back to JSON for ${locale}/${pageName}`);
+      // console.log(`[getLocalizedPageContentFromDB] Falling back to JSON for ${locale}/${pageName}`);
       const { getLGPageJSON } = await import('./content');
       return await getLGPageJSON(locale, pageName);
     }

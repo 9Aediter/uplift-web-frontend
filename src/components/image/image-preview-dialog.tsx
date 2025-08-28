@@ -4,26 +4,26 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { formatBytes, formatDate } from '@/lib/utils';
+import { useUsersStore } from '@/lib/store/users';
 
 interface Image {
   id: string;
-  url: string;
-  key: string;
-  originalName: string;
-  contentType: string;
+  filename: string;
+  s3Key: string;
+  s3Url: string;
+  thumbnailUrl: string;
+  mimeType: string;
   size: number;
-  uploadType: string;
+  width: number;
+  height: number;
   usageCount: number;
   isActive: boolean;
+  category: string;
+  tags: string[];
+  altText: string;
+  uploadedBy: string; // User ID only
   createdAt: string;
-  uploader?: {
-    id: string;
-    profile?: {
-      displayName?: string;
-      firstName?: string;
-      lastName?: string;
-    };
-  };
+  updatedAt: string;
 }
 
 interface ImagePreviewDialogProps {
@@ -41,15 +41,23 @@ export function ImagePreviewDialog({
   onDelete, 
   onToggleStatus 
 }: ImagePreviewDialogProps) {
+  const { users } = useUsersStore();
+
+  // Helper function to get user name by ID
+  const getUserName = (userId: string) => {
+    const user = users.find(u => u.id === userId);
+    return user ? (user.name || user.email || 'Unknown User') : 'Unknown User';
+  };
+
   if (!image) return null;
 
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText(image.url);
+    navigator.clipboard.writeText(image.s3Url);
     toast.success('Image URL copied to clipboard');
   };
 
   const handleDelete = () => {
-    if (confirm(`Are you sure you want to delete "${image.originalName}"?`)) {
+    if (confirm(`Are you sure you want to delete "${image.filename}"?`)) {
       onDelete?.(image);
       onClose();
     }
@@ -63,13 +71,13 @@ export function ImagePreviewDialog({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle>{image.originalName}</DialogTitle>
+          <DialogTitle>{image.filename}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div className="flex justify-center">
             <img
-              src={image.url}
-              alt={image.originalName}
+              src={image.s3Url}
+              alt={image.altText || image.filename}
               className="max-w-full max-h-96 object-contain rounded-lg border"
             />
           </div>
@@ -78,10 +86,10 @@ export function ImagePreviewDialog({
               <strong>File Size:</strong> {formatBytes(image.size)}
             </div>
             <div>
-              <strong>Type:</strong> {image.contentType}
+              <strong>Type:</strong> {image.mimeType}
             </div>
             <div>
-              <strong>Upload Type:</strong> {image.uploadType}
+              <strong>Category:</strong> {image.category}
             </div>
             <div>
               <strong>Usage Count:</strong> {image.usageCount}
@@ -94,9 +102,7 @@ export function ImagePreviewDialog({
             </div>
             <div className="col-span-2">
               <strong>Uploaded by:</strong>{' '}
-              {image.uploader?.profile?.displayName ||
-               `${image.uploader?.profile?.firstName || ''} ${image.uploader?.profile?.lastName || ''}`.trim() ||
-               'Unknown'}
+              {getUserName(image.uploadedBy)}
             </div>
           </div>
           <div className="flex justify-end space-x-2">

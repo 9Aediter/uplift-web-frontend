@@ -29,7 +29,6 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
-    domains: ["uplift-uploads.s3.ap-southeast-1.amazonaws.com"],
   },
   
 

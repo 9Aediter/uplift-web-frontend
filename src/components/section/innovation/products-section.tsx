@@ -3,17 +3,61 @@ import React from 'react'
 import { Section } from '@/components/ui/section'
 import { IconMap, getGradient } from '@/data/products';
 import { CheckIcon } from 'lucide-react';
-import { getAllInnovations, type ProductDetail } from '@/lib/actions/innovationActions';
+// Mock data for products
+const mockProducts = [
+  {
+    id: '1',
+    title: 'Smart ERP System',
+    subtitle: 'Enterprise Management',
+    slug: 'smart-erp-system',
+    description: 'Complete business management solution with advanced features',
+    features: [
+      { title: 'Real-time Analytics', description: 'Live business insights', icon: 'BarChart3' },
+      { title: 'Multi-user Access', description: 'Role-based permissions', icon: 'Users' },
+      { title: 'Cloud Integration', description: 'Seamless cloud sync', icon: 'Cloud' }
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&h=300&fit=crop',
+    category: 'ERP'
+  },
+  {
+    id: '2',
+    title: 'Modern POS Solution',
+    subtitle: 'Retail Technology',
+    slug: 'modern-pos-solution', 
+    description: 'Advanced point-of-sale system for modern retail businesses',
+    features: [
+      { title: 'Inventory Management', description: 'Real-time stock tracking', icon: 'Package' },
+      { title: 'Payment Processing', description: 'Multiple payment methods', icon: 'CreditCard' },
+      { title: 'Sales Reports', description: 'Detailed analytics', icon: 'TrendingUp' }
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop',
+    category: 'POS'
+  },
+  {
+    id: '3',
+    title: 'Web Application Platform',
+    subtitle: 'Custom Development',
+    slug: 'web-app-platform',
+    description: 'Scalable web application development platform',
+    features: [
+      { title: 'Custom Development', description: 'Tailored solutions', icon: 'Code' },
+      { title: 'Responsive Design', description: 'Mobile-first approach', icon: 'Smartphone' },
+      { title: 'API Integration', description: 'Connect everything', icon: 'Link' }
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500&h=300&fit=crop',
+    category: 'Web App'
+  }
+];
+
+type ProductDetail = typeof mockProducts[0];
 
 interface ProductsSectionProps {
   products?: ProductDetail[];
 }
 
 const ProductsSection = async ({ products: propsProducts }: ProductsSectionProps) => {
-  // If products are not passed as props, fetch them server-side
-  const products = propsProducts || await getAllInnovations({ 
-    language: 'en' // Default to English, can be made dynamic based on locale
-  });
+  // Use props or fallback to mock data
+  const products = propsProducts || mockProducts;
 
   if (!products || products.length === 0) {
     return <div className="text-center py-10 text-gray-500">No products available</div>;

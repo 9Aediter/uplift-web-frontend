@@ -11,29 +11,26 @@ import {
 } from '@/components/ui/tooltip';
 import { formatBytes, formatDate } from '@/lib/utils';
 import { EyeIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { useUsersStore } from '@/lib/store/users';
 
 interface Image {
   id: string;
-  url: string;
-  key: string;
-  originalName: string;
-  contentType: string;
+  filename: string;
+  s3Key: string;
+  s3Url: string;
+  thumbnailUrl: string;
+  mimeType: string;
   size: number;
-  uploadType: string;
+  width: number;
+  height: number;
   usageCount: number;
   isActive: boolean;
+  category: string;
+  tags: string[];
+  altText: string;
+  uploadedBy: string; // User ID only
   createdAt: string;
-  uploader?: {
-    id: string;
-    profile?: {
-      displayName?: string;
-      firstName?: string;
-      lastName?: string;
-    };
-  };
-  _count?: {
-    products: number;
-  };
+  updatedAt: string;
 }
 
 interface ImageCardViewProps {
@@ -50,6 +47,13 @@ export function ImageCardView({
   onToggleStatus 
 }: ImageCardViewProps) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const { users } = useUsersStore();
+
+  // Helper function to get user name by ID
+  const getUserName = (userId: string) => {
+    const user = users.find(u => u.id === userId);
+    return user ? (user.name || user.email || 'Unknown User') : 'Unknown User';
+  };
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 p-6">
@@ -63,8 +67,8 @@ export function ImageCardView({
         >
           {/* Image */}
           <img
-            src={image.url}
-            alt={image.originalName}
+            src={image.thumbnailUrl || image.s3Url}
+            alt={image.altText || image.filename}
             className="w-full h-full object-cover"
           />
           
@@ -89,19 +93,17 @@ export function ImageCardView({
             <div className="absolute inset-0 bg-black/60 flex flex-col justify-between p-3 text-white text-xs">
               {/* Top Info */}
               <div className="space-y-1">
-                <p className="font-medium truncate">{image.originalName}</p>
+                <p className="font-medium truncate">{image.filename}</p>
                 <p className="text-gray-300">{formatBytes(image.size)}</p>
                 <Badge variant="outline" className="text-xs border-white/30 text-white">
-                  {image.uploadType}
+                  {image.category}
                 </Badge>
               </div>
 
               {/* Bottom Info */}
               <div className="space-y-1">
                 <p className="text-gray-300">
-                  By: {image.uploader?.profile?.displayName ||
-                       `${image.uploader?.profile?.firstName || ''} ${image.uploader?.profile?.lastName || ''}`.trim() ||
-                       'Unknown'}
+                  By: {getUserName(image.uploadedBy)}
                 </p>
                 <p className="text-gray-300">{formatDate(image.createdAt)}</p>
                 

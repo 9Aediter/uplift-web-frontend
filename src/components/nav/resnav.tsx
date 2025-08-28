@@ -21,7 +21,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { useRouter, usePathname } from 'next/navigation';
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/lib/store/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { NavSheet } from "./nav-sheet";
 import { MobileNavSheet } from "./mobile-nav-sheet";
@@ -52,7 +52,7 @@ export default function DesktopNav() {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const { data: session, status } = useSession();
+    const { user, status } = useAuth();
 
     const handleLanguageSwitch = () => {
         const currentLocale = pathname.split('/')[1]; // Get current locale from path (e.g., 'en' from '/en/story')
@@ -70,21 +70,21 @@ export default function DesktopNav() {
                     <NavItems items={navItems} />
                     <div className="flex items-center gap-4">
                         {/* Show avatar if logged in, otherwise show language switcher */}
-                        {status === "authenticated" && session?.user ? (
+                        {status === "authenticated" && user ? (
                             <Sheet open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
                                 <SheetTrigger asChild>
                                     <Button variant="ghost" size="icon" className="rounded-full p-0 h-10 w-10">
                                         <Avatar className="h-8 w-8">
-                                            <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                                            <AvatarImage src={user.avatar || ""} alt={user.name || "User"} />
                                             <AvatarFallback className="text-xs">
-                                                {session.user.name?.charAt(0) || session.user.email?.charAt(0) || "U"}
+                                                {user.name?.charAt(0) || user.email?.charAt(0) || "U"}
                                             </AvatarFallback>
                                         </Avatar>
                                     </Button>
                                 </SheetTrigger>
                                 <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                                     <NavSheet 
-                                        user={session.user}
+                                        user={user}
                                         onClose={() => setIsUserMenuOpen(false)}
                                         onLanguageSwitch={() => {
                                             handleLanguageSwitch();
@@ -115,12 +115,12 @@ export default function DesktopNav() {
 
                         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                             <SheetTrigger asChild>
-                                {status === "authenticated" && session?.user ? (
+                                {status === "authenticated" && user ? (
                                     <Button variant="ghost" size="icon" className="rounded-full p-0 h-10 w-10">
                                         <Avatar className="h-8 w-8">
-                                            <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                                            <AvatarImage src={user.avatar || ""} alt={user.name || "User"} />
                                             <AvatarFallback className="text-xs">
-                                                {session.user.name?.charAt(0) || session.user.email?.charAt(0) || "U"}
+                                                {user.name?.charAt(0) || user.email?.charAt(0) || "U"}
                                             </AvatarFallback>
                                         </Avatar>
                                     </Button>
@@ -132,7 +132,7 @@ export default function DesktopNav() {
                             </SheetTrigger>
                             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                                 <MobileNavSheet
-                                    user={session?.user}
+                                    user={user}
                                     navItems={navItems}
                                     isOpen={isMobileMenuOpen}
                                     onClose={() => setIsMobileMenuOpen(false)}

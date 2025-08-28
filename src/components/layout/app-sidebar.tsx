@@ -29,6 +29,27 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { mockWebsitePages } from "@/data/website-pages"
+
+// Generate website pages dynamically from mock data
+const generateWebsiteNavItems = () => {
+  const publishedPages = mockWebsitePages.filter(page => page.status === 'published')
+  
+  return [
+    {
+      title: "All Pages",
+      url: "/admin/website",
+    },
+    {
+      title: "Create Page", 
+      url: "/admin/website/create",
+    },
+    ...publishedPages.map(page => ({
+      title: page.title,
+      url: `/admin/website/${page.id}`,
+    }))
+  ]
+}
 
 const data = {
   user: {
@@ -68,24 +89,7 @@ const data = {
       title: "Website",
       icon: IconWorld,
       url: "/admin/website",
-      items: [
-        {
-          title: "Website",
-          url: "/admin/website",
-        },
-        {
-          title: "Home Page",
-          url: "/admin/website/home",
-        },
-        {
-          title: "About Page",
-          url: "/admin/website/about",
-        },
-        {
-          title: "Contact Page",
-          url: "/admin/website/contact",
-        },
-      ],
+      items: generateWebsiteNavItems(),
     },
     {
       title: "Products",

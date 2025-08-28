@@ -60,7 +60,7 @@ export const StaticSubheading: React.FC<SubheadingProps> = ({ text }) => (
 
 export const StaticActionButtons: React.FC<ActionButtonsProps> = ({ launchText, exploreText }) => (
     <div className="flex flex-wrap gap-4 justify-start">
-        <Link href={""}>
+        <Link href={"/consult"}>
             <Button size="lg" variant="primary" className="flex px-6 py-6">
                 <RocketIcon className="w-5 h-5 mr-2" />
                 {launchText}

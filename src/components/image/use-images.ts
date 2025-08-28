@@ -3,30 +3,10 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { formatBytes } from '@/lib/utils';
+import { imagesApi, ImageData } from '@/lib/api/images';
+import { useUsersStore } from '@/lib/store/users';
 
-interface Image {
-  id: string;
-  url: string;
-  key: string;
-  originalName: string;
-  contentType: string;
-  size: number;
-  uploadType: string;
-  usageCount: number;
-  isActive: boolean;
-  createdAt: string;
-  uploader?: {
-    id: string;
-    profile?: {
-      displayName?: string;
-      firstName?: string;
-      lastName?: string;
-    };
-  };
-  _count?: {
-    products: number;
-  };
-}
+// Remove duplicate interface - using ImageData from API client
 
 interface UseImagesOptions {
   searchTerm?: string;
@@ -35,103 +15,91 @@ interface UseImagesOptions {
 }
 
 export function useImages(options: UseImagesOptions = {}) {
-  const [images, setImages] = useState<Image[]>([]);
+  const [images, setImages] = useState<ImageData[]>([]);
   const [loading, setLoading] = useState(true);
   const [dataTableData, setDataTableData] = useState<any[]>([]);
+  const { users } = useUsersStore();
 
   const { searchTerm = '', uploadTypeFilter = 'all', isActiveFilter = 'all' } = options;
+
+  // Helper function to get user name by ID
+  const getUserName = (userId: string) => {
+    const user = users.find(u => u.id === userId);
+    return user ? (user.name || user.email || 'Unknown User') : 'Unknown User';
+  };
 
   const fetchImages = async () => {
     try {
       setLoading(true);
-      const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (uploadTypeFilter !== 'all') params.append('uploadType', uploadTypeFilter);
-      if (isActiveFilter !== 'all') params.append('isActive', isActiveFilter);
+      
+      const params = {
+        search: searchTerm || undefined,
+        category: uploadTypeFilter !== 'all' ? uploadTypeFilter : undefined,
+        isActive: isActiveFilter !== 'all' ? (isActiveFilter === 'true') : undefined,
+        page: 1,
+        limit: 50
+      };
 
-      console.log('Fetching images from:', `/api/images?${params.toString()}`);
-      const response = await fetch(`/api/images?${params.toString()}`);
-      const data = await response.json();
+      console.log('Fetching images with params:', params);
       
-      console.log('API Response:', { status: response.status, data });
+      const response = await imagesApi.getImages(params);
       
-      if (response.ok) {
-        const imageData = data.images || [];
+      console.log('API Response:', response);
+      
+      if (response.data) {
+        const imageData = response.data.images || [];
         setImages(imageData);
         
         // Transform data for DataTable
-        const transformed = imageData.map((image: Image, index: number) => ({
+        const transformed = imageData.map((image: ImageData, index: number) => ({
           id: image.id || `image-${index}`,
-          header: image.originalName || 'Unknown File',
-          type: image.uploadType || 'general',
+          header: image.filename || 'Unknown File',
+          type: image.category || 'general',
           status: image.isActive ? 'Active' : 'Inactive',
           target: formatBytes(image.size || 0),
           limit: `${image.usageCount || 0}`,
-          reviewer: image.uploader?.profile?.displayName ||
-                    `${image.uploader?.profile?.firstName || ''} ${image.uploader?.profile?.lastName || ''}`.trim() ||
-                    'Unknown User'
+          uploader: getUserName(image.uploadedBy)
         }));
         
         console.log('Setting DataTable data:', transformed);
         setDataTableData(transformed);
         console.log('Images set:', imageData.length);
-      } else {
-        console.error('API Error:', data);
-        toast.error(data.error || 'Failed to fetch images');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Fetch error:', error);
-      toast.error('Failed to load images');
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to load images';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
-  const deleteImage = async (image: Image) => {
+  const deleteImage = async (image: ImageData) => {
     if (image.usageCount > 0) {
       toast.error('Cannot delete image that is currently in use');
       return;
     }
 
     try {
-      const response = await fetch(`/api/upload?id=${image.id}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        toast.success('Image deleted successfully');
-        fetchImages();
-      } else {
-        const data = await response.json();
-        toast.error(data.error || 'Failed to delete image');
-      }
-    } catch (error) {
-      toast.error('Failed to delete image');
+      await imagesApi.deleteImage(image.id);
+      toast.success('Image deleted successfully');
+      fetchImages();
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to delete image';
+      toast.error(errorMessage);
     }
   };
 
-  const toggleImageStatus = async (image: Image) => {
+  const toggleImageStatus = async (image: ImageData) => {
     try {
-      const response = await fetch('/api/images', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: image.id,
-          isActive: !image.isActive,
-        }),
+      await imagesApi.updateImage(image.id, {
+        isActive: !image.isActive,
       });
-
-      if (response.ok) {
-        toast.success(`Image ${image.isActive ? 'deactivated' : 'activated'} successfully`);
-        fetchImages();
-      } else {
-        const data = await response.json();
-        toast.error(data.error || 'Failed to update image');
-      }
-    } catch (error) {
-      toast.error('Failed to update image');
+      toast.success(`Image ${image.isActive ? 'deactivated' : 'activated'} successfully`);
+      fetchImages();
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to update image';
+      toast.error(errorMessage);
     }
   };
 

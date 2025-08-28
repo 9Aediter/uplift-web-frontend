@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { authApi } from "@/lib/api/auth"
 import { Button } from "@/components/ui/button"
 import { FaGoogle, FaFacebook } from "react-icons/fa"
 import { FaLine } from "react-icons/fa6"
@@ -12,16 +12,18 @@ export function SocialForm() {
   const [isLoading, setIsLoading] = useState<string | null>(null)
   const router = useRouter()
 
-  const handleSocialSignIn = async (provider: string) => {
+  const handleSocialSignIn = async (provider: 'google' | 'facebook' | 'line') => {
     setIsLoading(provider)
     
     try {
-      // Use redirect: true for better OAuth handling
-      await signIn(provider, {
-        callbackUrl: "/",
-        redirect: true
-      })
+      // Redirect to OAuth provider via backend
+      const oauthUrl = authApi.getOAuthUrl(provider)
+      console.log(`🔗 Redirecting to ${provider} OAuth:`, oauthUrl)
+      
+      // Redirect to backend OAuth endpoint
+      window.location.href = oauthUrl
     } catch (error) {
+      console.error(`❌ ${provider} OAuth error:`, error)
       toast.error(`An error occurred during ${provider} sign in`)
       setIsLoading(null)
     }

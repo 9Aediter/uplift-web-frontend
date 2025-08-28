@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { authApi } from "@/lib/api/auth"
+import { useAuthActions } from "@/lib/store/auth"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { PasswordInput } from "@/components/ui/password-input"
 import { SocialForm } from "@/components/auth/social-form"
+import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 
 export function LoginForm({
@@ -20,27 +22,45 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [rememberMe, setRememberMe] = useState(false)
   const router = useRouter()
+  const { login } = useAuthActions()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
 
     try {
-      const result = await signIn("credentials", {
+      const response = await authApi.login({
         email,
         password,
-        redirect: false,
+        rememberMe,
       })
 
-      if (result?.error) {
-        toast.error("Invalid email or password")
-      } else if (result?.ok) {
+      console.log('🔍 Login response:', response)
+      console.log('🔍 Login user data:', response.data?.user)
+
+      if (response.data?.user) {
+        // Login successful, store user (tokens are now in httpOnly cookies)
+        login(response.data.user)
         toast.success("Signed in successfully!")
+        
+        // Set success message for AuthSuccessHandler
+        localStorage.setItem('auth_success_message', 'login_success')
+        
+        // Navigate without full page reload - auth state already updated
         router.push("/")
       }
-    } catch (error) {
-      toast.error("An error occurred during sign in")
+    } catch (error: any) {
+      console.error("Login error:", error)
+      
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message)
+      } else if (error.response?.status === 401) {
+        toast.error("Invalid email or password")
+      } else {
+        toast.error("An error occurred during sign in")
+      }
     } finally {
       setIsLoading(false)
     }
@@ -87,6 +107,23 @@ export function LoginForm({
                 disabled={isLoading}
               />
             </div>
+            
+            {/* Remember Me Checkbox */}
+            <div className="flex items-center space-x-2">
+              <Checkbox 
+                id="rememberMe" 
+                checked={rememberMe}
+                onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                disabled={isLoading}
+              />
+              <Label 
+                htmlFor="rememberMe" 
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Remember me for 30 days
+              </Label>
+            </div>
+            
             <div className="flex gap-2">
               <Button variant="ghost" asChild className="flex-1" disabled={isLoading}>
                 <Link href="/auth/signup">Sign up?</Link>

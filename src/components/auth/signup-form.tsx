@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
 import { toast } from "sonner"
+import { authApi } from "@/lib/api/auth"
+import { useAuthActions } from "@/lib/store/auth"
 import { useModal } from "@/lib/modal-provider"
 import { UserExistsModal } from "@/components/auth/user-exists-modal"
 import { cn } from "@/lib/utils"
@@ -20,68 +21,75 @@ export function SignupForm({
   ...props
 }: React.ComponentProps<"form">) {
   const [isLoading, setIsLoading] = useState(false)
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const { openModal } = useModal()
   const router = useRouter()
+  const { login } = useAuthActions()
+  
+  // Check if passwords match
+  const passwordsMatch = password === confirmPassword && password.length > 0
+  const canSubmit = passwordsMatch && !isLoading
 
   const handleSubmit = async (formData: FormData) => {
     setIsLoading(true)
 
+    const firstName = formData.get("firstName") as string
+    const lastName = formData.get("lastName") as string
+    const email = formData.get("email") as string
+    const formPassword = formData.get("password") as string
+    
+    // Combine first and last name for the name field
+    const name = `${firstName} ${lastName}`.trim()
+
+    // Prepare data according to backend API structure
+    const data = {
+      name,
+      email,
+      password: formPassword
+    }
+
+    console.log("🚀 Attempting to register user:", { email, name })
+    console.log("📡 API call data:", data)
+
     try {
-      const data = {
-        firstName: formData.get("firstName") as string,
-        lastName: formData.get("lastName") as string,
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
-        confirmPassword: formData.get("confirmPassword") as string,
+      console.log("📞 Calling authApi.register...")
+      const response = await authApi.register(data)
+      console.log("✅ Registration successful:", response.data)
+
+      if (response.data?.user) {
+        // Registration successful, store user (tokens are now in httpOnly cookies)
+        login(response.data.user)
+        toast.success("Account created successfully!")
+        
+        // Set success message for AuthSuccessHandler
+        localStorage.setItem('auth_success_message', 'register_success')
+        
+        // Navigate without full page reload - auth state already updated
+        router.push("/")
       }
-
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+    } catch (error: any) {
+      console.error("❌ Registration error:", error)
+      console.error("📍 Error details:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message
       })
-
-      const result = await response.json()
-
-      if (result.success) {
-        if (result.autoLogin && result.loginCredentials) {
-          // Auto login case
-          toast.success(result.message)
-          
-          const signInResult = await signIn("credentials", {
-            email: result.loginCredentials.email,
-            password: result.loginCredentials.password,
-            redirect: false,
-          })
-
-          if (signInResult?.ok) {
-            router.push("/")
-          } else {
-            toast.error("Login failed. Please try again.")
-          }
-        } else {
-          // Normal signup success
-          toast.success(result.message || "Account created successfully!")
-          router.push("/auth/signin")
-        }
-      } else if (result.showModal) {
-        // Show modal for password verification
+      
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message)
+      } else if (error.response?.status === 409) {
+        // User already exists - show modal for verification
         openModal(
           "user-exists",
           <UserExistsModal 
-            email={result.email || ""} 
-            message={result.error || "Account exists with this email. Please verify your password to continue."} 
+            email={email} 
+            message="Account exists with this email. Please verify your password to continue." 
           />
         )
       } else {
-        // Regular error
-        toast.error(result.error || "Failed to create account")
+        toast.error("An error occurred during signup")
       }
-    } catch (error) {
-      console.error("Registration error:", error)
-      toast.error("An error occurred during signup")
     } finally {
       setIsLoading(false)
     }
@@ -138,6 +146,8 @@ export function SignupForm({
               <PasswordInput 
                 id="password" 
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required 
                 disabled={isLoading}
               />
@@ -147,15 +157,20 @@ export function SignupForm({
               <PasswordInput 
                 id="confirmPassword" 
                 name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 required 
                 disabled={isLoading}
               />
+              {confirmPassword.length > 0 && !passwordsMatch && (
+                <p className="text-sm text-red-500">Passwords do not match</p>
+              )}
             </div>
             <div className="flex gap-2">
               <Button variant="ghost" asChild className="flex-1" disabled={isLoading}>
                 <Link href="/auth/signin">Sign in?</Link>
               </Button>
-              <Button type="submit" className="flex-1" disabled={isLoading}>
+              <Button type="submit" className="flex-1" disabled={!canSubmit}>
                 {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
             </div>

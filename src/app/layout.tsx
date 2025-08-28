@@ -4,8 +4,8 @@ import Script from 'next/script';
 import AnalyticsProvider from "@/lib/analytics-provider";
 import { SonnerProvider } from "@/lib/sonner-provider";
 import { ModalProvider } from "@/lib/modal-provider";
-import { AuthProvider } from "@/lib/auth-provider";
 import { ErrorHandler } from "@/components/error-handler";
+import { AuthInitializer } from "@/components/auth/auth-initializer";
 import { getDictionary } from '@/lib/i18n'
 import { headers } from 'next/headers'
 import { jsonLd, organizationSchema, websiteSchema, breadcrumbSchema, abs } from '@/lib/schema'
@@ -135,14 +135,14 @@ export default async function RootLayout({
         />
         
         <AnalyticsProvider />
-        <AuthProvider>
-          <ModalProvider>
-            <SonnerProvider />
-            <ErrorHandler />
-            {/* Main content */}      
-            {children}
-          </ModalProvider>
-        </AuthProvider>       
+        <ModalProvider>
+          <SonnerProvider />
+          <ErrorHandler />
+          {/* Auth initializer - runs on every page */}
+          <AuthInitializer />
+          {/* Main content */}      
+          {children}
+        </ModalProvider>       
       </body>
     </html>
   );

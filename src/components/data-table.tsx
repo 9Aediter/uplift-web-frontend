@@ -57,6 +57,7 @@ import { z } from "zod"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Switch } from "@/components/ui/switch"
 import { DataCardView } from "@/components/data-card-view"
 import { ImageCardView } from "@/components/image/image-card-view"
 import {
@@ -143,6 +144,7 @@ function createColumns(data: any[], callbacks?: {
   onEdit?: (item: any) => void
   onDelete?: (item: any) => void  
   onView?: (item: any) => void
+  onStatusChange?: (item: any, newStatus: string) => void
 }): ColumnDef<any>[] {
   if (!data || data.length === 0) return []
   
@@ -179,7 +181,7 @@ function createColumns(data: any[], callbacks?: {
 
   // Create columns based on data structure
   Object.keys(firstRow).forEach((key) => {
-    if (key === 'id' || key === 'actions' || key === 'statusBadge' || key === 'Status Badge' || key === 'originalData') return // Skip id, actions, statusBadge, and originalData columns
+    if (key === 'id' || key === 'actions' || key === 'statusBadge' || key === 'Status Badge' || key === 'originalData' || key === 'permissions' || key === 'statusType') return // Skip id, actions, statusBadge, originalData, permissions, and statusType columns
     
     columns.push({
       accessorKey: key,
@@ -187,12 +189,82 @@ function createColumns(data: any[], callbacks?: {
       cell: ({ row }) => {
         const value = row.original[key]
         
-        // Handle different value types
-        if (key === 'status') {
+        // Handle header column - make it clickable
+        if (key === 'header') {
           return (
-            <Badge variant="outline" className="text-muted-foreground px-1.5">
+            <div className="max-w-[200px]">
+              <button
+                onClick={() => callbacks?.onView?.(row.original)}
+                className="text-left truncate w-full hover:underline text-primary font-medium"
+              >
+                {value}
+              </button>
+            </div>
+          )
+        }
+        
+        // Handle description column - truncate text
+        if (key === 'description') {
+          return (
+            <div className="max-w-[200px] text-sm text-muted-foreground truncate">
+              {value}
+            </div>
+          )
+        }
+        
+        // Handle status column - show as badge
+        if (key === 'status') {
+          const statusType = row.original.statusType || 'draft'
+          const variant = statusType === 'published' ? 'default' : 
+                        statusType === 'draft' ? 'secondary' : 'outline'
+          
+          return (
+            <Badge variant={variant} className="capitalize">
               {value}
             </Badge>
+          )
+        }
+        
+        // Handle isActive column - show toggle switch with proper width
+        if (key === 'isActive') {
+          return (
+            <div className="flex items-center justify-center min-w-[120px]">
+              <div className="flex items-center gap-2">
+                <Switch
+                  checked={value === true}
+                  onCheckedChange={(checked) => {
+                    if (callbacks?.onStatusChange) {
+                      callbacks.onStatusChange(row.original, checked ? 'ACTIVE' : 'INACTIVE');
+                    }
+                  }}
+                  disabled={!callbacks?.onStatusChange}
+                  aria-label={`Toggle active: ${value ? 'Active' : 'Inactive'}`}
+                />
+                <span className="text-sm font-medium whitespace-nowrap">
+                  {value ? 'Active' : 'Inactive'}
+                </span>
+              </div>
+            </div>
+          )
+        }
+        
+        // Handle other status-related columns
+        if ((key === 'active') && callbacks?.onStatusChange) {
+          return (
+            <div className="flex items-center justify-center gap-2 min-w-[120px]">
+              <Switch
+                checked={value === 'ACTIVE'}
+                onCheckedChange={(checked) => {
+                  const newStatus = checked ? 'ACTIVE' : 'INACTIVE';
+                  callbacks.onStatusChange?.(row.original, newStatus);
+                }}
+                disabled={false}
+                aria-label={`Toggle ${key}: ${value}`}
+              />
+              <span className="text-sm font-medium whitespace-nowrap">
+                {value === 'ACTIVE' ? 'Active' : 'Inactive'}
+              </span>
+            </div>
           )
         }
         
@@ -200,7 +272,7 @@ function createColumns(data: any[], callbacks?: {
           return <div className="text-right">{value}</div>
         }
         
-        return <div>{value}</div>
+        return <div className="truncate max-w-[150px]" title={value}>{value}</div>
       },
     })
   })
@@ -220,7 +292,7 @@ function createColumns(data: any[], callbacks?: {
             <span className="sr-only">Open menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
+        <DropdownMenuContent align="end" className="w-40">
           {callbacks?.onEdit && (
             <DropdownMenuItem onClick={() => callbacks.onEdit?.(row.original)}>
               Edit
@@ -231,6 +303,7 @@ function createColumns(data: any[], callbacks?: {
               View
             </DropdownMenuItem>
           )}
+          
           <DropdownMenuItem>Make a copy</DropdownMenuItem>
           <DropdownMenuItem>Favorite</DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -303,6 +376,7 @@ export function DataTable({
   onEdit,
   onDelete,
   onView,
+  onStatusChange,
 }: {
   data: any[]
   entityName?: string
@@ -314,6 +388,7 @@ export function DataTable({
   onEdit?: (item: any) => void
   onDelete?: (item: any) => void
   onView?: (item: any) => void
+  onStatusChange?: (item: any, newStatus: string) => void
 }) {
   const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
@@ -336,8 +411,9 @@ export function DataTable({
   const columns = React.useMemo(() => createColumns(data, {
     onEdit,
     onDelete,
-    onView
-  }), [data, onEdit, onDelete, onView])
+    onView,
+    onStatusChange
+  }), [data, onEdit, onDelete, onView, onStatusChange])
   const enabledViews = availableViews.filter(view => views.includes(view.key))
   const defaultView = enabledViews[0]?.key || "table"
 
@@ -457,8 +533,19 @@ export function DataTable({
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
+                    // Set specific widths for columns
+                    let className = ""
+                    const columnId = header.column.id
+                    
+                    if (columnId === 'select') className = "w-12"
+                    else if (columnId === 'header') className = "w-52"
+                    else if (columnId === 'description') className = "w-52"
+                    else if (columnId === 'status') className = "w-24"
+                    else if (columnId === 'isActive') className = "w-32"
+                    else if (columnId === 'table_actions') className = "w-12"
+                    
                     return (
-                      <TableHead key={header.id} colSpan={header.colSpan}>
+                      <TableHead key={header.id} colSpan={header.colSpan} className={className}>
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -717,6 +804,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
+// Dashboard table cell viewer component
 function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
   const isMobile = useIsMobile()
 

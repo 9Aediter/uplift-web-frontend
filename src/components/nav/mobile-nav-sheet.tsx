@@ -3,8 +3,10 @@
 import { NavbarButton, MobileNavMenu } from "@/components/ui/resizable-navbar";
 import { LogOutIcon, UserIcon, SettingsIcon } from "lucide-react";
 import { IoLanguage } from "react-icons/io5";
-import { signOut } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuthActions } from "@/lib/store/auth";
+import { authApi } from "@/lib/api/auth";
+import { toast } from "sonner";
 
 interface MobileNavSheetProps {
   user?: {
@@ -27,6 +29,7 @@ export function MobileNavSheet({
   onLanguageSwitch,
   isAuthenticated 
 }: MobileNavSheetProps) {
+  const { logout } = useAuthActions();
   return (
     <MobileNavMenu
       key="mobile-menu"
@@ -93,9 +96,21 @@ export function MobileNavSheet({
               Language
             </NavbarButton>
             <NavbarButton
-              onClick={() => {
-                onClose();
-                signOut({ callbackUrl: "/" });
+              onClick={async () => {
+                try {
+                  onClose();
+                  // Call backend logout API to clear httpOnly cookies
+                  await authApi.logout();
+                  // Clear local auth state
+                  logout();
+                  toast.success("Logged out successfully");
+                  window.location.href = "/";
+                } catch (error) {
+                  console.error("Logout error:", error);
+                  // Still logout locally even if API fails
+                  logout();
+                  window.location.href = "/";
+                }
               }}
               variant="ghost"
               className="w-full justify-start gap-3 text-red-600 hover:text-red-700 hover:bg-red-50"

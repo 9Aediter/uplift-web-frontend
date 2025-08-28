@@ -15,7 +15,30 @@ import PricingSection from '@/components/section/service/pagesection/PricingSect
 import FaqSection from '@/components/section/service/pagesection/FaqSection';
 
 // Assuming getServiceById is available from serviceActions
-import { getServiceById } from '@/lib/actions/serviceActions';
+// Mock data for services
+const mockServices = {
+  'erp-system': {
+    id: '1',
+    slug: 'erp-system',
+    title: 'ERP System',
+    subtitle: 'Enterprise Resource Planning',
+    description: 'Complete business management solution'
+  },
+  'pos-solution': {
+    id: '2', 
+    slug: 'pos-solution',
+    title: 'POS Solution',
+    subtitle: 'Point of Sale System',
+    description: 'Modern retail management system'
+  },
+  'web-application': {
+    id: '3',
+    slug: 'web-application',
+    title: 'Web Application',
+    subtitle: 'Custom Web Development',
+    description: 'Tailored web solutions for your business'
+  }
+};
 
 
 // This page is a Server Component
@@ -31,8 +54,8 @@ export default async function ServiceDetailPage({
   const headersList = headers(); // Get headers
   const locale = (await headersList).get('x-next-locale') || 'en'; // Get locale from header
 
-  // Fetch service data
-  const service = await getServiceById(locale, id); // Pass locale to getServiceById
+  // Get mock service data
+  const service = mockServices[id as keyof typeof mockServices];
 
   if (!service) {
     notFound(); // Render 404 page if service is not found

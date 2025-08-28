@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getToken } from 'next-auth/jwt'
-import { Role } from '@prisma/client'
 
 const PUBLIC_FILE_REGEX = /\.(.*)$/
 
@@ -37,47 +35,51 @@ export async function middleware(request: NextRequest) {
   // Check admin routes protection
   if (cleanPathname.startsWith('/admin')) {
     try {
-      const token = await getToken({ 
-        req: request, 
-        secret: process.env.NEXTAUTH_SECRET 
-      })
-
-      // console.log('🔍 Admin route access attempt:', {
-      //   cleanPathname,
-      //   hasToken: !!token,
-      //   tokenRoles: token?.roles,
-      //   tokenSub: token?.sub
-      // })
-
-      // Not authenticated - redirect to signin
-      if (!token) {
-        // console.log('❌ No token - redirecting to signin')
+      // Get accessToken from httpOnly cookie (unified with API client)
+      const accessToken = request.cookies.get('accessToken')?.value
+      
+      if (!accessToken) {
+        // No token - redirect to signin
         const signInUrl = new URL(`/${locale}/auth/signin`, request.url)
         signInUrl.searchParams.set('callbackUrl', pathname)
         return NextResponse.redirect(signInUrl)
       }
 
-      // Check if user has admin role - try different ways to access roles
-      const userRoles = (token.roles as Role[]) || (token as any).roles || []
-      const hasAdminRole = userRoles.includes('ADMIN' as Role) || userRoles.includes('SUPER_ADMIN' as Role)
+      // Decode JWT to check roles (without verification for middleware)
+      // In production, you might want to verify the JWT signature
+      try {
+        const payload = JSON.parse(atob(accessToken.split('.')[1]))
+        
+        // 🔍 DEBUG: ดู JWT payload structure จริง
+        console.log('🔍 [MIDDLEWARE DEBUG] Full JWT payload:', JSON.stringify(payload, null, 2))
+        console.log('🔍 [MIDDLEWARE DEBUG] payload.user:', payload.user)
+        console.log('🔍 [MIDDLEWARE DEBUG] payload.roles:', payload.roles)
+        console.log('🔍 [MIDDLEWARE DEBUG] payload.user?.roles:', payload.user?.roles)
+        
+        const userRoles = payload.user?.roles || []
+        console.log('🔍 [MIDDLEWARE DEBUG] Extracted userRoles:', JSON.stringify(userRoles, null, 2))
+        
+        // Check role.name for admin access
+        const hasAdminRole = userRoles.some((role: any) => 
+          role.name === 'Admin' || role.pathRoles === 'admin'
+        )
+        
+        console.log('🔍 [MIDDLEWARE DEBUG] hasAdminRole result:', hasAdminRole)
 
-      // console.log('🔐 Role check:', {
-      //   tokenKeys: Object.keys(token),
-      //   tokenRoles: token.roles,
-      //   tokenAsAny: (token as any).roles,
-      //   userRoles,
-      //   hasAdminRole,
-      //   roleAdmin: 'ADMIN',
-      //   roleSuperAdmin: 'SUPER_ADMIN'
-      // })
+        if (!hasAdminRole) {
+          // Not authorized - redirect to 403 error or home
+          console.log('🚫 [MIDDLEWARE DEBUG] Access DENIED - No admin role found')
+          return NextResponse.redirect(new URL(`/${locale}/?error=forbidden`, request.url))
+        }
 
-      if (!hasAdminRole) {
-        // console.log('❌ No admin role - access denied')
-        // Not authorized - redirect to 403 error or home
-        return NextResponse.redirect(new URL(`/${locale}/?error=forbidden`, request.url))
+        console.log('✅ [MIDDLEWARE DEBUG] Access GRANTED - Admin role found')
+        // Admin access granted
+      } catch (jwtError) {
+        // Invalid JWT - redirect to signin
+        const signInUrl = new URL(`/${locale}/auth/signin`, request.url)
+        signInUrl.searchParams.set('callbackUrl', pathname)
+        return NextResponse.redirect(signInUrl)
       }
-
-      // console.log('✅ Admin access granted')
     } catch (error) {
       console.error('Middleware auth error:', error)
       return NextResponse.redirect(new URL(`/${locale}/auth/signin`, request.url))
@@ -117,8 +119,3 @@ export const config = {
   ],
 }
 
-// Polyfill for Negotiator (if not already installed)
-// You might need to install 'negotiator' package: npm install negotiator
-// And '@types/negotiator' for TypeScript: npm install --save-dev @types/negotiator
-import Negotiator from 'negotiator'
-import { match } from '@formatjs/intl-localematcher'

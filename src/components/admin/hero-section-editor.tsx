@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,242 +9,191 @@ import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Plus, Trash2, GripVertical, Edit, Eye } from "lucide-react"
-
-interface HeroField {
-  id: string
-  key: string
-  label: string
-  type: "short" | "long"
-  values: {
-    en: string
-    th: string
-  }
-}
-
-interface HeroButton {
-  id: string
-  label: string
-  url: string
-  values: {
-    en: string
-    th: string
-  }
-}
+import { Edit, Eye, Save, RefreshCw, Palette } from "lucide-react"
+import { toast } from "sonner"
+import { useHomeStore } from "@/lib/store/home-store"
+import { HeroSelector } from "./website/hero-selector"
+import { getHeroRegistry, BaseHeroWidget } from "@/lib/widgets/hero"
+import { HeroData } from "@/lib/widgets/hero/BaseHeroWidget"
 
 interface HeroSectionData {
-  fields: HeroField[]
-  buttons: HeroButton[]
+  heroWidgetType?: string
+  titleEn: string
+  titleTh: string
+  subtitleEn: string
+  subtitleTh: string
+  descriptionEn: string
+  descriptionTh: string
+  backgroundImageUrl: string
+  ctaButtonTextEn: string
+  ctaButtonTextTh: string
+  ctaButtonUrl: string
+  ctaButtonType: 'primary' | 'secondary'
+  overlayOpacity: number
+  textPosition: 'left' | 'center' | 'right'
+  isActive: boolean
 }
 
 interface HeroSectionEditorProps {
+  pageId?: string
+  pageSlug?: string // Keep for backward compatibility
   title?: string
   description?: string
-  initialData?: HeroSectionData
   onDataChange?: (data: HeroSectionData) => void
-}
-
-const defaultData: HeroSectionData = {
-  fields: [
-    {
-      id: "1",
-      key: "badge",
-      label: "Badge Text",
-      type: "short",
-      values: {
-        en: "Innovating the Future",
-        th: "Innovating the Future"
-      }
-    },
-    {
-      id: "2",
-      key: "title_part1",
-      label: "Title Part 1",
-      type: "short",
-      values: {
-        en: "Transforming",
-        th: "เปลี่ยน IDEAS"
-      }
-    },
-    {
-      id: "3",
-      key: "title_part2",
-      label: "Title Part 2",
-      type: "short",
-      values: {
-        en: "Ideas Into",
-        th: "ให้กลายเป็น"
-      }
-    },
-    {
-      id: "4",
-      key: "title_gradient1",
-      label: "Gradient Title 1",
-      type: "short",
-      values: {
-        en: "Revolutionary",
-        th: "นวัตกรรมระดับ"
-      }
-    },
-    {
-      id: "5",
-      key: "title_gradient2",
-      label: "Gradient Title 2",
-      type: "short",
-      values: {
-        en: "Solutions",
-        th: "Revolutionary"
-      }
-    },
-    {
-      id: "6",
-      key: "subtitle",
-      label: "Subtitle",
-      type: "long",
-      values: {
-        en: "We're not just another tech startup. We're building the Future.",
-        th: "เราไม่ใช่แค่สตาร์ทอัพด้านเทคโนโลยี แต่เรากำลังสร้างอนาคต"
-      }
-    }
-  ],
-  buttons: [
-    {
-      id: "1",
-      label: "Launch Button",
-      url: "/launch",
-      values: {
-        en: "Launch Your Vision",
-        th: "เปิดตัววิสัยทัศน์ของคุณ"
-      }
-    },
-    {
-      id: "2",
-      label: "Explore Button",
-      url: "/innovations",
-      values: {
-        en: "Explore Our Innovations",
-        th: "สำรวจนวัตกรรมของเรา"
-      }
-    }
-  ]
+  mode?: 'simple' | 'advanced'
+  initialData?: HeroSectionData
 }
 
 export function HeroSectionEditor({
+  pageId,
+  pageSlug = "home",
   title = "Hero Section",
   description = "Main banner and call-to-action area",
-  initialData = defaultData,
-  onDataChange
+  onDataChange,
+  mode = 'advanced',
+  initialData
 }: HeroSectionEditorProps) {
-  const [data, setData] = useState<HeroSectionData>(initialData)
+  const { heroData, status, isLoading, loadHeroData, updateHeroData, saveHeroData, publishHeroData } = useHomeStore()
+  
   const [currentLanguage, setCurrentLanguage] = useState<"en" | "th">("en")
   const [isEditMode, setIsEditMode] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [showHeroSelector, setShowHeroSelector] = useState(false)
+  const [currentHeroWidget, setCurrentHeroWidget] = useState<BaseHeroWidget | null>(null)
+  const [data, setData] = useState<HeroSectionData>(
+    initialData || {
+      heroWidgetType: 'hero-simple',
+      titleEn: '',
+      titleTh: '',
+      subtitleEn: '',
+      subtitleTh: '',
+      descriptionEn: '',
+      descriptionTh: '',
+      backgroundImageUrl: '',
+      ctaButtonTextEn: '',
+      ctaButtonTextTh: '',
+      ctaButtonUrl: '',
+      ctaButtonType: 'primary',
+      overlayOpacity: 0.5,
+      textPosition: 'center',
+      isActive: true
+    }
+  )
+
+  // Use different data sources based on mode
+  const currentData = mode === 'simple' ? data : heroData
+  const isUsingStore = mode === 'advanced'
+
+  // Load data on mount for advanced mode
+  useEffect(() => {
+    if (mode === 'advanced' && pageId) {
+      loadHeroData(pageId)
+    } else if (mode === 'advanced' && pageSlug) {
+      // Fallback to pageSlug for backward compatibility
+      loadHeroData(pageSlug)
+    }
+  }, [pageId, pageSlug, loadHeroData, mode])
+
+  // Update parent when data changes
+  useEffect(() => {
+    if (currentData.titleEn || currentData.titleTh) {
+      onDataChange?.(currentData)
+    }
+  }, [currentData, onDataChange])
+
+  // Update local state for simple mode
+  useEffect(() => {
+    if (mode === 'simple' && initialData) {
+      setData(initialData)
+    }
+  }, [initialData, mode])
+
+  // Initialize current hero widget
+  useEffect(() => {
+    const heroRegistry = getHeroRegistry()
+    const heroType = currentData.heroWidgetType || 'hero-simple'
+    const widget = heroRegistry.get(heroType)
+    setCurrentHeroWidget(widget || null)
+  }, [currentData.heroWidgetType])
 
   const handleDataUpdate = (newData: HeroSectionData) => {
-    setData(newData)
-    onDataChange?.(newData)
+    if (mode === 'simple') {
+      setData(newData)
+    } else {
+      updateHeroData(newData)
+    }
   }
 
-  const addField = () => {
-    const newField: HeroField = {
-      id: Date.now().toString(),
-      key: `field_${Date.now()}`,
-      label: "New Field",
-      type: "short",
-      values: {
-        en: "",
-        th: ""
+  const handleSave = async () => {
+    try {
+      setIsSaving(true)
+      if (mode === 'advanced') {
+        await saveHeroData()
       }
+      toast.success("Content saved successfully")
+      // Auto switch back to view mode after successful save
+      setIsEditMode(false)
+    } catch (error) {
+      toast.error("Failed to save content")
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handlePublish = async () => {
+    try {
+      if (mode === 'advanced') {
+        await publishHeroData()
+      }
+      toast.success("Content published successfully")
+    } catch (error) {
+      toast.error("Failed to publish content")
+    }
+  }
+
+  const updateHeroField = (field: keyof HeroSectionData, value: any) => {
+    const updatedData = { ...currentData, [field]: value }
+    handleDataUpdate(updatedData)
+  }
+
+  const handleHeroWidgetSelect = (heroWidget: BaseHeroWidget, heroData: HeroData) => {
+    console.log('📝 [HERO EDITOR] Selected hero widget:', heroWidget.name, heroWidget.id)
+    console.log('📝 [HERO EDITOR] Hero data:', heroData)
+    
+    // Convert HeroData to HeroSectionData format
+    const updatedData: HeroSectionData = {
+      ...currentData,
+      heroWidgetType: heroWidget.id,
+      titleEn: heroData.titleEn || currentData.titleEn,
+      titleTh: heroData.titleTh || currentData.titleTh,
+      subtitleEn: heroData.subtitleEn || currentData.subtitleEn,
+      subtitleTh: heroData.subtitleTh || currentData.subtitleTh,
+      descriptionEn: heroData.descriptionEn || currentData.descriptionEn,
+      descriptionTh: heroData.descriptionTh || currentData.descriptionTh,
+      backgroundImageUrl: heroData.backgroundImageUrl || currentData.backgroundImageUrl,
+      ctaButtonTextEn: heroData.ctaButtonTextEn || currentData.ctaButtonTextEn,
+      ctaButtonTextTh: heroData.ctaButtonTextTh || currentData.ctaButtonTextTh,
+      ctaButtonUrl: heroData.ctaButtonUrl || currentData.ctaButtonUrl,
+      ctaButtonType: heroData.ctaButtonType || currentData.ctaButtonType,
+      overlayOpacity: heroData.overlayOpacity ?? currentData.overlayOpacity,
+      textPosition: heroData.textPosition || currentData.textPosition,
+      isActive: heroData.isActive ?? currentData.isActive,
     }
     
-    handleDataUpdate({
-      ...data,
-      fields: [...data.fields, newField]
-    })
+    handleDataUpdate(updatedData)
+    setCurrentHeroWidget(heroWidget)
+    toast.success(`Hero pattern configured: ${heroWidget.name}`)
   }
 
-  const removeField = (fieldId: string) => {
-    handleDataUpdate({
-      ...data,
-      fields: data.fields.filter(field => field.id !== fieldId)
-    })
-  }
-
-  const updateField = (fieldId: string, updates: Partial<HeroField>) => {
-    handleDataUpdate({
-      ...data,
-      fields: data.fields.map(field =>
-        field.id === fieldId ? { ...field, ...updates } : field
-      )
-    })
-  }
-
-  const updateFieldValue = (fieldId: string, language: "en" | "th", value: string) => {
-    handleDataUpdate({
-      ...data,
-      fields: data.fields.map(field =>
-        field.id === fieldId
-          ? {
-              ...field,
-              values: {
-                ...field.values,
-                [language]: value
-              }
-            }
-          : field
-      )
-    })
-  }
-
-  const addButton = () => {
-    if (data.buttons.length >= 2) return
-    
-    const newButton: HeroButton = {
-      id: Date.now().toString(),
-      label: "New Button",
-      url: "/",
-      values: {
-        en: "Button Text",
-        th: "ข้อความปุ่ม"
-      }
-    }
-    
-    handleDataUpdate({
-      ...data,
-      buttons: [...data.buttons, newButton]
-    })
-  }
-
-  const removeButton = (buttonId: string) => {
-    handleDataUpdate({
-      ...data,
-      buttons: data.buttons.filter(button => button.id !== buttonId)
-    })
-  }
-
-  const updateButton = (buttonId: string, updates: Partial<HeroButton>) => {
-    handleDataUpdate({
-      ...data,
-      buttons: data.buttons.map(button =>
-        button.id === buttonId ? { ...button, ...updates } : button
-      )
-    })
-  }
-
-  const updateButtonValue = (buttonId: string, language: "en" | "th", value: string) => {
-    handleDataUpdate({
-      ...data,
-      buttons: data.buttons.map(button =>
-        button.id === buttonId
-          ? {
-              ...button,
-              values: {
-                ...button.values,
-                [language]: value
-              }
-            }
-          : button
-      )
-    })
+  if (isUsingStore && isLoading) {
+    return (
+      <Card>
+        <CardContent className="flex items-center justify-center py-8">
+          <RefreshCw className="h-4 w-4 animate-spin mr-2" />
+          Loading content...
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
@@ -254,22 +203,65 @@ export function HeroSectionEditor({
           <div>
             <CardTitle className="flex items-center gap-2">
               {title}
-              <Badge variant="outline">{currentLanguage.toUpperCase()}</Badge>
-              {isEditMode && <Badge variant="secondary">Edit Mode</Badge>}
+              {mode === 'advanced' && (
+                <>
+                  <Badge variant="outline">{currentLanguage.toUpperCase()}</Badge>
+                  {isEditMode && <Badge variant="secondary">Edit Mode</Badge>}
+                  <Badge 
+                    variant={status === "published" ? "default" : 
+                            status === "draft" ? "outline" : "secondary"}
+                  >
+                    {status.toUpperCase()}
+                  </Badge>
+                  {currentHeroWidget && (
+                    <Badge variant="outline" className="ml-2">
+                      {currentHeroWidget.name}
+                    </Badge>
+                  )}
+                </>
+              )}
             </CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>
+          
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Label htmlFor="language-switch" className="text-sm">
-                {currentLanguage === "en" ? "EN" : "TH"}
-              </Label>
-              <Switch
-                id="language-switch"
-                checked={currentLanguage === "th"}
-                onCheckedChange={(checked) => setCurrentLanguage(checked ? "th" : "en")}
-              />
-            </div>
+            {mode === 'advanced' && (
+              <div className="flex items-center gap-2">
+                <Label htmlFor="language-switch" className="text-sm">
+                  {currentLanguage === "en" ? "EN" : "TH"}
+                </Label>
+                <Switch
+                  id="language-switch"
+                  checked={currentLanguage === "th"}
+                  onCheckedChange={(checked) => setCurrentLanguage(checked ? "th" : "en")}
+                />
+              </div>
+            )}
+            
+            {/* Status Actions */}
+            {mode === 'advanced' && (
+              <div className="flex items-center gap-2">
+                {status === "draft" && (
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={handlePublish}
+                  >
+                    Publish
+                  </Button>
+                )}
+              </div>
+            )}
+
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => setShowHeroSelector(true)}
+            >
+              <Palette className="h-4 w-4 mr-2" />
+              Change Pattern
+            </Button>
+
             <Button
               variant="outline"
               size="sm"
@@ -287,257 +279,283 @@ export function HeroSectionEditor({
                 </>
               )}
             </Button>
+
+            <Button
+              variant="default"
+              size="sm"
+              onClick={handleSave}
+              disabled={isSaving}
+            >
+              {isSaving ? (
+                <RefreshCw className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Save className="h-4 w-4 mr-2" />
+              )}
+              Save
+            </Button>
           </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
         {isEditMode ? (
           <>
-            {/* Edit Mode - Dynamic Fields */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h4 className="font-medium">Content Fields</h4>
-                <Button onClick={addField} size="sm" variant="outline">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Field
-                </Button>
-              </div>
-
-          {data.fields.map((field) => (
-            <Card key={field.id} className="p-4">
+            {/* Edit Mode - Hero Fields */}
+            <div className="space-y-6">
+              {/* Title Section */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <GripVertical className="h-4 w-4 text-muted-foreground" />
-                  <div className="flex-1 grid grid-cols-3 gap-4">
-                    <div className="space-y-2">
-                      <Label>Field Key</Label>
-                      <Input
-                        value={field.key}
-                        onChange={(e) => updateField(field.id, { key: e.target.value })}
-                        placeholder="field_key"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Label</Label>
-                      <Input
-                        value={field.label}
-                        onChange={(e) => updateField(field.id, { label: e.target.value })}
-                        placeholder="Field Label"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Type</Label>
-                      <Select
-                        value={field.type}
-                        onValueChange={(value: "short" | "long") => 
-                          updateField(field.id, { type: value })
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="short">Short (Input)</SelectItem>
-                          <SelectItem value="long">Long (Textarea)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={() => removeField(field.id)}
-                    size="sm"
-                    variant="outline"
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>{field.label} ({currentLanguage.toUpperCase()})</Label>
-                  {field.type === "short" ? (
+                <h4 className="font-medium">Hero Title</h4>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <Label>Title ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                     <Input
-                      value={field.values[currentLanguage]}
-                      onChange={(e) => updateFieldValue(field.id, currentLanguage, e.target.value)}
-                      placeholder={`Enter ${field.label.toLowerCase()}`}
+                      value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.titleEn : currentData.titleTh) : currentData.titleEn}
+                      onChange={(e) => 
+                        mode === 'advanced'
+                          ? updateHeroField(currentLanguage === 'en' ? 'titleEn' : 'titleTh', e.target.value)
+                          : updateHeroField('titleEn', e.target.value)
+                      }
+                      placeholder="Enter hero title"
                     />
-                  ) : (
-                    <Textarea
-                      value={field.values[currentLanguage]}
-                      onChange={(e) => updateFieldValue(field.id, currentLanguage, e.target.value)}
-                      placeholder={`Enter ${field.label.toLowerCase()}`}
-                      rows={3}
-                    />
-                  )}
+                  </div>
                 </div>
               </div>
-            </Card>
-          ))}
-        </div>
 
-        {/* Buttons Section */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h4 className="font-medium">Action Buttons</h4>
-            <Button 
-              onClick={addButton} 
-              size="sm" 
-              variant="outline"
-              disabled={data.buttons.length >= 2}
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Button {data.buttons.length < 2 && `(${2 - data.buttons.length} left)`}
-            </Button>
-          </div>
-
-          {data.buttons.map((button) => (
-            <Card key={button.id} className="p-4">
+              {/* Subtitle Section */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <div className="flex-1 grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>Button Label</Label>
-                      <Input
-                        value={button.label}
-                        onChange={(e) => updateButton(button.id, { label: e.target.value })}
-                        placeholder="Button Label"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>URL</Label>
-                      <Input
-                        value={button.url}
-                        onChange={(e) => updateButton(button.id, { url: e.target.value })}
-                        placeholder="/path/to/page"
-                      />
-                    </div>
-                  </div>
-                  <Button
-                    onClick={() => removeButton(button.id)}
-                    size="sm"
-                    variant="outline"
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-
+                <h4 className="font-medium">Hero Subtitle</h4>
                 <div className="space-y-2">
-                  <Label>Button Text ({currentLanguage.toUpperCase()})</Label>
+                  <Label>Subtitle ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                   <Input
-                    value={button.values[currentLanguage]}
-                    onChange={(e) => updateButtonValue(button.id, currentLanguage, e.target.value)}
-                    placeholder={`Enter button text`}
+                    value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.subtitleEn : currentData.subtitleTh) : currentData.subtitleEn}
+                    onChange={(e) => 
+                      mode === 'advanced'
+                        ? updateHeroField(currentLanguage === 'en' ? 'subtitleEn' : 'subtitleTh', e.target.value)
+                        : updateHeroField('subtitleEn', e.target.value)
+                    }
+                    placeholder="Enter hero subtitle"
                   />
                 </div>
               </div>
-            </Card>
-          ))}
+
+              {/* Description Section */}
+              <div className="space-y-4">
+                <h4 className="font-medium">Hero Description</h4>
+                <div className="space-y-2">
+                  <Label>Description ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
+                  <Textarea
+                    value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.descriptionEn : currentData.descriptionTh) : currentData.descriptionEn}
+                    onChange={(e) => 
+                      mode === 'advanced'
+                        ? updateHeroField(currentLanguage === 'en' ? 'descriptionEn' : 'descriptionTh', e.target.value)
+                        : updateHeroField('descriptionEn', e.target.value)
+                    }
+                    placeholder="Enter hero description"
+                    rows={3}
+                  />
+                </div>
+              </div>
+
+              {/* Background Image */}
+              <div className="space-y-4">
+                <h4 className="font-medium">Background Image</h4>
+                <div className="space-y-2">
+                  <Label>Image URL</Label>
+                  <Input
+                    value={currentData.backgroundImageUrl}
+                    onChange={(e) => updateHeroField('backgroundImageUrl', e.target.value)}
+                    placeholder="https://example.com/hero-bg.jpg"
+                  />
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="space-y-4">
+                <h4 className="font-medium">Call-to-Action Button</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>Button Text ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
+                    <Input
+                      value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.ctaButtonTextEn : currentData.ctaButtonTextTh) : currentData.ctaButtonTextEn}
+                      onChange={(e) => 
+                        mode === 'advanced'
+                          ? updateHeroField(currentLanguage === 'en' ? 'ctaButtonTextEn' : 'ctaButtonTextTh', e.target.value)
+                          : updateHeroField('ctaButtonTextEn', e.target.value)
+                      }
+                      placeholder="Enter button text"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Button URL</Label>
+                    <Input
+                      value={currentData.ctaButtonUrl}
+                      onChange={(e) => updateHeroField('ctaButtonUrl', e.target.value)}
+                      placeholder="/contact"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label>Button Type</Label>
+                  <Select
+                    value={currentData.ctaButtonType}
+                    onValueChange={(value: 'primary' | 'secondary') => updateHeroField('ctaButtonType', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="primary">Primary</SelectItem>
+                      <SelectItem value="secondary">Secondary</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Advanced Settings */}
+              <div className="space-y-4">
+                <h4 className="font-medium">Advanced Settings</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>Text Position</Label>
+                    <Select
+                      value={currentData.textPosition}
+                      onValueChange={(value: 'left' | 'center' | 'right') => updateHeroField('textPosition', value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="left">Left</SelectItem>
+                        <SelectItem value="center">Center</SelectItem>
+                        <SelectItem value="right">Right</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Overlay Opacity ({Math.round(currentData.overlayOpacity * 100)}%)</Label>
+                    <Input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value={currentData.overlayOpacity}
+                      onChange={(e) => updateHeroField('overlayOpacity', parseFloat(e.target.value))}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="hero-active"
+                    checked={currentData.isActive}
+                    onCheckedChange={(checked) => updateHeroField('isActive', checked)}
+                  />
+                  <Label htmlFor="hero-active">Hero Section Active</Label>
+                </div>
+              </div>
             </div>
           </>
         ) : (
           <>
-            {/* View Mode - Static Fields */}
+            {/* View Mode - Hero Preview */}
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="hero-badge">Badge Text</Label>
+                <Label>Title ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                 <Input
-                  id="hero-badge"
-                  value={data.fields.find(f => f.key === "badge")?.values[currentLanguage] || ""}
+                  value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.titleEn : currentData.titleTh) : currentData.titleEn}
                   readOnly
                   className="bg-muted"
                 />
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="hero-title-part1">Title Part 1</Label>
-                  <Input
-                    id="hero-title-part1"
-                    value={data.fields.find(f => f.key === "title_part1")?.values[currentLanguage] || ""}
-                    readOnly
-                    className="bg-muted"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="hero-title-part2">Title Part 2</Label>
-                  <Input
-                    id="hero-title-part2"
-                    value={data.fields.find(f => f.key === "title_part2")?.values[currentLanguage] || ""}
-                    readOnly
-                    className="bg-muted"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="hero-gradient1">Gradient Title 1</Label>
-                  <Input
-                    id="hero-gradient1"
-                    value={data.fields.find(f => f.key === "title_gradient1")?.values[currentLanguage] || ""}
-                    readOnly
-                    className="bg-muted"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="hero-gradient2">Gradient Title 2</Label>
-                  <Input
-                    id="hero-gradient2"
-                    value={data.fields.find(f => f.key === "title_gradient2")?.values[currentLanguage] || ""}
-                    readOnly
-                    className="bg-muted"
-                  />
-                </div>
-              </div>
-
               <div className="space-y-2">
-                <Label htmlFor="hero-subtitle">Subtitle</Label>
+                <Label>Subtitle ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
+                <Input
+                  value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.subtitleEn : currentData.subtitleTh) : currentData.subtitleEn}
+                  readOnly
+                  className="bg-muted"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Description ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                 <Textarea
-                  id="hero-subtitle"
-                  value={data.fields.find(f => f.key === "subtitle")?.values[currentLanguage] || ""}
+                  value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.descriptionEn : currentData.descriptionTh) : currentData.descriptionEn}
                   readOnly
                   className="bg-muted"
                   rows={3}
                 />
               </div>
 
+              <div className="space-y-2">
+                <Label>Background Image</Label>
+                <Input
+                  value={currentData.backgroundImageUrl}
+                  readOnly
+                  className="bg-muted"
+                />
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="hero-button1">Button 1 Text</Label>
+                  <Label>CTA Button Text ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                   <Input
-                    id="hero-button1"
-                    value={data.buttons[0]?.values[currentLanguage] || ""}
+                    value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.ctaButtonTextEn : currentData.ctaButtonTextTh) : currentData.ctaButtonTextEn}
                     readOnly
                     className="bg-muted"
-                  />
-                  <Input
-                    value={data.buttons[0]?.url || ""}
-                    readOnly
-                    className="bg-muted text-xs"
-                    placeholder="URL"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="hero-button2">Button 2 Text</Label>
+                  <Label>Button URL</Label>
                   <Input
-                    id="hero-button2"
-                    value={data.buttons[1]?.values[currentLanguage] || ""}
+                    value={currentData.ctaButtonUrl}
                     readOnly
                     className="bg-muted"
                   />
-                  <Input
-                    value={data.buttons[1]?.url || ""}
-                    readOnly
-                    className="bg-muted text-xs"
-                    placeholder="URL"
-                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4 text-sm">
+                <div>
+                  <Label>Button Type</Label>
+                  <Badge variant="outline" className="ml-2">{currentData.ctaButtonType}</Badge>
+                </div>
+                <div>
+                  <Label>Text Position</Label>
+                  <Badge variant="outline" className="ml-2">{currentData.textPosition}</Badge>
+                </div>
+                <div>
+                  <Label>Overlay</Label>
+                  <Badge variant="outline" className="ml-2">{Math.round(currentData.overlayOpacity * 100)}%</Badge>
                 </div>
               </div>
             </div>
           </>
         )}
       </CardContent>
+
+      {/* Hero Widget Selector */}
+      <HeroSelector
+        isOpen={showHeroSelector}
+        onClose={() => setShowHeroSelector(false)}
+        onSelect={handleHeroWidgetSelect}
+        currentHeroId={currentData.heroWidgetType}
+        initialData={{
+          titleEn: currentData.titleEn,
+          titleTh: currentData.titleTh,
+          subtitleEn: currentData.subtitleEn,
+          subtitleTh: currentData.subtitleTh,
+          descriptionEn: currentData.descriptionEn,
+          descriptionTh: currentData.descriptionTh,
+          backgroundImageUrl: currentData.backgroundImageUrl,
+          ctaButtonTextEn: currentData.ctaButtonTextEn,
+          ctaButtonTextTh: currentData.ctaButtonTextTh,
+          ctaButtonUrl: currentData.ctaButtonUrl,
+          ctaButtonType: currentData.ctaButtonType,
+          overlayOpacity: currentData.overlayOpacity,
+          textPosition: currentData.textPosition,
+          isActive: currentData.isActive,
+        }}
+      />
     </Card>
   )
 }

@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
+import { imagesApi } from '@/lib/api/images';
 
 interface ImageUploadDialogProps {
   onUploadSuccess?: () => void;
@@ -21,32 +22,25 @@ export function ImageUploadDialog({ onUploadSuccess, children }: ImageUploadDial
   const handleUpload = async () => {
     if (!uploadingFile) return;
 
-    const formData = new FormData();
-    formData.append('file', uploadingFile);
-    formData.append('type', 'admin');
-
     try {
       setUploadProgress(10);
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
+      
+      await imagesApi.uploadImage({
+        file: uploadingFile,
+        category: 'general',
+        tags: ['admin'],
+        altText: uploadingFile.name
       });
 
-      setUploadProgress(50);
-      const data = await response.json();
-
-      if (response.ok) {
-        setUploadProgress(100);
-        toast.success('Image uploaded successfully');
-        setIsOpen(false);
-        setUploadingFile(null);
-        setUploadProgress(0);
-        onUploadSuccess?.();
-      } else {
-        toast.error(data.error || 'Upload failed');
-      }
-    } catch (error) {
-      toast.error('Upload failed');
+      setUploadProgress(100);
+      toast.success('Image uploaded successfully');
+      setIsOpen(false);
+      setUploadingFile(null);
+      setUploadProgress(0);
+      onUploadSuccess?.();
+    } catch (error: any) {
+      const errorMessage = error.message || 'Upload failed';
+      toast.error(errorMessage);
     } finally {
       setUploadProgress(0);
     }

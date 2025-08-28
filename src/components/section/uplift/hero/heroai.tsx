@@ -20,8 +20,8 @@ export const Hero = React.forwardRef<HTMLDivElement, HeroProps>(({ heroContent }
     >
       {/* Background Effects */}
       <Particles />
-      <FloatingElements />
-      <MouseFollowEffect />
+      {/* <FloatingElements /> */}
+      {/* <MouseFollowEffect /> */}
       
       <HeroAnimate containerRef={ref as React.RefObject<HTMLDivElement>}>
         <div className="h-full w-full z-20">

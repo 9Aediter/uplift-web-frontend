@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/button/button"
+import { Badge } from "@/components/button/badge"
 import {
   Dialog,
   DialogContent,
@@ -114,7 +114,7 @@ export function HeroSelector({ isOpen, onClose, onSelect, currentHeroId, initial
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent 
+      <DialogContent
         className="!w-[95vw] !max-w-7xl max-h-[90vh] mx-auto"
       >
         <DialogHeader>
@@ -145,8 +145,8 @@ export function HeroSelector({ isOpen, onClose, onSelect, currentHeroId, initial
             <button
               onClick={() => handleTypeChange('all')}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${activeType === 'all'
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                 }`}
             >
               All Patterns ({allHeroes.length})
@@ -162,8 +162,8 @@ export function HeroSelector({ isOpen, onClose, onSelect, currentHeroId, initial
                   key={type}
                   onClick={() => handleTypeChange(type)}
                   className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center ${activeType === type
-                      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                     }`}
                 >
                   <Icon className="w-4 h-4 mr-1" />
@@ -190,10 +190,10 @@ export function HeroSelector({ isOpen, onClose, onSelect, currentHeroId, initial
                     key={hero.id}
                     onClick={() => setSelectedHero(hero)}
                     className={`group relative rounded-lg p-4 border-2 cursor-pointer transition-all duration-200 ${isSelected
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                        : isCurrent
-                          ? 'border-primary bg-primary/5'
-                          : 'border-transparent bg-gray-50 dark:bg-gray-700/50 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                      : isCurrent
+                        ? 'border-primary bg-primary/5'
+                        : 'border-transparent bg-gray-50 dark:bg-gray-700/50 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20'
                       }`}
                   >
                     {/* Hero Icon & Type */}

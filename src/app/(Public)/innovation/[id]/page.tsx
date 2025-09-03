@@ -98,7 +98,7 @@ export default async function Page({
         badge="Innovation"
         category={product.category}
         features={product.features}
-        backgroundImage={product.coverImage || product.image?.[0]?.url || ''}
+        backgroundImage={product.image || ''}
         ctaButtons={[
           {
             text: 'Get Started',
@@ -112,13 +112,13 @@ export default async function Page({
           }
         ]}
       >
-        <InnovationImageAnimate imageUrl={product.coverImage || product.image?.[0]?.url || ''} />
+        <InnovationImageAnimate imageUrl={product.image || ''} />
       </ProductHero>
 
       {/* Main Content Sections */}
       <div id="features" className="max-w-7xl mx-auto px-4">
         {/* <OverviewSection description={product.description} /> */}
-        <WhatIsSection 
+        {/* <WhatIsSection 
           title={product.productSections?.find(s => s.sectionType === 'what_is')?.title}
           subtitle={product.productSections?.find(s => s.sectionType === 'what_is')?.subtitle}
           cards={product.productSections?.find(s => s.sectionType === 'what_is')?.cards}
@@ -133,7 +133,7 @@ export default async function Page({
         <HowUpliftBuildsItSection />
         <TechStackSection techStackSection={product.techStackSection} />
         <ExampleScreensSection caseStudy={product.caseStudy || ""} />
-        <FAQSection />
+        <FAQSection /> */}
       </div>
 
       {/* Call to Action Section (Full Width) */}

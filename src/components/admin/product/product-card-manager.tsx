@@ -3,17 +3,17 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/button/button';
+import { Input } from '@/components/input/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/input/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/input/select';
 import {
   Dialog,
   DialogContent,
@@ -21,7 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/button/badge';
 import { Plus, Trash2, Pencil } from 'lucide-react';
 import { CoverImageCard } from '@/components/image';
 
@@ -232,7 +232,7 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
                   rows={3}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="card-image">Card Image</Label>
                 <CoverImageCard
@@ -240,7 +240,7 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
                   onImageChange={(imageUrl) => setFormData(prev => ({ ...prev, imageUrl: imageUrl || '' }))}
                 />
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="card-icon">Icon</Label>
@@ -306,46 +306,46 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
           {cards
             .sort((a, b) => a.order - b.order)
             .map((card) => (
-            <Card key={card.id} className="border-l-4 border-l-primary">
-              <CardContent className="p-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h5 className="font-medium">{card.title}</h5>
-                      <Badge variant="outline">Order: {card.order}</Badge>
-                      {card.icon && (
-                        <Badge variant="secondary">
-                          {getIconLabel(card.icon)}
-                        </Badge>
-                      )}
-                      {card.iconColor && (
-                        <Badge variant="secondary">
-                          {getColorLabel(card.iconColor)}
-                        </Badge>
-                      )}
+              <Card key={card.id} className="border-l-4 border-l-primary">
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h5 className="font-medium">{card.title}</h5>
+                        <Badge variant="outline">Order: {card.order}</Badge>
+                        {card.icon && (
+                          <Badge variant="secondary">
+                            {getIconLabel(card.icon)}
+                          </Badge>
+                        )}
+                        {card.iconColor && (
+                          <Badge variant="secondary">
+                            {getColorLabel(card.iconColor)}
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-sm text-muted-foreground">{card.description}</p>
                     </div>
-                    <p className="text-sm text-muted-foreground">{card.description}</p>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => openEditDialog(card)}
+                      >
+                        <Pencil className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDeleteCard(card.id)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => openEditDialog(card)}
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => handleDeleteCard(card.id)}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
         </div>
       )}
 
@@ -375,7 +375,7 @@ export function ProductCardManager({ productId, sectionId, cards, onCardsChange 
                 rows={3}
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="edit-card-image">Card Image</Label>
               <CoverImageCard

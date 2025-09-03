@@ -3,17 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { SiteHeader } from '@/components/site-header';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/button/button';
+import { Input } from '@/components/input/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/input/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/input/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Dialog,
@@ -36,7 +36,7 @@ interface Technology {
 
 const CATEGORY_OPTIONS = [
   'Frontend',
-  'Backend', 
+  'Backend',
   'Database',
   'Cloud',
   'DevOps',
@@ -51,7 +51,7 @@ export default function TechnologiesPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTech, setEditingTech] = useState<Technology | null>(null);
   const [saving, setSaving] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -89,7 +89,7 @@ export default function TechnologiesPage() {
     try {
       setSaving(true);
       const slug = formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      
+
       const response = await fetch('/api/admin/technologies', {
         method: editingTech ? 'PUT' : 'POST',
         headers: {
@@ -241,8 +241,8 @@ export default function TechnologiesPage() {
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <div 
-                      dangerouslySetInnerHTML={{ __html: tech.svgCode }} 
+                    <div
+                      dangerouslySetInnerHTML={{ __html: tech.svgCode }}
                       className="w-8 h-8 [&>svg]:w-full [&>svg]:h-full flex-shrink-0"
                     />
                     <div>
@@ -280,7 +280,7 @@ export default function TechnologiesPage() {
                 {editingTech ? 'Edit Technology' : 'Add Technology'}
               </DialogTitle>
             </DialogHeader>
-            
+
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -353,8 +353,8 @@ export default function TechnologiesPage() {
                 <div className="space-y-2">
                   <Label>Preview</Label>
                   <div className="p-4 border rounded-lg bg-muted/50">
-                    <div 
-                      dangerouslySetInnerHTML={{ __html: formData.svgCode }} 
+                    <div
+                      dangerouslySetInnerHTML={{ __html: formData.svgCode }}
                       className="w-12 h-12 [&>svg]:w-full [&>svg]:h-full"
                     />
                   </div>

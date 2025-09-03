@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/button/button"
+import { Input } from "@/components/input/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/input/textarea"
+import { Switch } from "@/components/input/switch"
+import { Badge } from "@/components/button/badge"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/input/select"
 import { Edit, Eye, Save, RefreshCw, Palette } from "lucide-react"
 import { toast } from "sonner"
 import { useHomeStore } from "@/lib/store/home-store"
@@ -54,7 +54,7 @@ export function HeroSectionEditor({
   initialData
 }: HeroSectionEditorProps) {
   const { heroData, status, isLoading, loadHeroData, updateHeroData, saveHeroData, publishHeroData } = useHomeStore()
-  
+
   const [currentLanguage, setCurrentLanguage] = useState<"en" | "th">("en")
   const [isEditMode, setIsEditMode] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -159,7 +159,7 @@ export function HeroSectionEditor({
   const handleHeroWidgetSelect = (heroWidget: BaseHeroWidget, heroData: HeroData) => {
     console.log('📝 [HERO EDITOR] Selected hero widget:', heroWidget.name, heroWidget.id)
     console.log('📝 [HERO EDITOR] Hero data:', heroData)
-    
+
     // Convert HeroData to HeroSectionData format
     const updatedData: HeroSectionData = {
       ...currentData,
@@ -179,7 +179,7 @@ export function HeroSectionEditor({
       textPosition: heroData.textPosition || currentData.textPosition,
       isActive: heroData.isActive ?? currentData.isActive,
     }
-    
+
     handleDataUpdate(updatedData)
     setCurrentHeroWidget(heroWidget)
     toast.success(`Hero pattern configured: ${heroWidget.name}`)
@@ -207,9 +207,9 @@ export function HeroSectionEditor({
                 <>
                   <Badge variant="outline">{currentLanguage.toUpperCase()}</Badge>
                   {isEditMode && <Badge variant="secondary">Edit Mode</Badge>}
-                  <Badge 
-                    variant={status === "published" ? "default" : 
-                            status === "draft" ? "outline" : "secondary"}
+                  <Badge
+                    variant={status === "published" ? "default" :
+                      status === "draft" ? "outline" : "secondary"}
                   >
                     {status.toUpperCase()}
                   </Badge>
@@ -223,7 +223,7 @@ export function HeroSectionEditor({
             </CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>
-          
+
           <div className="flex items-center gap-4">
             {mode === 'advanced' && (
               <div className="flex items-center gap-2">
@@ -237,7 +237,7 @@ export function HeroSectionEditor({
                 />
               </div>
             )}
-            
+
             {/* Status Actions */}
             {mode === 'advanced' && (
               <div className="flex items-center gap-2">
@@ -309,7 +309,7 @@ export function HeroSectionEditor({
                     <Label>Title ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                     <Input
                       value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.titleEn : currentData.titleTh) : currentData.titleEn}
-                      onChange={(e) => 
+                      onChange={(e) =>
                         mode === 'advanced'
                           ? updateHeroField(currentLanguage === 'en' ? 'titleEn' : 'titleTh', e.target.value)
                           : updateHeroField('titleEn', e.target.value)
@@ -327,7 +327,7 @@ export function HeroSectionEditor({
                   <Label>Subtitle ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                   <Input
                     value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.subtitleEn : currentData.subtitleTh) : currentData.subtitleEn}
-                    onChange={(e) => 
+                    onChange={(e) =>
                       mode === 'advanced'
                         ? updateHeroField(currentLanguage === 'en' ? 'subtitleEn' : 'subtitleTh', e.target.value)
                         : updateHeroField('subtitleEn', e.target.value)
@@ -344,7 +344,7 @@ export function HeroSectionEditor({
                   <Label>Description ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                   <Textarea
                     value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.descriptionEn : currentData.descriptionTh) : currentData.descriptionEn}
-                    onChange={(e) => 
+                    onChange={(e) =>
                       mode === 'advanced'
                         ? updateHeroField(currentLanguage === 'en' ? 'descriptionEn' : 'descriptionTh', e.target.value)
                         : updateHeroField('descriptionEn', e.target.value)
@@ -376,7 +376,7 @@ export function HeroSectionEditor({
                     <Label>Button Text ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                     <Input
                       value={mode === 'advanced' ? (currentLanguage === 'en' ? currentData.ctaButtonTextEn : currentData.ctaButtonTextTh) : currentData.ctaButtonTextEn}
-                      onChange={(e) => 
+                      onChange={(e) =>
                         mode === 'advanced'
                           ? updateHeroField(currentLanguage === 'en' ? 'ctaButtonTextEn' : 'ctaButtonTextTh', e.target.value)
                           : updateHeroField('ctaButtonTextEn', e.target.value)
@@ -466,7 +466,7 @@ export function HeroSectionEditor({
                   className="bg-muted"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Subtitle ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                 <Input
@@ -475,7 +475,7 @@ export function HeroSectionEditor({
                   className="bg-muted"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Description ({mode === 'advanced' ? currentLanguage.toUpperCase() : 'Text'})</Label>
                 <Textarea

@@ -1,16 +1,17 @@
 import React from 'react'
 import { WidgetConfig, RenderContext } from '../../core/types'
 import { BaseHeroWidget, HeroData } from '../BaseHeroWidget'
+import { HeroAISSR } from './HeroAI.ssr'
+import { HeroAISkeleton } from './HeroAI.skeleton'
 
 interface HeroAIData extends HeroData {
   // AI-specific fields
   badge: string
-  titlePart1: string
-  titlePart2: string
-  titleGradient1: string
-  titleGradient2: string
+  title: string
+  titleGradient: string
   launchButton: string
   exploreButton: string
+  backgroundEffect?: 'particles' | 'static' | 'none'
 }
 
 export class HeroAIWidget extends BaseHeroWidget {
@@ -37,32 +38,18 @@ export class HeroAIWidget extends BaseHeroWidget {
         placeholder: 'AI-Powered Solutions'
       },
       {
-        key: 'titlePart1',
-        label: 'Title Part 1',
+        key: 'title',
+        label: 'Main Title',
         type: 'text' as const,
         required: false,
-        placeholder: 'The Future of'
+        placeholder: 'The Future of Technology is'
       },
       {
-        key: 'titlePart2',
-        label: 'Title Part 2',
+        key: 'titleGradient',
+        label: 'Gradient Title',
         type: 'text' as const,
         required: false,
-        placeholder: 'Technology is'
-      },
-      {
-        key: 'titleGradient1',
-        label: 'Title Gradient 1',
-        type: 'text' as const,
-        required: false,
-        placeholder: 'Here & Now'
-      },
-      {
-        key: 'titleGradient2',
-        label: 'Title Gradient 2',
-        type: 'text' as const,
-        required: false,
-        placeholder: 'With AI'
+        placeholder: 'Here & Now With AI'
       },
       {
         key: 'launchButton',
@@ -77,6 +64,18 @@ export class HeroAIWidget extends BaseHeroWidget {
         type: 'text' as const,
         required: false,
         placeholder: 'Explore More'
+      },
+      {
+        key: 'backgroundEffect',
+        label: 'Background Effect',
+        type: 'select' as const,
+        required: false,
+        options: [
+          { label: 'Particles (Client Only)', value: 'particles' },
+          { label: 'Static Effects', value: 'static' },
+          { label: 'None', value: 'none' }
+        ],
+        defaultValue: 'static'
       }
     ]
 
@@ -92,110 +91,74 @@ export class HeroAIWidget extends BaseHeroWidget {
     return {
       ...baseData,
       badge: 'AI-Powered Solutions',
-      titlePart1: 'The Future of',
-      titlePart2: 'Technology is',
-      titleGradient1: 'Here & Now',
-      titleGradient2: 'With AI',
+      title: 'The Future of Technology is',
+      titleGradient: 'Here & Now With AI',
       launchButton: 'Launch Project',
-      exploreButton: 'Explore Innovation'
+      exploreButton: 'Explore Innovation',
+      backgroundEffect: 'static'
     }
   }
 
   render(data: HeroAIData, context?: RenderContext): React.ComponentType<any> {
     try {
-      const { HeroAIComponent } = require('./HeroAI.component')
       const transformedData = this.transformDataForHeroAI(data || this.getDefaultData(), context)
       
       return function HeroAIRenderer(props: any) {
-        return React.createElement(HeroAIComponent, {
+        return React.createElement(HeroAISSR, {
           badge: transformedData.badge,
-          titlePart1: transformedData.title_part1,
-          titlePart2: transformedData.title_part2,
-          titleGradient1: transformedData.title_gradient1,
-          titleGradient2: transformedData.title_gradient2,
+          title: transformedData.title,
+          titleGradient: transformedData.titleGradient,
           subtitle: transformedData.subtitle,
-          launchButton: transformedData.launch_button,
-          exploreButton: transformedData.explore_button,
+          launchButton: transformedData.launchButton,
+          exploreButton: transformedData.exploreButton,
           backgroundImageUrl: transformedData.backgroundImageUrl,
           overlayOpacity: transformedData.overlayOpacity,
           textPosition: transformedData.textPosition,
+          backgroundEffect: transformedData.backgroundEffect,
           theme: context?.theme || 'dark',
-          error: false,
           context,
           ...props
         })
       }
     } catch (error) {
       console.error('🚫 [HERO AI] Failed to load HeroAI component:', error)
-      // Use default data with error state instead of skeleton
-      const defaultData = this.transformDataForHeroAI(this.getDefaultData(), context)
-      const { HeroAIComponent } = require('./HeroAI.component')
-      
-      return function HeroAIErrorRenderer(props: any) {
-        return React.createElement(HeroAIComponent, {
-          badge: defaultData.badge,
-          titlePart1: defaultData.title_part1,
-          titlePart2: defaultData.title_part2,
-          titleGradient1: defaultData.title_gradient1,
-          titleGradient2: defaultData.title_gradient2,
-          subtitle: defaultData.subtitle,
-          launchButton: defaultData.launch_button,
-          exploreButton: defaultData.explore_button,
-          backgroundImageUrl: defaultData.backgroundImageUrl,
-          overlayOpacity: defaultData.overlayOpacity,
-          textPosition: defaultData.textPosition,
-          theme: context?.theme || 'dark',
-          error: true,
-          errorMessage: error instanceof Error ? error.message : String(error),
-          context,
-          ...props
-        })
-      }
+      return this.renderSkeleton()
     }
   }
 
   renderSSR(data: HeroAIData, context?: RenderContext): React.ComponentType<any> {
-    // SSR: Use skeleton instead of complex component to avoid hooks
-    return this.renderSkeleton()
+    // For SSR, use the SSR-safe component
+    return this.render(data, context)
   }
 
   private transformDataForHeroAI(data: HeroAIData, context?: RenderContext) {
     const transformedData = this.transformData(data, context)
     
     return {
-      badge: data.badge || transformedData.title,
-      title_part1: data.titlePart1 || '',
-      title_part2: data.titlePart2 || '',
-      title_gradient1: data.titleGradient1 || transformedData.title,
-      title_gradient2: data.titleGradient2 || '',
+      badge: data.badge || 'AI-Powered Solutions',
+      title: data.title || transformedData.title || 'The Future of Technology is',
+      titleGradient: data.titleGradient || 'Here & Now With AI',
       subtitle: transformedData.subtitle || transformedData.description,
-      launch_button: data.launchButton || transformedData.ctaButtonText || 'Launch Project',
-      explore_button: data.exploreButton || 'Explore More',
+      launchButton: data.launchButton || transformedData.ctaButtonText || 'Launch Project',
+      exploreButton: data.exploreButton || 'Explore More',
       backgroundImageUrl: data.backgroundImageUrl,
       overlayOpacity: data.overlayOpacity || 0.5,
-      textPosition: data.textPosition || 'center'
+      textPosition: data.textPosition || 'center',
+      backgroundEffect: data.backgroundEffect || 'static'
     }
   }
 
   renderSkeleton(): React.ComponentType {
-    let HeroAISkeleton: any = null
     try {
-      if (typeof window !== 'undefined' || typeof require !== 'undefined') {
-        HeroAISkeleton = require('./HeroAI.skeleton').HeroAISkeleton
-      }
+      return HeroAISkeleton
     } catch (error) {
       console.error('🚫 [HERO AI] Failed to load skeleton:', error)
+      // Fallback skeleton if import fails
+      return () => React.createElement('div', {
+        className: 'h-screen bg-gray-900 animate-pulse flex items-center justify-center'
+      }, React.createElement('div', {
+        className: 'text-gray-400'
+      }, 'Loading Hero...'))
     }
-
-    if (HeroAISkeleton) {
-      return HeroAISkeleton
-    }
-
-    // Fallback skeleton if import fails
-    return () => React.createElement('div', {
-      className: 'h-screen bg-gray-900 animate-pulse flex items-center justify-center'
-    }, React.createElement('div', {
-      className: 'text-gray-400'
-    }, 'Loading Hero...'))
   }
 }

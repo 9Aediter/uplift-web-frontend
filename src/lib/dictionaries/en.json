@@ -1,8 +1,19 @@
 {
   "title": "UPLIFT | Tailored Software Solutions",
   "description": "We build custom CMS, POS, ERP and backend systems for real businesses.",
-  "keywords": ["UPLIFTTECH", "ERP System", "POS Software", "SME website development", "UX/UI design service", "mobile app development", "custom software development", "business automation", "digital transformation", "enterprise solutions"]
-,
+  "keywords": [
+    "UPLIFT TECHNOLOGY CO., LTD.",
+    "UPLIFTTECH",
+    "ERP System",
+    "POS Software",
+    "SME website development",
+    "UX/UI design service",
+    "mobile app development",
+    "custom software development",
+    "business automation",
+    "digital transformation",
+    "enterprise solutions"
+  ],
   "story": {
     "title": "Our Story | UPLIFT",
     "description": "Discover the journey of UPLIFT - from a vision to transform businesses through technology to becoming Thailand's premier custom software development company.",
@@ -19,19 +30,34 @@
           "year": "2024",
           "title": "Scaling Excellence",
           "content": "Expanded our services to include AI-powered solutions and advanced analytics. Launched our proprietary ERP platform that now serves over 50+ businesses across Thailand. Achieved SOC 2 compliance and established partnerships with major cloud providers.",
-          "achievements": ["50+ Active Clients", "AI Integration Platform", "SOC 2 Certification", "Cloud Partnerships"]
+          "achievements": [
+            "50+ Active Clients",
+            "AI Integration Platform",
+            "SOC 2 Certification",
+            "Cloud Partnerships"
+          ]
         },
         {
           "year": "2023",
           "title": "Market Leadership",
           "content": "Became the go-to solution provider for SMEs in Thailand. Developed our signature POS system that revolutionized retail operations for local businesses. Established our dedicated mobile app development division.",
-          "achievements": ["POS System Launch", "Mobile Division", "SME Market Leader", "15+ Team Members"]
+          "achievements": [
+            "POS System Launch",
+            "Mobile Division",
+            "SME Market Leader",
+            "15+ Team Members"
+          ]
         },
         {
           "year": "2022",
           "title": "Foundation & Growth",
           "content": "UPLIFT was born from a vision to democratize enterprise-level technology for businesses of all sizes. Started with custom web development and quickly expanded to comprehensive digital solutions.",
-          "achievements": ["Company Founded", "First Enterprise Client", "Core Team Assembled", "Technology Stack Defined"]
+          "achievements": [
+            "Company Founded",
+            "First Enterprise Client",
+            "Core Team Assembled",
+            "Technology Stack Defined"
+          ]
         }
       ]
     },
@@ -49,7 +75,12 @@
           "Specialized in Enterprise Architecture & Cloud Solutions",
           "Expert in Business Process Automation"
         ],
-        "expertise": ["System Architecture", "Business Strategy", "Team Leadership", "Innovation Management"],
+        "expertise": [
+          "System Architecture",
+          "Business Strategy",
+          "Team Leadership",
+          "Innovation Management"
+        ],
         "achievements": [
           "Built 100+ custom software solutions",
           "Led digital transformation for 50+ companies",

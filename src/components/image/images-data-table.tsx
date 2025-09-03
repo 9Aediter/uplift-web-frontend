@@ -11,8 +11,8 @@ import {
 } from "@tabler/icons-react"
 import { DataTable } from '@/components/data-table';
 import { ImageCardView } from './image-card-view';
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/button/badge"
+import { Button } from "@/components/button/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -26,7 +26,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/input/select"
 import {
   Tabs,
   TabsContent,
@@ -133,7 +133,7 @@ export function ImagesDataTable({
           </Button>
         </div>
       </div>
-      
+
       <TabsContent
         value="table"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
@@ -144,7 +144,7 @@ export function ImagesDataTable({
           views={["table"]}
         />
       </TabsContent>
-      
+
       <TabsContent
         value="card"
         className="relative flex flex-col gap-4 overflow-auto"

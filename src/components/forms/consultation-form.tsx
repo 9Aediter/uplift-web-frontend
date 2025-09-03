@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { Calendar as CalendarIcon, Clock, User, Mail, Phone, MessageSquare, FileText, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { FloatingInput, FloatingTextarea, FloatingSelect } from '@/components/ui/floating-input';
+import { Button } from '@/components/button/button';
+import { FloatingInput, FloatingTextarea, FloatingSelect } from '@/components/input/floating-input';
 import { Calendar } from '@/components/ui/calendar';
 import { TimePicker } from '@/components/ui/time-picker';
 import {
@@ -21,14 +21,14 @@ interface ConsultationFormData {
   email: string;
   phone: string;
   company?: string;
-  
+
   // System Interest
   interestedSystem: string;
-  
+
   // Additional Details
   projectDescription: string;
   requirements?: string;
-  
+
   // Scheduling
   preferredDate: string;
   preferredTime: string;
@@ -132,9 +132,9 @@ export function ConsultationForm() {
       if (!response.ok) {
         throw new Error(result.error || 'Failed to submit consultation request');
       }
-      
+
       toast.success('Consultation request sent successfully! We\'ll contact you soon.');
-      
+
       // Reset form
       setFormData({
         name: '',
@@ -149,7 +149,7 @@ export function ConsultationForm() {
         timezone: 'Asia/Bangkok',
       });
       setCurrentStep(1);
-      
+
     } catch (error) {
       console.error('Consultation submission error:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to send consultation request. Please try again.');
@@ -187,7 +187,7 @@ export function ConsultationForm() {
             className="text-base"
           />
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <FloatingInput
             label="Email Address"
@@ -274,7 +274,7 @@ export function ConsultationForm() {
             <div>
               <h4 className="text-cyan-300 font-semibold text-base mb-2">Have documents to share?</h4>
               <p className="text-gray-300 text-sm leading-relaxed">
-                You can share detailed requirements, wireframes, technical specifications, or project documents 
+                You can share detailed requirements, wireframes, technical specifications, or project documents
                 during our consultation call. We'll review them together and provide tailored recommendations.
               </p>
             </div>
@@ -394,19 +394,17 @@ export function ConsultationForm() {
         {[1, 2, 3].map((step) => (
           <div key={step} className="flex items-center">
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-colors duration-300 ${
-                currentStep >= step
-                  ? 'bg-cyan-500 text-white'
-                  : 'bg-gray-700 text-gray-400'
-              }`}
+              className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-colors duration-300 ${currentStep >= step
+                ? 'bg-cyan-500 text-white'
+                : 'bg-gray-700 text-gray-400'
+                }`}
             >
               {step}
             </div>
             {step < 3 && (
               <div
-                className={`w-16 h-1 mx-2 transition-colors duration-300 ${
-                  currentStep > step ? 'bg-cyan-500' : 'bg-gray-700'
-                }`}
+                className={`w-16 h-1 mx-2 transition-colors duration-300 ${currentStep > step ? 'bg-cyan-500' : 'bg-gray-700'
+                  }`}
               />
             )}
           </div>

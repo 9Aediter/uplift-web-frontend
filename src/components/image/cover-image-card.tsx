@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/button/button';
 import { ImageUploadSingle } from './image-upload-single';
 import { TrashIcon, PlusIcon } from '@heroicons/react/24/outline';
 
@@ -11,10 +11,10 @@ interface CoverImageCardProps {
   className?: string;
 }
 
-export function CoverImageCard({ 
-  imageUrl, 
-  onImageChange, 
-  className 
+export function CoverImageCard({
+  imageUrl,
+  onImageChange,
+  className
 }: CoverImageCardProps) {
   const handleImageUpload = (newImageUrl: string, imageId?: string) => {
     onImageChange(newImageUrl, imageId);
@@ -39,7 +39,7 @@ export function CoverImageCard({
                 target.src = '/placeholder-image.png'; // Fallback image
               }}
             />
-            
+
             {/* Overlay with actions - Show on Hover */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 flex items-center justify-center transition-all duration-200">
               <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex gap-2">
@@ -49,7 +49,7 @@ export function CoverImageCard({
                     Change Image
                   </Button>
                 </ImageUploadSingle>
-                
+
                 {/* Remove Image */}
                 <Button
                   variant="destructive"
@@ -61,7 +61,7 @@ export function CoverImageCard({
                 </Button>
               </div>
             </div>
-            
+
             {/* Cover Image Label */}
             <div className="absolute top-2 left-2">
               <div className="bg-primary text-primary-foreground px-2 py-1 rounded text-xs font-medium">

@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/data-table"
 import { SiteHeader } from "@/components/site-header"
 import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/button/button"
 
 const mockSettings = [
   {
@@ -41,7 +41,7 @@ const mockSettings = [
 export default function SettingsPage() {
   return (
     <>
-      <SiteHeader 
+      <SiteHeader
         breadcrumbs={[
           { href: "/admin", label: "Admin" },
           { label: "Settings" }

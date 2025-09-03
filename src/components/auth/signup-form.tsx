@@ -8,11 +8,11 @@ import { useAuthActions } from "@/lib/store/auth"
 import { useModal } from "@/lib/modal-provider"
 import { UserExistsModal } from "@/components/auth/user-exists-modal"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/button/button"
+import { Input } from "@/components/input/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { PasswordInput } from "@/components/ui/password-input"
+import { PasswordInput } from "@/components/input/password-input"
 import { SocialForm } from "@/components/auth/social-form"
 import Link from "next/link"
 
@@ -26,7 +26,7 @@ export function SignupForm({
   const { openModal } = useModal()
   const router = useRouter()
   const { login } = useAuthActions()
-  
+
   // Check if passwords match
   const passwordsMatch = password === confirmPassword && password.length > 0
   const canSubmit = passwordsMatch && !isLoading
@@ -38,7 +38,7 @@ export function SignupForm({
     const lastName = formData.get("lastName") as string
     const email = formData.get("email") as string
     const formPassword = formData.get("password") as string
-    
+
     // Combine first and last name for the name field
     const name = `${firstName} ${lastName}`.trim()
 
@@ -61,10 +61,10 @@ export function SignupForm({
         // Registration successful, store user (tokens are now in httpOnly cookies)
         login(response.data.user)
         toast.success("Account created successfully!")
-        
+
         // Set success message for AuthSuccessHandler
         localStorage.setItem('auth_success_message', 'register_success')
-        
+
         // Navigate without full page reload - auth state already updated
         router.push("/")
       }
@@ -75,16 +75,16 @@ export function SignupForm({
         data: error.response?.data,
         message: error.message
       })
-      
+
       if (error.response?.data?.message) {
         toast.error(error.response.data.message)
       } else if (error.response?.status === 409) {
         // User already exists - show modal for verification
         openModal(
           "user-exists",
-          <UserExistsModal 
-            email={email} 
-            message="Account exists with this email. Please verify your password to continue." 
+          <UserExistsModal
+            email={email}
+            message="Account exists with this email. Please verify your password to continue."
           />
         )
       } else {
@@ -109,57 +109,57 @@ export function SignupForm({
             <div className="grid grid-cols-2 gap-3">
               <div className="grid gap-3">
                 <Label htmlFor="firstName">First name</Label>
-                <Input 
-                  id="firstName" 
+                <Input
+                  id="firstName"
                   name="firstName"
-                  type="text" 
-                  placeholder="John" 
-                  required 
+                  type="text"
+                  placeholder="John"
+                  required
                   disabled={isLoading}
                 />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="lastName">Last name</Label>
-                <Input 
-                  id="lastName" 
+                <Input
+                  id="lastName"
                   name="lastName"
-                  type="text" 
-                  placeholder="Doe" 
-                  required 
+                  type="text"
+                  placeholder="Doe"
+                  required
                   disabled={isLoading}
                 />
               </div>
             </div>
             <div className="grid gap-3">
               <Label htmlFor="email">Email</Label>
-              <Input 
-                id="email" 
+              <Input
+                id="email"
                 name="email"
-                type="email" 
-                placeholder="m@example.com" 
-                required 
+                type="email"
+                placeholder="m@example.com"
+                required
                 disabled={isLoading}
               />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="password">Password</Label>
-              <PasswordInput 
-                id="password" 
+              <PasswordInput
+                id="password"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required 
+                required
                 disabled={isLoading}
               />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <PasswordInput 
-                id="confirmPassword" 
+              <PasswordInput
+                id="confirmPassword"
                 name="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                required 
+                required
                 disabled={isLoading}
               />
               {confirmPassword.length > 0 && !passwordsMatch && (

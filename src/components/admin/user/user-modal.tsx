@@ -3,8 +3,8 @@
 import { useState } from "react"
 import { toast } from "sonner"
 import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/button/button"
+import { Input } from "@/components/input/input"
 import { Label } from "@/components/ui/label"
 import {
   Dialog,
@@ -20,7 +20,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/input/select"
 import { StoreUser, useUsersActions } from "@/lib/store/users"
 import { rolesApi, SimpleRole } from "@/lib/api/users"
 import React from "react"
@@ -62,7 +62,7 @@ export function UserModal({ user, mode, open, onOpenChange, onSuccess }: UserMod
     roleIds: [] as string[],
     status: "ACTIVE" as 'ACTIVE' | 'INACTIVE',
   })
-  
+
   const [roles, setRoles] = useState<SimpleRole[]>([])
   const [rolesLoading, setRolesLoading] = useState(false)
 
@@ -134,7 +134,7 @@ export function UserModal({ user, mode, open, onOpenChange, onSuccess }: UserMod
           name: formData.name.trim(),
           password: formData.password,
         }
-        
+
         // Only add optional fields if they have values
         if (formData.email.trim()) {
           createData.email = formData.email.trim()
@@ -190,7 +190,7 @@ export function UserModal({ user, mode, open, onOpenChange, onSuccess }: UserMod
           return
         }
       }
-      
+
     } catch (error: any) {
       console.error(`Failed to ${mode} user:`, error)
       toast.error(error.message || `Failed to ${mode} user`)
@@ -213,13 +213,13 @@ export function UserModal({ user, mode, open, onOpenChange, onSuccess }: UserMod
         <DialogHeader>
           <DialogTitle>{mode === 'create' ? 'Create New User' : 'Edit User'}</DialogTitle>
           <DialogDescription>
-            {mode === 'create' 
+            {mode === 'create'
               ? 'Fill in the information to create a new user account.'
               : 'Update user information. Leave password empty to keep current password.'
             }
           </DialogDescription>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid gap-4 py-4">
             {/* Name Field */}
@@ -356,7 +356,7 @@ export function UserModal({ user, mode, open, onOpenChange, onSuccess }: UserMod
               Cancel
             </Button>
             <Button type="submit" disabled={submitting}>
-              {submitting 
+              {submitting
                 ? (mode === 'create' ? 'Creating...' : 'Updating...')
                 : (mode === 'create' ? 'Create User' : 'Update User')
               }

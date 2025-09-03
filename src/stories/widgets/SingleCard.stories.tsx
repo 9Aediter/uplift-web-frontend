@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 import { SingleCardComponent } from '@/lib/widgets/cards/SingleCard/SingleCard.component'
+import { SingleCardSkeleton } from '@/lib/widgets/cards/SingleCard/SingleCard.skeleton'
 
 /**
  * SingleCard widget - Large hero card with call-to-action buttons and animated background for landing pages.
@@ -64,85 +65,15 @@ export const Default: Story = {
 }
 
 /**
- * Product launch variant with different styling
+ * Skeleton loading state (SSR-safe for Suspense fallback)
  */
-export const ProductLaunch: Story = {
-  args: {
-    title: 'Introducing Our Latest Innovation',
-    subtitle: 'Built for the Future',
-    description: 'Experience the next generation of business automation with our cutting-edge platform designed for modern enterprises.',
-    primaryButtonText: 'Start Free Trial',
-    primaryButtonLink: '/trial',
-    secondaryButtonText: 'Watch Demo',
-    secondaryButtonLink: '/demo',
-    backgroundColor: 'bg-blue-600',
-    trustIndicators: [
-      { indicator: 'ENTERPRISE' },
-      { indicator: 'SAAS' },
-      { indicator: 'AI-POWERED' }
-    ],
-    showAnimations: true,
-    context: { isPreview: true }
-  },
-}
-
-/**
- * Service offering variant
- */
-export const ServiceOffering: Story = {
-  args: {
-    title: 'Custom Development Services',
-    subtitle: 'From Concept to Launch',
-    description: 'We build tailored software solutions that scale with your business. Our expert team delivers results that exceed expectations.',
-    primaryButtonText: 'Get Quote',
-    primaryButtonLink: '/quote',
-    secondaryButtonText: 'Portfolio',
-    secondaryButtonLink: '/portfolio',
-    backgroundColor: 'bg-purple-600',
-    trustIndicators: [
-      { indicator: 'NODEJS' },
-      { indicator: 'REACT' },
-      { indicator: 'AWS' },
-      { indicator: 'TYPESCRIPT' }
-    ],
-    showAnimations: true,
-    context: { isPreview: true }
-  },
-}
-
-/**
- * No animations variant for performance testing
- */
-export const NoAnimations: Story = {
-  args: {
-    title: 'Performance Optimized',
-    subtitle: 'Lightning Fast',
-    description: 'This variant has animations disabled for better performance on lower-end devices or when animations are not needed.',
-    primaryButtonText: 'Learn More',
-    primaryButtonLink: '/learn',
-    backgroundColor: 'bg-gray-900',
-    trustIndicators: [
-      { indicator: 'OPTIMIZED' },
-      { indicator: 'FAST' }
-    ],
-    showAnimations: false,
-    context: { isPreview: true }
-  },
-}
-
-/**
- * Minimal variant with no trust indicators
- */
-export const Minimal: Story = {
-  args: {
-    title: 'Simple and Clean',
-    subtitle: 'Less is More',
-    description: 'Sometimes simplicity is the best approach. This variant focuses on the essential message without additional elements.',
-    primaryButtonText: 'Get Started',
-    primaryButtonLink: '/start',
-    backgroundColor: 'bg-black',
-    trustIndicators: [],
-    showAnimations: true,
-    context: { isPreview: true }
+export const Skeleton: StoryObj<typeof SingleCardSkeleton> = {
+  render: () => <SingleCardSkeleton />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'SSR-safe skeleton component for use with Suspense fallback. Shows the loading state while content is being fetched.',
+      },
+    },
   },
 }

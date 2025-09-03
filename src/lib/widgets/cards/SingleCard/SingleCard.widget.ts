@@ -38,11 +38,21 @@ export class SingleCardWidget extends BaseCardWidget {
   }
 
   /**
-   * Render the skeleton loading state (CLIENT-SIDE)
+   * Render the skeleton loading state (Client-side + Admin preview)
    */
   renderSkeleton(): React.ComponentType {
-    const { SingleCardSkeleton } = require('./SingleCard.skeleton')
-    return SingleCardSkeleton
+    try {
+      const { SingleCardSkeleton } = require('./SingleCard.skeleton')
+      return SingleCardSkeleton
+    } catch (error) {
+      console.error('🚫 [SINGLE CARD] Failed to render skeleton:', error)
+      // Fallback basic skeleton
+      return () => React.createElement('div', {
+        className: 'h-screen bg-black animate-pulse flex items-center justify-center'
+      }, React.createElement('div', {
+        className: 'text-gray-400'
+      }, 'Loading Single Card...'))
+    }
   }
 
   /**
@@ -61,16 +71,20 @@ export class SingleCardWidget extends BaseCardWidget {
   }
 
   /**
-   * MANDATORY: Render skeleton for SSR (PRODUCTION - no React hooks)
+   * MANDATORY: Render skeleton for SSR (PRODUCTION - SSR safe)
    */
   renderSkeletonSSR(): React.ComponentType {
     try {
-      const { SingleCardSkeletonSSR } = require('./SingleCard.skeleton.ssr')
-      return SingleCardSkeletonSSR
-    } catch (error) {
-      // Fallback to client skeleton if SSR version not available
       const { SingleCardSkeleton } = require('./SingleCard.skeleton')
       return SingleCardSkeleton
+    } catch (error) {
+      console.error('🚫 [SINGLE CARD] Failed to render SSR skeleton:', error)
+      // Basic fallback skeleton
+      return () => React.createElement('div', {
+        className: 'h-screen bg-black animate-pulse flex items-center justify-center'
+      }, React.createElement('div', {
+        className: 'text-gray-400'
+      }, 'Loading...'))
     }
   }
 

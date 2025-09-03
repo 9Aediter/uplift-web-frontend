@@ -5,7 +5,7 @@ import { AnimateEffect } from '@/components/animate-effect';
 
 export const DemoApp = () => {
   return (
-    <Section className="bg-gradient-to-b from-black to-gray-900/30 min-h-screen">
+    <Section className="bg-gradient-to-b from-background to-muted/30 min-h-screen">
 
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20">
@@ -15,17 +15,17 @@ export const DemoApp = () => {
           <div className="order-2 lg:order-1 space-y-8">
             <AnimateEffect index={0}>
               <div className="space-y-6">
-                <div className="w-fit mb-8 inline-flex items-center bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-cyan-500/20">
+                <div className="w-fit mb-8 inline-flex items-center bg-primary/5 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/20">
                   <FaMobile className="h-4 w-4 text-cyan-400 mr-2" />
                   <span className="text-sm font-medium text-cyan-300">Mobile Development</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                   <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                     Mobile Apps
                   </span>
                   <br />That Scale
                 </h1>
-                <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg">
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
                   สร้างแอปพลิเคชันมือถือที่ทันสมัย รองรับทั้ง iOS และ Android 
                   ด้วยเทคโนโลยีล่าสุดและการออกแบบที่เน้นผู้ใช้เป็นหลัก
                 </p>
@@ -40,8 +40,8 @@ export const DemoApp = () => {
                     <FaCode className="text-cyan-400 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold mb-2">Native Development</h3>
-                    <p className="text-gray-400 text-sm">พัฒนาด้วย React Native และ Flutter</p>
+                    <h3 className="text-foreground font-semibold mb-2">Native Development</h3>
+                    <p className="text-muted-foreground text-sm">พัฒนาด้วย React Native และ Flutter</p>
                   </div>
                 </div>
                 
@@ -50,8 +50,8 @@ export const DemoApp = () => {
                     <FaPalette className="text-blue-400 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold mb-2">UX/UI Design</h3>
-                    <p className="text-gray-400 text-sm">การออกแบบที่เน้นประสบการณ์ผู้ใช้</p>
+                    <h3 className="text-foreground font-semibold mb-2">UX/UI Design</h3>
+                    <p className="text-muted-foreground text-sm">การออกแบบที่เน้นประสบการณ์ผู้ใช้</p>
                   </div>
                 </div>
                 
@@ -60,8 +60,8 @@ export const DemoApp = () => {
                     <FaRocket className="text-purple-400 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold mb-2">Performance</h3>
-                    <p className="text-gray-400 text-sm">เพิ่มประสิทธิภาพและความเร็ว</p>
+                    <h3 className="text-foreground font-semibold mb-2">Performance</h3>
+                    <p className="text-muted-foreground text-sm">เพิ่มประสิทธิภาพและความเร็ว</p>
                   </div>
                 </div>
                 
@@ -70,8 +70,8 @@ export const DemoApp = () => {
                     <FaMobile className="text-green-400 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold mb-2">Cross Platform</h3>
-                    <p className="text-gray-400 text-sm">รองรับทุกแพลตฟอร์มในโค้ดเซ็ตเดียว</p>
+                    <h3 className="text-foreground font-semibold mb-2">Cross Platform</h3>
+                    <p className="text-muted-foreground text-sm">รองรับทุกแพลตฟอร์มในโค้ดเซ็ตเดียว</p>
                   </div>
                 </div>
               </div>
@@ -79,18 +79,18 @@ export const DemoApp = () => {
 
             <AnimateEffect index={2}>
               {/* Stats */}
-              <div className="flex flex-wrap gap-8 pt-8 border-t border-gray-800">
+              <div className="flex flex-wrap gap-8 pt-8 border-t border-border">
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-white">10+</div>
-                  <div className="text-sm text-gray-400">Mobile Apps</div>
+                  <div className="text-2xl md:text-3xl font-bold text-foreground">10+</div>
+                  <div className="text-sm text-muted-foreground">Mobile Apps</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-white">100%</div>
-                  <div className="text-sm text-gray-400">Client Satisfaction</div>
+                  <div className="text-2xl md:text-3xl font-bold text-foreground">100%</div>
+                  <div className="text-sm text-muted-foreground">Client Satisfaction</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-white">24/7</div>
-                  <div className="text-sm text-gray-400">Support</div>
+                  <div className="text-2xl md:text-3xl font-bold text-foreground">24/7</div>
+                  <div className="text-sm text-muted-foreground">Support</div>
                 </div>
               </div>
             </AnimateEffect>

@@ -1,7 +1,7 @@
 'use client';
 
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/input/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/input/select';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 interface ImageFiltersProps {

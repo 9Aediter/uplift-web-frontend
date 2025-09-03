@@ -73,7 +73,7 @@ export default async function ServiceDetailPage({
       <Nav /> {/* Assuming Nav is a client component or handled by root layout */}
       <main>
         <HeroSection service={service} />
-        {service.highlights && service.highlights.length > 0 && (
+        {/* {service.highlights && service.highlights.length > 0 && (
           <QuickPitchSection
             highlights={service.highlights}
             serviceColor={service.color}
@@ -127,7 +127,7 @@ export default async function ServiceDetailPage({
             sectionTitle="คำถามที่พบบ่อย"
           // onConsultClick={onConsultClick}
           />
-        )}
+        )} */}
       </main>
       <Footer /> {/* Assuming Footer is a client component or handled by root layout */}
     </div>

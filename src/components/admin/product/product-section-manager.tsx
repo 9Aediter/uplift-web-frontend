@@ -3,17 +3,17 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/button/button';
+import { Input } from '@/components/input/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/input/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/input/select';
 import {
   Dialog,
   DialogContent,
@@ -21,7 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/button/badge';
 import { Plus, Trash2, Pencil } from 'lucide-react';
 import { ProductCardManager } from './product-card-manager';
 
@@ -147,7 +147,7 @@ export function ProductSectionManager({ productId }: ProductSectionManagerProps)
 
       if (response.ok) {
         toast.success('Section updated successfully');
-        setSections(prev => prev.map(section => 
+        setSections(prev => prev.map(section =>
           section.id === selectedSection.id ? data : section
         ));
         setIsEditDialogOpen(false);
@@ -344,7 +344,7 @@ export function ProductSectionManager({ productId }: ProductSectionManagerProps)
                     sectionId={section.id}
                     cards={section.cards}
                     onCardsChange={(newCards) => {
-                      setSections(prev => prev.map(s => 
+                      setSections(prev => prev.map(s =>
                         s.id === section.id ? { ...s, cards: newCards } : s
                       ));
                     }}

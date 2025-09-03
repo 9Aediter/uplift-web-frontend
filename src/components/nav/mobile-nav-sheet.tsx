@@ -1,8 +1,8 @@
 "use client";
 
-import { NavbarButton, MobileNavMenu } from "@/components/ui/resizable-navbar";
+import { NavbarButton } from "@/components/button/button";
+import { MobileNavMenu } from "./mobile-nav";
 import { LogOutIcon, UserIcon, SettingsIcon } from "lucide-react";
-import { IoLanguage } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuthActions } from "@/lib/store/auth";
 import { authApi } from "@/lib/api/auth";
@@ -17,7 +17,6 @@ interface MobileNavSheetProps {
   navItems: Array<{ name: string; link: string }>;
   isOpen: boolean;
   onClose: () => void;
-  onLanguageSwitch: () => void;
   isAuthenticated: boolean;
 }
 
@@ -26,7 +25,6 @@ export function MobileNavSheet({
   navItems, 
   isOpen, 
   onClose, 
-  onLanguageSwitch,
   isAuthenticated 
 }: MobileNavSheetProps) {
   const { logout } = useAuthActions();
@@ -85,17 +83,6 @@ export function MobileNavSheet({
               Settings
             </NavbarButton>
             <NavbarButton
-              onClick={() => {
-                onLanguageSwitch();
-                onClose();
-              }}
-              variant="ghost"
-              className="w-full justify-start gap-3"
-            >
-              <IoLanguage className="h-4 w-4" />
-              Language
-            </NavbarButton>
-            <NavbarButton
               onClick={async () => {
                 try {
                   onClose();
@@ -119,19 +106,7 @@ export function MobileNavSheet({
               Sign Out
             </NavbarButton>
           </>
-        ) : (
-          <NavbarButton
-            onClick={() => {
-              onLanguageSwitch();
-              onClose();
-            }}
-            variant="ghost"
-            className="w-full justify-start gap-3"
-          >
-            <IoLanguage className="h-4 w-4" />
-            Language
-          </NavbarButton>
-        )}
+        ) : null}
         <NavbarButton
           onClick={onClose}
           variant="primary"

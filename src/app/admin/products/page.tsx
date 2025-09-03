@@ -3,10 +3,16 @@
 import { DataTable } from "@/components/data-table"
 import { SiteHeader } from "@/components/site-header"
 import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/button/button"
+import { Badge } from "@/components/button/badge"
 import { useEffect, useState } from "react"
-import { ContentStatus } from "@prisma/client"
+// ContentStatus enum for external backend
+enum ContentStatus {
+  DRAFT = 'DRAFT',
+  REVIEW = 'REVIEW', 
+  PUBLISHED = 'PUBLISHED',
+  ARCHIVED = 'ARCHIVED'
+}
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
@@ -61,11 +67,11 @@ export default function ProductsPage() {
     try {
       setLoading(true);
       const response = await fetch('/api/products');
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch products');
       }
-      
+
       const data: ProductsResponse = await response.json();
       setProducts(data.products);
     } catch (err) {
@@ -112,7 +118,7 @@ export default function ProductsPage() {
     id: product.id,
     originalData: product, // Keep original data for callbacks
     title: (
-      <Link 
+      <Link
         href={`/admin/products/${product.slug || product.id}`}
         className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
       >
@@ -133,9 +139,9 @@ export default function ProductsPage() {
     language: product.language,
     createdAt: new Date(product.createdAt).toLocaleDateString(),
     updatedAt: new Date(product.updatedAt).toLocaleDateString(),
-    creator: product.creator?.profile?.displayName || 
-             `${product.creator?.profile?.firstName || ''} ${product.creator?.profile?.lastName || ''}`.trim() ||
-             'Unknown',
+    creator: product.creator?.profile?.displayName ||
+      `${product.creator?.profile?.firstName || ''} ${product.creator?.profile?.lastName || ''}`.trim() ||
+      'Unknown',
     actions: (
       <div className="flex gap-2">
         <Button variant="outline" size="sm" asChild>
@@ -155,7 +161,7 @@ export default function ProductsPage() {
   if (loading) {
     return (
       <>
-        <SiteHeader 
+        <SiteHeader
           breadcrumbs={[
             { href: "/admin", label: "Admin" },
             { label: "Products" }
@@ -181,7 +187,7 @@ export default function ProductsPage() {
   if (error) {
     return (
       <>
-        <SiteHeader 
+        <SiteHeader
           breadcrumbs={[
             { href: "/admin", label: "Admin" },
             { label: "Products" }
@@ -209,7 +215,7 @@ export default function ProductsPage() {
 
   return (
     <>
-      <SiteHeader 
+      <SiteHeader
         breadcrumbs={[
           { href: "/admin", label: "Admin" },
           { label: "Products" }
@@ -229,9 +235,9 @@ export default function ProductsPage() {
             Manage products and innovation solutions ({products.length} total)
           </p>
         </div>
-        <DataTable 
-          data={transformedProducts} 
-          entityName="Product" 
+        <DataTable
+          data={transformedProducts}
+          entityName="Product"
           views={["table", "card"]}
           onEdit={handleEdit}
           onView={handleView}

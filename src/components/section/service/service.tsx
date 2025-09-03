@@ -88,22 +88,24 @@ const ShowcaseItemRenderer: React.FC<{ item: ShowcaseItem; index: number }> = ({
               {item.title}
             </h2>
             <p className="text-gray-200 mb-6">{item.description}</p>
-            <ul className="space-y-5 text-lg">
-              {item.features.map((feature, featureIndex) => {
-                const FeatureIconComponent = IconMap[feature.icon];
-                return (
-                  <li key={featureIndex} className="flex items-start">
-                    <div className={`text-${item.iconColor || 'purple-400'} mr-3 flex-shrink-0 mt-1`}> {/* Fallback color if not provided */}
-                      {FeatureIconComponent && <FeatureIconComponent size={22} />}
-                    </div>
-                    <span className="text-gray-200">{feature.text}</span>
-                  </li>
-                );
-              })}
-            </ul>
+            {item.features && item.features.length > 0 && (
+              <ul className="space-y-5 text-lg">
+                {item.features.map((feature, featureIndex) => {
+                  const FeatureIconComponent = IconMap[feature.icon];
+                  return (
+                    <li key={featureIndex} className="flex items-start">
+                      <div className={`text-${item.iconColor || 'purple-400'} mr-3 flex-shrink-0 mt-1`}> {/* Fallback color if not provided */}
+                        {FeatureIconComponent && <FeatureIconComponent size={22} />}
+                      </div>
+                      <span className="text-gray-200">{feature.text}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
             <Link
               href={item.read_more_link}
-              className={`inline-flex items-center mt-8 text-${item.gradientFrom.split('-')[0]}-400 hover:text-${item.gradientFrom.split('-')[0]}-300 transition-colors font-medium`}
+              className={`inline-flex items-center mt-8 text-${item.gradientFrom?.split('-')[0] || 'blue'}-400 hover:text-${item.gradientFrom?.split('-')[0] || 'blue'}-300 transition-colors font-medium`}
             >
               {item.read_more_text}
               <svg

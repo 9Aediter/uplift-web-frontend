@@ -55,9 +55,9 @@ import { toast } from "sonner"
 import { z } from "zod"
 
 import { useIsMobile } from "@/hooks/use-mobile"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Switch } from "@/components/ui/switch"
+import { Badge } from "@/components/button/badge"
+import { Button } from "@/components/button/button"
+import { Switch } from "@/components/input/switch"
 import { DataCardView } from "@/components/data-card-view"
 import { ImageCardView } from "@/components/image/image-card-view"
 import {
@@ -66,7 +66,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/input/checkbox"
 import {
   Drawer,
   DrawerClose,
@@ -85,7 +85,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/input/input"
 import { Label } from "@/components/ui/label"
 import {
   Select,
@@ -93,7 +93,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/input/select"
 import { Separator } from "@/components/ui/separator"
 import {
   Table,
@@ -142,12 +142,12 @@ function DragHandle({ id }: { id: number | string }) {
 
 function createColumns(data: any[], callbacks?: {
   onEdit?: (item: any) => void
-  onDelete?: (item: any) => void  
+  onDelete?: (item: any) => void
   onView?: (item: any) => void
   onStatusChange?: (item: any, newStatus: string) => void
 }): ColumnDef<any>[] {
   if (!data || data.length === 0) return []
-  
+
   const firstRow = data[0]
   const columns: ColumnDef<any>[] = []
 
@@ -182,13 +182,13 @@ function createColumns(data: any[], callbacks?: {
   // Create columns based on data structure
   Object.keys(firstRow).forEach((key) => {
     if (key === 'id' || key === 'actions' || key === 'statusBadge' || key === 'Status Badge' || key === 'originalData' || key === 'permissions' || key === 'statusType') return // Skip id, actions, statusBadge, originalData, permissions, and statusType columns
-    
+
     columns.push({
       accessorKey: key,
       header: key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1'),
       cell: ({ row }) => {
         const value = row.original[key]
-        
+
         // Handle header column - make it clickable
         if (key === 'header') {
           return (
@@ -202,7 +202,7 @@ function createColumns(data: any[], callbacks?: {
             </div>
           )
         }
-        
+
         // Handle description column - truncate text
         if (key === 'description') {
           return (
@@ -211,20 +211,20 @@ function createColumns(data: any[], callbacks?: {
             </div>
           )
         }
-        
+
         // Handle status column - show as badge
         if (key === 'status') {
           const statusType = row.original.statusType || 'draft'
-          const variant = statusType === 'published' ? 'default' : 
-                        statusType === 'draft' ? 'secondary' : 'outline'
-          
+          const variant = statusType === 'published' ? 'default' :
+            statusType === 'draft' ? 'secondary' : 'outline'
+
           return (
             <Badge variant={variant} className="capitalize">
               {value}
             </Badge>
           )
         }
-        
+
         // Handle isActive column - show toggle switch with proper width
         if (key === 'isActive') {
           return (
@@ -247,7 +247,7 @@ function createColumns(data: any[], callbacks?: {
             </div>
           )
         }
-        
+
         // Handle other status-related columns
         if ((key === 'active') && callbacks?.onStatusChange) {
           return (
@@ -267,11 +267,11 @@ function createColumns(data: any[], callbacks?: {
             </div>
           )
         }
-        
+
         if (typeof value === 'number') {
           return <div className="text-right">{value}</div>
         }
-        
+
         return <div className="truncate max-w-[150px]" title={value}>{value}</div>
       },
     })
@@ -303,13 +303,13 @@ function createColumns(data: any[], callbacks?: {
               View
             </DropdownMenuItem>
           )}
-          
+
           <DropdownMenuItem>Make a copy</DropdownMenuItem>
           <DropdownMenuItem>Favorite</DropdownMenuItem>
           <DropdownMenuSeparator />
           {callbacks?.onDelete ? (
-            <DropdownMenuItem 
-              variant="destructive" 
+            <DropdownMenuItem
+              variant="destructive"
               onClick={() => callbacks.onDelete?.(row.original)}
             >
               Delete
@@ -522,7 +522,7 @@ export function DataTable({
           </Button>
         </div>
       </div>
-      
+
       <TabsContent
         value="table"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
@@ -536,22 +536,22 @@ export function DataTable({
                     // Set specific widths for columns
                     let className = ""
                     const columnId = header.column.id
-                    
+
                     if (columnId === 'select') className = "w-12"
                     else if (columnId === 'header') className = "w-52"
                     else if (columnId === 'description') className = "w-52"
                     else if (columnId === 'status') className = "w-24"
                     else if (columnId === 'isActive') className = "w-32"
                     else if (columnId === 'table_actions') className = "w-12"
-                    
+
                     return (
                       <TableHead key={header.id} colSpan={header.colSpan} className={className}>
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                       </TableHead>
                     )
                   })}
@@ -663,7 +663,7 @@ export function DataTable({
           </div>
         </div>
       </TabsContent>
-      
+
       <TabsContent
         value="card"
         className="relative flex flex-col gap-4 overflow-auto"

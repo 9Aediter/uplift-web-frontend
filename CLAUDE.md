@@ -4,144 +4,136 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-- **Development server**: `npm run dev` (uses Turbopack for faster builds)
+- **Development server**: `npm run dev` (uses Turbopack for faster builds on port 4000)
 - **Production build**: `npm run build`
+- **Post-build**: `npm run postbuild` (generates sitemap using next-sitemap)
 - **Start production server**: `npm start`
 - **Linting**: `npm run lint`
 - **Type checking**: `npx tsc --noEmit` (no dedicated typecheck script in package.json)
-- **Database operations**:
-  - `npx prisma generate` - Generate Prisma client
-  - `npx prisma migrate dev` - Run database migrations
-  - `npm run db:seed` - Seed database with initial data
-  - `npx prisma studio` - Open Prisma Studio for database inspection
-- **Docker operations**:
-  - `docker compose up -d` - Start PostgreSQL and pgAdmin containers
-  - Access pgAdmin: `localhost:5050` (admin@uplift.com / admin123)
-  - PostgreSQL: `localhost:5432` (myuser / mypassword / mydb)
+- **Storybook**: 
+  - `npm run storybook` - Start Storybook development server
+  - `npm run build-storybook` - Build Storybook for production
+- **Testing**: Uses Vitest with browser testing via Playwright
 
 ## Architecture Overview
 
 This is a Next.js 15 application for Uplift consulting services with sophisticated content management, user authentication, and file handling capabilities.
 
 ### Core Technologies
-- **Framework**: Next.js 15 with App Router
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: NextAuth.js with multiple providers (Google, Facebook, Credentials)
+- **Framework**: Next.js 15 with App Router and Turbopack
+- **Frontend**: React 19 with TypeScript 5
 - **Styling**: Tailwind CSS 4 with shadcn/ui components
-- **File Storage**: AWS S3 with presigned URLs
+- **State Management**: Zustand stores for client-side state
+- **3D Graphics**: Three.js with React Three Fiber (@react-three/fiber, @react-three/drei)
+- **Drag & Drop**: @dnd-kit for sortable interfaces
+- **Animations**: Motion (formerly Framer Motion), Lottie animations
+- **Icons**: Heroicons, Tabler Icons, React Icons, Lucide React
+- **Authentication**: Custom JWT-based system with social OAuth (Google, Facebook)
 - **Internationalization**: next-intl for English/Thai localization
-- **State Management**: Zustand stores
-- **3D Graphics**: Three.js with React Three Fiber
-
-### Database Schema
-Complex multi-tenant system with:
-- **User Management**: Users, profiles, roles (USER/ADMIN/SUPER_ADMIN), social accounts
-- **Content Management**: Database-driven CMS with workflow states (DRAFT/REVIEW/PUBLISHED/ARCHIVED)
-- **Product Management**: Full product lifecycle with sections, cards, tech stacks
-- **Media Management**: Image storage with S3 integration and usage tracking
-- **Technology Stack**: Dynamic tech stack assignment to products
-
-### Directory Structure
-- `src/app/`: App Router with route groups:
-  - `(Public)/`: Public marketing pages
-  - `admin/`: Role-protected admin dashboard
-  - `auth/`: Authentication pages
-  - `api/`: Comprehensive API endpoints
-- `src/components/`: UI components including admin interfaces
-- `src/lib/`: Core utilities, API clients, stores, authentication
-- `prisma/`: Database schema and migrations
+- **External Integrations**: Google Analytics
 
 ### Authentication System
-NextAuth.js configuration with:
-- **Google OAuth**: Production-ready with proper consent flow
-- **Facebook OAuth**: Social login integration  
-- **Credentials**: bcrypt password hashing with user status validation
-- **Role-based Access**: Middleware protection for admin routes
-- **Session Management**: JWT with database user lookup
+Custom JWT-based authentication system replacing NextAuth.js:
+- **JWT Tokens**: Access tokens stored in httpOnly cookies
+- **Social OAuth**: Google and Facebook integration via backend API
+- **Role-based Access**: USER, ADMIN role system with middleware protection
+- **State Management**: Zustand-based auth store with persistent session
+- **API Client**: Axios-based client with automatic cookie handling
+- **Route Protection**: Middleware validates JWT and roles for `/admin` routes
+
+### Directory Structure & Routing
+Next.js 15 App Router with route groups:
+- `src/app/(Public)/`: Public marketing pages (home, services, solutions, etc.)
+- `src/app/admin/`: Role-protected admin dashboard with full CRUD management
+- `src/app/auth/`: Authentication pages (signin, signup)
+- `src/app/api/`: API endpoints (currently pointing to external NestJS backend)
+
+### Widget System Architecture
+Sophisticated widget-based content system:
+- **Widget Registry**: Type-safe widget registration with `WidgetFactory` and `WidgetRegistry`
+- **Widget Categories**: Hero, Cards (Single, Three-Column, Four-Column, Grid, List)
+- **SSR Support**: Server-side rendering with `SSRWidgetRenderer`
+- **Dynamic Configuration**: Runtime widget configuration with field definitions
+- **Storybook Integration**: Component documentation and testing
 
 ### Content Management System
-Database-driven CMS with:
+Database-driven CMS (pointing to external backend):
+- **Content Types**: Hero sections, problem sections, features, etc.
 - **Workflow States**: DRAFT → REVIEW → PUBLISHED → ARCHIVED
-- **Content Types**: HERO_SECTION, PROBLEM_SECTION, FEATURES_SECTION, etc.
-- **Dynamic Fields**: SHORT/LONG field types with configurable buttons
-- **Version Control**: Content history tracking with user attribution
-- **Multi-language**: English/Thai content support
+- **Multi-language**: English/Thai content support via locale system
+- **Dynamic Fields**: Configurable field types with validation
+- **API Integration**: RESTful endpoints for content CRUD operations
 
-### File Upload System
-AWS S3 integration featuring:
-- **Presigned URLs**: Secure direct-to-S3 uploads via `/api/upload/presigned`
-- **Image Management**: Usage tracking, metadata storage, CDN URLs
-- **File Validation**: Type/size validation with error handling
-- **Admin Interface**: Image gallery management with filters
+### State Management Architecture
+Zustand stores for different domains:
+- `auth.ts`: Authentication state and user management
+- `product-store.ts`: Product catalog management
+- `website-store.ts`: Website content state
+- `landing-store.ts`: Landing page configuration
+- `footer-store.ts`: Footer content management
 
-### API Architecture
-Comprehensive REST APIs:
-- `/api/auth/*` - Authentication endpoints
-- `/api/admin/*` - Role-protected admin operations
-- `/api/products/*` - Product CRUD with sections/cards/tech-stack
-- `/api/content/*` - CMS operations with workflow
-- `/api/upload/*` - File upload with S3 integration
-- `/api/technologies/*` - Tech stack management
+### Internationalization (i18n)
+- **Languages**: English (default) and Thai support
+- **Locale Handling**: Middleware-based locale detection and routing
+- **URL Structure**: 
+  - Default (Thai): `/` 
+  - English: `/en/`
+- **File Structure**: 
+  - `src/lib/dictionaries/en.json` - English translations
+  - `src/lib/dictionaries/th.json` - Thai translations
+- **Implementation**: Uses `next-intl` with custom middleware for locale routing
+
+### External Backend Integration
+This frontend connects to a separate NestJS backend:
+- **API Base**: Configurable via `NEXT_PUBLIC_API_URL` environment variable
+- **Client**: Axios-based API client with cookie authentication
+- **Error Handling**: Centralized error handling with toast notifications
+- **File Uploads**: S3 presigned URL system via backend API
 
 ### Environment Variables
 ```env
-# Database
-DATABASE_URL=postgresql://myuser:mypassword@localhost:5432/mydb
+# Backend API
+NEXT_PUBLIC_API_URL=http://localhost:3000
 
-# Authentication  
+# Authentication (Legacy - may be removed)
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret
+
+# Social OAuth
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
 FACEBOOK_CLIENT_ID=your-facebook-client-id
 FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
 
-# File Storage
-S3_ACCESS_KEY_ID=your-s3-key
-S3_ACCESS_SECRET=your-s3-secret  
-AWS_REGION=ap-southeast-1
-AWS_BUCKET=uplift-uploads
-CDN_URL=https://uplift-uploads.s3.ap-southeast-1.amazonaws.com
-
-# External Services
-NEXT_PUBLIC_NOTION_TOKEN=your-notion-token
+# Analytics
 NEXT_PUBLIC_GA_MEASUREMENT_ID=your-ga-id
 ```
 
 ### Development Setup
-1. **Database**: Start Docker containers with `docker compose up -d`
-2. **Migrations**: Run `npx prisma migrate dev` to setup schema
-3. **Seeding**: Use `npm run db:seed` to populate initial data
-4. **Development**: Start with `npm run dev` using Turbopack
-5. **Admin Access**: Seed creates admin user or assign ADMIN role via database
-
-### Role-Based Access Control
-- **USER**: Basic access to public content
-- **ADMIN**: Access to admin dashboard, content management, product management
-- **SUPER_ADMIN**: Full system access including user management
-- **Route Protection**: Middleware validates roles for protected routes
-
-### Production Considerations
-- Database migrations must be run before deployment
-- S3 bucket and IAM permissions required for file uploads
-- Social OAuth credentials needed for authentication
-- Environment variables must be configured for all services
-
-### Internationalization (i18n)
-- **Languages**: English (default) and Thai support
-- **Locale Handling**: Middleware-based locale detection and routing
-- **File Structure**: 
-  - `src/lib/dictionaries/en.json` - English translations
-  - `src/lib/dictionaries/th.json` - Thai translations
-- **URL Structure**: 
-  - Default (Thai): `/` 
-  - English: `/en/`
-- **Implementation**: Uses `next-intl` with custom middleware for locale routing
+1. **Install dependencies**: `npm install`
+2. **Configure environment**: Set up `.env` file with backend API URL
+3. **Start development**: `npm run dev` (runs on port 4000 with Turbopack)
+4. **Backend dependency**: Requires separate NestJS backend running on configured API URL
 
 ### Key Architecture Patterns
-- **Route Groups**: App Router organizes routes with `(Public)` for marketing pages and `admin` for protected admin functionality
+- **Route Groups**: App Router organizes routes with `(Public)` for marketing pages and `admin` for protected functionality
 - **Middleware Protection**: Authentication and role-based access control via middleware
-- **API Organization**: RESTful endpoints with nested routes for complex relationships (e.g., `/api/products/[id]/sections/[sectionId]/cards`)
-- **State Management**: Zustand stores for client-side state (article, footer, landing, product stores)
+- **API Integration**: Frontend-only with external backend dependency
+- **Widget System**: Modular, reusable content components with type safety
+- **State Management**: Domain-driven Zustand stores for different app areas
 - **Error Handling**: Global error boundary and toast notifications via Sonner
-- **Image Optimization**: Next.js Image component with remote patterns for S3 and external sources
+- **Image Optimization**: Next.js Image component with remote patterns for external sources
+
+### Production Considerations
+- Backend API must be running and accessible
+- Environment variables must be configured for all external services
+- Social OAuth credentials required for authentication
+- Google Analytics tracking configured
+- Next.js build optimization with Turbopack for faster development
+- Storybook documentation for component testing and development
+
+### Testing Infrastructure
+- **Framework**: Vitest with browser testing capabilities
+- **Browser Testing**: Playwright integration via @vitest/browser
+- **Coverage**: @vitest/coverage-v8 for code coverage reports
+- **Component Testing**: Storybook for UI component documentation and testing

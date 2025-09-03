@@ -1,14 +1,14 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/lib/store/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/button/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/input/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/input/textarea";
 import { ArrowLeftIcon, EditIcon, SaveIcon, XIcon } from "lucide-react";
 import { toast } from "sonner";
 
@@ -40,13 +40,13 @@ interface UserData {
 }
 
 export default function ProfilePage() {
-  const { data: session, status } = useSession();
+  const { user, status } = useAuth();
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [userData, setUserData] = useState<UserData | null>(null);
-  
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -61,28 +61,28 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    if (status === "unauthenticated") {
+    if (!user && status !== "loading") {
       router.push("/auth/signin");
     }
-  }, [status, router]);
+  }, [user, status, router]);
 
   // Fetch user profile data
   useEffect(() => {
     const fetchUserData = async () => {
-      if (session?.user) {
+      if (user) {
         try {
           setFetchLoading(true);
           const response = await fetch('/api/auth/me');
-          
+
           if (response.ok) {
             const data: UserData = await response.json();
             setUserData(data);
-            
+
             // Update form data with fetched profile
             setFormData({
               firstName: data.profile?.firstName || "",
               lastName: data.profile?.lastName || "",
-              displayName: data.profile?.displayName || session.user.name || "",
+              displayName: data.profile?.displayName || user.name || "",
               email: data.email || "",
               phone: data.profile?.phone || "",
               bio: data.profile?.bio || "",
@@ -104,7 +104,7 @@ export default function ProfilePage() {
     };
 
     fetchUserData();
-  }, [session]);
+  }, [user]);
 
   if (status === "loading" || fetchLoading) {
     return (
@@ -114,7 +114,7 @@ export default function ProfilePage() {
     );
   }
 
-  if (!session) return null;
+  if (!user) return null;
 
   const handleSave = async () => {
     setLoading(true);
@@ -161,7 +161,7 @@ export default function ProfilePage() {
       setFormData({
         firstName: userData.profile?.firstName || "",
         lastName: userData.profile?.lastName || "",
-        displayName: userData.profile?.displayName || session?.user?.name || "",
+        displayName: userData.profile?.displayName || user?.name || "",
         email: userData.email || "",
         phone: userData.profile?.phone || "",
         bio: userData.profile?.bio || "",
@@ -245,17 +245,17 @@ export default function ProfilePage() {
                 {/* Avatar Section */}
                 <div className="flex items-center gap-6">
                   <Avatar className="h-24 w-24">
-                    <AvatarImage src={userData?.profile?.avatar || session.user.image || ""} />
+                    <AvatarImage src={userData?.profile?.avatar || user.avatar || ""} />
                     <AvatarFallback className="bg-gray-800 text-2xl">
-                      {(userData?.profile?.displayName || session.user.name)?.charAt(0) || 
-                       session.user.email?.charAt(0) || "U"}
+                      {(userData?.profile?.displayName || user.name)?.charAt(0) ||
+                        user.email?.charAt(0) || "U"}
                     </AvatarFallback>
                   </Avatar>
                   <div>
                     <h3 className="text-xl font-semibold text-white">
-                      {userData?.profile?.displayName || session.user.name || "User"}
+                      {userData?.profile?.displayName || user.name || "User"}
                     </h3>
-                    <p className="text-gray-400">{userData?.email || session.user.email}</p>
+                    <p className="text-gray-400">{userData?.email || user.email}</p>
                     {userData?.roles && (
                       <div className="flex gap-2 mt-2">
                         {userData.roles.map((role) => (
@@ -283,7 +283,7 @@ export default function ProfilePage() {
                       className="bg-gray-800 border-gray-700 text-white disabled:opacity-50"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="lastName" className="text-gray-300">Last Name</Label>
                     <Input
@@ -294,7 +294,7 @@ export default function ProfilePage() {
                       className="bg-gray-800 border-gray-700 text-white disabled:opacity-50"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="displayName" className="text-gray-300">Display Name</Label>
                     <Input
@@ -305,7 +305,7 @@ export default function ProfilePage() {
                       className="bg-gray-800 border-gray-700 text-white disabled:opacity-50"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-gray-300">Email</Label>
                     <Input
@@ -316,7 +316,7 @@ export default function ProfilePage() {
                       className="bg-gray-800 border-gray-700 text-white opacity-50"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="text-gray-300">Phone</Label>
                     <Input
@@ -327,7 +327,7 @@ export default function ProfilePage() {
                       className="bg-gray-800 border-gray-700 text-white disabled:opacity-50"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="city" className="text-gray-300">City</Label>
                     <Input
@@ -338,7 +338,7 @@ export default function ProfilePage() {
                       className="bg-gray-800 border-gray-700 text-white disabled:opacity-50"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="country" className="text-gray-300">Country</Label>
                     <Input
@@ -362,7 +362,7 @@ export default function ProfilePage() {
                       className="bg-gray-800 border-gray-700 text-white disabled:opacity-50"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="zipCode" className="text-gray-300">Zip Code</Label>
                     <Input

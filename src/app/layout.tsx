@@ -4,6 +4,7 @@ import Script from 'next/script';
 import AnalyticsProvider from "@/lib/analytics-provider";
 import { SonnerProvider } from "@/lib/sonner-provider";
 import { ModalProvider } from "@/lib/modal-provider";
+import { ThemeProvider } from "@/lib/theme-provider";
 import { ErrorHandler } from "@/components/error-handler";
 import { AuthInitializer } from "@/components/auth/auth-initializer";
 import { getDictionary } from '@/lib/i18n'
@@ -95,7 +96,7 @@ export default async function RootLayout({
   const locale = headersList.get('x-next-locale') || 'en'
 
   return (
-    <html lang={locale} className="dark overflow-x-hidden">
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${inter.variable} ${kanit.variable} antialiased w-full overflow-hidden`}
       >
@@ -118,7 +119,7 @@ export default async function RootLayout({
             `,
           }}
         />
-        
+
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
@@ -133,16 +134,23 @@ export default async function RootLayout({
             ])
           }}
         />
-        
-        <AnalyticsProvider />
-        <ModalProvider>
-          <SonnerProvider />
-          <ErrorHandler />
-          {/* Auth initializer - runs on every page */}
-          <AuthInitializer />
-          {/* Main content */}      
-          {children}
-        </ModalProvider>       
+
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AnalyticsProvider />
+          <ModalProvider>
+            <SonnerProvider />
+            <ErrorHandler />
+            {/* Auth initializer - runs on every page */}
+            <AuthInitializer />
+            {/* Main content */}
+            {children}
+          </ModalProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

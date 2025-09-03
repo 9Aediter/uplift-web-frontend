@@ -24,21 +24,23 @@ import { PageRenderer } from "@/lib/widgets/rendering/WidgetRenderer";
 import { SSRHeroRenderer } from "@/components/rendering/hero-renderer";
 import { getHeroData } from "@/data/homepage/hero";
 
-// Mock data for now - will replace with NestJS API calls later
+// Mock data for Hero component - updated structure
 const mockHeroContent = {
   en: {
-    badge: "🚀 Custom Software Solutions",
-    title: "Build Modern Business Systems",
-    description: "We create custom ERP, POS, and web applications that transform how your business operates",
-    primaryButton: { text: "Get Started", href: "/consult" },
-    secondaryButton: { text: "View Portfolio", href: "/portfolio" }
+    badge: "Innovating the Future",
+    title: "Transform IDEAS into",
+    title_gradient: "Revolutionary Innovation",
+    subtitle: "Transform your business with cutting-edge artificial intelligence solutions that drive growth and innovation.",
+    launch_button: "Launch Project",
+    explore_button: "Explore Innovation"
   },
   th: {
-    badge: "🚀 โซลูชั่นซอฟต์แวร์ตามต้องการ",
-    title: "สร้างระบบธุรกิจสมัยใหม่",
-    description: "เราสร้าง ERP, POS และเว็บแอปพลิเคชันที่เปลี่ยนวิธีการทำงานของธุรกิจคุณ",
-    primaryButton: { text: "เริ่มต้น", href: "/consult" },
-    secondaryButton: { text: "ดูผลงาน", href: "/portfolio" }
+    badge: "Innovating the Future",
+    title: "เปลี่ยน IDEAS ให้กลายเป็น",
+    title_gradient: "นวัตกรรมระดับ Revolutionary",
+    subtitle: "เปลี่ยนธุรกิจของคุณด้วยโซลูชั่นปัญญาประดิษฐ์ที่ทันสมัยเพื่อการเติบโตและนวัตกรรม",
+    launch_button: "เริ่มโปรเจค",
+    explore_button: "สำรวจนวัตกรรม"
   }
 };
 
@@ -80,8 +82,8 @@ export default async function Home() {
   const headersList = headers();
   const locale = (await headersList).get('x-next-locale') || 'en';
 
-  // 🆕 Load hero data using new SSR system
-  const heroData = await getHeroData('ai'); // Use AI hero variant
+  // 🆕 Load hero data using new SSR system (unused for now)
+  // const heroData = await getHeroData('ai'); // Use AI hero variant
 
   // Use mock data for other sections (will migrate these later)
   const heroContent = mockHeroContent[locale as keyof typeof mockHeroContent];
@@ -111,34 +113,52 @@ export default async function Home() {
         {/* 🆕 New SSR Hero System */}
         <Suspense fallback={<HeroSectionSkeleton />}>
           <SSRHeroRenderer 
-            heroData={heroData} 
+            heroData={{
+              heroWidgetType: 'hero-ai',
+              badge: heroContent.badge,
+              title: heroContent.title,
+              titleGradient: heroContent.title_gradient,
+              subtitle: heroContent.subtitle,
+              launchButton: heroContent.launch_button,
+              exploreButton: heroContent.explore_button,
+              titleEn: heroContent.title,
+              titleTh: heroContent.title,
+              subtitleEn: heroContent.subtitle,
+              subtitleTh: heroContent.subtitle,
+              descriptionEn: heroContent.subtitle,
+              descriptionTh: heroContent.subtitle,
+              ctaButtonTextEn: heroContent.launch_button,
+              ctaButtonTextTh: heroContent.launch_button,
+              backgroundImageUrl: '',
+              overlayOpacity: 0.5,
+              textPosition: 'left',
+              theme: 'dark',
+              showGlobe: true
+            }}
             locale={locale as 'en' | 'th'} 
           />
         </Suspense>
         
-        {/* 🔄 Old Hero System (commented out for comparison)
-        <Suspense fallback={<HeroSectionSkeleton />}>
+        {/* Original Hero for comparison */}
+        {/* <Suspense fallback={<HeroSectionSkeleton />}>
           <Hero heroContent={heroContent} />
-        </Suspense>
-        */}
+        </Suspense> */}
+       
         <Suspense fallback={<ProblemSectionSkeleton />}>
           <Problems />
         </Suspense>
-        <Suspense fallback={<ProductSectionSkeleton />}>
-          <Product />
-        </Suspense>
+        <Solution />
         <DemoApp />
         <DemoAdmin />
-        <Solution />
-        {/* <Show /> */}
-        <Suspense fallback={<ProblemSectionSkeleton />}>
-          <Service serviceSectionContent={servicesContent.service}/>
+        
+        <Suspense fallback={<ProductSectionSkeleton />}>
+          <Product />
         </Suspense>
 
         <CalltoAction />
 
         {/* Dynamic Widget Content - Test Implementation */}
-        <PageRenderer
+        {/* <PageRenderer
           sections={[
             {
               id: 'test-single-card',
@@ -246,7 +266,7 @@ export default async function Home() {
             locale: locale,
             theme: 'light'
           }}
-        />
+        /> */}
 
       </main>
       <Footer />

@@ -2,13 +2,13 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/buttonsp";
+import { Button } from "@/components/button/button";
 import { RocketIcon, SparklesIcon } from "lucide-react";
 import Link from "next/link";
 import { HeroStaggerAnimations } from "./stagger-animations";
 
 interface BadgeProps { text: string; }
-interface HeadingProps { part1: string; part2: string; gradient1: string; gradient2: string; }
+interface HeadingProps { title: string; titleGradient: string; }
 interface SubheadingProps { text: string; }
 interface ActionButtonsProps { launchText: string; exploreText: string; }
 
@@ -17,33 +17,32 @@ export const AnimatedBadge: React.FC<BadgeProps> = ({ text }) => (
         variants={HeroStaggerAnimations.badge}
         initial="hidden"
         animate="visible"
-        className="w-fit mb-8 inline-flex items-center bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-cyan-500/20"
+        className="w-fit mb-8 inline-flex items-center bg-primary/5 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/20 font-kanit"
     >
-        <SparklesIcon className="h-4 w-4 text-cyan-400 mr-2" />
-        <span className="text-sm font-medium text-cyan-300">
+        <SparklesIcon className="h-4 w-4 text-primary mr-2" />
+        <span className="text-sm font-medium text-primary">
             {text}
         </span>
     </motion.div>
 );
 
-export const AnimatedHeading: React.FC<HeadingProps> = ({ part1, part2, gradient1, gradient2 }) => (
+export const AnimatedHeading: React.FC<HeadingProps> = ({ title, titleGradient }) => (
     <motion.h1
         variants={HeroStaggerAnimations.heading}
         initial="hidden"
-        animate="visible" 
-        className="text-5xl md:text-6xl lg:text-6xl font-bold mb-6"
+        animate="visible"
+        className="text-3xl sm:text-4xl md:text-7xl lg:text-6xl xl:text-7xl font-semibold mb-8 leading-tight font-kanit max-w-[12ch]"
     >
-        <span className="inline-block my-2">{part1}</span>
-        <br className="hidden md:block" />
-        <span className="inline-block my-2">{part2}</span>
-        <br />
-        <span className="inline-block my-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 bg-clip-text text-transparent">
-            {gradient1}
-        </span>
-        <br />
-        <span className="inline-block my-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 bg-clip-text text-transparent">
-            {gradient2}
-        </span>
+        <div className="mb-4">
+            <span className="inline-block text-foreground leading-tight">
+                {title}
+            </span>
+        </div>
+        <div>
+            <span className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 bg-clip-text text-transparent leading-tight">
+                {titleGradient}
+            </span>
+        </div>
     </motion.h1>
 );
 
@@ -52,7 +51,7 @@ export const AnimatedSubheading: React.FC<SubheadingProps> = ({ text }) => (
         variants={HeroStaggerAnimations.subheading}
         initial="hidden"
         animate="visible"
-        className="text-xl md:text-2xl text-gray-300 mb-8"
+        className="text-lg md:text-xl text-muted-foreground mb-8 font-normal font-kanit max-w-[40ch]"
     >
         {text}
     </motion.p>

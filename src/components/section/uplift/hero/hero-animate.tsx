@@ -5,23 +5,23 @@ import { cn } from "@/lib/utils";
 
 // Main Hero Animation Container
 interface HeroAnimateProps {
-  children: React.ReactNode;
-  containerRef: React.RefObject<HTMLDivElement>;
+    children: React.ReactNode;
+    containerRef: React.RefObject<HTMLDivElement>;
 }
 
 export const HeroAnimate: React.FC<HeroAnimateProps> = ({ children, containerRef }) => {
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"],
+    });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  return (
-    <motion.div style={{ opacity }} className="absolute inset-0 flex flex-col">
-      {children}
-    </motion.div>
-  );
+    return (
+        <motion.div style={{ opacity }} className="absolute inset-0 flex flex-col">
+            {children}
+        </motion.div>
+    );
 };
 
 // Floating Tech Elements
@@ -48,7 +48,7 @@ interface AnimatedContentProps {
 export const AnimatedContent: React.FC<AnimatedContentProps> = ({ className, badge, heading, subheading, buttons }) => {
     const controls = useAnimation();
     const [isMounted, setIsMounted] = React.useState(false);
-    
+
     const variants = {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 },
@@ -57,8 +57,14 @@ export const AnimatedContent: React.FC<AnimatedContentProps> = ({ className, bad
     // Ensure component is mounted before allowing animations
     useEffect(() => {
         setIsMounted(true);
-        // Start visible animation immediately when component mounts
-        controls.start("visible");
+        // Start visible animation after component mounts
+        const timer = setTimeout(() => {
+            if (controls && controls.start) {
+                controls.start("visible");
+            }
+        }, 0);
+
+        return () => clearTimeout(timer);
     }, [controls]);
 
     const handleViewportEnter = () => {
@@ -74,7 +80,7 @@ export const AnimatedContent: React.FC<AnimatedContentProps> = ({ className, bad
     };
 
     return (
-        <div className={cn("w-full h-full flex items-center relative", className)}>
+        <div className={cn("w-full h-full flex py-20 items-end relative", className)}>
             <motion.div
                 initial="visible"
                 animate={controls}
@@ -84,7 +90,7 @@ export const AnimatedContent: React.FC<AnimatedContentProps> = ({ className, bad
                 viewport={{ amount: 0.2 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col">
                     <motion.div variants={{ hidden: { y: "100%", opacity: 0 }, visible: { y: "0%", opacity: 1 } }}>
                         {badge}
                     </motion.div>

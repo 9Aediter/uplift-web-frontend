@@ -1,164 +1,117 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
-import { HeroAIWidget } from '@/lib/widgets/hero/HeroAI/HeroAI.widget'
-
-// Create widget instance for stories
-const heroAIWidget = new HeroAIWidget()
-
-// Wrapper component for Storybook
-function HeroAIWrapper(props: any) {
-  try {
-    const HeroComponent = heroAIWidget.render(props, { isPreview: true })
-    if (!HeroComponent) {
-      return (
-        <div className="p-8 text-yellow-600 bg-yellow-50 rounded border">
-          <h3 className="font-bold">HeroAI render returned null</h3>
-          <p className="mt-2">Check widget render method and data structure</p>
-        </div>
-      )
-    }
-    return <HeroComponent />
-  } catch (error) {
-    return (
-      <div className="p-8 text-red-500 bg-red-50 rounded border">
-        <h3 className="font-bold">Failed to render HeroAI</h3>
-        <p className="mt-2">{error instanceof Error ? error.message : String(error)}</p>
-      </div>
-    )
-  }
-}
+import { HeroAIComponent } from '@/lib/widgets/hero/HeroAI/HeroAI.component'
+import { HeroAISSR } from '@/lib/widgets/hero/HeroAI/HeroAI.ssr'
+import { HeroAISkeleton } from '@/lib/widgets/hero/HeroAI/HeroAI.skeleton'
 
 /**
- * HeroAI widget - Interactive AI-themed hero section with globe, particles, and animations.
- * Perfect for technology companies, AI products, and modern landing pages.
+ * HeroAI widget - Full-screen AI-themed hero section with customizable background effects.
+ * Available in both Client-side (with 3D Globe and Particles) and SSR-safe versions.
  */
-const meta: Meta<typeof HeroAIWrapper> = {
+const meta: Meta<typeof HeroAIComponent> = {
   title: 'Widgets/HeroAI',
-  component: HeroAIWrapper,
+  component: HeroAIComponent,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Interactive AI-themed hero section with 3D globe, particle effects, scroll indicators, and gradient text animations. Built for modern technology presentations.',
+        component: 'AI-themed hero section with both client-side (interactive) and server-side (SSR-safe) versions. Client version includes 3D Globe and Particles effects.',
       },
     },
   },
   argTypes: {
     badge: { control: 'text' },
-    titlePart1: { control: 'text' },
-    titlePart2: { control: 'text' },
-    titleGradient1: { control: 'text' },
-    titleGradient2: { control: 'text' },
+    title: { control: 'text' },
+    titleGradient: { control: 'text' },
     subtitle: { control: 'text' },
     launchButton: { control: 'text' },
     exploreButton: { control: 'text' },
     backgroundImageUrl: { control: 'text' },
-    overlayOpacity: { 
-      control: { type: 'range', min: 0, max: 1, step: 0.1 }
-    },
+    overlayOpacity: { control: { type: 'range', min: 0, max: 1, step: 0.1 } },
     textPosition: {
       control: 'select',
       options: ['left', 'center', 'right']
+    },
+    theme: {
+      control: 'select', 
+      options: ['light', 'dark']
+    },
+    backgroundEffect: {
+      control: 'select',
+      options: ['particles', 'static', 'none']
+    },
+    showGlobe: {
+      control: 'boolean',
+      description: 'Show/hide the globe element'
     },
     context: { control: false },
   },
 }
 
 export default meta
-type Story = StoryObj<typeof HeroAIWrapper>
+type Story = StoryObj<typeof HeroAIComponent>
 
 /**
- * Default AI-powered business hero
+ * Client-side version with 3D Globe and Particles effects (interactive)
  */
-export const Default: Story = {
+export const Client: Story = {
   args: {
     badge: 'AI-Powered Solutions',
-    titlePart1: 'The Future of',
-    titlePart2: 'Technology is',
-    titleGradient1: 'Here & Now',
-    titleGradient2: 'With AI',
+    title: 'The Future of Technology is',
+    titleGradient: 'Here & Now With AI',
     subtitle: 'Transform your business with cutting-edge artificial intelligence solutions that drive growth and innovation.',
     launchButton: 'Launch Project',
     exploreButton: 'Explore Innovation',
-    textPosition: 'center',
     overlayOpacity: 0.5,
+    textPosition: 'center',
+    backgroundEffect: 'particles',
+    showGlobe: true,
     context: { isPreview: true }
   },
 }
 
 /**
- * Startup focused variant
+ * Server-side safe version with static effects (production)
  */
-export const StartupFocus: Story = {
+export const SSR: StoryObj<typeof HeroAISSR> = {
   args: {
-    badge: 'Next-Gen Startup',
-    titlePart1: 'Build the',
-    titlePart2: 'Future',
-    titleGradient1: 'Today',
-    titleGradient2: 'Together',
-    subtitle: 'Join the revolution of innovative startups leveraging AI and modern technology to disrupt industries.',
-    launchButton: 'Start Building',
-    exploreButton: 'View Success Stories',
-    textPosition: 'center',
-    overlayOpacity: 0.4,
-    context: { isPreview: true }
+    backgroundEffect: "particles"
   },
+
+  render: () => (
+    <HeroAISSR
+      badge="AI-Powered Solutions"
+      title="The Future of Technology is"
+      titleGradient="Here & Now With AI"
+      subtitle="Transform your business with cutting-edge artificial intelligence solutions that drive growth and innovation."
+      launchButton="Launch Project"
+      exploreButton="Explore Innovation"
+      backgroundEffect="static"
+      showGlobe={true}
+      context={{ isPreview: true }}
+    />
+  ),
+
+  parameters: {
+    docs: {
+      description: {
+        story: 'Server-side safe version used in production. Uses static background effects instead of interactive particles and simplified globe representation.',
+      },
+    },
+  }
 }
 
 /**
- * Enterprise solutions variant
+ * Skeleton loading state (SSR-safe for Suspense fallback)
  */
-export const Enterprise: Story = {
-  args: {
-    badge: 'Enterprise Ready',
-    titlePart1: 'Scale Your',
-    titlePart2: 'Business',
-    titleGradient1: 'Intelligently',
-    titleGradient2: 'Efficiently',
-    subtitle: 'Enterprise-grade AI solutions designed to transform large organizations with security, compliance, and scalability.',
-    launchButton: 'Get Enterprise Demo',
-    exploreButton: 'Case Studies',
-    textPosition: 'center',
-    overlayOpacity: 0.6,
-    context: { isPreview: true }
-  },
-}
-
-/**
- * Product launch variant
- */
-export const ProductLaunch: Story = {
-  args: {
-    badge: 'Product Launch 2024',
-    titlePart1: 'Introducing',
-    titlePart2: 'Revolutionary',
-    titleGradient1: 'AI Platform',
-    titleGradient2: 'v2.0',
-    subtitle: 'Experience the most advanced AI platform with breakthrough features that will redefine how you work.',
-    launchButton: 'Try Beta',
-    exploreButton: 'Watch Demo',
-    textPosition: 'center',
-    overlayOpacity: 0.7,
-    context: { isPreview: true }
-  },
-}
-
-/**
- * Technology showcase variant
- */
-export const TechShowcase: Story = {
-  args: {
-    badge: 'Cutting-Edge Technology',
-    titlePart1: 'Powered by',
-    titlePart2: 'Advanced',
-    titleGradient1: 'Machine Learning',
-    titleGradient2: '& Neural Networks',
-    subtitle: 'Discover how our advanced AI algorithms and neural networks are pushing the boundaries of what\'s possible.',
-    launchButton: 'Explore Technology',
-    exploreButton: 'Technical Docs',
-    textPosition: 'center',
-    overlayOpacity: 0.3,
-    context: { isPreview: true }
+export const Skeleton: StoryObj<typeof HeroAISkeleton> = {
+  render: () => <HeroAISkeleton />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'SSR-safe skeleton component for use with Suspense fallback. Shows the loading state while content is being fetched.',
+      },
+    },
   },
 }

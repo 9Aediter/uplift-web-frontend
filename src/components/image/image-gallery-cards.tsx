@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/button/button';
 import { ImageUploadSingle } from './image-upload-single';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/button/badge';
 import { TrashIcon, PlusIcon } from '@heroicons/react/24/outline';
 
 interface ImageGalleryCardsProps {
@@ -13,10 +13,10 @@ interface ImageGalleryCardsProps {
   className?: string;
 }
 
-export function ImageGalleryCards({ 
-  images, 
-  onImagesChange, 
-  className 
+export function ImageGalleryCards({
+  images,
+  onImagesChange,
+  className
 }: ImageGalleryCardsProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -34,8 +34,8 @@ export function ImageGalleryCards({
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {/* Existing Images */}
         {images.map((imageUrl, index) => (
-          <Card 
-            key={index} 
+          <Card
+            key={index}
             className="relative aspect-square overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-200"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -51,7 +51,7 @@ export function ImageGalleryCards({
                     target.src = '/placeholder-image.png'; // Fallback image
                   }}
                 />
-                
+
                 {/* Image Number Badge */}
                 <div className="absolute top-2 left-2">
                   <Badge variant="secondary" className="text-xs">

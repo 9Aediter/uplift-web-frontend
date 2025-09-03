@@ -10,17 +10,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/button/button';
+import { Input } from '@/components/input/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/input/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/input/select';
 import { useProductFeaturesStore, ProductFeature } from '@/lib/store/product-features-store';
 
 interface ProductFeatureManagerProps {
@@ -173,8 +173,8 @@ export function ProductFeatureManager({ productId }: ProductFeatureManagerProps)
                 </div>
                 <div>
                   <Label htmlFor="feature-icon">Icon Type</Label>
-                  <Select 
-                    value={formData.icon} 
+                  <Select
+                    value={formData.icon}
                     onValueChange={(value) => setFormData(prev => ({ ...prev, icon: value }))}
                   >
                     <SelectTrigger>
@@ -190,8 +190,8 @@ export function ProductFeatureManager({ productId }: ProductFeatureManagerProps)
                   </Select>
                 </div>
                 <div className="flex justify-end gap-2 pt-4">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     onClick={() => {
                       setIsCreateDialogOpen(false);
                       resetForm();
@@ -216,8 +216,8 @@ export function ProductFeatureManager({ productId }: ProductFeatureManagerProps)
       ) : (
         <div className="space-y-3">
           {features.map((feature, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="flex items-center justify-between p-4 border rounded-lg bg-card"
             >
               <div className="flex-1">
@@ -278,8 +278,8 @@ export function ProductFeatureManager({ productId }: ProductFeatureManagerProps)
             </div>
             <div>
               <Label htmlFor="edit-feature-icon">Icon Type</Label>
-              <Select 
-                value={formData.icon} 
+              <Select
+                value={formData.icon}
                 onValueChange={(value) => setFormData(prev => ({ ...prev, icon: value }))}
               >
                 <SelectTrigger>
@@ -295,8 +295,8 @@ export function ProductFeatureManager({ productId }: ProductFeatureManagerProps)
               </Select>
             </div>
             <div className="flex justify-end gap-2 pt-4">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => {
                   setIsEditDialogOpen(false);
                   resetForm();

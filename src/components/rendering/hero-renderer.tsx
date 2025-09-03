@@ -53,11 +53,7 @@ export function HeroRenderer({ heroData, locale = 'en', className }: HeroRendere
       throw new Error(`Hero widget ${heroWidget.name} returned null component`)
     }
 
-    return (
-      <div className={className}>
-        <HeroComponent />
-      </div>
-    )
+    return <HeroComponent />
   } catch (error) {
     console.error('🚫 [HERO RENDERER] Failed to render hero widget:', error)
     

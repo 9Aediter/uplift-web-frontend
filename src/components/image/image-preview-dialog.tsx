@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/button/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { formatBytes, formatDate } from '@/lib/utils';
@@ -34,12 +34,12 @@ interface ImagePreviewDialogProps {
   onToggleStatus?: (image: Image) => void;
 }
 
-export function ImagePreviewDialog({ 
-  image, 
-  isOpen, 
-  onClose, 
-  onDelete, 
-  onToggleStatus 
+export function ImagePreviewDialog({
+  image,
+  isOpen,
+  onClose,
+  onDelete,
+  onToggleStatus
 }: ImagePreviewDialogProps) {
   const { users } = useUsersStore();
 

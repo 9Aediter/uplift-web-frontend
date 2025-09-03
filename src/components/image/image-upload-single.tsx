@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/button/button';
+import { Input } from '@/components/input/input';
 import { Label } from '@/components/ui/label';
 import {
   Dialog,
@@ -24,10 +24,10 @@ interface ImageUploadSingleProps {
   className?: string;
 }
 
-export function ImageUploadSingle({ 
-  onImageUploaded, 
-  children, 
-  className 
+export function ImageUploadSingle({
+  onImageUploaded,
+  children,
+  className
 }: ImageUploadSingleProps) {
   const [uploading, setUploading] = useState(false);
   const [urlInput, setUrlInput] = useState('');
@@ -79,7 +79,7 @@ export function ImageUploadSingle({
     }
 
     const data = await response.json();
-    
+
     if (data.success && data.data) {
       onImageUploaded(data.data.url, data.data.id);
       toast.success('Image uploaded successfully');
@@ -109,7 +109,7 @@ export function ImageUploadSingle({
     }
 
     const presignedData = await presignedResponse.json();
-    
+
     if (!presignedData.success || !presignedData.data) {
       throw new Error('Invalid presigned URL response');
     }
@@ -160,7 +160,7 @@ export function ImageUploadSingle({
       }
 
       const data = await response.json();
-      
+
       if (data.url) {
         onImageUploaded(data.url, data.id);
         toast.success('Image uploaded from URL successfully');
@@ -263,7 +263,7 @@ export function ImageUploadSingle({
                           disabled={uploading}
                         />
                       </div>
-                      <Button 
+                      <Button
                         onClick={handleUrlUpload}
                         disabled={uploading || !urlInput.trim()}
                       >

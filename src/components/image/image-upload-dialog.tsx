@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/button/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/components/input/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
@@ -24,7 +24,7 @@ export function ImageUploadDialog({ onUploadSuccess, children }: ImageUploadDial
 
     try {
       setUploadProgress(10);
-      
+
       await imagesApi.uploadImage({
         file: uploadingFile,
         category: 'general',

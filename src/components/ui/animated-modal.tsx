@@ -55,7 +55,7 @@ export const ModalTrigger = ({
   if (asDiv) {
     return (
       <div
-        className={cn("cursor-pointer", className)}
+        className={cn("cursor-pointer h-full w-full", className)}
         onClick={handleClick}
       >
         {children}

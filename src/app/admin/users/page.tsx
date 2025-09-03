@@ -3,7 +3,7 @@
 import { DataTable } from "@/components/data-table"
 import { SiteHeader } from "@/components/site-header"
 import { Plus, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/button/button"
 import { useUsers, useUsersActions, StoreUser } from "@/lib/store/users"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
@@ -13,7 +13,7 @@ export default function UsersPage() {
   // Use users store instead of local state
   const { users, total, page, loading, error } = useUsers()
   const { fetchUsers, deleteUser, updateUserStatus } = useUsersActions()
-  
+
   const [modalOpen, setModalOpen] = useState(false)
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create')
   const [selectedUser, setSelectedUser] = useState<StoreUser | null>(null)
@@ -84,7 +84,7 @@ export default function UsersPage() {
 
   return (
     <>
-      <SiteHeader 
+      <SiteHeader
         breadcrumbs={[
           { href: "/admin", label: "Admin" },
           { label: "Users" }
@@ -106,8 +106,8 @@ export default function UsersPage() {
           <div className="flex flex-col items-center justify-center py-12">
             <div className="text-center">
               <p className="text-muted-foreground">Failed to load users</p>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => fetchUsers({ page: 1, limit: 10 })}
                 className="mt-4"
               >
@@ -116,20 +116,20 @@ export default function UsersPage() {
             </div>
           </div>
         ) : (
-          <DataTable 
+          <DataTable
             data={users.map(user => ({
               id: user.id,
               name: user.name,
               email: user.email,
               status: user.status,
-              roles: typeof user.roles === 'string' ? user.roles : 
-                     Array.isArray(user.roles) ? (user.roles as any[]).map((r: any) => r.name || r).join(', ') : 
-                     '',
+              roles: typeof user.roles === 'string' ? user.roles :
+                Array.isArray(user.roles) ? (user.roles as any[]).map((r: any) => r.name || r).join(', ') :
+                  '',
               phone: user.phone || 'N/A',
               createdAt: new Date(user.createdAt).toLocaleDateString(),
               updatedAt: new Date(user.updatedAt).toLocaleDateString(),
-            }))} 
-            entityName="User" 
+            }))}
+            entityName="User"
             views={["table", "card"]}
             onEdit={(transformedUser) => {
               // Find original user by ID
@@ -137,13 +137,13 @@ export default function UsersPage() {
               if (originalUser) handleEditUser(originalUser);
             }}
             onDelete={(transformedUser) => handleDeleteUser(transformedUser.id)}
-            onStatusChange={(transformedUser, newStatus) => 
+            onStatusChange={(transformedUser, newStatus) =>
               handleUpdateStatus(transformedUser.id, newStatus as 'ACTIVE' | 'INACTIVE')
             }
           />
         )}
       </div>
-      
+
       {/* User Modal */}
       <UserModal
         user={selectedUser}

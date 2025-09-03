@@ -5,9 +5,10 @@ import { motion, useAnimation } from "framer-motion";
 interface AnimateEffectProps {
   children: React.ReactNode;
   index: number;
+  delay?: number;
 }
 
-export const AnimateEffect: React.FC<AnimateEffectProps> = ({ children, index }) => {
+export const AnimateEffect: React.FC<AnimateEffectProps> = ({ children, index, delay }) => {
   const controls = useAnimation();
   const [isMounted, setIsMounted] = React.useState(false);
   
@@ -19,13 +20,16 @@ export const AnimateEffect: React.FC<AnimateEffectProps> = ({ children, index })
   // Ensure component is mounted before allowing animations
   useEffect(() => {
     setIsMounted(true);
-    // Start visible animation with delay based on index
+    // Start visible animation with custom delay or index-based delay
+    const delayMs = delay !== undefined ? delay * 1000 : index * 100;
     const timer = setTimeout(() => {
-      controls.start("visible");
-    }, index * 100);
+      if (controls && controls.start) {
+        controls.start("visible");
+      }
+    }, delayMs);
     
     return () => clearTimeout(timer);
-  }, [controls, index]);
+  }, [controls, index, delay]);
 
   const handleViewportEnter = () => {
     if (isMounted) {
@@ -49,6 +53,7 @@ export const AnimateEffect: React.FC<AnimateEffectProps> = ({ children, index })
       onViewportLeave={handleViewportLeave}
       viewport={{ amount: 0.5 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="h-full w-full"
     >
       {children}
     </motion.div>

@@ -145,66 +145,68 @@ const mockSolutionData: SolutionItem[] = [
   }
 ];
 
-// Solution Card Component with Modal
-const SolutionCard = ({ item }: { 
+// Solution Card Component with Modal and Individual Animation
+const SolutionCard = ({ item, index }: { 
   item: SolutionItem;
+  index: number;
 }) => {
   return (
-    <ReusableModal
-      trigger={
-        <BentoGridItem
-          title={item.title}
-          description={item.description}
-          icon={item.icon}
-          image={item.image}
-          bgColor={item.bgColor}
-        />
-      }
-      title={item.title}
-      description={item.modalContent.fullDescription}
-      images={item.modalContent.images}
-      summary={[
-        ...item.modalContent.features.map(feature => ({
-          icon: <FaCheck className="text-green-500" />,
-          text: feature
-        })),
-        ...item.modalContent.techStack.map(tech => ({
-          icon: <FaCode className="text-blue-500" />,
-          text: tech
-        }))
-      ]}
-      buttons={[
-        { label: "Close", variant: "secondary" as const },
-        { label: "Learn More", variant: "primary" as const, path: "/solutions" }
-      ]}
-      triggerClassName={item.className}
-      triggerAsDiv={true}
-    />
+    <div className={`h-full w-full ${item.className}`}>
+      <AnimateEffect index={index} delay={0.1 * index}>
+        <ReusableModal
+        trigger={
+          <BentoGridItem
+            title={item.title}
+            description={item.description}
+            icon={item.icon}
+            image={item.image}
+            bgColor={item.bgColor}
+          />
+        }
+        title={item.title}
+        description={item.modalContent.fullDescription}
+        images={item.modalContent.images}
+        summary={[
+          ...item.modalContent.features.map(feature => ({
+            icon: <FaCheck className="text-green-500" />,
+            text: feature
+          })),
+          ...item.modalContent.techStack.map(tech => ({
+            icon: <FaCode className="text-blue-500" />,
+            text: tech
+          }))
+        ]}
+        buttons={[
+          { label: "Close", variant: "secondary" as const },
+          { label: "Learn More", variant: "primary" as const, path: "/solutions" }
+        ]}
+        triggerAsDiv={true}
+      />
+      </AnimateEffect>
+    </div>
   );
 };
 
 export const Solution = () => {
   return (
-    <Section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-black dark:to-gray-900">
+    <Section className="py-20 bg-gradient-to-b from-background to-muted/30">
       <div className="max-w-7xl mx-auto px-4">
         <AnimateEffect index={0}>
           <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Solutions & Expertise
             </h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               ออกแบบและพัฒนาระบบสารสนเทศขนาดใหญ่สำหรับธุรกิจในหลากหลายอุตสาหกรรม
             </p>
           </div>
         </AnimateEffect>
 
-        <AnimateEffect index={1}>
-          <BentoGrid className="max-w-7xl mx-auto">
-            {mockSolutionData.map((item, i) => (
-              <SolutionCard key={i} item={item} />
-            ))}
-          </BentoGrid>
-        </AnimateEffect>
+        <BentoGrid className="max-w-7xl mx-auto">
+          {mockSolutionData.map((item, i) => (
+            <SolutionCard key={i} item={item} index={i + 2} />
+          ))}
+        </BentoGrid>
       </div>
     </Section>
   );

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { DataTable } from "@/components/data-table"
 import { SiteHeader } from "@/components/site-header"
 import { Plus, RefreshCw } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/button/button"
 import { useWebsiteStore } from "@/lib/store/website-store"
 import { DataTableSkeleton, EmptyState } from "@/components/skeleton/table-skeleton"
 import Link from "next/link"
@@ -24,30 +24,30 @@ export default function WebsitePage() {
   // Transform pages data for DataTable display - organized logically
   const transformedPages = pages.map((page, index) => ({
     id: page.id,
-    
+
     // Main content (Header + Description)
     header: page.title,
     description: page.description || `${page.title} landing page with dynamic content management`,
-    
+
     // Page info
     type: 'Website Page',
     target: `/${page.slug}`,
     version: `v1.${index + 1}`,
-    
+
     // Status & Activity
     status: page.metadata?.status?.charAt(0).toUpperCase() + page.metadata.status?.slice(1) || 'Draft',
     statusType: page.metadata?.status || 'draft', // for badge styling
     isActive: true, // Active toggle for the page
-    
+
     // Content metrics
     sectionsCount: page.sections?.length || 0,
     activeSections: page.sections?.filter(s => s.isActive !== false).length || page.sections?.length || 0,
-    
+
     // Meta info
     lastEditor: 'Admin',
     uploader: page.metadata?.updatedAt ? new Date(page.metadata.updatedAt).toLocaleDateString('en-GB', {
       day: '2-digit',
-      month: '2-digit', 
+      month: '2-digit',
       year: 'numeric'
     }) : 'Unknown',
     publishedDate: page.metadata?.publishedAt || page.metadata?.updatedAt,
@@ -80,16 +80,16 @@ export default function WebsitePage() {
 
   return (
     <>
-      <SiteHeader 
+      <SiteHeader
         breadcrumbs={[
           { href: "/admin", label: "Admin" },
           { label: "Website" }
         ]}
         action={
           <div className="flex items-center space-x-2">
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               onClick={handleRefresh}
               disabled={isRefreshing}
             >
@@ -105,7 +105,7 @@ export default function WebsitePage() {
           </div>
         }
       />
-      
+
       {/* Container with hidden scrollbars */}
       <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <div className="px-4 lg:px-6">
@@ -118,7 +118,7 @@ export default function WebsitePage() {
             </p>
           )}
         </div>
-        
+
         {/* Loading State - Skeleton */}
         {isLoading ? (
           <DataTableSkeleton />
@@ -133,9 +133,9 @@ export default function WebsitePage() {
         ) : (
           /* Data Table */
           <div className="overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <DataTable 
-              data={transformedPages} 
-              entityName="Page" 
+            <DataTable
+              data={transformedPages}
+              entityName="Page"
               views={["table", "card"]}
               onView={(row: any) => {
                 // Navigate to page editor using id

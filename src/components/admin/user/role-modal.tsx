@@ -5,12 +5,12 @@ import { z } from "zod"
 import { toast } from "sonner"
 import { useRolesActions } from "@/lib/store/roles"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/button/button"
+import { Input } from "@/components/input/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/input/textarea"
+import { Switch } from "@/components/input/switch"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/input/select"
 
 // Validation schema
 const roleSchema = z.object({
@@ -95,7 +95,7 @@ export function RoleModal({ open, onClose, role }: RoleModalProps) {
     const updatedPermissions = currentPermissions.includes(permission)
       ? currentPermissions.filter(p => p !== permission)
       : [...currentPermissions, permission]
-    
+
     handleInputChange("permissions", updatedPermissions)
   }
 
@@ -121,7 +121,7 @@ export function RoleModal({ open, onClose, role }: RoleModalProps) {
       if (error instanceof z.ZodError) {
         // Validation errors
         const fieldErrors: Record<string, string> = {}
-        error.errors.forEach((err) => {
+        error.issues.forEach((err) => {
           if (err.path[0]) {
             fieldErrors[err.path[0] as string] = err.message
           }
@@ -258,8 +258,8 @@ export function RoleModal({ open, onClose, role }: RoleModalProps) {
               {isSubmitting
                 ? "Saving..."
                 : role
-                ? "Update Role"
-                : "Create Role"}
+                  ? "Update Role"
+                  : "Create Role"}
             </Button>
           </div>
         </form>

@@ -4,27 +4,27 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { SiteHeader } from '@/components/site-header';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/button/button';
+import { Input } from '@/components/input/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/input/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
+} from '@/components/input/select';
+import { Badge } from '@/components/button/badge';
+import { Checkbox } from '@/components/input/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeftIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { CoverImageCard } from '@/components/image';
 import { ImageGalleryCards } from '@/components/image/image-gallery-cards';
-import { ProductSectionManager } from '@/components/admin/product-section-manager';
+import { ProductSectionManager } from '@/components/admin/product/product-section-manager';
 import { TechStackSectionManager } from '@/components/admin/tech-stack-section-manager';
-import { ProductFeatureManager } from '@/components/admin/product-feature-manager';
+import { ProductFeatureManager } from '@/components/admin/product/product-feature-manager';
 import { useProductFeaturesStore } from '@/lib/store/product-features-store';
 
 interface Product {
@@ -414,7 +414,7 @@ export default function ProductEditPage() {
                 />
               </CardContent>
             </Card>
-            
+
           </div>
 
           {/* Sidebar */}
@@ -581,12 +581,12 @@ export default function ProductEditPage() {
         {!isNew && product.id && (
           <ProductSectionManager productId={product.id} />
         )}
-        
+
         {/* Tech Stack Section */}
         {!isNew && product.id && (
           <TechStackSectionManager productId={product.id} />
         )}
-        
+
         {/* Core Features Management */}
         <ProductFeatureManager productId={!isNew ? product.id : undefined} />
       </div>

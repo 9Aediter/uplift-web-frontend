@@ -1,46 +1,46 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/lib/store/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/button/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/input/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/input/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/input/select";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeftIcon, ShieldIcon, BellIcon, PaletteIcon, GlobeIcon, KeyIcon } from "lucide-react";
 import { toast } from "sonner";
 
 export default function SettingsPage() {
-  const { data: session, status } = useSession();
+  const { user, status } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  
+
   const [settings, setSettings] = useState({
     // Notifications
     emailNotifications: true,
     pushNotifications: false,
     marketingEmails: false,
-    
+
     // Privacy
     profileVisible: true,
     activityVisible: false,
-    
+
     // Appearance
     theme: "dark",
     language: "en",
-    
+
     // Security
     twoFactorEnabled: false,
   });
 
   useEffect(() => {
-    if (status === "unauthenticated") {
+    if (!user && status !== "loading") {
       router.push("/auth/signin");
     }
-  }, [status, router]);
+  }, [user, status, router]);
 
   if (status === "loading") {
     return (
@@ -50,14 +50,14 @@ export default function SettingsPage() {
     );
   }
 
-  if (!session) return null;
+  if (!user) return null;
 
   const handleSaveSettings = async () => {
     setLoading(true);
     try {
       // Here you would make API call to update settings
       // const response = await fetch('/api/user/settings', { ... });
-      
+
       toast.success("Settings updated successfully!");
     } catch (error) {
       toast.error("Failed to update settings");
@@ -95,7 +95,7 @@ export default function SettingsPage() {
 
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="grid gap-8">
-          
+
           {/* Notifications Settings */}
           <Card className="bg-gray-900 border-gray-800">
             <CardHeader className="border-b border-gray-800">
@@ -117,12 +117,12 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={settings.emailNotifications}
-                  onCheckedChange={(checked) => 
+                  onCheckedChange={(checked) =>
                     setSettings(prev => ({ ...prev, emailNotifications: checked }))
                   }
                 />
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-gray-300">Push Notifications</Label>
@@ -130,12 +130,12 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={settings.pushNotifications}
-                  onCheckedChange={(checked) => 
+                  onCheckedChange={(checked) =>
                     setSettings(prev => ({ ...prev, pushNotifications: checked }))
                   }
                 />
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-gray-300">Marketing Emails</Label>
@@ -143,7 +143,7 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={settings.marketingEmails}
-                  onCheckedChange={(checked) => 
+                  onCheckedChange={(checked) =>
                     setSettings(prev => ({ ...prev, marketingEmails: checked }))
                   }
                 />
@@ -172,12 +172,12 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={settings.profileVisible}
-                  onCheckedChange={(checked) => 
+                  onCheckedChange={(checked) =>
                     setSettings(prev => ({ ...prev, profileVisible: checked }))
                   }
                 />
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-gray-300">Activity Visibility</Label>
@@ -185,7 +185,7 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={settings.activityVisible}
-                  onCheckedChange={(checked) => 
+                  onCheckedChange={(checked) =>
                     setSettings(prev => ({ ...prev, activityVisible: checked }))
                   }
                 />
@@ -224,7 +224,7 @@ export default function SettingsPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label className="text-gray-300">Language</Label>
                   <Select
@@ -265,14 +265,14 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={settings.twoFactorEnabled}
-                  onCheckedChange={(checked) => 
+                  onCheckedChange={(checked) =>
                     setSettings(prev => ({ ...prev, twoFactorEnabled: checked }))
                   }
                 />
               </div>
-              
+
               <Separator className="bg-gray-800" />
-              
+
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-gray-300">Password</Label>

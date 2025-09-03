@@ -67,16 +67,18 @@ export const Product = async () => {
     }));
 
     return (
-        <Section className="w-full h-[80vh] sm:h-[100vh] bg-gradient-to-b from-black to-gray-900/30 flex flex-col justify-center">
-            <div className="max-w-7xl mx-auto w-full">
+        <Section className="w-full h-[100vh] bg-gradient-to-b from-background to-muted/30 flex flex-col">
+            <div className="max-w-7xl mx-auto w-full h-full flex flex-col">
                 <AnimateEffect index={0}>
-                    <h2 className="pl-4 text-4xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
+                    <h2 className="pl-4 text-4xl md:text-5xl font-bold text-foreground font-sans mb-8">
                         OUR INNOVATION
                     </h2>
                 </AnimateEffect>
-                <AnimateEffect index={1}>
-                    <AppleCardsCarousel cards={cards} />
-                </AnimateEffect>
+                <div className="flex-1">
+                    <AnimateEffect index={1}>
+                        <AppleCardsCarousel cards={cards} />
+                    </AnimateEffect>
+                </div>
             </div>
         </Section>
     );

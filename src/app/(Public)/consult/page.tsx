@@ -6,6 +6,8 @@ import { Particles } from '@/components/section/uplift/hero/particles';
 import { FloatingElements } from '@/components/section/uplift/hero/floating-elements';
 import { ConsultBenefits } from '@/components/section/consult/consult-benefits';
 import { ConsultProcess } from '@/components/section/consult/consult-process';
+import { Button } from '@/components/button/button';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Free Consultation | Uplift Tech',
@@ -34,6 +36,25 @@ export default function ConsultPage() {
       {/* Process Section */}
       <Section className="py-16 md:py-20 relative z-10">
         <ConsultProcess />
+      </Section>
+
+      {/* Member Registration CTA */}
+      <Section className="py-16 md:py-20 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 text-center">
+          <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 md:p-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              Join Our <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Community</span>
+            </h2>
+            <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
+              Get exclusive access to premium resources, priority support, and special discounts on our services.
+            </p>
+            <Link href="/auth/signin">
+              <Button size="lg" className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white px-8 py-3">
+                Sign Up Now
+              </Button>
+            </Link>
+          </div>
+        </div>
       </Section>
 
       {/* Form Section */}

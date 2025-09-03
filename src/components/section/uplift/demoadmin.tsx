@@ -6,7 +6,7 @@ import { ContainerScrollWrapper, AdminInterfaceWrapper } from "./demoadmin/conta
 export function DemoAdmin() {
   
   return (
-    <Section className="flex flex-col overflow-hidden bg-gradient-to-b from-gray-900/30 to-black">
+    <Section className="flex flex-col overflow-hidden bg-black">
       <ContainerScrollWrapper
         titleComponent={
           <>
@@ -65,15 +65,15 @@ export function DemoAdmin() {
         }
       >
         {/* Main Content */}
-        <div className="relative mx-auto rounded-2xl overflow-hidden h-full bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 shadow-2xl">
+        <div className="relative mx-auto rounded-2xl overflow-hidden h-full bg-gradient-to-br from-card to-muted border border-border shadow-2xl">
           {/* Browser Header */}
           <div className="p-4">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <div className="flex-1 bg-gray-700 rounded-lg px-3 py-1.5 ml-4">
-                <span className="text-gray-300 text-sm">https://admin.uplift.co/dashboard</span>
+              <div className="flex-1 bg-muted rounded-lg px-3 py-1.5 ml-4">
+                <span className="text-muted-foreground text-sm">https://admin.uplift.co/dashboard</span>
               </div>
             </div>
             

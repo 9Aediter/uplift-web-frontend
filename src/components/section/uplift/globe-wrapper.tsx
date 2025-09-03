@@ -2,6 +2,7 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
+import { useTheme } from "next-themes";
 
 const World = dynamic(() => import("@/components/ui/globe").then((m) => m.World), {
     ssr: false,
@@ -15,20 +16,23 @@ const World = dynamic(() => import("@/components/ui/globe").then((m) => m.World)
 });
 
 export default function GlobeWrapper() {
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === 'dark';
+    
     const globeConfig = {
         pointSize: 4,
-        globeColor: "#062056",
+        globeColor: isDark ? "#062056" : "#4597C6",
         showAtmosphere: true,
-        atmosphereColor: "#FFFFFF",
+        atmosphereColor: isDark ? "#FFFFFF" : "#5b9bd5",
         atmosphereAltitude: 0.1,
-        emissive: "#062056",
-        emissiveIntensity: 0.1,
+        emissive: isDark ? "#062056" : "#4597C6",
+        emissiveIntensity: isDark ? 0.1 : 0.4,
         shininess: 0.9,
-        polygonColor: "rgba(255,255,255,0.7)",
-        ambientLight: "#38bdf8",
-        directionalLeftLight: "#ffffff",
-        directionalTopLight: "#ffffff",
-        pointLight: "#ffffff",
+        polygonColor: isDark ? "rgba(255,255,255,1.0)" : "rgba(0,0,0,0.8)",
+        ambientLight: isDark ? "#38bdf8" : "#4597C6",
+        directionalLeftLight: isDark ? "#ffffff" : "#ffffff",
+        directionalTopLight: isDark ? "#ffffff" : "#ffffff",
+        pointLight: isDark ? "#ffffff" : "#f8fafc",
         arcTime: 1000,
         arcLength: 0.9,
         rings: 1,
@@ -37,7 +41,7 @@ export default function GlobeWrapper() {
         autoRotate: true,
         autoRotateSpeed: 0.5,
     };
-    const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+    const colors = ["#00f5ff", "#ff6b35", "#7c3aed", "#10b981", "#f59e0b", "#ef4444"];
     const sampleArcs = [
         {
             order: 1,
@@ -405,7 +409,7 @@ export default function GlobeWrapper() {
         <div className="flex flex-row items-center justify-center py-20 h-screen md:h-auto relative w-full">
             <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4">
                 <div className="absolute w-full -bottom-20 pb-12 h-72 md:h-full z-10">
-                    <World data={sampleArcs} globeConfig={globeConfig} />
+                    <World key={resolvedTheme} data={sampleArcs} globeConfig={globeConfig} />
                 </div>
             </div>
         </div>

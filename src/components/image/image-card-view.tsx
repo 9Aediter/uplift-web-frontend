@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { 
+import { Badge } from '@/components/button/badge';
+import { Button } from '@/components/button/button';
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -40,11 +40,11 @@ interface ImageCardViewProps {
   onToggleStatus?: (image: Image) => void;
 }
 
-export function ImageCardView({ 
-  images, 
-  onImageClick, 
-  onDelete, 
-  onToggleStatus 
+export function ImageCardView({
+  images,
+  onImageClick,
+  onDelete,
+  onToggleStatus
 }: ImageCardViewProps) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const { users } = useUsersStore();
@@ -71,7 +71,7 @@ export function ImageCardView({
             alt={image.altText || image.filename}
             className="w-full h-full object-cover"
           />
-          
+
           {/* Status Badge */}
           <div className="absolute top-2 left-2">
             <Badge variant={image.isActive ? 'default' : 'destructive'} className="text-xs">
@@ -106,7 +106,7 @@ export function ImageCardView({
                   By: {getUserName(image.uploadedBy)}
                 </p>
                 <p className="text-gray-300">{formatDate(image.createdAt)}</p>
-                
+
                 {/* Action Buttons */}
                 <div className="flex items-center space-x-2 pt-2">
                   <TooltipProvider>

@@ -6,13 +6,13 @@ import { toast } from "sonner"
 import { authApi } from "@/lib/api/auth"
 import { useAuthActions } from "@/lib/store/auth"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/button/button"
+import { Input } from "@/components/input/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { PasswordInput } from "@/components/ui/password-input"
+import { PasswordInput } from "@/components/input/password-input"
 import { SocialForm } from "@/components/auth/social-form"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/input/checkbox"
 import Link from "next/link"
 
 export function LoginForm({
@@ -44,16 +44,16 @@ export function LoginForm({
         // Login successful, store user (tokens are now in httpOnly cookies)
         login(response.data.user)
         toast.success("Signed in successfully!")
-        
+
         // Set success message for AuthSuccessHandler
         localStorage.setItem('auth_success_message', 'login_success')
-        
+
         // Navigate without full page reload - auth state already updated
         router.push("/")
       }
     } catch (error: any) {
       console.error("Login error:", error)
-      
+
       if (error.response?.data?.message) {
         toast.error(error.response.data.message)
       } else if (error.response?.status === 401) {
@@ -79,13 +79,13 @@ export function LoginForm({
           <div className="grid gap-6">
             <div className="grid gap-3">
               <Label htmlFor="email">Email</Label>
-              <Input 
-                id="email" 
-                type="email" 
-                placeholder="m@example.com" 
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required 
+                required
                 disabled={isLoading}
               />
             </div>
@@ -99,31 +99,31 @@ export function LoginForm({
                   Forgot your password?
                 </a>
               </div>
-              <PasswordInput 
-                id="password" 
+              <PasswordInput
+                id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required 
+                required
                 disabled={isLoading}
               />
             </div>
-            
+
             {/* Remember Me Checkbox */}
             <div className="flex items-center space-x-2">
-              <Checkbox 
-                id="rememberMe" 
+              <Checkbox
+                id="rememberMe"
                 checked={rememberMe}
                 onCheckedChange={(checked) => setRememberMe(checked as boolean)}
                 disabled={isLoading}
               />
-              <Label 
-                htmlFor="rememberMe" 
+              <Label
+                htmlFor="rememberMe"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 Remember me for 30 days
               </Label>
             </div>
-            
+
             <div className="flex gap-2">
               <Button variant="ghost" asChild className="flex-1" disabled={isLoading}>
                 <Link href="/auth/signup">Sign up?</Link>

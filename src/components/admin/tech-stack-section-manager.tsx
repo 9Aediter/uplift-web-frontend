@@ -3,17 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/button/button';
+import { Input } from '@/components/input/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/input/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/input/select';
 import { Plus, Trash2, GripVertical } from 'lucide-react';
 
 interface Technology {
@@ -57,21 +57,21 @@ export const TechStackSectionManager: React.FC<TechStackSectionManagerProps> = (
   const fetchData = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch existing tech stack section
       const sectionResponse = await fetch(`/api/products/${productId}/tech-stack`);
       if (sectionResponse.ok) {
         const sectionData = await sectionResponse.json();
         setTechStackSection(sectionData);
       }
-      
+
       // Fetch available technologies
       const techResponse = await fetch('/api/technologies');
       if (techResponse.ok) {
         const techData = await techResponse.json();
         setAvailableTechnologies(techData);
       }
-      
+
     } catch (error) {
       console.error('Error fetching data:', error);
       toast.error('Failed to load tech stack data');
@@ -82,7 +82,7 @@ export const TechStackSectionManager: React.FC<TechStackSectionManagerProps> = (
 
   const handleSave = async () => {
     if (!techStackSection) return;
-    
+
     try {
       setSaving(true);
       const response = await fetch(`/api/products/${productId}/tech-stack`, {
@@ -117,7 +117,7 @@ export const TechStackSectionManager: React.FC<TechStackSectionManagerProps> = (
 
   const addTechnology = () => {
     if (!availableTechnologies.length) return;
-    
+
     const firstTech = availableTechnologies[0];
     const newTech: TechStackSectionTechnology = {
       id: `new-${Date.now()}`,
@@ -143,7 +143,7 @@ export const TechStackSectionManager: React.FC<TechStackSectionManagerProps> = (
 
   const removeTechnology = (index: number) => {
     if (!techStackSection) return;
-    
+
     const newTechnologies = techStackSection.technologies.filter((_, i) => i !== index);
     setTechStackSection({
       ...techStackSection,
@@ -153,7 +153,7 @@ export const TechStackSectionManager: React.FC<TechStackSectionManagerProps> = (
 
   const updateTechnology = (index: number, technologyId: string) => {
     if (!techStackSection) return;
-    
+
     const selectedTech = availableTechnologies.find(t => t.id === technologyId);
     if (!selectedTech) return;
 
@@ -240,7 +240,7 @@ export const TechStackSectionManager: React.FC<TechStackSectionManagerProps> = (
           {techStackSection?.technologies.map((tech, index) => (
             <div key={tech.id} className="flex items-center gap-3 p-4 border rounded-lg">
               <GripVertical className="w-4 h-4 text-muted-foreground" />
-              
+
               <div className="flex-1">
                 <Select
                   value={tech.technologyId}
@@ -253,8 +253,8 @@ export const TechStackSectionManager: React.FC<TechStackSectionManagerProps> = (
                     {availableTechnologies.map((availableTech) => (
                       <SelectItem key={availableTech.id} value={availableTech.id}>
                         <div className="flex items-center gap-2">
-                          <div 
-                            dangerouslySetInnerHTML={{ __html: availableTech.svgCode }} 
+                          <div
+                            dangerouslySetInnerHTML={{ __html: availableTech.svgCode }}
                             className="w-4 h-4 [&>svg]:w-full [&>svg]:h-full"
                           />
                           {availableTech.name}

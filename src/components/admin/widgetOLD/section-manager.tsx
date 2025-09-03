@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/button/button"
+import { Badge } from "@/components/button/badge"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Plus, Edit, Trash2, GripVertical, Eye } from "lucide-react"
 import { toast } from "sonner"
@@ -97,8 +97,8 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
   }
 
   const handleToggleSection = (sectionId: string) => {
-    const updatedSections = pageData.sections.map(section => 
-      section.id === sectionId 
+    const updatedSections = pageData.sections.map(section =>
+      section.id === sectionId
         ? { ...section, isActive: !section.isActive }
         : section
     )
@@ -116,7 +116,7 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
               จัดการส่วนเนื้อหาของหน้านี้ด้วย Widget ที่ใช้ซ้ำได้
             </CardDescription>
           </div>
-          
+
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
               <Button size="sm" onClick={() => {
@@ -133,7 +133,7 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
                   เลือกหมวดหมู่ Widget และรูปแบบที่ต้องการเพิ่มในหน้านี้
                 </DialogDescription>
               </DialogHeader>
-              
+
               <div className="space-y-6">
                 {/* Category Selection - เลือกหมวดหมู่ Widget */}
                 {!selectedCategory && (
@@ -144,15 +144,15 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
                         const widgetCount = widgets.length
                         const categoryInfo = {
                           cards: { icon: '🎴', name: 'Cards', desc: 'การ์ดแสดงข้อมูล' },
-                          carousel: { icon: '🎠', name: 'Carousel', desc: 'สไลด์เนื้อหา' }, 
+                          carousel: { icon: '🎠', name: 'Carousel', desc: 'สไลด์เนื้อหา' },
                           tabs: { icon: '📑', name: 'Tabs', desc: 'แท็บเนื้อหา' },
                           hero: { icon: '🎯', name: 'Hero', desc: 'ส่วนหัวหน้า' },
                           content: { icon: '📝', name: 'Content', desc: 'เนื้อหาทั่วไป' },
                           interactive: { icon: '💰', name: 'Interactive', desc: 'ส่วนโต้ตอบ' }
                         }
-                        
+
                         const info = categoryInfo[category as keyof typeof categoryInfo]
-                        
+
                         return (
                           <Card
                             key={category}
@@ -181,23 +181,23 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
                 {selectedCategory && (
                   <div>
                     <div className="flex items-center gap-2 mb-4">
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         onClick={() => setSelectedCategory(null)}
                       >
                         ← กลับ
                       </Button>
                       <h3 className="text-lg font-semibold">2️⃣ เลือกรูปแบบ {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}</h3>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 gap-6">
                       {WIDGET_CATEGORIES[selectedCategory].map(widgetId => {
                         const widget = WIDGET_REGISTRY[widgetId]
                         if (!widget) return null
-                        
+
                         const SkeletonComponent = widget.skeleton
-                        
+
                         return (
                           <Card key={widgetId} className="overflow-hidden">
                             <div className="flex">
@@ -230,7 +230,7 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
                                     </Button>
                                   </div>
                                 </div>
-                                
+
                                 {/* Expanded Configuration */}
                                 {previewWidget === widgetId && (
                                   <div className="mt-4 pt-4 border-t">
@@ -249,7 +249,7 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
                                   </div>
                                 )}
                               </div>
-                              
+
                               {/* Right: Widget Preview */}
                               <div className="flex-2/3 w-80 border-l bg-gray-50 dark:bg-gray-900/50">
                                 <div className="p-2">
@@ -271,15 +271,15 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
           </Dialog>
         </div>
       </CardHeader>
-      
+
       <CardContent className="space-y-4">
         {/* Existing Sections */}
         {pageData.sections.length === 0 ? (
           <div className="text-center py-8 border-2 border-dashed border-muted-foreground/25 rounded-lg">
             <p className="text-muted-foreground mb-4">🚀 ยังไม่มี section ในหน้านี้</p>
             <p className="text-sm text-muted-foreground mb-4">เริ่มต้นสร้างเนื้อหาด้วย Widget ต่างๆ</p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => setIsAddDialogOpen(true)}
             >
               <Plus className="h-4 w-4 mr-2" />
@@ -298,7 +298,7 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
                   <div>
                     <div className="flex items-center gap-2">
                       <h4 className="font-medium">{section.title}</h4>
-                      <Badge 
+                      <Badge
                         variant={section.isActive ? 'default' : 'secondary'}
                         className="cursor-pointer"
                         onClick={() => handleToggleSection(section.id)}
@@ -316,18 +316,18 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     variant="outline"
                     onClick={() => handleEditSection(section.id)}
                   >
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
+                  <Button
+                    size="sm"
+                    variant="outline"
                     className="text-destructive"
                     onClick={() => handleDeleteSection(section.id)}
                   >
@@ -335,7 +335,7 @@ export function SectionManager({ pageData, onSectionUpdate }: SectionManagerProp
                   </Button>
                 </div>
               </div>
-              
+
               {/* Section Data Preview */}
               <div className="mt-3 pl-10">
                 <details className="text-sm">

@@ -5,7 +5,7 @@ import { DataTable } from "@/components/data-table"
 import { SiteHeader } from "@/components/site-header"
 import { useRoles, useRolesActions } from "@/lib/store/roles"
 import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/button/button"
 import { RoleModal } from "@/components/admin/user/role-modal"
 
 export default function RolesPage() {
@@ -65,7 +65,7 @@ export default function RolesPage() {
   if (isLoading && roles.length === 0) {
     return (
       <>
-        <SiteHeader 
+        <SiteHeader
           breadcrumbs={[
             { href: "/admin", label: "Admin" },
             { label: "Roles" }
@@ -89,7 +89,7 @@ export default function RolesPage() {
 
   return (
     <>
-      <SiteHeader 
+      <SiteHeader
         breadcrumbs={[
           { href: "/admin", label: "Admin" },
           { label: "Roles" }
@@ -111,17 +111,17 @@ export default function RolesPage() {
             </p>
           )}
         </div>
-        <DataTable 
-          data={roles} 
-          entityName="Role" 
+        <DataTable
+          data={roles}
+          entityName="Role"
           views={["table", "card"]}
           onEdit={handleEdit}
           onDelete={handleDelete}
           onStatusChange={handleStatusChange}
         />
       </div>
-      
-      <RoleModal 
+
+      <RoleModal
         open={showCreateModal}
         onClose={() => setShowCreateModal(false)}
         role={editRole}

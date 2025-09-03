@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Users, Lightbulb, Sparkles, ArrowRight, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/button/button';
 
 const features = [
   {
@@ -50,9 +50,9 @@ export function ConsultationHero() {
             Free Technology Consultation
           </span>
         </motion.div>
-        
+
         {/* Main Title */}
-        <motion.h1 
+        <motion.h1
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -64,36 +64,36 @@ export function ConsultationHero() {
           </span>
           <span className="block">Into Reality</span>
         </motion.h1>
-        
+
         {/* Subtitle */}
-        <motion.p 
+        <motion.p
           className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 max-w-4xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          Get expert insights from senior technology consultants. Schedule a free 30-minute consultation 
+          Get expert insights from senior technology consultants. Schedule a free 30-minute consultation
           to discuss your project and receive personalized recommendations.
         </motion.p>
-        
+
         {/* CTA Buttons */}
-        <motion.div 
+        <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <Button 
+          <Button
             onClick={scrollToForm}
-            size="lg" 
+            size="lg"
             className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
           >
             <Calendar className="w-5 h-5 mr-2" />
             Book Free Consultation
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="lg"
             className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white px-8 py-4 text-lg font-semibold backdrop-blur-sm"
           >
@@ -102,7 +102,7 @@ export function ConsultationHero() {
         </motion.div>
 
         {/* Features */}
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -126,7 +126,7 @@ export function ConsultationHero() {
         </motion.div>
 
         {/* Trust Indicators */}
-        <motion.div 
+        <motion.div
           className="mt-16 pt-8 border-t border-gray-700/50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

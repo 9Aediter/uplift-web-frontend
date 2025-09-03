@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { useModal } from "@/lib/modal-provider"
@@ -12,10 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/button/button"
+import { Input } from "@/components/input/input"
 import { Label } from "@/components/ui/label"
-import { PasswordInput } from "@/components/ui/password-input"
+import { PasswordInput } from "@/components/input/password-input"
 
 interface UserExistsModalProps {
   email: string
@@ -50,22 +49,10 @@ export function UserExistsModal({ email, message }: UserExistsModalProps) {
 
       const result = await response.json()
 
-      if (result.success && result.autoLogin && result.loginCredentials) {
-        toast.success(result.message)
-        
-        // Auto login with NextAuth using credentials from server
-        const signInResult = await signIn("credentials", {
-          email: result.loginCredentials.email,
-          password: result.loginCredentials.password,
-          redirect: false,
-        })
-
-        if (signInResult?.ok) {
-          router.push("/")
-          handleClose()
-        } else {
-          toast.error("Login failed. Please try again.")
-        }
+      if (result.success) {
+        toast.success(result.message || "Verification successful")
+        router.push("/")
+        handleClose()
       } else {
         toast.error(result.error)
       }
@@ -91,7 +78,7 @@ export function UserExistsModal({ email, message }: UserExistsModalProps) {
             {message}
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="modal-email" className="text-white">Email</Label>
@@ -103,10 +90,10 @@ export function UserExistsModal({ email, message }: UserExistsModalProps) {
               className="bg-white/5 border-white/20 text-white"
             />
           </div>
-          
+
           <form action={handleVerify} className="space-y-4">
             <input type="hidden" name="email" value={email} />
-            
+
             <div className="space-y-2">
               <Label htmlFor="modal-password" className="text-white">Your Password</Label>
               <PasswordInput
@@ -118,29 +105,29 @@ export function UserExistsModal({ email, message }: UserExistsModalProps) {
                 className="bg-white/5 border-white/20 text-white"
               />
             </div>
-            
+
             <div className="flex flex-col gap-2 pt-4">
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={isLoading}
                 className="w-full"
               >
                 {isLoading ? "Verifying..." : "Verify & Login"}
               </Button>
-              
+
               <div className="flex gap-2">
-                <Button 
-                  type="button" 
-                  variant="ghost" 
+                <Button
+                  type="button"
+                  variant="ghost"
                   onClick={handleUseAnotherEmail}
                   disabled={isLoading}
                   className="flex-1 text-white hover:bg-white/10"
                 >
                   Use Another Email
                 </Button>
-                <Button 
-                  type="button" 
-                  variant="ghost" 
+                <Button
+                  type="button"
+                  variant="ghost"
                   onClick={handleClose}
                   disabled={isLoading}
                   className="flex-1 text-white hover:bg-white/10"

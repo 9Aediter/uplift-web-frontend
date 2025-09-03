@@ -1,35 +1,33 @@
 "use client";
+
 import { LuExternalLink } from "react-icons/lu";
-import {
-    Navbar,
-    NavBody,
-    NavItems,
-    MobileNav,
-    NavbarLogo,
-    NavbarButton,
-    MobileNavHeader,
-    MobileNavMenu,
-} from "@/components/ui/resizable-navbar";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { SearchIcon } from "lucide-react";
-import { IoLanguage } from "react-icons/io5";
 import { IconMenu2 } from "@tabler/icons-react";
+import { useAuth } from "@/lib/store/auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     Sheet,
     SheetContent,
     SheetTrigger,
 } from "@/components/ui/sheet";
-import { useRouter, usePathname } from 'next/navigation';
-import { useAuth } from "@/lib/store/auth";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+// Import organized nav components
+import {
+    Navbar,
+    NavBody,
+    NavItems,
+    NavLogo,
+    NavbarButton,
+    MobileNav,
+    MobileNavHeader,
+} from "./index";
+import { Button } from "@/components/button/button";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { NavSheet } from "./nav-sheet";
-import { MobileNavSheet } from "./mobile-nav-sheet";
 
 
 export default function DesktopNav() {
-    const router = useRouter();
-    const pathname = usePathname();
 
     const navItems = [
         {
@@ -45,7 +43,7 @@ export default function DesktopNav() {
             link: "/solutions",
         },
         {
-            name: "Inovation",
+            name: "Innovation",
             link: "/innovation",
         },
     ];
@@ -54,22 +52,19 @@ export default function DesktopNav() {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const { user, status } = useAuth();
 
-    const handleLanguageSwitch = () => {
-        const currentLocale = pathname.split('/')[1]; // Get current locale from path (e.g., 'en' from '/en/story')
-        const newLocale = currentLocale === 'en' ? 'th' : 'en';
-        const newPath = `/${newLocale}${pathname.substring(currentLocale.length + 1)}`;
-        router.push(newPath);
-    };
 
     return (
         <nav id="nav" className="z-50">
             {/* Desktop Navigation */}
             <Navbar className="hidden lg:block">
                 {[<NavBody key="nav-body">
-                    <NavbarLogo />
+                    <NavLogo />
                     <NavItems items={navItems} />
                     <div className="flex items-center gap-4">
-                        {/* Show avatar if logged in, otherwise show language switcher */}
+                        {/* Theme toggle */}
+                        <ThemeToggle />
+                        
+                        {/* Show avatar if logged in */}
                         {status === "authenticated" && user ? (
                             <Sheet open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
                                 <SheetTrigger asChild>
@@ -83,23 +78,15 @@ export default function DesktopNav() {
                                     </Button>
                                 </SheetTrigger>
                                 <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                                    <NavSheet 
+                                    <NavSheet
                                         user={user}
                                         onClose={() => setIsUserMenuOpen(false)}
-                                        onLanguageSwitch={() => {
-                                            handleLanguageSwitch();
-                                            setIsUserMenuOpen(false);
-                                        }}
                                     />
                                 </SheetContent>
                             </Sheet>
                         ) : (
-                            <NavbarButton variant="ghost" onClick={handleLanguageSwitch}>
-                                <IoLanguage />
-                            </NavbarButton>
+                            <NavbarButton href="/consult" variant="primary" className="flex items-center">Consult <LuExternalLink className="ml-2 h-4 w-4" /></NavbarButton>
                         )}
-                        
-                        <NavbarButton href="/consult" variant="primary" className="flex items-center">Consult <LuExternalLink className="ml-2 h-4 w-4" /></NavbarButton>
                     </div>
                 </NavBody>]}
             </Navbar>
@@ -107,8 +94,10 @@ export default function DesktopNav() {
             {/* Mobile Navigation */}
             <MobileNav className="py-4 lg:hidden">
                 <MobileNavHeader key="mobile-header">
-                    <NavbarLogo />
+                    <NavLogo />
                     <div className="flex items-center gap-2">
+                        <ThemeToggle />
+                        
                         <Button variant="ghost" size="icon" onClick={() => console.log("Search clicked")}>
                             <SearchIcon className="h-5 w-5" />
                         </Button>
@@ -131,14 +120,14 @@ export default function DesktopNav() {
                                 )}
                             </SheetTrigger>
                             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                                <MobileNavSheet
-                                    user={user}
-                                    navItems={navItems}
-                                    isOpen={isMobileMenuOpen}
-                                    onClose={() => setIsMobileMenuOpen(false)}
-                                    onLanguageSwitch={handleLanguageSwitch}
-                                    isAuthenticated={status === "authenticated"}
-                                />
+                                {user && (
+                                    <NavSheet
+                                        user={user}
+                                        navItems={navItems}
+                                        isMobile={true}
+                                        onClose={() => setIsMobileMenuOpen(false)}
+                                    />
+                                )}
                             </SheetContent>
                         </Sheet>
                     </div>

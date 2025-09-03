@@ -65,13 +65,13 @@ const Problems = () => {
   const { title, subtitle, items } = mockProblemData;
 
   return (
-    <Section id="problem" className="bg-black flex flex-col justify-center py-30">
+    <Section id="problem" className="bg-gradient-to-b from-amber-50/50 via-orange-50/30 to-yellow-50/50 dark:from-black dark:via-black dark:to-black flex flex-col justify-center py-30">
       <div className="w-full max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        {/* <div className="text-center mb-16">
           <AnimatedTitle title={title} />
           <AnimatedSubtitle subtitle={subtitle} />
-        </div>
+        </div> */}
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

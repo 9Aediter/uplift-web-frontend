@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { LogOutIcon, UserIcon, SettingsIcon, ShieldIcon } from "lucide-react";
-import { IoLanguage } from "react-icons/io5";
+import { Button } from "@/components/button/button";
+import { LogOutIcon, UserIcon, SettingsIcon, ShieldIcon, BookOpenIcon, BriefcaseIcon, RocketIcon, LightbulbIcon, PuzzleIcon } from "lucide-react";
 import { useAuth, useAuthActions } from "@/lib/store/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
@@ -21,17 +20,18 @@ interface NavSheetProps {
     }>;
   };
   onClose: () => void;
-  onLanguageSwitch: () => void;
+  navItems?: Array<{ name: string; link: string }>;
+  isMobile?: boolean;
 }
 
-export function NavSheet({ user, onClose, onLanguageSwitch }: NavSheetProps) {
+export function NavSheet({ user, onClose, navItems, isMobile = false }: NavSheetProps) {
   const { logout } = useAuthActions();
-  
+
   // Check if user has admin role
-  const hasAdminRole = user?.roles?.some(role => 
+  const hasAdminRole = user?.roles?.some(role =>
     role.type === 'admin' || role.pathRoles === 'admin'
   );
-  
+
   console.log('🔍 NavSheet - User roles:', user?.roles);
   console.log('🔍 NavSheet - Has admin role:', hasAdminRole);
 
@@ -50,7 +50,34 @@ export function NavSheet({ user, onClose, onLanguageSwitch }: NavSheetProps) {
           <span className="text-xs text-muted-foreground">{user.email}</span>
         </div>
       </div>
-      
+
+      {/* Navigation Items - only show on mobile */}
+      {isMobile && navItems && navItems.length > 0 && (
+        <div className="flex flex-col gap-2 mb-4">
+          {navItems.map((item, idx) => {
+            // Map navigation items to icons
+            const getIcon = (name: string) => {
+              switch(name.toLowerCase()) {
+                case 'story': return <BookOpenIcon className="h-4 w-4" />;
+                case 'service': return <BriefcaseIcon className="h-4 w-4" />;
+                case 'solution': return <PuzzleIcon className="h-4 w-4" />;
+                case 'innovation': return <LightbulbIcon className="h-4 w-4" />;
+                default: return null;
+              }
+            };
+            
+            return (
+              <Link key={`nav-item-${idx}`} href={item.link} onClick={onClose}>
+                <Button variant="ghost" className="w-full justify-start gap-3 h-12">
+                  {getIcon(item.name)}
+                  {item.name}
+                </Button>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+
       {/* Menu Items */}
       <div className="flex flex-col gap-2">
         <Link href="/user/profile" onClick={onClose}>
@@ -59,7 +86,7 @@ export function NavSheet({ user, onClose, onLanguageSwitch }: NavSheetProps) {
             Profile
           </Button>
         </Link>
-        
+
         <Link href="/user/settings" onClick={onClose}>
           <Button variant="ghost" className="w-full justify-start gap-3 h-12">
             <SettingsIcon className="h-4 w-4" />
@@ -76,15 +103,11 @@ export function NavSheet({ user, onClose, onLanguageSwitch }: NavSheetProps) {
             </Button>
           </Link>
         )}
-        
-        <Button variant="ghost" className="justify-start gap-3 h-12" onClick={onLanguageSwitch}>
-          <IoLanguage className="h-4 w-4" />
-          Language
-        </Button>
-        
-        <Button 
-          variant="ghost" 
-          className="justify-start gap-3 h-12 text-red-600 hover:text-red-700 hover:bg-red-50" 
+
+
+        <Button
+          variant="ghost"
+          className="justify-start gap-3 h-12 text-red-600 hover:text-red-700 hover:bg-red-50"
           onClick={async () => {
             try {
               onClose();

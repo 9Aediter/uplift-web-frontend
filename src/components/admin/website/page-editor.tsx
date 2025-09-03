@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/button/button"
+import { Input } from "@/components/input/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/input/textarea"
+import { Switch } from "@/components/input/switch"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/input/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/button/badge"
 import { Separator } from "@/components/ui/separator"
 import { HeroSectionEditor } from "@/components/admin/hero-section-editor"
 import { SectionManager } from "@/components/admin/website/section-manager"
@@ -33,17 +33,17 @@ interface NewPageForm {
 
 export default function PageEditor({ pageId, isNewPage = false }: PageEditorProps) {
   const router = useRouter()
-  const { 
-    currentPage, 
-    sections, 
-    isLoading, 
+  const {
+    currentPage,
+    sections,
+    isLoading,
     isDirty,
-    loadPage, 
-    savePage, 
+    loadPage,
+    savePage,
     publishPage,
-    setPageMetadata 
+    setPageMetadata
   } = useWebsiteStore()
-  
+
   // New page creation form data
   const [newPageForm, setNewPageForm] = useState<NewPageForm>({
     title: '',
@@ -52,7 +52,7 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
     language: 'en'
   })
   const [isCreating, setIsCreating] = useState(false)
-  
+
   // Load existing page data
   useEffect(() => {
     if (!isNewPage && pageId) {
@@ -66,7 +66,7 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
       ...prev,
       [field]: value
     }))
-    
+
     // Auto-generate slug from title
     if (field === 'title') {
       const slug = value.toLowerCase()
@@ -85,10 +85,10 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
     }
 
     setIsCreating(true)
-    
+
     try {
       console.log('📝 [PAGE EDITOR] Creating new page:', newPageForm)
-      
+
       // Create page via API
       const pageData = await WebsiteApiService.createPage({
         slug: newPageForm.slug,
@@ -98,16 +98,16 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
         descriptionTh: newPageForm.language === 'th' ? `หน้า ${newPageForm.type}` : '',
         changeLog: `Created new ${newPageForm.type} page`
       })
-      
+
       console.log('✅ [PAGE EDITOR] Page created successfully:', pageData)
       toast.success('Page created successfully!')
-      
+
       // Redirect to edit the new page
       router.replace(`/admin/website/${pageData.id}`)
-      
+
     } catch (error) {
       console.error('🚫 [PAGE EDITOR] Failed to create page:', error)
-      
+
       if (error instanceof Error) {
         if (error.message.includes('duplicate') || error.message.includes('unique')) {
           toast.error(`A page with slug "${newPageForm.slug}" already exists. Please choose a different URL.`)
@@ -156,7 +156,7 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
       </div>
     )
   }
-  
+
   // Show not found for edit mode
   if (!isNewPage && !currentPage && !isLoading) {
     return (
@@ -183,7 +183,7 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
               </div>
             </div>
           </div>
-          
+
           <Tabs defaultValue="basic" className="w-full">
             <div className="sticky top-0 bg-background z-10 px-4 lg:px-6 pb-4">
               <TabsList className="grid w-full grid-cols-4">
@@ -268,8 +268,8 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
                       <Button variant="outline" onClick={() => router.back()}>
                         Cancel
                       </Button>
-                      <Button 
-                        onClick={handleCreateNewPage} 
+                      <Button
+                        onClick={handleCreateNewPage}
                         disabled={isCreating || !newPageForm.title || !newPageForm.slug}
                       >
                         {isCreating ? (
@@ -308,9 +308,9 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
             <div className="flex items-center gap-2">
               <Badge variant={
                 currentPage?.metadata?.status === 'published' ? 'default' :
-                currentPage?.metadata?.status === 'draft' ? 'secondary' : 'outline'
+                  currentPage?.metadata?.status === 'draft' ? 'secondary' : 'outline'
               }>
-                {currentPage?.metadata?.status?.charAt(0).toUpperCase() + currentPage?.metadata.status?.slice(1) || 'Draft'}
+                {currentPage?.metadata?.status ? currentPage.metadata.status.charAt(0).toUpperCase() + currentPage.metadata.status.slice(1) : 'Draft'}
               </Badge>
               <Button variant="outline" size="sm" onClick={handlePreview}>
                 <Eye className="h-4 w-4 mr-2" />
@@ -333,7 +333,7 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
             </span>
           </div>
         </div>
-        
+
         <Tabs defaultValue="hero" className="w-full">
           <div className="sticky top-0 bg-background z-10 px-4 lg:px-6 pb-4">
             <TabsList className="grid w-full grid-cols-4">
@@ -457,14 +457,14 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <Label>Meta Title</Label>
-                        <Input 
+                        <Input
                           defaultValue={currentPage?.seoTitle || ''}
                           placeholder="Enter meta title"
                         />
                       </div>
                       <div className="space-y-2">
                         <Label>Meta Description</Label>
-                        <Textarea 
+                        <Textarea
                           defaultValue={currentPage?.seoDescription || ''}
                           placeholder="Enter meta description"
                           rows={3}
@@ -472,7 +472,7 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
                       </div>
                       <div className="space-y-2">
                         <Label>Keywords</Label>
-                        <Input 
+                        <Input
                           defaultValue=""
                           placeholder="keyword1, keyword2, keyword3"
                         />
@@ -491,14 +491,14 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <Label>Meta Title (Thai)</Label>
-                        <Input 
+                        <Input
                           defaultValue=""
                           placeholder="Enter Thai meta title"
                         />
                       </div>
                       <div className="space-y-2">
                         <Label>Meta Description (Thai)</Label>
-                        <Textarea 
+                        <Textarea
                           defaultValue=""
                           placeholder="Enter Thai meta description"
                           rows={3}
@@ -506,7 +506,7 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
                       </div>
                       <div className="space-y-2">
                         <Label>Keywords (Thai)</Label>
-                        <Input 
+                        <Input
                           defaultValue=""
                           placeholder="คีย์เวิร์ด1, คีย์เวิร์ด2, คีย์เวิร์ด3"
                         />
@@ -522,14 +522,14 @@ export default function PageEditor({ pageId, isNewPage = false }: PageEditorProp
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label>Open Graph Image</Label>
-                        <Input 
+                        <Input
                           defaultValue=""
                           placeholder="/images/og-image.jpg"
                         />
                       </div>
                       <div className="space-y-2">
                         <Label>Canonical URL</Label>
-                        <Input 
+                        <Input
                           defaultValue={`https://uplift.dev/${currentPage?.slug}`}
                           placeholder="https://yoursite.com/page-slug"
                         />

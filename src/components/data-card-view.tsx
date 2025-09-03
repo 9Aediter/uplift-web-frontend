@@ -1,10 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/button/badge"
+import { Button } from "@/components/button/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/input/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,11 +21,11 @@ interface DataCardViewProps {
   onSelectAll: (selected: boolean) => void
 }
 
-export function DataCardView({ 
-  data, 
-  selectedRows, 
-  onRowSelect, 
-  onSelectAll 
+export function DataCardView({
+  data,
+  selectedRows,
+  onRowSelect,
+  onSelectAll
 }: DataCardViewProps) {
   if (!data || data.length === 0) {
     return (
@@ -55,13 +55,12 @@ export function DataCardView({
         {data.map((item) => {
           const itemId = item.id?.toString() || Math.random().toString()
           const isSelected = selectedRows[itemId] || false
-          
+
           return (
-            <Card 
-              key={itemId} 
-              className={`relative transition-colors ${
-                isSelected ? 'ring-2 ring-primary' : ''
-              }`}
+            <Card
+              key={itemId}
+              className={`relative transition-colors ${isSelected ? 'ring-2 ring-primary' : ''
+                }`}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <div className="flex items-center gap-2">
@@ -91,12 +90,12 @@ export function DataCardView({
                   </DropdownMenuContent>
                 </DropdownMenu>
               </CardHeader>
-              
+
               <CardContent className="pt-0">
                 <div className="space-y-2">
                   {Object.entries(item).map(([key, value]) => {
                     if (key === 'id') return null
-                    
+
                     return (
                       <div key={key} className="flex justify-between items-center">
                         <span className="text-sm font-medium text-muted-foreground capitalize">

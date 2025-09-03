@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { FaRocket, FaArrowRight, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
+import "@/style/cta.css";
 
 export function CalltoAction() {
   const [email, setEmail] = useState("");
@@ -15,10 +16,10 @@ export function CalltoAction() {
   };
 
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center">
+    <section className="relative min-h-screen bg-background overflow-hidden flex items-center justify-center">
       {/* Animated background patterns */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-muted to-background"></div>
         
         {/* Glowing tech lines */}
         <div className="absolute inset-0 opacity-30">
@@ -38,24 +39,27 @@ export function CalltoAction() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
         {/* Main CTA Card */}
         <motion.div 
-          className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 shadow-2xl shadow-blue-500/10 backdrop-blur-sm mx-auto max-w-7xl"
+          className="relative matte-black-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 shadow-2xl shadow-black/20 mx-auto max-w-7xl overflow-hidden"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="text-center space-y-6 sm:space-y-8">
+          {/* Metallic sheen overlay */}
+          <div className="absolute inset-0 dark:hidden pointer-events-none rounded-2xl sm:rounded-3xl metallic-sheen" />
+          
+          <div className="relative z-10 text-center space-y-6 sm:space-y-8">
             {/* Headline */}
             <div className="space-y-3 sm:space-y-4">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight px-2 sm:px-0">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white dark:text-gray-900 leading-tight px-2 sm:px-0">
                 Build Your Next{" "}
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 dark:from-blue-600 dark:via-purple-600 dark:to-cyan-600 bg-clip-text text-transparent">
                   Big Thing
                 </span>
                 <br />
                 with Uplift Technology
               </h1>
               
-              <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
+              <p className="text-base sm:text-lg md:text-xl text-neutral-300 dark:text-gray-700 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
                 Custom software solutions, from concept to launch. Empower your business 
                 with our cutting-edge technology and transform your ideas into reality.
               </p>
@@ -64,17 +68,17 @@ export function CalltoAction() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
               <motion.button 
-                className="w-full sm:w-auto bg-black text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center justify-center space-x-2 sm:space-x-3 hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl group min-w-0"
+                className="w-full sm:w-auto bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center justify-center space-x-2 sm:space-x-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl group min-w-0"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <FaRocket className="text-white group-hover:animate-bounce flex-shrink-0" />
+                <FaRocket className="text-gray-900 dark:text-white group-hover:animate-bounce flex-shrink-0" />
                 <span className="truncate">Start Your Project</span>
                 <FaArrowRight className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
               </motion.button>
 
               <motion.button 
-                className="w-full sm:w-auto border-2 border-gray-300 text-gray-800 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg hover:border-gray-800 hover:bg-gray-50 transition-all duration-300 min-w-0"
+                className="w-full sm:w-auto border-2 border-neutral-600 dark:border-gray-700 text-white dark:text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg hover:border-white dark:hover:border-gray-900 hover:bg-white/10 dark:hover:bg-gray-900/10 transition-all duration-300 min-w-0"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -83,13 +87,13 @@ export function CalltoAction() {
             </div>
 
             {/* Trust indicators */}
-            <div className="pt-6 sm:pt-8 border-t border-gray-200">
-              <p className="text-sm text-gray-500 mb-3 sm:mb-4 px-2 sm:px-0">Trusted by innovative companies worldwide</p>
-              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 opacity-60">
-                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-400">STARTUP</div>
-                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-400">FINTECH</div>
-                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-400">ECOMMERCE</div>
-                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-400">HEALTHCARE</div>
+            <div className="pt-6 sm:pt-8 border-t border-neutral-700 dark:border-gray-300">
+              <p className="text-sm text-neutral-400 dark:text-gray-600 mb-3 sm:mb-4 px-2 sm:px-0">Trusted by innovative companies worldwide</p>
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8">
+                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-neutral-500 dark:text-gray-500">STARTUP</div>
+                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-neutral-500 dark:text-gray-500">FINTECH</div>
+                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-neutral-500 dark:text-gray-500">ECOMMERCE</div>
+                <div className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-neutral-500 dark:text-gray-500">HEALTHCARE</div>
               </div>
             </div>
           </div>
@@ -130,26 +134,6 @@ export function CalltoAction() {
 
         </motion.div> */}
       </div>
-
-      <style jsx>{`
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0) rotate(45deg); }
-          50% { transform: translateY(-10px) rotate(45deg); }
-        }
-        
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-        
-        .animate-bounce-slow {
-          animation: bounce-slow 4s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 }

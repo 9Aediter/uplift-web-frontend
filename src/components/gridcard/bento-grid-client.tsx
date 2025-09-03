@@ -24,7 +24,7 @@ export const BentoGridClient = ({ className, children }: BentoGridClientProps) =
   return (
     <div
       className={cn(
-        "mx-auto grid max-w-7xl grid-cols-1 gap-4 md:auto-rows-[24rem] md:grid-cols-3",
+        "mx-auto grid max-w-7xl grid-cols-1 gap-4 md:gap-6 md:auto-rows-[20rem] md:grid-cols-3",
         className,
       )}
     >
@@ -46,7 +46,7 @@ export const BentoGridItemClient = ({
     <div
       onClick={onClick}
       className={cn(
-        "group/bento row-span-1 h-full min-h-[14rem] list-none transition-all duration-300 ease-out",
+        "group/bento row-span-1 h-full list-none transition-all duration-300 ease-out",
         onClick && "cursor-pointer hover:scale-[1.02] active:scale-[0.98]",
         className,
       )}

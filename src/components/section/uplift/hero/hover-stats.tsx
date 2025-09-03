@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaUsers, FaProjectDiagram, FaClock, FaGlobe } from "react-icons/fa";
 
@@ -41,12 +41,16 @@ const stats = [
 
 interface HoverStatsProps {
   isGlobeHovered: boolean;
+  isScrolled: boolean;
+  hasBeenShown: boolean;
 }
 
-export const HoverStats: React.FC<HoverStatsProps> = ({ isGlobeHovered }) => {
+export const HoverStats: React.FC<HoverStatsProps> = ({ isGlobeHovered, isScrolled, hasBeenShown }) => {
+  const shouldShow = isGlobeHovered || isScrolled || hasBeenShown;
+  
   return (
     <AnimatePresence>
-      {isGlobeHovered && (
+      {shouldShow && (
         <div className="absolute inset-0 pointer-events-none z-50">
           {stats.map((stat, index) => {
             const IconComponent = stat.icon;
@@ -80,14 +84,14 @@ export const HoverStats: React.FC<HoverStatsProps> = ({ isGlobeHovered }) => {
                 }}
               >
                 {/* Stat Card */}
-                <div className="bg-black/80 backdrop-blur-sm border border-gray-700/50 rounded-xl p-3 min-w-[140px] shadow-lg">
+                <div className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl p-3 min-w-[140px] shadow-lg">
                   {/* Glow effect */}
                   <div className={`absolute inset-0 bg-gradient-to-r ${stat.color} opacity-10 rounded-xl blur-sm`}></div>
                   
                   <div className="relative flex items-center space-x-3">
                     {/* Icon */}
                     <div className={`w-8 h-8 bg-gradient-to-r ${stat.color} rounded-lg flex items-center justify-center`}>
-                      <IconComponent className="text-white text-sm" />
+                      <IconComponent className="text-primary-foreground text-sm" />
                     </div>
                     
                     {/* Content */}
@@ -95,7 +99,7 @@ export const HoverStats: React.FC<HoverStatsProps> = ({ isGlobeHovered }) => {
                       <div className={`text-lg font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                         {stat.value}
                       </div>
-                      <div className="text-gray-300 text-xs whitespace-nowrap">
+                      <div className="text-muted-foreground text-xs whitespace-nowrap">
                         {stat.label}
                       </div>
                     </div>
@@ -104,7 +108,7 @@ export const HoverStats: React.FC<HoverStatsProps> = ({ isGlobeHovered }) => {
 
                 {/* Connecting line to globe */}
                 <motion.div
-                  className="absolute top-1/2 left-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-gray-500/50 to-transparent"
+                  className="absolute top-1/2 left-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-border to-transparent"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ delay: 0.2 + index * 0.1, duration: 0.3 }}
@@ -125,6 +129,25 @@ export const HoverStats: React.FC<HoverStatsProps> = ({ isGlobeHovered }) => {
 // Wrapper component ให้ Globe
 export const GlobeWithStats = ({ children }: { children: React.ReactNode }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [hasBeenShown, setHasBeenShown] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPercentage = (window.scrollY / window.innerHeight) * 100;
+      setIsScrolled(scrollPercentage >= 30);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Track if stats have been shown once
+  useEffect(() => {
+    if (isHovered || isScrolled) {
+      setHasBeenShown(true);
+    }
+  }, [isHovered, isScrolled]);
 
   return (
     <div 
@@ -133,7 +156,7 @@ export const GlobeWithStats = ({ children }: { children: React.ReactNode }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {children}
-      <HoverStats isGlobeHovered={isHovered} />
+      <HoverStats isGlobeHovered={isHovered} isScrolled={isScrolled} hasBeenShown={hasBeenShown} />
     </div>
   );
 };

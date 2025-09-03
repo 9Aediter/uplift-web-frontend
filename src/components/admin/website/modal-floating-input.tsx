@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { FloatingInput, FloatingTextarea, FloatingSelect } from '@/components/ui/floating-input'
+import { FloatingInput, FloatingTextarea, FloatingSelect } from '@/components/input/floating-input'
 import { cn } from '@/lib/utils'
 
 interface ModalFloatingInputProps extends React.InputHTMLAttributes<HTMLInputElement> {

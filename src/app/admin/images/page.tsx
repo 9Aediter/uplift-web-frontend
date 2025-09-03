@@ -10,35 +10,31 @@ import {
   useImages 
 } from '@/components/image';
 
-interface Image {
+interface ImageData {
   id: string;
-  url: string;
-  key: string;
-  originalName: string;
-  contentType: string;
+  filename: string;
+  s3Key: string;
+  s3Url: string;
+  thumbnailUrl: string;
+  mimeType: string;
   size: number;
-  uploadType: string;
+  width: number;
+  height: number;
   usageCount: number;
   isActive: boolean;
+  category: string;
+  tags: string[];
+  altText: string;
+  uploadedBy: string;
   createdAt: string;
-  uploader?: {
-    id: string;
-    profile?: {
-      displayName?: string;
-      firstName?: string;
-      lastName?: string;
-    };
-  };
-  _count?: {
-    products: number;
-  };
+  updatedAt: string;
 }
 
 export default function ImagesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [uploadTypeFilter, setUploadTypeFilter] = useState('all');
   const [isActiveFilter, setIsActiveFilter] = useState('all');
-  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
 
   const { 
     images, 

@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "@/components/buttonsp";
+import { Button } from "@/components/button/button";
 import { RocketIcon, SparklesIcon } from "lucide-react";
 import Link from "next/link";
 import { AnimatedBadge, AnimatedHeading, AnimatedSubheading, AnimatedActionButtons } from "./animated-components";
 
 interface BadgeProps { text: string; }
-interface HeadingProps { part1: string; part2: string; gradient1: string; gradient2: string; }
+interface HeadingProps { title: string; titleGradient: string; }
 interface SubheadingProps { text: string; }
 interface ActionButtonsProps { launchText: string; exploreText: string; }
 
@@ -14,8 +14,8 @@ export const Badge: React.FC<BadgeProps> = ({ text }) => (
     <AnimatedBadge text={text} />
 );
 
-export const Heading: React.FC<HeadingProps> = ({ part1, part2, gradient1, gradient2 }) => (
-    <AnimatedHeading part1={part1} part2={part2} gradient1={gradient1} gradient2={gradient2} />
+export const Heading: React.FC<HeadingProps> = ({ title, titleGradient }) => (
+    <AnimatedHeading title={title} titleGradient={titleGradient} />
 );
 
 export const Subheading: React.FC<SubheadingProps> = ({ text }) => (
@@ -28,32 +28,31 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ launchText, explor
 
 // Static versions for fallback (if needed)
 export const StaticBadge: React.FC<BadgeProps> = ({ text }) => (
-    <div className="w-fit mb-8 inline-flex items-center bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-cyan-500/20">
-        <SparklesIcon className="h-4 w-4 text-cyan-400 mr-2" />
-        <span className="text-sm font-medium text-cyan-300">
+    <div className="w-fit mb-8 inline-flex items-center bg-primary/5 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/20 font-kanit">
+        <SparklesIcon className="h-4 w-4 text-primary mr-2" />
+        <span className="text-sm font-medium text-primary">
             {text}
         </span>
     </div>
 );
 
-export const StaticHeading: React.FC<HeadingProps> = ({ part1, part2, gradient1, gradient2 }) => (
-    <h1 className="text-5xl md:text-6xl lg:text-6xl font-bold mb-6">
-        <span className="inline-block my-2">{part1}</span>
-        <br className="hidden md:block" />
-        <span className="inline-block my-2">{part2}</span>
-        <br />
-        <span className="inline-block my-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 bg-clip-text text-transparent">
-            {gradient1}
-        </span>
-        <br />
-        <span className="inline-block my-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 bg-clip-text text-transparent">
-            {gradient2}
-        </span>
+export const StaticHeading: React.FC<HeadingProps> = ({ title, titleGradient }) => (
+    <h1 className="text-7xl sm:text-7xl md:text-7xl lg:text-7xl xl:text-7xl font-semibold mb-8 leading-tight font-kanit lg:max-w-[12ch]">
+        <div className="mb-4">
+            <span className="inline-block text-foreground leading-tight">
+                {title}
+            </span>
+        </div>
+        <div>
+            <span className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 bg-clip-text text-transparent leading-tight">
+                {titleGradient}
+            </span>
+        </div>
     </h1>
 );
 
 export const StaticSubheading: React.FC<SubheadingProps> = ({ text }) => (
-    <p className="text-xl md:text-2xl text-gray-300 mb-8">
+    <p className="text-lg md:text-xl text-muted-foreground mb-8 font-normal font-kanit max-w-[12ch]">
         {text}
     </p>
 );

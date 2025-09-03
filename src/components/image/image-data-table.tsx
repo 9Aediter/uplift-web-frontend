@@ -3,19 +3,19 @@
 import { useState } from 'react';
 import { DataTable } from '@/components/data-table';
 import { ImageCardView } from './image-card-view';
-import { 
+import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs';
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/input/select';
 import { Label } from '@/components/ui/label';
 import { IconTable, IconCards } from '@tabler/icons-react';
 
@@ -104,7 +104,7 @@ export function ImageDataTable({
           </span>
         </div>
       </div>
-      
+
       <TabsContent value="table" className="relative flex flex-col gap-4 overflow-auto">
         <DataTable
           data={dataTableData}
@@ -112,7 +112,7 @@ export function ImageDataTable({
           views={["table"]}
         />
       </TabsContent>
-      
+
       <TabsContent value="card" className="relative flex flex-col gap-4 overflow-auto">
         {loading ? (
           <div className="flex items-center justify-center h-64">

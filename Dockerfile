@@ -24,8 +24,6 @@ ENV NODE_ENV=production
 COPY --from=builder /app/package.json /app/package-lock.json ./
 RUN npm ci --omit=dev
 
-COPY --from=builder /app/prisma ./prisma
-RUN npx prisma generate
 
 COPY --from=builder /app/.next .next
 COPY --from=builder /app/public ./public

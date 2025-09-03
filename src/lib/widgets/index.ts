@@ -7,6 +7,8 @@ import { ThreeColumnCardsWidget } from './cards/ThreeColumnCards/ThreeColumnCard
 import { FourColumnCardsWidget } from './cards/FourColumnCards/FourColumnCards.widget'
 import { CardListWidget } from './cards/CardList/CardList.widget'
 import { CardGridWidget } from './cards/CardGrid/CardGrid.widget'
+import { ProblemsCardsWidget } from './cards/ProblemsCards/ProblemsCards.widget'
+import { SolutionGridWidget } from './grid/SolutionGrid/SolutionGrid.widget'
 
 /**
  * Initialize and register all widgets
@@ -21,6 +23,10 @@ export function initializeWidgets(): void {
   registry.register(new FourColumnCardsWidget())
   registry.register(new CardListWidget())
   registry.register(new CardGridWidget())
+  registry.register(new ProblemsCardsWidget())
+
+  // Register Grid Widgets
+  registry.register(new SolutionGridWidget())
 }
 
 /**
@@ -43,6 +49,7 @@ export { WidgetRegistry } from './core/WidgetRegistry'
 export { WidgetFactory } from './core/WidgetFactory'
 export { BaseWidget } from './core/BaseWidget'
 export { BaseCardWidget } from './cards/base/BaseCardWidget'
+export { BaseGridWidget } from './grid/base/BaseGridWidget'
 
 // Export types
 export type {

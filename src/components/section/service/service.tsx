@@ -103,35 +103,62 @@ const ShowcaseItemRenderer: React.FC<{ item: ShowcaseItem; index: number }> = ({
                 })}
               </ul>
             )}
-            <Link
-              href={item.read_more_link}
-              className={`inline-flex items-center mt-8 text-${item.gradientFrom?.split('-')[0] || 'blue'}-400 hover:text-${item.gradientFrom?.split('-')[0] || 'blue'}-300 transition-colors font-medium`}
-            >
-              {item.read_more_text}
-              <svg
-                className="ml-2 w-5 h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+            {item.read_more_link && item.read_more_link.trim() !== '' ? (
+              <Link
+                href={item.read_more_link}
+                className={`inline-flex items-center mt-8 text-${item.gradientFrom?.split('-')[0] || 'blue'}-400 hover:text-${item.gradientFrom?.split('-')[0] || 'blue'}-300 transition-colors font-medium`}
               >
-                <path
-                  fillRule="evenodd"
-                  d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </Link>
+                {item.read_more_text || 'Learn More'}
+                <svg
+                  className="ml-2 w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+            ) : (
+              <div className={`inline-flex items-center mt-8 text-${item.gradientFrom?.split('-')[0] || 'blue'}-400 font-medium cursor-not-allowed opacity-50`}>
+                {item.read_more_text || 'Coming Soon'}
+                <svg
+                  className="ml-2 w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            )}
           </div>
           <div className="w-full md:w-1/2">
             <div className="relative rounded-xl overflow-hidden shadow-2xl shadow-purple-500/10">
               <div className={`overflow-hidden inset-0 bg-gradient-to-r from-${item.gradientFrom}/20 to-${item.gradientTo}/20 mix-blend-overlay`}></div>
-              <Image
-                src={item.image}
-                alt={item.image_alt}
-                width={800} // Base width for responsive
-                height={450} // Base height for responsive
-                className="rounded-xl w-full h-[450px] object-cover"
-              />
+              {item.image && item.image.trim() !== '' ? (
+                <Image
+                  src={item.image}
+                  alt={item.image_alt || item.title}
+                  width={800} // Base width for responsive
+                  height={450} // Base height for responsive
+                  className="rounded-xl w-full h-[450px] object-cover"
+                />
+              ) : (
+                <div className="rounded-xl w-full h-[450px] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
+                  <div className="text-center">
+                    {MainIconComponent && <MainIconComponent size={64} className="text-gray-400 mx-auto mb-4" />}
+                    <p className="text-gray-500 dark:text-gray-400">{item.title}</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

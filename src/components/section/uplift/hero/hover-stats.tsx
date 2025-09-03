@@ -8,7 +8,7 @@ const stats = [
   {
     id: 1,
     icon: FaUsers,
-    value: "50+",
+    value: "10+",
     label: "Happy Clients",
     color: "from-blue-400 to-cyan-400",
     position: { top: "20%", left: "15%" }
@@ -16,7 +16,7 @@ const stats = [
   {
     id: 2,
     icon: FaProjectDiagram,
-    value: "200+",
+    value: "10+",
     label: "Projects Completed",
     color: "from-green-400 to-emerald-400", 
     position: { top: "60%", left: "10%" }
@@ -24,7 +24,7 @@ const stats = [
   {
     id: 3,
     icon: FaClock,
-    value: "5+",
+    value: "4+",
     label: "Years Experience",
     color: "from-purple-400 to-pink-400",
     position: { top: "30%", right: "20%" }
@@ -32,7 +32,7 @@ const stats = [
   {
     id: 4,
     icon: FaGlobe,
-    value: "10+",
+    value: "2+",
     label: "Countries Served",
     color: "from-orange-400 to-red-400",
     position: { top: "70%", right: "15%" }

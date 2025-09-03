@@ -59,14 +59,18 @@ export class SingleCardWidget extends BaseCardWidget {
    * MANDATORY: Render SingleCard for SSR (PRODUCTION - no React hooks)
    */
   renderSSR(data: WidgetData, context?: RenderContext): React.ComponentType<any> {
-    // For now, use the same component but without framer-motion
-    const { SingleCardComponent } = require('./SingleCard.component')
-    
-    return function SingleCardSSRRenderer() {
-      return React.createElement(SingleCardComponent, {
-        ...data,
-        context: { ...context, isPreview: true } // Force preview mode to disable animations
-      })
+    try {
+      const { SingleCardSSR } = require('./SingleCard.ssr')
+      
+      return function SingleCardSSRRenderer() {
+        return React.createElement(SingleCardSSR, {
+          ...data,
+          context
+        })
+      }
+    } catch (error) {
+      console.error('🚫 [SINGLE CARD] Failed to load SSR component:', error)
+      return this.renderSkeletonSSR()
     }
   }
 

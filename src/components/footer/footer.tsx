@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { FaGithub, FaTwitter, FaLinkedin, FaEnvelope, FaRocket, FaCode, FaMobile, FaCloud, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaGithub, FaTwitter, FaLinkedin, FaEnvelope, FaRocket, FaCode, FaMobile, FaCloud, FaPhone, FaMapMarkerAlt, FaBriefcase } from 'react-icons/fa'
 import Link from 'next/link'
 import { motion } from 'framer-motion';
 
@@ -9,7 +9,8 @@ const Footer = () => {
     { href: "#", icon: FaGithub, label: "GitHub" },
     { href: "#", icon: FaTwitter, label: "Twitter" },
     { href: "#", icon: FaLinkedin, label: "LinkedIn" },
-    { href: "#", icon: FaEnvelope, label: "Email" },
+    { href: "https://www.fastwork.co/user/uplifttech", icon: FaBriefcase, label: "Fastwork" },
+    { href: "mailto:uplifttechbiz@gmail.com", icon: FaEnvelope, label: "Email" },
   ];
 
   const services = [
@@ -20,31 +21,33 @@ const Footer = () => {
   ];
 
   const companyLinks = [
-    { name: "About Us", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Team", href: "#" },
-    { name: "Blog", href: "#" },
+    { name: "About Us", href: "/story" },
+    { name: "Company", href: "/company" },
+    { name: "Team", href: "/teams" },
+    { name: "Contact", href: "/consult" },
   ];
 
-  const projectLinks = [
-    { name: "Portfolio", href: "#" },
-    { name: "Case Studies", href: "#" },
-    { name: "Testimonials", href: "#" },
-    { name: "Success Stories", href: "#" },
+  const innovationLinks = [
+    { name: "ERP Systems", href: "/innovation/erp-management" },
+    { name: "POS Solutions", href: "/innovation/pos-restaurant" },
+    { name: "Laundry Management", href: "/innovation/laundry-system" },
+    { name: "Hotel Booking", href: "/innovation/hotel-booking" },
+    { name: "Gym Management", href: "/innovation/gym-system" },
+    { name: "WMS & Logistics", href: "/innovation/wms-logistics" },
   ];
 
   const resourceLinks = [
-    { name: "Documentation", href: "#" },
-    { name: "Support", href: "#" },
-    { name: "API Reference", href: "#" },
-    { name: "Guides", href: "#" },
+    { name: "Services", href: "/services" },
+    { name: "Consultation", href: "/consult" },
+    { name: "Support", href: "/support" },
+    { name: "Blog", href: "/blogs" },
   ];
 
   const legalLinks = [
-    { name: "Terms of Service", href: "#" },
-    { name: "Privacy Policy", href: "#" },
-    { name: "Cookie Policy", href: "#" },
-    { name: "Data Protection", href: "#" },
+    { name: "Terms of Service", href: "/legal/terms" },
+    { name: "Privacy Policy", href: "/legal/privacy" },
+    { name: "Cookie Policy", href: "/legal/cookies" },
+    { name: "Data Protection", href: "/legal/data-protection" },
   ];
 
   return (
@@ -88,7 +91,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center space-x-3 text-muted-foreground">
                   <FaMapMarkerAlt className="text-blue-500" />
-                  <span>Bangkok, Thailand</span>
+                  <span>Chonburi Province, Thailand</span>
                 </div>
               </div>
 
@@ -157,20 +160,23 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Projects */}
+          {/* Innovation */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-4"
           >
-            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">Projects</h3>
+            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6 flex items-center">
+              <FaRocket className="mr-2 text-purple-500" />
+              Innovation
+            </h3>
             <div className="space-y-3">
-              {projectLinks.map((link) => (
+              {innovationLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="block text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                  className="block text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors text-sm"
                 >
                   {link.name}
                 </Link>

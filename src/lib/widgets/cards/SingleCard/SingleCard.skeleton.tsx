@@ -1,4 +1,5 @@
 import React from 'react'
+import '@/style/single-card-skeleton.css'
 
 /**
  * SingleCard Pure SSR Skeleton Component
@@ -88,23 +89,6 @@ export function SingleCardSkeleton() {
         </div>
       </div>
 
-      {/* CSS-only animations - SSR safe */}
-      <style jsx>{`
-        @keyframes subtle-pulse {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.6; }
-        }
-        
-        .animate-pulse {
-          animation: subtle-pulse 2s ease-in-out infinite;
-        }
-        
-        /* Staggered animation for trust indicators */
-        .flex.gap-4 > div:nth-child(1) { animation-delay: 0s; }
-        .flex.gap-4 > div:nth-child(2) { animation-delay: 0.2s; }
-        .flex.gap-4 > div:nth-child(3) { animation-delay: 0.4s; }
-        .flex.gap-4 > div:nth-child(4) { animation-delay: 0.6s; }
-      `}</style>
     </section>
   )
 }

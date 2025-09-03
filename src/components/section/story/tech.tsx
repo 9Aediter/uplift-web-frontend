@@ -28,7 +28,7 @@ export const Skills = () => {
                             className="w-36 min-w-fit h-fit flex flex-col items-center justify-center transition-all duration-500 m-3 sm:m-5 rounded-lg group relative hover:scale-[1.15] cursor-pointer"
                             key={id}
                         >
-                            <div className="h-full w-full rounded-xl backdrop-blur-sm shadow-lg border border-cyan-500/20 group-hover:scale-105 transition-all duration-500">
+                            <div className="h-full w-full rounded-xl backdrop-blur-sm shadow-lg border border-cyan-500/20 dark:border-cyan-400/30 bg-white/10 dark:bg-slate-800/50 group-hover:scale-105 transition-all duration-500">
                                 <div className="flex flex-col items-center justify-center gap-3 p-6">
                                     <div className="h-8 sm:h-10">
                                         <Image
@@ -41,7 +41,7 @@ export const Skills = () => {
                                             className="w-auto h-full rounded-lg"
                                         />
                                     </div>
-                                    <p className="text-sm text-white sm:text-lg">{skill}</p>
+                                    <p className="text-sm text-slate-800 dark:text-white sm:text-lg font-medium">{skill}</p>
                                 </div>
                             </div>
                         </div>

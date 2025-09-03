@@ -12,7 +12,7 @@ export class WidgetRegistry {
 
   private constructor() {
     // Initialize category maps
-    const categories: WidgetCategory[] = ['cards', 'carousel', 'tabs', 'hero', 'content', 'interactive']
+    const categories: WidgetCategory[] = ['cards', 'carousel', 'tabs', 'hero', 'content', 'interactive', 'grid']
     categories.forEach(category => {
       this.widgetsByCategory.set(category, [])
     })

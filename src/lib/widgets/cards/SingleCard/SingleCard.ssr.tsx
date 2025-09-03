@@ -1,6 +1,7 @@
 import React from 'react'
 import { Rocket, ArrowRight } from 'lucide-react'
 import { RenderContext } from '../../core/types'
+import '@/style/single-card-animations.css'
 
 interface SingleCardSSRProps {
   title?: string
@@ -46,21 +47,21 @@ export function SingleCardSSR({
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
         
-        {/* Static tech lines - SSR friendly */}
+        {/* Animated tech lines - using CSS classes */}
         {!isPreview && (
           <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-1/4 left-1/4 w-48 sm:w-72 md:w-96 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent rotate-45"></div>
-            <div className="absolute top-3/4 right-1/4 w-40 sm:w-64 md:w-80 h-0.5 bg-gradient-to-r from-transparent via-purple-500 to-transparent -rotate-45"></div>
-            <div className="absolute top-1/2 left-1/2 w-32 sm:w-48 md:w-64 h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent rotate-90"></div>
+            <div className="single-card-bg-line-1 absolute top-1/4 left-1/4 w-48 sm:w-72 md:w-96 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent rotate-45"></div>
+            <div className="single-card-bg-line-2 absolute top-3/4 right-1/4 w-40 sm:w-64 md:w-80 h-0.5 bg-gradient-to-r from-transparent via-purple-500 to-transparent -rotate-45"></div>
+            <div className="single-card-bg-line-3 absolute top-1/2 left-1/2 w-32 sm:w-48 md:w-64 h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent rotate-90"></div>
           </div>
         )}
 
-        {/* Static geometric shapes - SSR friendly */}
+        {/* Animated geometric shapes - using CSS classes */}
         {!isPreview && (
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 sm:top-20 left-10 sm:left-20 w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 border border-blue-500 rounded-full"></div>
-            <div className="absolute bottom-10 sm:bottom-20 right-10 sm:right-20 w-12 sm:w-18 md:w-24 h-12 sm:h-18 md:h-24 border border-purple-500 rounded-lg rotate-45"></div>
-            <div className="absolute top-1/2 right-10 sm:right-20 md:right-40 w-8 sm:w-12 md:w-16 h-8 sm:h-12 md:h-16 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full"></div>
+            <div className="single-card-bg-shape-1 absolute top-10 sm:top-20 left-10 sm:left-20 w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 border border-blue-500 rounded-full"></div>
+            <div className="single-card-bg-shape-2 absolute bottom-10 sm:bottom-20 right-10 sm:right-20 w-12 sm:w-18 md:w-24 h-12 sm:h-18 md:h-24 border border-purple-500 rounded-lg rotate-45"></div>
+            <div className="single-card-bg-shape-3 absolute top-1/2 right-10 sm:right-20 md:right-40 w-8 sm:w-12 md:w-16 h-8 sm:h-12 md:h-16 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full"></div>
           </div>
         )}
       </div>
@@ -123,66 +124,6 @@ export function SingleCardSSR({
         </div>
       </div>
 
-      {/* CSS Animations - SSR friendly */}
-      <style jsx>{`
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0) rotate(45deg); }
-          50% { transform: translateY(-10px) rotate(45deg); }
-        }
-        
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-        
-        .animate-bounce-slow {
-          animation: bounce-slow 4s ease-in-out infinite;
-        }
-
-        /* Pulse animations - SSR friendly */
-        @keyframes pulse-blue {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.8; }
-        }
-        
-        @keyframes pulse-purple {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.8; }
-        }
-        
-        @keyframes pulse-cyan {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.8; }
-        }
-
-        .top-1\\/4.left-1\\/4 {
-          animation: pulse-blue 2s ease-in-out infinite;
-        }
-        
-        .top-3\\/4.right-1\\/4 {
-          animation: pulse-purple 2s ease-in-out infinite 1s;
-        }
-        
-        .top-1\\/2.left-1\\/2 {
-          animation: pulse-cyan 2s ease-in-out infinite 2s;
-        }
-
-        .absolute.top-10, .absolute.top-20 {
-          animation: spin-slow 20s linear infinite;
-        }
-        
-        .absolute.bottom-10, .absolute.bottom-20 {
-          animation: bounce-slow 4s ease-in-out infinite;
-        }
-        
-        .absolute.top-1\\/2.right-10, .absolute.top-1\\/2.right-20, .absolute.top-1\\/2.right-40 {
-          animation: pulse-cyan 3s ease-in-out infinite;
-        }
-      `}</style>
 
       {/* Dynamic Effects - Loaded client-side only when needed */}
       {showAnimations && !isPreview && (

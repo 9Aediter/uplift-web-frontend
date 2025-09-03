@@ -1,0 +1,47 @@
+{
+  "title": "UPLIFT TECHNOLOGY CO., LTD. | Custom Software Solutions",
+  "description": "Transform your business with cutting-edge AI-powered software solutions. We specialize in ERP, POS, WMS, and custom applications for businesses across all industries.",
+  "hero": {
+    "badge": "Innovating the Future",
+    "title": "Transform IDEAS into",
+    "title_gradient": "Revolutionary Innovation",
+    "subtitle": "Transform your business with cutting-edge artificial intelligence solutions that drive growth and innovation.",
+    "launch_button": "Launch Project",
+    "explore_button": "Explore Innovation"
+  },
+  "home": {
+    "title": "Transform Your Business",
+    "subtitle": "With Custom Software"
+  },
+  "services": {
+    "title": "Our Services",
+    "description": "Comprehensive software solutions",
+    "service": {
+      "title": "Our Services",
+      "subtitle": "Complete business solutions",
+      "items": [
+        {
+          "title": "ERP Systems",
+          "description": "Business management",
+          "link": "/service/erp-system",
+          "icon": "monitor",
+          "color": "blue"
+        },
+        {
+          "title": "POS Solutions",
+          "description": "Point of sale systems",
+          "link": "/service/pos-solution",
+          "icon": "shopping-cart",
+          "color": "green"
+        },
+        {
+          "title": "Web Apps",
+          "description": "Custom development",
+          "link": "/service/web-application",
+          "icon": "globe",
+          "color": "purple"
+        }
+      ]
+    }
+  }
+}

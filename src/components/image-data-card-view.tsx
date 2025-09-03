@@ -14,15 +14,29 @@ interface ImageDataCardViewProps {
 function transformDataToImages(data: any[]) {
   return data.map(item => ({
     id: item.id,
+    filename: item.header || 'unknown.jpg',
+    originalName: item.header || 'Unknown',
     url: '', // We'll need to get this from somewhere
     key: '',
-    originalName: item.header || 'Unknown',
+    s3Key: `uploads/${item.id}`,
+    s3Url: '',
+    thumbnailUrl: '',
     contentType: 'image/jpeg',
+    mimeType: 'image/jpeg',
     size: 0,
+    width: 1920,
+    height: 1080,
     uploadType: item.type || 'general',
+    category: 'general',
+    altText: item.header || 'Image',
     usageCount: parseInt(item.limit) || 0,
     isActive: item.status === 'Active',
+    tags: [],
+    metadata: {},
+    uploadedAt: new Date().toISOString(),
+    uploadedBy: item.reviewer || 'Unknown',
     createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
     uploader: {
       id: '',
       profile: {

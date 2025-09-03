@@ -98,7 +98,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${kanit.variable} antialiased w-full overflow-hidden`}
+        className={`${inter.variable} ${kanit.variable} antialiased w-full`}
       >
         {/* Google Analytics - Global Site Tag (gtag.js) */}
         <Script

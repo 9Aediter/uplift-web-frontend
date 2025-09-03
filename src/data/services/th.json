@@ -1,0 +1,100 @@
+{
+  "showcase_items": [
+    {
+      "id": "erp-systems",
+      "title": "ระบบ ERP",
+      "description": "โซลูชั่นการวางแผนทรัพยากรองค์กรที่ครบครันเพื่อปรับปรุงการดำเนินงานทางธุรกิจและเพิ่มประสิทธิภาพ",
+      "icon": "MonitorIcon",
+      "iconColor": "blue-400",
+      "gradientFrom": "blue-500",
+      "gradientTo": "purple-600",
+      "features": [
+        {
+          "text": "การวิเคราะห์และรายงานธุรกิจแบบเรียลไทม์",
+          "icon": "BarChartIcon"
+        },
+        {
+          "text": "การจัดการทางการเงินแบบบูรณาการ",
+          "icon": "DatabaseIcon"
+        },
+        {
+          "text": "รองรับการทำงานหลายสถานที่",
+          "icon": "GlobeIcon"
+        },
+        {
+          "text": "สถาปัตยกรรมบนคลาวด์",
+          "icon": "ServerIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "แดชบอร์ดระบบ ERP",
+      "layout": "image-right",
+      "read_more_text": "เรียนรู้เพิ่มเติมเกี่ยวกับ ERP",
+      "read_more_link": "/service/erp-system"
+    },
+    {
+      "id": "pos-solutions",
+      "title": "ระบบ POS",
+      "description": "ระบบขายหน้าร้านสมัยใหม่ที่ออกแบบมาเพื่อปรับปรุงประสบการณ์ลูกค้าและเพิ่มประสิทธิภาพการขาย",
+      "icon": "SmartphoneIcon",
+      "iconColor": "green-400",
+      "gradientFrom": "green-500",
+      "gradientTo": "teal-600",
+      "features": [
+        {
+          "text": "รองรับการชำระเงินหลายรูปแบบ",
+          "icon": "ZapIcon"
+        },
+        {
+          "text": "การจัดการสินค้าคงคลังแบบบูรณาการ",
+          "icon": "DatabaseIcon"
+        },
+        {
+          "text": "โปรแกรมสะสมคะแนนลูกค้า",
+          "icon": "UsersIcon"
+        },
+        {
+          "text": "การวิเคราะห์การขายแบบเรียลไทม์",
+          "icon": "BarChartIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "อินเทอร์เฟซระบบ POS",
+      "layout": "image-left",
+      "read_more_text": "สำรวจคุณสมบัติ POS",
+      "read_more_link": "/service/pos-solution"
+    },
+    {
+      "id": "web-applications",
+      "title": "เว็บแอปพลิเคชัน",
+      "description": "โซลูชั่นการพัฒนาเว็บแบบกำหนดเองที่ปรับแต่งตามความต้องการและข้อกำหนดเฉพาะของธุรกิจคุณ",
+      "icon": "GlobeIcon",
+      "iconColor": "purple-400",
+      "gradientFrom": "purple-500",
+      "gradientTo": "pink-600",
+      "features": [
+        {
+          "text": "การออกแบบที่รองรับทุกอุปกรณ์",
+          "icon": "SmartphoneIcon"
+        },
+        {
+          "text": "ความสามารถในการเชื่อมต่อ API",
+          "icon": "LinkIcon"
+        },
+        {
+          "text": "การเพิ่มประสิทธิภาพการทำงาน",
+          "icon": "ZapIcon"
+        },
+        {
+          "text": "สถาปัตยกรรมที่เป็นมิตรกับ SEO",
+          "icon": "SearchIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "การพัฒนาเว็บแอปพลิเคชัน",
+      "layout": "image-right",
+      "read_more_text": "ดูโซลูชั่นเว็บ",
+      "read_more_link": "/service/web-application"
+    }
+  ]
+}

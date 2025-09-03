@@ -1,4 +1,4 @@
-export type WidgetCategory = 'card' | 'cards' | 'carousel' | 'tabs' | 'hero' | 'content' | 'interactive'
+export type WidgetCategory = 'card' | 'cards' | 'carousel' | 'tabs' | 'hero' | 'content' | 'interactive' | 'grid'
 
 export interface FieldDefinition {
   key: string

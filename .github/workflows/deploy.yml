@@ -60,34 +60,13 @@ jobs:
             docker rm frontend || true
             docker network create uplifttech || true
 
-            # Run database migrations
-            echo "🔄 Running database migrations..."
-            docker run --rm \
-              -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
-              ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest \
-              npx prisma migrate deploy
-
-            # Seed database if needed
-            echo "🌱 Seeding database..."
-            docker run --rm \
-              -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
-              ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest \
-              npm run db:seed || echo "Seeding completed or skipped"
-
+            # Start frontend container
             docker run -d \
               --name frontend \
               --network uplifttech \
               -p 3000:3000 \
-              -e NEXTAUTH_SECRET="${{ secrets.NEXTAUTH_SECRET }}" \
-              -e NEXTAUTH_URL="${{ secrets.NEXTAUTH_URL }}" \
-              -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
-              -e S3_ACCESS_KEY_ID="${{ secrets.S3_ACCESS_KEY_ID }}" \
-              -e AWS_BUCKET="${{ secrets.AWS_BUCKET }}" \
-              -e AWS_REGION="${{ secrets.AWS_REGION }}" \
-              -e S3_ACCESS_SECRET="${{ secrets.S3_ACCESS_SECRET }}" \
-              -e CDN_URL="${{ secrets.CDN_URL }}" \
-              -e GOOGLE_CLIENT_ID="${{ secrets.GOOGLE_CLIENT_ID }}" \
-              -e GOOGLE_CLIENT_SECRET="${{ secrets.GOOGLE_CLIENT_SECRET }}" \
+              -e NEXT_PUBLIC_API_URL="${{ secrets.NEXT_PUBLIC_API_URL }}" \
+              -e NEXT_PUBLIC_GA_MEASUREMENT_ID="${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}" \
               ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
 
             docker image prune -a -f

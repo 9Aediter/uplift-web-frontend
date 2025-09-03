@@ -21,8 +21,8 @@ const Hero = () => {
     return (
         <>
             {/* Hero Section */}
-            <Section id='hero' className="bg-gradient-to-b from-black to-gray-900/30 h-[100vh] sm:h-[70vh] flex items-center justify-center">
-                <div className="w-full px-8 max-w-7xl mx-auto ">
+            <Section id='hero' className="bg-gradient-to-b from-black to-gray-900/30 h-[100vh] sm:h-[70vh] flex items-center justify-center overflow-x-hidden">
+                <div className="w-full px-4 md:px-8 max-w-7xl mx-auto overflow-x-hidden">
                     <div className="relative text-center mb-12">
                         <h1 className="text-4xl md:text-5xl font-bold mb-6">
                             <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">

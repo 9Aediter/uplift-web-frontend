@@ -10,7 +10,7 @@ const Innovation = () => {
   return (
     <>
 
-      <main className='w-full'>
+      <main className='w-full overflow-x-hidden max-w-full'>
 
         <Particles />
         <Hero />

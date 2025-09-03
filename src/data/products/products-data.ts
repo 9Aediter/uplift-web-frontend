@@ -1,28 +1,3 @@
-import { CheckIcon, MonitorIcon, PackageIcon, TruckIcon, ShirtIcon, ShoppingCartIcon, CalendarIcon, AwardIcon, BuildingIcon, DumbbellIcon, PlaneIcon, LayoutIcon, ServerIcon, CodeIcon, ZapIcon, BarChartIcon, RefreshCcwIcon, TrendingUpIcon, HeadphonesIcon, GitBranchIcon } from 'lucide-react'
-
-export const IconMap: Record<string, React.ComponentType<any>> = {
-  CheckIcon,
-  MonitorIcon,
-  PackageIcon,
-  TruckIcon,
-  ShirtIcon,
-  ShoppingCartIcon,
-  CalendarIcon,
-  AwardIcon,
-  BuildingIcon,
-  DumbbellIcon,
-  PlaneIcon,
-  LayoutIcon,
-  ServerIcon,
-  CodeIcon,
-  ZapIcon,
-  BarChartIcon,
-  RefreshCcwIcon,
-  TrendingUpIcon,
-  HeadphonesIcon,
-  GitBranchIcon,
-};
-
 export const products = [
   {
     id: 'gym',
@@ -212,20 +187,3 @@ export const products = [
     icon: 'PlaneIcon',
   },
 ]
-
-export const getGradient = (color: string) => {
-  switch (color) {
-    case 'cyan':
-      return 'from-cyan-500 to-blue-500'
-    case 'magenta':
-      return 'from-fuchsia-500 to-pink-500'
-    case 'blue':
-      return 'from-blue-500 to-indigo-500'
-    case 'lime':
-      return 'from-lime-500 to-green-500'
-    case 'amber':
-      return 'from-amber-500 to-orange-500'
-    default:
-      return 'from-cyan-500 to-blue-500'
-  }
-}

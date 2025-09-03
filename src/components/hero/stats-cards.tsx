@@ -26,7 +26,7 @@ const statsData: StatCard[] = [
   {
     id: "apps",
     title: "Apps",
-    value: 150,
+    value: 5,
     suffix: "+",
     description: "Delivered",
     icon: FaMobileAlt,
@@ -46,7 +46,7 @@ const statsData: StatCard[] = [
   {
     id: "clients",
     title: "Clients",
-    value: 200,
+    value: 10,
     suffix: "+",
     description: "Trusted",
     icon: FaHandshake,
@@ -56,7 +56,7 @@ const statsData: StatCard[] = [
   {
     id: "success",
     title: "Success",
-    value: 98,
+    value: 100,
     suffix: "%",
     description: "Rate",
     icon: FaChartLine,
@@ -66,7 +66,7 @@ const statsData: StatCard[] = [
   {
     id: "experience",
     title: "Years",
-    value: 8,
+    value: 4,
     suffix: "+",
     description: "Experience",
     icon: FaStar,

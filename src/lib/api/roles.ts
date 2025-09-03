@@ -53,12 +53,12 @@ export interface RolesQueryParams {
 
 export const rolesApi = {
   // Get simple roles list for dropdowns
-  getSimpleRoles: async (): Promise<{ data: SimpleRolesResponse }> => {
+  getSimpleRoles: async () => {
     return api.get<SimpleRolesResponse>('/v1/roles/list/simple');
   },
 
   // Get roles with pagination and filters
-  getRoles: async (params?: RolesQueryParams): Promise<{ data: RolesListResponse }> => {
+  getRoles: async (params?: RolesQueryParams) => {
     const queryParams = new URLSearchParams();
     
     if (params?.page) queryParams.append('page', params.page.toString());
@@ -73,22 +73,22 @@ export const rolesApi = {
   },
 
   // Get single role by ID
-  getRole: async (id: string): Promise<{ data: Role }> => {
+  getRole: async (id: string) => {
     return api.get<Role>(`/v1/roles/${id}`);
   },
 
   // Create new role
-  createRole: async (roleData: CreateRoleRequest): Promise<{ data: Role }> => {
+  createRole: async (roleData: CreateRoleRequest) => {
     return api.post<Role>('/v1/roles', roleData);
   },
 
   // Update role
-  updateRole: async (id: string, roleData: UpdateRoleRequest): Promise<{ data: Role }> => {
+  updateRole: async (id: string, roleData: UpdateRoleRequest) => {
     return api.put<Role>(`/v1/roles/${id}`, roleData);
   },
 
   // Delete role
-  deleteRole: async (id: string): Promise<void> => {
+  deleteRole: async (id: string) => {
     return api.delete(`/v1/roles/${id}`);
   }
 };

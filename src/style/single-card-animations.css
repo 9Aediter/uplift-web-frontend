@@ -1,0 +1,58 @@
+/* SingleCard Animation Styles */
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50% { transform: translateY(-10px) rotate(45deg); }
+}
+
+@keyframes pulse-blue {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes pulse-purple {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes pulse-cyan {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+.single-card-bg-line-1 {
+  animation: pulse-blue 2s ease-in-out infinite;
+}
+
+.single-card-bg-line-2 {
+  animation: pulse-purple 2s ease-in-out infinite 1s;
+}
+
+.single-card-bg-line-3 {
+  animation: pulse-cyan 2s ease-in-out infinite 2s;
+}
+
+.single-card-bg-shape-1 {
+  animation: spin-slow 20s linear infinite;
+}
+
+.single-card-bg-shape-2 {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+.single-card-bg-shape-3 {
+  animation: pulse-cyan 3s ease-in-out infinite;
+}

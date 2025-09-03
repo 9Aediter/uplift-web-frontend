@@ -1,0 +1,102 @@
+{
+  "title": "Our Team | UPLIFT",
+  "description": "Meet the talented individuals behind UPLIFT TECHNOLOGY CO., LTD. - passionate developers, designers, and innovators building the future of software solutions.",
+  "hero": {
+    "title": "Meet Our Team",
+    "subtitle": "The brilliant minds behind innovative solutions",
+    "description": "Our diverse team of experts combines technical excellence with creative vision to deliver exceptional software solutions."
+  },
+  "stats": [
+    {
+      "value": "15+",
+      "label": "Team Members",
+      "description": "Skilled professionals"
+    },
+    {
+      "value": "5+",
+      "label": "Years Experience",
+      "description": "Average team experience"
+    },
+    {
+      "value": "100+",
+      "label": "Projects Completed",
+      "description": "Successful deliveries"
+    },
+    {
+      "value": "24/7",
+      "label": "Support",
+      "description": "Always available"
+    }
+  ],
+  "team": [
+    {
+      "id": "anon-suphatphon",
+      "name": "Anon Suphatphon",
+      "position": "Founder & CEO",
+      "department": "Leadership",
+      "bio": "Visionary leader with extensive experience in software development and business strategy. Founded UPLIFT to bridge the gap between technology and business needs.",
+      "image": "/images/team/anon.jpg",
+      "skills": ["System Architecture", "Business Strategy", "Full-Stack Development", "Project Management"],
+      "social": {
+        "linkedin": "https://linkedin.com/in/anon-suphatphon",
+        "github": "https://github.com/anonsuphatphon",
+        "email": "anon@uplifttechbiz.com"
+      },
+      "certifications": ["AWS Solutions Architect", "Scrum Master", "Google Cloud Professional"],
+      "experience": "8+ years",
+      "languages": ["Thai", "English"],
+      "specialties": ["ERP Systems", "POS Solutions", "Cloud Architecture"]
+    },
+    {
+      "id": "somchai-developer",
+      "name": "Somchai Techsavvy",
+      "position": "Lead Developer",
+      "department": "Engineering",
+      "bio": "Expert full-stack developer specializing in modern web technologies. Passionate about clean code and scalable architectures.",
+      "image": "/images/team/somchai.jpg",
+      "skills": ["React/Next.js", "Node.js", "TypeScript", "Database Design"],
+      "social": {
+        "github": "https://github.com/somchai-dev",
+        "email": "somchai@uplifttechbiz.com"
+      },
+      "certifications": ["Microsoft Azure Developer", "MongoDB Certified Developer"],
+      "experience": "6+ years",
+      "languages": ["Thai", "English"],
+      "specialties": ["Web Applications", "API Development", "DevOps"]
+    },
+    {
+      "id": "malee-designer",
+      "name": "Malee Creative",
+      "position": "UI/UX Designer",
+      "department": "Design",
+      "bio": "Creative designer focused on user-centered design principles. Creates beautiful and functional interfaces that users love.",
+      "image": "/images/team/malee.jpg",
+      "skills": ["UI/UX Design", "Figma", "Adobe Creative Suite", "User Research"],
+      "social": {
+        "behance": "https://behance.net/malee-creative",
+        "email": "malee@uplifttechbiz.com"
+      },
+      "certifications": ["Google UX Design Certificate", "Adobe Certified Expert"],
+      "experience": "4+ years",
+      "languages": ["Thai", "English"],
+      "specialties": ["Mobile Design", "Web Design", "Brand Identity"]
+    },
+    {
+      "id": "niran-backend",
+      "name": "Niran Backend",
+      "position": "Backend Engineer",
+      "department": "Engineering",
+      "bio": "Backend specialist with expertise in microservices and cloud infrastructure. Ensures scalable and reliable system architecture.",
+      "image": "/images/team/niran.jpg",
+      "skills": ["Java", "Spring Boot", "Docker", "Kubernetes"],
+      "social": {
+        "github": "https://github.com/niran-backend",
+        "email": "niran@uplifttechbiz.com"
+      },
+      "certifications": ["Oracle Java Certification", "Kubernetes Administrator"],
+      "experience": "5+ years",
+      "languages": ["Thai", "English"],
+      "specialties": ["Microservices", "Cloud Infrastructure", "API Design"]
+    }
+  ]
+}

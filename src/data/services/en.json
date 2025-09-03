@@ -1,0 +1,100 @@
+{
+  "showcase_items": [
+    {
+      "id": "erp-systems",
+      "title": "ERP Systems",
+      "description": "Complete enterprise resource planning solutions to streamline your business operations and increase efficiency.",
+      "icon": "MonitorIcon",
+      "iconColor": "blue-400",
+      "gradientFrom": "blue-500",
+      "gradientTo": "purple-600",
+      "features": [
+        {
+          "text": "Real-time business analytics and reporting",
+          "icon": "BarChartIcon"
+        },
+        {
+          "text": "Integrated financial management",
+          "icon": "DatabaseIcon"
+        },
+        {
+          "text": "Multi-location support",
+          "icon": "GlobeIcon"
+        },
+        {
+          "text": "Cloud-based architecture",
+          "icon": "ServerIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "ERP System Dashboard",
+      "layout": "image-right",
+      "read_more_text": "Learn More About ERP",
+      "read_more_link": "/service/erp-system"
+    },
+    {
+      "id": "pos-solutions",
+      "title": "POS Solutions",
+      "description": "Modern point-of-sale systems designed to enhance customer experience and boost sales performance.",
+      "icon": "SmartphoneIcon",
+      "iconColor": "green-400",
+      "gradientFrom": "green-500",
+      "gradientTo": "teal-600",
+      "features": [
+        {
+          "text": "Multi-payment method support",
+          "icon": "ZapIcon"
+        },
+        {
+          "text": "Inventory management integration",
+          "icon": "DatabaseIcon"
+        },
+        {
+          "text": "Customer loyalty programs",
+          "icon": "UsersIcon"
+        },
+        {
+          "text": "Real-time sales analytics",
+          "icon": "BarChartIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "POS System Interface",
+      "layout": "image-left",
+      "read_more_text": "Explore POS Features",
+      "read_more_link": "/service/pos-solution"
+    },
+    {
+      "id": "web-applications",
+      "title": "Web Applications",
+      "description": "Custom web development solutions tailored to your specific business needs and requirements.",
+      "icon": "GlobeIcon",
+      "iconColor": "purple-400",
+      "gradientFrom": "purple-500",
+      "gradientTo": "pink-600",
+      "features": [
+        {
+          "text": "Responsive design for all devices",
+          "icon": "SmartphoneIcon"
+        },
+        {
+          "text": "API integration capabilities",
+          "icon": "LinkIcon"
+        },
+        {
+          "text": "Performance optimization",
+          "icon": "ZapIcon"
+        },
+        {
+          "text": "SEO-friendly architecture",
+          "icon": "SearchIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "Web Application Development",
+      "layout": "image-right",
+      "read_more_text": "View Web Solutions",
+      "read_more_link": "/service/web-application"
+    }
+  ]
+}

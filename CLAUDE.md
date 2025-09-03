@@ -33,7 +33,7 @@ This is a Next.js 15 application for Uplift consulting services with sophisticat
 - **External Integrations**: Google Analytics
 
 ### Authentication System
-Custom JWT-based authentication system replacing NextAuth.js:
+Custom JWT-based authentication system:
 - **JWT Tokens**: Access tokens stored in httpOnly cookies
 - **Social OAuth**: Google and Facebook integration via backend API
 - **Role-based Access**: USER, ADMIN role system with middleware protection
@@ -51,10 +51,29 @@ Next.js 15 App Router with route groups:
 ### Widget System Architecture
 Sophisticated widget-based content system:
 - **Widget Registry**: Type-safe widget registration with `WidgetFactory` and `WidgetRegistry`
-- **Widget Categories**: Hero, Cards (Single, Three-Column, Four-Column, Grid, List)
+- **Widget Categories**: Hero, Cards (Single, Three-Column, Four-Column, Grid, List, Problems)
 - **SSR Support**: Server-side rendering with `SSRWidgetRenderer`
 - **Dynamic Configuration**: Runtime widget configuration with field definitions
 - **Storybook Integration**: Component documentation and testing
+
+#### Widget File Structure Pattern (IMPORTANT)
+Each widget follows this exact structure:
+```
+/src/lib/widgets/[category]/[WidgetName]/
+  ├── WidgetName.widget.ts     # OOP class with config/validation
+  ├── WidgetName.ssr.tsx       # SSR component (production)
+  ├── WidgetName.component.tsx # Client component (admin preview)
+  └── WidgetName.skeleton.tsx  # Loading skeleton
+```
+
+**Critical Implementation Rules:**
+- **render()** method uses `.component.tsx` (client-side for admin preview)
+- **renderSSR()** method uses `.ssr.tsx` (server-side for production)
+- **Both components MUST produce identical output** - only difference is animation capability
+- **SSR components import animated components** from `/components/widgets/[name]/` folder
+- **Animated components are "use client"** and contain motion/framer-motion code
+- **Never use styled-jsx in SSR components** - it breaks server rendering
+- **Hero Widgets**: OOP-based HeroAI widget in `/lib/widgets/hero/HeroAI/` with SSR and client components
 
 ### Content Management System
 Database-driven CMS (pointing to external backend):
@@ -82,6 +101,18 @@ Zustand stores for different domains:
   - `src/lib/dictionaries/en.json` - English translations
   - `src/lib/dictionaries/th.json` - Thai translations
 - **Implementation**: Uses `next-intl` with custom middleware for locale routing
+
+### Component Organization
+Clean component structure in `/components/`:
+- `/hero/`: Hero-specific components (animations, stats cards, globe)
+  - `hero-animated.tsx`: Animated text components
+  - `stats-cards.tsx`: Statistics cards with responsive layouts
+  - `globe-animated.tsx`: Interactive globe with hover effects
+- `/button/`: Button component variants
+- `/input/`: Form input components
+- `/nav/`: Navigation components
+- `/admin/`: Admin dashboard components
+- `/section/`: Page section components
 
 ### External Backend Integration
 This frontend connects to a separate NestJS backend:
@@ -137,3 +168,9 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=your-ga-id
 - **Browser Testing**: Playwright integration via @vitest/browser
 - **Coverage**: @vitest/coverage-v8 for code coverage reports
 - **Component Testing**: Storybook for UI component documentation and testing
+
+### Common Pitfalls & Solutions
+- **Dynamic Tailwind Classes**: Avoid template literals in className (e.g., `text-${color}-400`). Use complete class names or cn() utility
+- **Optional Chaining**: Always use optional chaining for potentially undefined properties (e.g., `item.gradientFrom?.split()`)
+- **Type Conflicts**: Watch for duplicate type definitions between local interfaces and external types
+- **SSR vs Client Components**: Hero widgets have both SSR (`.ssr.tsx`) and client (`.component.tsx`) versions for optimal performance

@@ -87,7 +87,7 @@ export const BasicCheckbox: Story = {
 
     return (
       <div className="flex items-center space-x-3">
-        <Checkbox checked={checked} onCheckedChange={setChecked} />
+        <Checkbox checked={checked} onCheckedChange={(value) => setChecked(value === true)} />
         <label className="text-sm font-medium">
           Basic checkbox ({checked ? 'checked' : 'unchecked'})
         </label>

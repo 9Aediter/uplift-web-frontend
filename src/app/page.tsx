@@ -1,3 +1,6 @@
+// Home Page - src/app/page.tsx
+// Main landing page for Uplift Technology co., LTD website
+
 import Nav from "@/components/nav/resnav";
 import { Hero } from "@/components/section/uplift/hero/heroai";
 import Problems from "@/components/section/uplift/problem/problem";
@@ -15,82 +18,50 @@ import { HeroSectionSkeleton } from "@/components/skeleton/uplift/hero-section";
 import { ProductSectionSkeleton } from "@/components/skeleton/uplift/product-section";
 import { AuthSuccessHandler } from "@/components/auth/auth-success-handler";
 import { OAuthSuccessHandler } from "@/components/auth/oauth-success-handler";
-// AuthInitializer moved to layout.tsx
 import { Suspense } from "react";
 import { headers } from 'next/headers';
 import { PageRenderer } from "@/lib/widgets/rendering/WidgetRenderer";
-
-// 🆕 New SSR Hero System
 import { SSRHeroRenderer } from "@/components/rendering/hero-renderer";
-import { getHeroData } from "@/data/homepage/hero";
 
-// Mock data for Hero component - updated structure
-const mockHeroContent = {
-  en: {
-    badge: "Innovating the Future",
-    title: "Transform IDEAS into",
-    title_gradient: "Revolutionary Innovation",
-    subtitle: "Transform your business with cutting-edge artificial intelligence solutions that drive growth and innovation.",
-    launch_button: "Launch Project",
-    explore_button: "Explore Innovation"
-  },
-  th: {
-    badge: "Innovating the Future",
-    title: "เปลี่ยน IDEAS ให้กลายเป็น",
-    title_gradient: "นวัตกรรมระดับ Revolutionary",
-    subtitle: "เปลี่ยนธุรกิจของคุณด้วยโซลูชั่นปัญญาประดิษฐ์ที่ทันสมัยเพื่อการเติบโตและนวัตกรรม",
-    launch_button: "เริ่มโปรเจค",
-    explore_button: "สำรวจนวัตกรรม"
+// 🆕 New SSR Widget System
+import { SSRWidgetRenderer } from "@/lib/widgets/rendering/SSRWidgetRenderer";
+
+// Dynamic import of homepage data
+const getHomepageData = async (locale: string) => {
+  try {
+    const homepageData = await import(`@/data/homepage/${locale}.json`);
+    return homepageData.default;
+  } catch {
+    // Fallback to English if locale file doesn't exist
+    const homepageData = await import(`@/data/homepage/en.json`);
+    return homepageData.default;
   }
 };
 
-const mockHomeContent = {
-  en: { title: "Transform Your Business", subtitle: "With Custom Software" },
-  th: { title: "เปลี่ยนธุรกิจคุณ", subtitle: "ด้วยซอฟต์แวร์ตามต้องการ" }
-};
+export async function generateMetadata() {
+  const headersList = headers();
+  const locale = (await headersList).get('x-next-locale') || 'en';
+  const homepageData = await getHomepageData(locale);
 
-const mockServicesContent = {
-  en: { 
-    title: "Our Services", 
-    description: "Comprehensive software solutions",
-    service: {
-      title: "Our Services",
-      subtitle: "Complete business solutions",
-      items: [
-        { title: "ERP Systems", description: "Business management", link: "/service/erp-system", icon: "monitor", color: "blue" },
-        { title: "POS Solutions", description: "Point of sale systems", link: "/service/pos-solution", icon: "shopping-cart", color: "green" },
-        { title: "Web Apps", description: "Custom development", link: "/service/web-application", icon: "globe", color: "purple" }
-      ]
-    }
-  },
-  th: { 
-    title: "บริการของเรา", 
-    description: "โซลูชั่นซอฟต์แวร์ครบครัน",
-    service: {
-      title: "บริการของเรา",
-      subtitle: "โซลูชั่นธุรกิจครบครัน",
-      items: [
-        { title: "ระบบ ERP", description: "การจัดการธุรกิจ", link: "/service/erp-system", icon: "monitor", color: "blue" },
-        { title: "ระบบ POS", description: "ระบบขายหน้าร้าน", link: "/service/pos-solution", icon: "shopping-cart", color: "green" },
-        { title: "เว็บแอพ", description: "พัฒนาตามต้องการ", link: "/service/web-application", icon: "globe", color: "purple" }
-      ]
-    }
-  }
-};
+  return {
+    title: homepageData.title,
+    description: homepageData.description,
+  };
+}
 
 export default async function Home() {
   const headersList = headers();
   const locale = (await headersList).get('x-next-locale') || 'en';
 
-  // 🆕 Load hero data using new SSR system (unused for now)
-  // const heroData = await getHeroData('ai'); // Use AI hero variant
+  // 🆕 Load homepage data using new data structure
+  const homepageData = await getHomepageData(locale);
 
-  // Use mock data for other sections (will migrate these later)
-  const heroContent = mockHeroContent[locale as keyof typeof mockHeroContent];
-  const homePageContent = mockHomeContent[locale as keyof typeof mockHomeContent];
-  const servicesContent = mockServicesContent[locale as keyof typeof mockServicesContent];
+  // Extract content sections from the data structure
+  const heroContent = homepageData.hero;
+  const homePageContent = homepageData.home;
+  const servicesContent = homepageData.services;
 
-  // Mock data should always be available, but add safety checks
+  // Data should always be available, but add safety checks
   if (!heroContent) {
     throw new Error(`Hero content not found for locale: ${locale}`);
   }
@@ -110,7 +81,7 @@ export default async function Home() {
       <OAuthSuccessHandler />
       <Nav />
       <main className="w-full inset-0 ">
-        {/* 🆕 New SSR Hero System */}
+        {/* 🆕 New SSR Hero System - TODO: Re-enable when components are ready */}
         <Suspense fallback={<HeroSectionSkeleton />}>
           <SSRHeroRenderer 
             heroData={{
@@ -139,10 +110,6 @@ export default async function Home() {
           />
         </Suspense>
         
-        {/* Original Hero for comparison */}
-        {/* <Suspense fallback={<HeroSectionSkeleton />}>
-          <Hero heroContent={heroContent} />
-        </Suspense> */}
        
         <Suspense fallback={<ProblemSectionSkeleton />}>
           <Problems />
@@ -157,116 +124,151 @@ export default async function Home() {
 
         <CalltoAction />
 
-        {/* Dynamic Widget Content - Test Implementation */}
-        {/* <PageRenderer
-          sections={[
-            {
-              id: 'test-single-card',
+        {/* New Problems Cards Widget (OOP System) */}
+        {/* <Suspense fallback={<div className="animate-pulse py-16"><div className="max-w-7xl mx-auto px-4"><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">{Array(4).fill(0).map((_, i) => <div key={i} className="h-64 bg-gray-200 rounded-lg" />)}</div></div></div>}>
+          <SSRWidgetRenderer
+            section={{
+              id: 'problems-cards-home',
               type: 'widget',
-              widgetType: 'single-card',
-              title: 'Transform Your Business CTA',
+              widgetType: 'problems-cards',
+              title: 'Business Problems Section',
               order: 1,
               isActive: true,
               data: {
-                title: 'Ready to Transform Your Business?',
-                subtitle: 'Start Your Journey Today',
-                description: 'Join hundreds of businesses that have revolutionized their operations with our custom software solutions.',
-                primaryButtonText: 'Get Free Consultation',
-                primaryButtonLink: '/consultation',
-                secondaryButtonText: 'View Case Studies',
-                secondaryButtonLink: '/case-studies',
-                backgroundColor: 'bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900',
-                trustIndicators: [
-                  { indicator: 'FINTECH' },
-                  { indicator: 'HEALTHCARE' },
-                  { indicator: 'RETAIL' },
-                  { indicator: 'MANUFACTURING' }
-                ],
-                showAnimations: true
+                backgroundColor: 'bg-gradient-to-b from-amber-50/50 via-orange-50/30 to-yellow-50/50 dark:from-black dark:via-black dark:to-black',
+                items: [
+                  {
+                    id: 1,
+                    title: 'Slow Manual Processes',
+                    description: 'Teams waste hours on repetitive tasks that could be automated, reducing productivity and increasing human error.',
+                    icon: '⚙️',
+                    gradient: 'from-red-500 via-red-400 to-orange-500',
+                    impact: '85% Time Loss'
+                  },
+                  {
+                    id: 2,
+                    title: 'Poor Data Insights',
+                    description: 'Critical business decisions are made with incomplete information due to scattered data and lack of analytics.',
+                    icon: '📊',
+                    gradient: 'from-blue-500 via-blue-400 to-cyan-500',
+                    impact: '60% Bad Decisions'
+                  },
+                  {
+                    id: 3,
+                    title: 'System Integration Issues',
+                    description: 'Different software tools don\'t communicate well, creating data silos and workflow bottlenecks.',
+                    icon: '🔗',
+                    gradient: 'from-purple-500 via-purple-400 to-pink-500',
+                    impact: '40% Efficiency Drop'
+                  },
+                  {
+                    id: 4,
+                    title: 'Scalability Limitations',
+                    description: 'Current systems can\'t handle business growth, leading to crashes, slowdowns, and lost opportunities.',
+                    icon: '🚀',
+                    gradient: 'from-green-500 via-green-400 to-emerald-500',
+                    impact: '30% Growth Blocked'
+                  }
+                ]
               }
-            },
-            {
-              id: 'test-four-column',
+            }}
+            context={{ 
+              isPreview: false,
+              locale: locale,
+              theme: 'dark'
+            }}
+          />
+        </Suspense> */}
+
+        {/* Solution Grid Widget (OOP System) */}
+        {/* <Suspense fallback={<div className="animate-pulse py-20"><div className="max-w-7xl mx-auto px-4"><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[200px] gap-6">{Array(6).fill(0).map((_, i) => <div key={i} className="bg-gray-200 dark:bg-gray-800 rounded-lg" />)}</div></div></div>}>
+          <SSRWidgetRenderer
+            section={{
+              id: 'solution-grid-home',
               type: 'widget',
-              widgetType: 'four-column-cards',
-              title: 'Why Choose Uplift',
+              widgetType: 'solution-grid',
+              title: 'Solutions & Expertise Section',
               order: 2,
               isActive: true,
               data: {
-                title: 'Why Choose Uplift Technology?',
-                subtitle: 'We understand the challenges facing modern businesses',
-                backgroundColor: 'bg-gray-50',
+                title: 'Solutions & Expertise',
+                subtitle: 'ออกแบบและพัฒนาระบบสารสนเทศขนาดใหญ่สำหรับธุรกิจในหลากหลายอุตสาหกรรม',
+                backgroundColor: 'bg-gradient-to-b from-background to-muted/30',
+                gridLayout: 'bento',
+                columns: 4,
+                gap: 6,
                 items: [
                   {
-                    title: 'Expert Team',
-                    description: 'Seasoned developers with 10+ years of experience in enterprise solutions',
-                    icon: 'award',
-                    color: 'blue'
+                    id: 1,
+                    title: 'Laundry Operation System',
+                    description: 'ระบบติดตามการซักรีดครบวงจร รองรับเครือข่ายระดับประเทศ',
+                    icon: '🧺',
+                    image: 'https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755080060582-s7qvzu2t2rh-view-laundromat-room-with-washing-machines.jpg',
+                    bgColor: 'bg-sky-100 dark:bg-sky-900/20',
+                    className: 'md:col-span-1',
+                    clickAction: 'modal'
                   },
                   {
-                    title: 'Proven Results',
-                    description: 'Successfully delivered 100+ projects across various industries',
-                    icon: 'rocket',
-                    color: 'green'
+                    id: 2,
+                    title: 'Laundry Tracking Core',
+                    description: 'เรียลไทม์ติดตาม ลดเวลาสูญเปล่า เพิ่มความแม่นยำ',
+                    icon: '📱',
+                    image: 'https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755081413583-r9a2lsfqpts-cashier-seller-operating-payment-process-with-pos-terminal-credit-card-cropped-shot-closeup-hands-shopping-purchase-concept.jpg',
+                    bgColor: 'bg-sky-100 dark:bg-sky-900/20',
+                    className: 'md:col-span-1',
+                    clickAction: 'modal'
                   },
                   {
-                    title: 'Latest Technology',
-                    description: 'Using cutting-edge tech stack for scalable and secure solutions',
-                    icon: 'zap',
-                    color: 'purple'
+                    id: 3,
+                    title: 'Smart Gym Management',
+                    description: 'ระบบบริหารฟิตเนส สมาชิก อุปกรณ์ คลาส แบบครบวงจร',
+                    icon: '💪',
+                    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=600&fit=crop&auto=format',
+                    bgColor: 'bg-green-100 dark:bg-green-900/20',
+                    className: 'md:col-span-1',
+                    clickAction: 'modal'
                   },
                   {
-                    title: '24/7 Support',
-                    description: 'Round-the-clock technical support and maintenance services',
-                    icon: 'shield',
-                    color: 'orange'
+                    id: 4,
+                    title: 'Warehouse Management',
+                    description: 'ระบบคลังสินค้าอัตโนมัติ เชื่อมต่อ Automation ลดต้นทุนแรงงาน',
+                    icon: '🏭',
+                    image: 'https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755081511881-7r0uq54z3v5-interior-large-distribution-warehouse-with-shelves-stacked-with-palettes-goods-ready-market.jpg',
+                    bgColor: 'bg-yellow-100 dark:bg-yellow-900/20',
+                    className: 'md:col-span-2',
+                    clickAction: 'modal'
+                  },
+                  {
+                    id: 5,
+                    title: 'Retail POS System',
+                    description: 'ขายหน้าร้าน+ออนไลน์ จัดการหลายสาขา ชำระเงินครบรูปแบบ',
+                    icon: '🛒',
+                    image: 'https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755081810814-csakbmjowd6-possystemcashier.jpg',
+                    bgColor: 'bg-gray-100 dark:bg-gray-900/20',
+                    className: 'md:col-span-1',
+                    clickAction: 'modal'
+                  },
+                  {
+                    id: 6,
+                    title: 'Transport Management',
+                    description: 'บริหารยานพาหนะ วางแผนเส้นทาง ติดตามเรียลไทม์',
+                    icon: '🚛',
+                    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=600&fit=crop&auto=format',
+                    bgColor: 'bg-orange-100 dark:bg-orange-900/20',
+                    className: 'md:col-span-1',
+                    clickAction: 'modal'
                   }
                 ]
               }
-            },
-            {
-              id: 'test-three-column',
-              type: 'widget',
-              widgetType: 'three-column-cards',
-              title: 'Featured Solutions',
-              order: 3,
-              isActive: true,
-              data: {
-                title: 'Featured Solutions',
-                subtitle: 'Explore our most popular business transformation packages',
-                backgroundColor: 'bg-black',
-                items: [
-                  {
-                    title: 'Complete ERP Suite',
-                    description: 'End-to-end business management system with inventory, accounting, CRM, and reporting',
-                    icon: 'database',
-                    color: 'blue',
-                    link: '/service/erp-suite'
-                  },
-                  {
-                    title: 'Smart POS System',
-                    description: 'Modern point-of-sale solution with inventory management and analytics',
-                    icon: 'shopping-cart',
-                    color: 'green',
-                    link: '/service/pos-system'
-                  },
-                  {
-                    title: 'Custom Web Platform',
-                    description: 'Tailored web applications designed for your specific business needs',
-                    icon: 'globe',
-                    color: 'purple',
-                    link: '/service/web-platform'
-                  }
-                ]
-              }
-            }
-          ]}
-          context={{ 
-            isPreview: false,
-            locale: locale,
-            theme: 'light'
-          }}
-        /> */}
+            }}
+            context={{ 
+              isPreview: false,
+              locale: locale,
+              theme: 'dark'
+            }}
+          />
+        </Suspense> */}
+
 
       </main>
       <Footer />

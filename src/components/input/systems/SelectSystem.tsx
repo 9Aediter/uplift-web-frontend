@@ -68,14 +68,17 @@ export interface SelectSeparatorProps extends React.ComponentProps<typeof Select
 // Create system instance
 const system = new SelectSystem()
 
-// Select Root Component
-export const Select = forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Root>,
-  SelectProps
->(({ ...props }, ref) => {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
-})
-Select.displayName = 'Select'
+// Select Root Component - TODO: Fix type issues
+// export const Select = forwardRef<
+//   React.ElementRef<typeof SelectPrimitive.Root>,
+//   SelectProps
+// >(({ ...props }, ref) => {
+//   return <SelectPrimitive.Root data-slot="select" {...props} />
+// })
+// Select.displayName = 'Select'
+
+// Temporary fallback
+export const Select = SelectPrimitive.Root
 
 // Select Group Component
 export const SelectGroup = forwardRef<

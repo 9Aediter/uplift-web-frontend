@@ -111,7 +111,7 @@ export const useRolesStore = create<RolesStore>((set) => ({
   fetchRole: async (id) => {
     try {
       const response = await rolesApi.getRole(id);
-      return response.data;
+      return response.data || null;
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || 'Failed to fetch role';
       toast.error(errorMessage);

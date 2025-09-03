@@ -13,21 +13,25 @@ interface WidgetSelectorProps {
 }
 
 const categoryIcons = {
+  card: Grid3X3,
   cards: Grid3X3,
   carousel: Layers,
   tabs: BookOpen,
   hero: Zap,
   content: MessageSquare,
-  interactive: List
+  interactive: List,
+  grid: Grid3X3
 } as const
 
 const categoryLabels = {
+  card: 'Card',
   cards: 'Cards',
   carousel: 'Carousels', 
   tabs: 'Tabs',
   hero: 'Hero Sections',
   content: 'Content',
-  interactive: 'Interactive'
+  interactive: 'Interactive',
+  grid: 'Grid Layouts'
 } as const
 
 export const WidgetSelector: React.FC<WidgetSelectorProps> = ({

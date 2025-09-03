@@ -1,0 +1,47 @@
+{
+  "title": "UPLIFT TECHNOLOGY CO., LTD. | โซลูชันซอฟต์แวร์ตามต้องการ",
+  "description": "เปลี่ยนธุรกิจของคุณด้วยโซลูชันซอฟต์แวร์ที่ขับเคลื่อนด้วย AI เราเชี่ยวชาญด้าน ERP, POS, WMS และแอปพลิเคชันตามต้องการสำหรับธุรกิจทุกประเภท",
+  "hero": {
+    "badge": "Innovating the Future",
+    "title": "เปลี่ยน IDEAS ให้กลายเป็น",
+    "title_gradient": "นวัตกรรมระดับ Revolutionary",
+    "subtitle": "เปลี่ยนธุรกิจของคุณด้วยโซลูชั่นปัญญาประดิษฐ์ที่ทันสมัยเพื่อการเติบโตและนวัตกรรม",
+    "launch_button": "เริ่มโปรเจค",
+    "explore_button": "สำรวจนวัตกรรม"
+  },
+  "home": {
+    "title": "เปลี่ยนธุรกิจคุณ",
+    "subtitle": "ด้วยซอฟต์แวร์ตามต้องการ"
+  },
+  "services": {
+    "title": "บริการของเรา",
+    "description": "โซลูชั่นซอฟต์แวร์ครบครัน",
+    "service": {
+      "title": "บริการของเรา",
+      "subtitle": "โซลูชั่นธุรกิจครบครัน",
+      "items": [
+        {
+          "title": "ระบบ ERP",
+          "description": "การจัดการธุรกิจ",
+          "link": "/service/erp-system",
+          "icon": "monitor",
+          "color": "blue"
+        },
+        {
+          "title": "ระบบ POS",
+          "description": "ระบบขายหน้าร้าน",
+          "link": "/service/pos-solution",
+          "icon": "shopping-cart",
+          "color": "green"
+        },
+        {
+          "title": "เว็บแอพ",
+          "description": "พัฒนาตามต้องการ",
+          "link": "/service/web-application",
+          "icon": "globe",
+          "color": "purple"
+        }
+      ]
+    }
+  }
+}

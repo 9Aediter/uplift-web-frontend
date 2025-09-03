@@ -13,7 +13,7 @@ export interface BaseInputConfig {
   baseStyles: string
 }
 
-export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface BaseInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   variant?: string
   size?: string
   state?: string

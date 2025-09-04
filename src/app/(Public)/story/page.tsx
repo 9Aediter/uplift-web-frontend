@@ -10,16 +10,35 @@ import Image from "next/image";
 import { FaRocket, FaLightbulb, FaBrain, FaCog, FaAward, FaUsers } from 'react-icons/fa';
 import { Building2, Code, Award } from 'lucide-react';
 import { personalData } from '@/data/personal-data';
+import { getPageSEO, generatePageMetadata } from '@/lib/seo';
+import type { Metadata } from "next";
+
+// Generate metadata for SEO
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const locale = headersList.get('x-next-locale') || 'en';
+  const seoConfig = await getPageSEO('story');
+  
+  if (seoConfig) {
+    const seoData = locale === 'th' ? seoConfig.th : seoConfig.en;
+    const pagePath = locale === 'en' ? '/story' : '/th/story';
+    return generatePageMetadata(seoData, locale, 'https://uplifttech.store', pagePath);
+  }
+  
+  // Fallback metadata
+  return {
+    title: locale === 'th' ? 'เรื่องราวของเรา | UPLIFT TECHNOLOGY' : 'Our Story | UPLIFT TECHNOLOGY',
+    description: locale === 'th' 
+      ? 'ค้นพบการเดินทางของ UPLIFT Technology Co., Ltd.'
+      : 'Discover the journey of UPLIFT Technology Co., Ltd.'
+  };
+}
 
 // Company data for story content
 const getStoryData = (locale: string) => {
     const isThaiLang = locale === 'th';
     
     return {
-        title: isThaiLang ? 'เรื่องราวของเรา | UPLIFT' : 'Our Story | UPLIFT',
-        description: isThaiLang 
-            ? 'ค้นพบการเดินทางของ UPLIFT Technology Co., Ltd. - Software House สาย Startup Culture ที่เปลี่ยนความคิดสร้างสรรค์ให้กลายเป็นโซลูชันเชิงนวัตกรรม'
-            : 'Discover the journey of UPLIFT Technology Co., Ltd. - A startup-culture software house transforming ideas into revolutionary solutions.',
         hero: {
             title: isThaiLang 
                 ? 'UPLIFT TECHNOLOGY'
@@ -152,16 +171,6 @@ const getStoryData = (locale: string) => {
     };
 };
 
-export async function generateMetadata() {
-    const headersList = await headers();
-    const locale = headersList.get('x-next-locale') || 'en';
-    const storyData = getStoryData(locale);
-
-    return {
-        title: storyData.title,
-        description: storyData.description,
-    };
-}
 
 const StoryPage = async () => {
     const headersList = await headers();

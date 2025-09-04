@@ -28,7 +28,7 @@ const featuredArticles: Article[] = [
 
 export const FeaturedArticles = () => {
     return (
-        <Section className="h-fit lg:h-[60vh] flex justify-center items-center bg-gradient-to-b from-gray-900/30 to-black">
+        <Section className="h-fit lg:h-[60vh] flex justify-center items-center bg-gradient-to-b from-muted/30 to-background">
             <div className='max-w-7xl mx-auto'>
                 <h2 className="text-2xl md:text-3xl font-bold mb-8">
                     <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -50,15 +50,15 @@ export const FeaturedArticles = () => {
                                         alt={article.title}
                                         className="w-full h-full object-cover"
                                     />
-                                    <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-sm px-3 py-1 rounded-full flex items-center">
-                                        <span className="text-sm font-medium">
+                                    <div className="absolute top-4 left-4 bg-background/70 backdrop-blur-sm px-3 py-1 rounded-full flex items-center border border-border">
+                                        <span className="text-sm font-medium text-foreground">
                                             {article.category}
                                         </span>
                                     </div>
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-2xl font-bold mb-3">{article.title}</h3>
-                                    <p className="text-gray-300 mb-4">{article.description}</p>
+                                    <h3 className="text-2xl font-bold mb-3 text-foreground">{article.title}</h3>
+                                    <p className="text-muted-foreground mb-4">{article.description}</p>
                                     {/* Date, Author, Read Time are not directly available from Notion API properties in the initial query */}
                                     <div className="flex justify-end">
                                         <button className="text-cyan-400 flex items-center font-medium hover:text-cyan-300 transition-colors">

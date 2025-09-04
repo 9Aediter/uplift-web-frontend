@@ -6,7 +6,7 @@ interface SolutionHeroProps {
 
 export const SolutionHero: React.FC<SolutionHeroProps> = ({}) => {
     return (
-        <Section className="mx-auto h-[100vh] lg:h-[60vh] flex flex-col justify-center lg:justify-end bg-gradient-to-b from-black to-gray-900/30">
+        <Section className="mx-auto h-[100vh] lg:h-[60vh] flex flex-col justify-center lg:justify-end bg-gradient-to-b from-background via-background/80 to-muted/50">
             <div className="max-w-7xl w-full mx-auto">
                 <div className="text-center mb-14">
                     <h1 className="text-5xl md:text-6xl font-bold mb-6">
@@ -14,7 +14,7 @@ export const SolutionHero: React.FC<SolutionHeroProps> = ({}) => {
                             OUR SOLUTIONS
                         </span>
                     </h1>
-                    <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                    <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                         แหล่งรวมความรู้ บทความ และเทรนด์ล่าสุดด้านซอฟต์แวร์ เทคโนโลยี
                         และการพัฒนาธุรกิจ
                     </p>

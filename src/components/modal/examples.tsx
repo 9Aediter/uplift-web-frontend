@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { ReusableModal, ModalIcons } from "./reusable-modal";
 
 // Example 1: Product Card Modal
@@ -8,7 +9,7 @@ export function ProductModalExample() {
     <ReusableModal
       trigger={
         <div className="p-6 bg-white dark:bg-gray-800 rounded-lg border cursor-pointer hover:shadow-lg transition-shadow">
-          <img src="/api/placeholder/300/200" alt="Product" className="w-full h-40 object-cover rounded mb-4" />
+          <Image src="/api/placeholder/300/200" alt="Product" width={300} height={160} className="w-full h-40 object-cover rounded mb-4" />
           <h3 className="font-bold text-lg">Amazing Product</h3>
           <p className="text-gray-600">Click to learn more</p>
         </div>
@@ -88,9 +89,11 @@ export function GalleryModalExample() {
   return (
     <ReusableModal
       trigger={
-        <img 
+        <Image 
           src="/api/placeholder/200/200" 
           alt="Gallery" 
+          width={200} 
+          height={200}
           className="rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
         />
       }

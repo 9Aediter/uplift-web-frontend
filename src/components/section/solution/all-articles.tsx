@@ -49,7 +49,7 @@ const categories = [
 export const AllArticles: React.FC<AllArticlesProps> = ({ articles, filteredArticles }) => {
 
     return (
-        <Section className="bg-gradient-to-b from-gray-900/30 to-black">
+        <Section className="bg-gradient-to-b from-muted/30 to-background">
             <div className="max-w-7xl mx-auto py-8 md:py-16">
                 <h2 className="text-2xl md:text-3xl font-bold mb-8">
                     <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -77,21 +77,21 @@ export const AllArticles: React.FC<AllArticlesProps> = ({ articles, filteredArti
                                         alt={article.title}
                                         className="w-full h-full object-cover"
                                     />
-                                    <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-sm px-3 py-1 rounded-full flex items-center">
+                                    <div className="absolute top-4 left-4 bg-background/70 backdrop-blur-sm px-3 py-1 rounded-full flex items-center border border-border">
                                         {article.icon}
-                                        <span className="ml-2 text-xs font-medium">
+                                        <span className="ml-2 text-xs font-medium text-foreground">
                                             {categories.find((c) => c.id === article.category)?.name}
                                         </span>
                                     </div>
                                 </div>
                                 <div className="p-5">
-                                    <h3 className="text-xl font-bold mb-3 line-clamp-2">
+                                    <h3 className="text-xl font-bold mb-3 line-clamp-2 text-foreground">
                                         {article.title}
                                     </h3>
-                                    <p className="text-gray-300 mb-4 text-sm line-clamp-2">
+                                    <p className="text-muted-foreground mb-4 text-sm line-clamp-2">
                                         {article.excerpt}
                                     </p>
-                                    <div className="flex items-center text-xs text-gray-400">
+                                    <div className="flex items-center text-xs text-muted-foreground">
                                         <CalendarIcon className="h-3 w-3 mr-1" />
                                         <span className="mr-3">{article.date}</span>
                                         <span className="ml-auto">{article.readTime}</span>
@@ -102,10 +102,10 @@ export const AllArticles: React.FC<AllArticlesProps> = ({ articles, filteredArti
                 ))}
             </div>
             ) : (
-            <div className="text-center py-12 bg-gray-900/30 rounded-lg border border-gray-800">
-                <SearchIcon className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">No articles found</h3>
-                <p className="text-gray-400">
+            <div className="text-center py-12 bg-muted/30 rounded-lg border border-border">
+                <SearchIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-xl font-bold mb-2 text-foreground">No articles found</h3>
+                <p className="text-muted-foreground">
                     Try adjusting your search or filter criteria
                 </p>
             </div>

@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, Suspense } from 'react'
+import Image from 'next/image'
 import { X, Save, Eye, AlertCircle, Plus, Trash2, Monitor, Smartphone } from 'lucide-react'
 import { getWidgetRegistry, WidgetFactory } from '@/lib/widgets'
 import { WidgetConfig, FieldDefinition, WidgetData } from '@/lib/widgets/core/types'
@@ -428,7 +429,7 @@ export const DynamicWidgetConfigModal: React.FC<DynamicWidgetConfigModalProps> =
             />
             {value && (
               <div className="mt-2">
-                <img src={value} alt="Preview" className="w-24 h-24 object-cover rounded-lg" />
+                <Image src={value} alt="Preview" width={96} height={96} className="w-24 h-24 object-cover rounded-lg" />
               </div>
             )}
           </div>

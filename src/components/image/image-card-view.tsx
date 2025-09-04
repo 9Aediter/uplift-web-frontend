@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Badge } from '@/components/button/badge';
 import { Button } from '@/components/button/button';
 import {
@@ -66,10 +67,12 @@ export function ImageCardView({
           onClick={() => onImageClick?.(image)}
         >
           {/* Image */}
-          <img
+          <Image
             src={image.thumbnailUrl || image.s3Url}
             alt={image.altText || image.filename}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
 
           {/* Status Badge */}

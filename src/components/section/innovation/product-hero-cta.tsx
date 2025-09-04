@@ -63,7 +63,7 @@ export const ProductHeroCTA: React.FC<ProductHeroCTAProps> = ({ buttons }) => {
         <Button
           variant="outline"
           size="lg"
-          className="flex flex-1 sm:flex-none sm:w-auto px-4 sm:px-6 py-3 border-gray-600 text-white hover:bg-white/10 text-sm sm:text-base"
+          className="flex flex-1 sm:flex-none sm:w-auto px-4 sm:px-6 py-3 border-border text-foreground hover:bg-muted text-sm sm:text-base"
           onClick={(e) => handleLearnMoreClick(e, '#features')}
         >
           <ExternalLinkIcon className="w-4 h-4 mr-2" />
@@ -93,7 +93,7 @@ export const ProductHeroCTA: React.FC<ProductHeroCTAProps> = ({ buttons }) => {
               <Button
                 size="lg"
                 variant="outline"
-                className="flex w-full px-4 sm:px-6 py-3 text-sm sm:text-base border-gray-600 text-white hover:bg-white/10"
+                className="flex w-full px-4 sm:px-6 py-3 text-sm sm:text-base border-border text-foreground hover:bg-muted"
                 onClick={(e) => handleLearnMoreClick(e, button.href)}
               >
                 <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -105,7 +105,7 @@ export const ProductHeroCTA: React.FC<ProductHeroCTAProps> = ({ buttons }) => {
                   size="lg"
                   variant={button.variant || "default"}
                   className={`flex w-full px-4 sm:px-6 py-3 text-sm sm:text-base ${button.variant === "outline"
-                      ? "border-gray-600 text-white hover:bg-white/10"
+                      ? "border-border text-foreground hover:bg-muted"
                       : "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700"
                     }`}
                 >

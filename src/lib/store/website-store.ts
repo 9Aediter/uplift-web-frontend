@@ -95,7 +95,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
         set({ isLoading: true })
         
         try {
-          console.log('📝 [STORE] Calling API to load pages list...')
+          // console.log('📝 [STORE] Calling API to load pages list...')
           
           // Use API service
           const response = await WebsiteApiService.getPages({
@@ -103,12 +103,12 @@ export const useWebsiteStore = create<WebsiteStore>()(
             limit: 50
           })
           
-          console.log('✅ [STORE] API Response received:', response)
-          console.log('📊 [STORE] Response structure:', {
-            hasPages: !!response?.pages,
-            pagesCount: response?.pages?.length || 0,
-            firstPage: response?.pages?.[0]
-          })
+          // console.log('✅ [STORE] API Response received:', response)
+          // console.log('📊 [STORE] Response structure:', {
+          //   hasPages: !!response?.pages,
+          //   pagesCount: response?.pages?.length || 0,
+          //   firstPage: response?.pages?.[0]
+          // })
           
           // Transform API response to local format
           const pages: WebsitePageData[] = response.pages.map((apiPage: ApiWebsitePageData) => ({

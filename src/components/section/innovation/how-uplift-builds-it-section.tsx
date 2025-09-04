@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Section } from '@/components/ui/section';
 
 export const HowUpliftBuildsItSection = () => (
@@ -19,7 +20,7 @@ export const HowUpliftBuildsItSection = () => (
           </p>
         </div>
         <div>
-          <img src="https://via.placeholder.com/600x400" alt="Custom Solution" className="rounded-lg shadow-lg" />
+          <Image src="https://via.placeholder.com/600x400" alt="Custom Solution" width={600} height={400} className="rounded-lg shadow-lg" />
         </div>
       </div>
     </div>

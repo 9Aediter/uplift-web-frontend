@@ -17,9 +17,9 @@ export const organizationSchema = (locale: string) => ({
   '@id': ORG_ID,
   name: 'UPLIFT',
   alternateName: 'UPLIFTTECH',
-  legalName: 'UPLIFT Technology Solutions Co., Ltd.',
+  legalName: 'UPLIFT TECHNOLOGY CO., LTD.',
   url: BASE_URL,
-  logo: { '@type': 'ImageObject', url: abs('/logo/uplift-logo.png'), width: 200, height: 60 },
+  logo: { '@type': 'ImageObject', url: abs('/svg/logo/logo.svg'), width: 1000, height: 996 },
   image: { '@type': 'ImageObject', url: abs('/og/cover.jpg'), width: 1200, height: 630 },
   description:
     locale === 'th'

@@ -32,8 +32,8 @@ export const useAuthStore = create<AuthStore>()(
       setError: (error) => set({ error }),
       
       login: (user) => {
-        console.log('🏪 Auth Store - Login called with user:', user)
-        console.log('🏪 Auth Store - User roles:', user?.roles)
+        // console.log('🏪 Auth Store - Login called with user:', user)
+        // console.log('🏪 Auth Store - User roles:', user?.roles)
         set({
           user,
           status: 'authenticated',
@@ -69,12 +69,12 @@ export const useAuth = () => {
   
   // Debug current auth state (client-side only)
   if (typeof window !== 'undefined') {
-    console.log('🔍 useAuth called - Current state:', {
-      user: store.user,
-      status: store.status,
-      roles: store.user?.roles,
-      isAuthenticated: store.status === 'authenticated'
-    })
+    // console.log('🔍 useAuth called - Current state:', {
+    //   user: store.user,
+    //   status: store.status,
+    //   roles: store.user?.roles,
+    //   isAuthenticated: store.status === 'authenticated'
+    // })
   }
   
   return {

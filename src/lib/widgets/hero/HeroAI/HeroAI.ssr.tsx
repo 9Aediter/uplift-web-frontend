@@ -54,8 +54,10 @@ export const HeroAISSR: React.FC<HeroAISSRProps> = ({
           <AnimatedGlobe showGlobe={showGlobe} />
         </div>
         
-        {/* StatsCards */}
-        <StatsCards />
+        {/* StatsCards - Hidden on mobile */}
+        <div className="hidden md:block">
+          <StatsCards />
+        </div>
       </div>
 
       {/* Scroll Indicator */}

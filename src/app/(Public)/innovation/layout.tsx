@@ -8,9 +8,7 @@ export default function InnovationLayout({
 }>) {
   return (
     <>
-      <Nav />
       {children}
-      <Footer />
     </>
   );
 }

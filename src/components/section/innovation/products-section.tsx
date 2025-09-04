@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import React from 'react'
 import { Section } from '@/components/ui/section'
 import { IconMap, getGradient } from '@/data/products';
@@ -55,12 +57,12 @@ interface ProductsSectionProps {
   products?: ProductDetail[];
 }
 
-const ProductsSection = async ({ products: propsProducts }: ProductsSectionProps) => {
+const ProductsSection = ({ products: propsProducts }: ProductsSectionProps) => {
   // Use props or fallback to mock data
   const products = propsProducts || mockProducts;
 
   if (!products || products.length === 0) {
-    return <div className="text-center py-10 text-gray-500">No products available</div>;
+    return <div className="text-center py-10 text-muted-foreground">No products available</div>;
   }
 
   return (
@@ -71,36 +73,49 @@ const ProductsSection = async ({ products: propsProducts }: ProductsSectionProps
         return (
           <Section
             key={product.id}
-            className={`py-16 md:py-24 ${index % 2 === 0 ? 'bg-black' : 'bg-gray-900/30'}`}
+            className={`py-16 md:py-24 ${index % 2 === 0 ? 'bg-background' : 'bg-muted/50'} w-full`}
             id={product.id}
           >
             <div
-              className={`flex flex-col px-4 md:px-8 max-w-7xl mx-auto ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 md:gap-16 w-full max-w-full`}
+              className={`flex flex-col px-4 md:px-8 max-w-7xl mx-auto ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 md:gap-16 w-full`}
             >
               {/* Image */}
-              <div className="w-full md:w-1/2">
-                <div className="relative rounded-lg overflow-hidden border border-gray-800">
-                  <img
+              <div className="w-full md:w-1/2" style={{ perspective: '1000px' }}>
+                <div 
+                  className={`group relative rounded-lg overflow-hidden border border-border shadow-2xl shadow-purple-500/10 transform transition-all duration-700 hover:scale-105 hover:shadow-3xl hover:shadow-purple-500/20 h-64 md:h-96 ${
+                    index % 2 === 0 
+                      ? 'hover:[transform:rotateX(10deg)_rotateY(-15deg)_scale(1.05)]' 
+                      : 'hover:[transform:rotateX(10deg)_rotateY(15deg)_scale(1.05)]'
+                  }`}
+                  style={{
+                    transform: `rotateX(5deg) rotateY(${index % 2 === 0 ? '-5deg' : '5deg'})`,
+                    transformStyle: 'preserve-3d'
+                  }}
+                >
+                  <Image
                     src={product.coverImage || '/placeholder-product.png'}
                     alt={product.title}
-                    className="w-full h-64 md:h-96 object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={index === 0}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent"></div>
                   <div
-                    className="absolute top-4 left-4 w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center"
+                    className="absolute top-4 left-4 w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg"
                   >
                     {/* Render the icon component */}
-                    {IconComponent && <IconComponent className="h-6 w-6" />}
+                    {IconComponent && <IconComponent className="h-6 w-6 text-white" />}
                   </div>
                 </div>
               </div>
               {/* Content */}
               <div className="w-full md:w-1/2">
-                <div className="mb-4 inline-flex items-center px-4 py-1 rounded-full bg-gray-800/80 border border-gray-700">
+                <div className="mb-4 inline-flex items-center px-4 py-1 rounded-full bg-muted/80 border border-border">
                   <span
                     className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2"
                   ></span>
-                  <span className="text-sm font-medium">{product.subtitle}</span>
+                  <span className="text-sm font-medium text-foreground">{product.subtitle}</span>
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   <span
@@ -109,7 +124,7 @@ const ProductsSection = async ({ products: propsProducts }: ProductsSectionProps
                     {product.title}
                   </span>
                 </h2>
-                <p className="text-lg text-gray-300 mb-8">
+                <p className="text-lg text-muted-foreground mb-8">
                   {product.description}
                 </p>
                 <div className="space-y-4 mb-8">
@@ -120,7 +135,7 @@ const ProductsSection = async ({ products: propsProducts }: ProductsSectionProps
                       >
                         <CheckIcon className="h-4 w-4 text-white" />
                       </div>
-                      <span className="text-gray-300">{feature.title}</span>
+                      <span className="text-muted-foreground">{feature.title}</span>
                     </div>
                   ))}
                 </div>

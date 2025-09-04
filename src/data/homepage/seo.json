@@ -1,0 +1,34 @@
+{
+  "en": {
+    "title": "UPLIFT TECHNOLOGY CO., LTD. | Custom Software Solutions",
+    "description": "Transform your business with cutting-edge AI-powered software solutions. We specialize in ERP, POS, WMS, and custom applications for businesses across all industries.",
+    "keywords": "custom software development, ERP systems, POS solutions, AI technology, business automation, web applications, mobile apps, software consulting, Thailand technology company, digital transformation",
+    "openGraph": {
+      "title": "Transform IDEAS into Revolutionary Innovation | UPLIFTTECH",
+      "description": "Leading software development company in Thailand. Custom ERP, POS, and AI-powered solutions for modern businesses.",
+      "image": "/og/homepage-en.jpg",
+      "type": "website"
+    },
+    "twitter": {
+      "title": "UPLIFT TECHNOLOGY - Custom Software Solutions",
+      "description": "Transform your business with cutting-edge AI-powered software solutions.",
+      "image": "/og/homepage-twitter-en.jpg"
+    }
+  },
+  "th": {
+    "title": "บริษัท อัพลิฟท์ เทคโนโลยี จำกัด | โซลูชั่นซอฟต์แวร์ที่ปรับแต่งได้",
+    "description": "เปลี่ยนธุรกิจของคุณด้วยโซลูชั่นซอฟต์แวร์ที่ขับเคลื่อนด้วย AI ที่ทันสมัย เราเชี่ยวชาญด้าน ERP, POS, WMS และแอปพลิเคชันที่ปรับแต่งได้สำหรับธุรกิจทุกประเภท",
+    "keywords": "พัฒนาซอฟต์แวร์ที่ปรับแต่งได้, ระบบ ERP, โซลูชั่น POS, เทคโนโลยี AI, ระบบอัตโนมัติทางธุรกิจ, เว็บแอปพลิเคชัน, แอปมือถือ, คอนซัลติ้งซอฟต์แวร์, บริษัทเทคโนโลยีไทย, การเปลี่ยนแปลงดิจิทัล",
+    "openGraph": {
+      "title": "เปลี่ยนไอเดียเป็นนวัตกรรมที่ปฏิวัติ | UPLIFTTECH",
+      "description": "บริษัทพัฒนาซอฟต์แวร์ชั้นนำในประเทศไทย โซลูชั่น ERP, POS และ AI สำหรับธุรกิจสมัยใหม่",
+      "image": "/og/homepage-th.jpg",
+      "type": "website"
+    },
+    "twitter": {
+      "title": "UPLIFT TECHNOLOGY - โซลูชั่นซอฟต์แวร์ที่ปรับแต่งได้",
+      "description": "เปลี่ยนธุรกิจของคุณด้วยโซลูชั่นซอฟต์แวร์ที่ขับเคลื่อนด้วย AI ที่ทันสมัย",
+      "image": "/og/homepage-twitter-th.jpg"
+    }
+  }
+}

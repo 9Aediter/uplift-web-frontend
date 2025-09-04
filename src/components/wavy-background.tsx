@@ -110,7 +110,7 @@ export const WavyBackground = ({
     }, []);
 
     return (
-        <section id="hero-section"
+        <div
             className={cn(
                 "h-screen flex flex-col items-center justify-center",
                 containerClassName
@@ -127,6 +127,6 @@ export const WavyBackground = ({
             <div className={cn("relative z-10", className)} {...props}>
                 {children}
             </div>
-        </section>
+        </div>
     );
 };

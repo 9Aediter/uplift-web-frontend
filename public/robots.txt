@@ -1,6 +1,22 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /test
+Disallow: /private
+
+# GPTBot
+User-agent: GPTBot
+Allow: /
+
+# ClaudeBot
+User-agent: ClaudeBot
+Allow: /
+
+# Baiduspider
+User-agent: Baiduspider
+Allow: /
 
 # Host
 Host: https://uplifttech.store

@@ -30,7 +30,7 @@ export function HeroRenderer({ heroData, locale = 'en', className }: HeroRendere
   }
 
   try {
-    console.log('🎨 [HERO RENDERER] Rendering hero widget:', heroWidget.name, heroData.heroWidgetType)
+    // console.log('🎨 [HERO RENDERER] Rendering hero widget:', heroWidget.name, heroData.heroWidgetType)
     
     // Transform data for the specific hero widget
     const processedData = {

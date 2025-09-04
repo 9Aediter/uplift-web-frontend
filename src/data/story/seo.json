@@ -1,0 +1,34 @@
+{
+  "en": {
+    "title": "Our Story | UPLIFT TECHNOLOGY - Journey of Innovation",
+    "description": "Discover the story behind UPLIFT TECHNOLOGY. From startup to leading software development company in Thailand, learn about our journey, values, and commitment to digital transformation.",
+    "keywords": "UPLIFT TECHNOLOGY story, company history, Thailand software development, tech startup journey, digital transformation company, software innovation, business growth, technology leadership",
+    "openGraph": {
+      "title": "Our Story - UPLIFT TECHNOLOGY Journey",
+      "description": "From vision to reality: The story of how UPLIFT TECHNOLOGY became Thailand's leading custom software development company.",
+      "image": "/og/story-en.jpg",
+      "type": "website"
+    },
+    "twitter": {
+      "title": "Our Story | UPLIFT TECHNOLOGY",
+      "description": "Discover the journey behind Thailand's innovative software development company.",
+      "image": "/og/story-twitter-en.jpg"
+    }
+  },
+  "th": {
+    "title": "เรื่องราวของเรา | UPLIFT TECHNOLOGY - การเดินทางแห่งนวัตกรรม",
+    "description": "ค้นพบเรื่องราวเบื้องหลัง UPLIFT TECHNOLOGY จากสตาร์ทอัพสู่บริษัทพัฒนาซอฟต์แวร์ชั้นนำในประเทศไทย เรียนรู้เกี่ยวกับการเดินทาง คุณค่า และความมุ่งมั่นในการเปลี่ยนแปลงดิจิทัล",
+    "keywords": "เรื่องราว UPLIFT TECHNOLOGY, ประวัติบริษัท, พัฒนาซอฟต์แวร์ไทย, การเดินทางของสตาร์ทอัพเทค, บริษัทเปลี่ยนแปลงดิจิทัล, นวัตกรรมซอฟต์แวร์, การเติบโตทางธุรกิจ, ผู้นำเทคโนโลยี",
+    "openGraph": {
+      "title": "เรื่องราวของเรา - การเดินทาง UPLIFT TECHNOLOGY",
+      "description": "จากวิสัยทัศน์สู่ความเป็นจริง: เรื่องราวของการที่ UPLIFT TECHNOLOGY กลายเป็นบริษัทพัฒนาซอฟต์แวร์ชั้นนำของประเทศไทย",
+      "image": "/og/story-th.jpg",
+      "type": "website"
+    },
+    "twitter": {
+      "title": "เรื่องราวของเรา | UPLIFT TECHNOLOGY",
+      "description": "ค้นพบการเดินทางเบื้องหลังบริษัทพัฒนาซอฟต์แวร์ที่นวัตกรรมของประเทศไทย",
+      "image": "/og/story-twitter-th.jpg"
+    }
+  }
+}

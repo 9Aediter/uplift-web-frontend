@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
-
+import { AnimatePresence, motion } from "motion/react";
 
 interface InnovationImageAnimateProps {
   imageUrl: string;
@@ -13,19 +12,26 @@ export const InnovationImageAnimate: React.FC<InnovationImageAnimateProps> = ({ 
       <div className="absolute inset-0 z-0"></div>
       <AnimatePresence initial={false}>
         <motion.div
-          key={imageUrl} // Key ที่เปลี่ยนเมื่อรูปภาพเปลี่ยน
-          initial={{ opacity: 0 }} // เริ่มต้นด้วย opacity 0
-          animate={{ opacity: 0.3 }} // animate ไปที่ opacity 0.3
-          exit={{ opacity: 0 }} // ออกด้วย opacity 0
-          transition={{ duration: 1 }} // ระยะเวลา animation 1 วินาที
-          className="absolute inset-0 z-0 bg-cover bg-center"
+          key={imageUrl}
+          initial={{ opacity: 0, rotateY: -10 }}
+          animate={{ opacity: 0.4, rotateY: 5 }}
+          exit={{ opacity: 0, rotateY: -10 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0 z-0 bg-cover bg-center rounded-2xl"
           style={{
             backgroundImage: `url('${imageUrl}')`,
+            transformStyle: 'preserve-3d',
+            transform: 'rotateX(8deg) rotateY(5deg)',
+          }}
+          whileHover={{
+            rotateY: 10,
+            rotateX: 12,
+            transition: { duration: 0.5 }
           }}
         ></motion.div>
       </AnimatePresence>
       {/* Gradient Overlay */}
-      {/* <div className="absolute inset-0 z-5 bg-gradient-to-b from-black/0 to-black/60"></div> */}
+      <div className="absolute inset-0 z-5 bg-gradient-to-b from-transparent via-background/30 to-background/60"></div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, Suspense } from 'react'
+import Image from 'next/image'
 import { X, Save, Eye, AlertCircle, Monitor, Smartphone, Sparkles } from 'lucide-react'
 import { getHeroRegistry } from '@/lib/widgets/hero'
 import { BaseHeroWidget, HeroData } from '@/lib/widgets/hero/BaseHeroWidget'
@@ -317,7 +318,7 @@ export const HeroConfigModal: React.FC<HeroConfigModalProps> = ({
             />
             {value && (
               <div className="mt-2">
-                <img src={value} alt="Preview" className="w-24 h-24 object-cover rounded-lg" />
+                <Image src={value} alt="Preview" width={96} height={96} className="w-24 h-24 object-cover rounded-lg" />
               </div>
             )}
           </div>

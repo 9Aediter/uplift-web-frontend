@@ -106,7 +106,7 @@ export const useUsersStore = create<UsersStore>()(
             search: params.search,
           });
 
-          console.log('🔍 Users API response:', response);
+          // console.log('🔍 Users API response:', response);
 
           if (response.success && response.data) {
             const transformedUsers = response.data.users.map(get().transformBackendUser);

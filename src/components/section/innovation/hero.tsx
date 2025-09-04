@@ -21,7 +21,7 @@ const Hero = () => {
     return (
         <>
             {/* Hero Section */}
-            <Section id='hero' className="bg-gradient-to-b from-black to-gray-900/30 h-[100vh] sm:h-[70vh] flex items-center justify-center overflow-x-hidden">
+            <Section id='hero' className="bg-gradient-to-b from-background via-background/80 to-muted/50 dark:from-black dark:to-gray-900/30 h-[100vh] sm:h-[70vh] flex items-center justify-center overflow-x-hidden">
                 <div className="w-full px-4 md:px-8 max-w-7xl mx-auto overflow-x-hidden">
                     <div className="relative text-center mb-12">
                         <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -29,7 +29,7 @@ const Hero = () => {
                                 Innovating The Future of Business Software
                             </span>
                         </h1>
-                        <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
+                        <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
                             เราสร้างสรรค์ซอฟต์แวร์ที่ตอบโจทย์ธุรกิจในทุกอุตสาหกรรม
                             ตั้งแต่ร้านค้าหน้าร้านจนถึงโลจิสติกส์โรงงาน
                             พบกับนวัตกรรมทั้งหมดของเรา ที่ขับเคลื่อนธุรกิจให้เติบโตอย่างยั่งยืน

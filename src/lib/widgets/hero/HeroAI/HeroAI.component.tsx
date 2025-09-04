@@ -61,8 +61,10 @@ export const HeroAIComponent: React.FC<HeroAIComponentProps> = ({
           <AnimatedGlobe showGlobe={showGlobe} />
         </div>
         
-        {/* StatsCards */}
-        <StatsCards />
+        {/* StatsCards - Hidden on mobile */}
+        <div className="hidden md:block">
+          <StatsCards />
+        </div>
       </div>
 
       {/* Scroll Indicator */}

@@ -41,7 +41,7 @@ const AutoLineBreakTitle: React.FC<{ title: string }> = ({ title }) => {
   }
 
   return (
-    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 text-white leading-tight">
+    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 text-foreground leading-tight">
       {lines.map((line, index) => (
         <React.Fragment key={index}>
           <span className="inline-block my-0.5 md:my-1">
@@ -63,15 +63,15 @@ const AutoLineBreakTitle: React.FC<{ title: string }> = ({ title }) => {
 
 const ProductBadge: React.FC<{ text: string; category?: string }> = ({ text, category }) => (
   <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 md:mb-6">
-    <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-2 rounded-full border border-cyan-500/30">
-      <SparklesIcon className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400 mr-1.5 sm:mr-2" />
-      <span className="text-xs sm:text-sm font-medium text-cyan-300">
+    <div className="inline-flex items-center bg-muted/50 backdrop-blur-sm px-3 sm:px-4 py-2 rounded-full border border-cyan-500/30">
+      <SparklesIcon className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-500 mr-1.5 sm:mr-2" />
+      <span className="text-xs sm:text-sm font-medium text-cyan-500">
         {text}
       </span>
     </div>
     {category && (
-      <div className="inline-flex items-center bg-blue-500/20 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full border border-blue-400/30">
-        <span className="text-xs font-medium text-blue-300">
+      <div className="inline-flex items-center bg-blue-500/20 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full border border-blue-500/30">
+        <span className="text-xs font-medium text-blue-500">
           {category}
         </span>
       </div>
@@ -80,7 +80,7 @@ const ProductBadge: React.FC<{ text: string; category?: string }> = ({ text, cat
 );
 
 const ProductSubtitle: React.FC<{ text: string }> = ({ text }) => (
-  <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 md:mb-8 max-w-2xl leading-relaxed">
+  <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 max-w-2xl leading-relaxed">
     {text}
   </p>
 );
@@ -113,7 +113,7 @@ const getFeatureIcon = (feature: Feature | string, index: number) => {
 
 const FeaturesList: React.FC<{ features: (Feature | string)[] }> = ({ features }) => (
   <div className="mb-6 md:mb-8">
-    <h3 className="text-base sm:text-lg font-semibold text-white mb-3 md:mb-4">Key Features</h3>
+    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-3 md:mb-4">Key Features</h3>
     <div className="flex items-center gap-3 sm:gap-4 flex-wrap max-w-full sm:max-w-2xl">
       {features.slice(0, 4).map((feature, index) => {
         const IconComponent = getFeatureIcon(feature, index);
@@ -126,25 +126,25 @@ const FeaturesList: React.FC<{ features: (Feature | string)[] }> = ({ features }
             className="group relative flex items-center justify-center"
           >
             {/* Icon Container */}
-            <div className="flex items-center justify-center w-14 h-14 sm:w-12 sm:h-12 bg-white/10 backdrop-blur-sm border border-cyan-500/30 rounded-full hover:bg-cyan-500/20 transition-all duration-300 cursor-pointer">
-              <IconComponent className="w-7 h-7 sm:w-6 sm:h-6 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" />
+            <div className="flex items-center justify-center w-14 h-14 sm:w-12 sm:h-12 bg-muted/50 backdrop-blur-sm border border-cyan-500/30 rounded-full hover:bg-cyan-500/20 transition-all duration-300 cursor-pointer">
+              <IconComponent className="w-7 h-7 sm:w-6 sm:h-6 text-cyan-500 group-hover:text-cyan-400 transition-colors duration-300" />
             </div>
             
             {/* Animated Text Tooltip - Hidden on mobile, shown on hover for desktop */}
             <div className="absolute -bottom-14 sm:-bottom-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out group-hover:translate-y-0 translate-y-2 pointer-events-none z-10 hidden sm:block">
-              <div className="bg-gray-900/90 backdrop-blur-sm text-white text-xs px-3 py-2 rounded-lg border border-cyan-500/30 whitespace-nowrap max-w-48">
+              <div className="bg-popover backdrop-blur-sm text-popover-foreground text-xs px-3 py-2 rounded-lg border border-border whitespace-nowrap max-w-48">
                 <div className="font-medium">{featureTitle}</div>
                 {featureDescription && (
-                  <div className="text-gray-300 mt-1">{featureDescription}</div>
+                  <div className="text-muted-foreground mt-1">{featureDescription}</div>
                 )}
                 {/* Arrow */}
-                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-900/90 border-l border-t border-cyan-500/30 rotate-45"></div>
+                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45"></div>
               </div>
             </div>
 
             {/* Mobile: Show feature text below icons */}
             <div className="sm:hidden absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-active:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
-              <span className="text-xs text-gray-300 whitespace-nowrap text-center block">{featureTitle.split(' ')[0]}</span>
+              <span className="text-xs text-muted-foreground whitespace-nowrap text-center block">{featureTitle.split(' ')[0]}</span>
             </div>
           </div>
         );
@@ -180,7 +180,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
       )}
 
       {/* Mobile Gradient Overlay - Above background image */}
-      <div className="absolute inset-0 z-5 bg-gradient-to-r from-black/70 via-black/5 to-transparent sm:hidden"></div>
+      <div className="absolute inset-0 z-5 bg-gradient-to-r from-background/70 via-background/5 to-transparent sm:hidden"></div>
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl h-[100vh] mx-auto px-8 sm:px-10 py-0 sm:py-16 md:py-24 flex justify-start items-center">

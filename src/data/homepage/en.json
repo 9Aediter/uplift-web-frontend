@@ -43,5 +43,114 @@
         }
       ]
     }
+  },
+  "problems": {
+    "title": "Business Challenges",
+    "subtitle": "Common problems that slow down modern businesses and how technology can solve them",
+    "items": [
+      {
+        "id": 1,
+        "title": "Slow Manual Processes",
+        "description": "Teams waste hours on repetitive tasks that could be automated, reducing productivity and increasing human error.",
+        "icon": "⚙️",
+        "gradient": "from-red-500 via-red-400 to-orange-500",
+        "impact": "85% Time Loss"
+      },
+      {
+        "id": 2,
+        "title": "Poor Data Insights",
+        "description": "Critical business decisions are made with incomplete information due to scattered data and lack of analytics.",
+        "icon": "📊",
+        "gradient": "from-blue-500 via-blue-400 to-cyan-500",
+        "impact": "60% Bad Decisions"
+      },
+      {
+        "id": 3,
+        "title": "System Integration Issues",
+        "description": "Different software tools don't communicate well, creating data silos and workflow bottlenecks.",
+        "icon": "🔗",
+        "gradient": "from-purple-500 via-purple-400 to-pink-500",
+        "impact": "40% Efficiency Drop"
+      },
+      {
+        "id": 4,
+        "title": "Scalability Limitations",
+        "description": "Current systems can't handle business growth, leading to crashes, slowdowns, and lost opportunities.",
+        "icon": "🚀",
+        "gradient": "from-green-500 via-green-400 to-emerald-500",
+        "impact": "30% Growth Blocked"
+      }
+    ]
+  },
+  "solution": {
+    "title": "Solutions & Expertise",
+    "subtitle": "Design and develop large-scale information systems for businesses across industries",
+    "items": [
+      {
+        "title": "Laundry Operation System",
+        "description": "Complete laundry tracking system supporting nationwide network",
+        "icon": "FaShippingFast",
+        "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755080060582-s7qvzu2t2rh-view-laundromat-room-with-washing-machines.jpg",
+        "bgColor": "bg-sky-100 dark:bg-sky-900/20",
+        "className": "md:col-span-1",
+        "modalContent": {
+          "fullDescription": "Complete laundry management system with real-time status tracking, supporting nationwide network expansion",
+          "features": ["Real-time Status Tracking", "Customer and Order Management", "Accounting and Reports", "Multi-branch Support"],
+          "techStack": ["React.js", "Node.js", "PostgreSQL", "Redis"],
+          "images": [
+            "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755081413583-r9a2lsfqpts-cashier-seller-operating-payment-process-with-pos-terminal-credit-card-cropped-shot-closeup-hands-shopping-purchase-concept.jpg",
+            "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755080060582-s7qvzu2t2rh-view-laundromat-room-with-washing-machines.jpg"
+          ]
+        }
+      },
+      {
+        "title": "Smart Gym Management",
+        "description": "Complete fitness management for members, equipment, classes",
+        "icon": "FaDumbbell",
+        "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=600&fit=crop&auto=format",
+        "bgColor": "bg-green-100 dark:bg-green-900/20",
+        "className": "md:col-span-1",
+        "modalContent": {
+          "fullDescription": "Smart gym management system covering member management, equipment, and various classes",
+          "features": ["Member and Package Management", "Online Class Booking", "IoT Access System", "Usage Reports"],
+          "techStack": ["Vue.js", "Laravel", "MySQL", "IoT Integration"],
+          "images": [
+            "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop&auto=format"
+          ]
+        }
+      },
+      {
+        "title": "Warehouse Management",
+        "description": "Automated warehouse system with Automation connection reducing labor costs",
+        "icon": "FaWarehouse",
+        "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755081511881-7r0uq54z3v5-interior-large-distribution-warehouse-with-shelves-stacked-with-palettes-goods-ready-market.jpg",
+        "bgColor": "bg-yellow-100 dark:bg-yellow-900/20",
+        "className": "md:col-span-2",
+        "modalContent": {
+          "fullDescription": "Automated warehouse management system connected with Automation to reduce labor costs and increase efficiency",
+          "features": ["Automated Inventory Management", "Barcode/RFID Integration", "Pick & Pack Optimization", "Real-time Dashboard"],
+          "techStack": ["React.js", "Python", "PostgreSQL", "RFID/Barcode", "Automation APIs"],
+          "images": [
+            "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755081511881-7r0uq54z3v5-interior-large-distribution-warehouse-with-shelves-stacked-with-palettes-goods-ready-market.jpg"
+          ]
+        }
+      },
+      {
+        "title": "Retail POS System",
+        "description": "Store + Online sales, multi-branch management with complete payment",
+        "icon": "FaCashRegister",
+        "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755081810814-csakbmjowd6-possystemcashier.jpg",
+        "bgColor": "bg-gray-100 dark:bg-gray-900/20",
+        "className": "md:col-span-1",
+        "modalContent": {
+          "fullDescription": "Complete POS system for store and online sales, supporting multi-branch management with all payment methods",
+          "features": ["Multi-channel Sales", "Inventory Sync", "Payment Gateway", "Multi-branch Management"],
+          "techStack": ["Angular", "Express.js", "MongoDB", "Payment APIs"],
+          "images": [
+            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop&auto=format"
+          ]
+        }
+      }
+    ]
   }
 }

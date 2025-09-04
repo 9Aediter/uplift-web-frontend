@@ -27,7 +27,7 @@ export const Card = ({
   return (
     <div
       className={`
-        relative rounded-lg bg-gray-900/50 backdrop-blur-sm border border-gray-800
+        relative rounded-lg bg-card/50 backdrop-blur-sm border border-border
         overflow-hidden
         ${hoverEffect ? "transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg" : ""}
         ${className}
@@ -40,7 +40,7 @@ export const Card = ({
       {/* Content */}
       <div className="relative z-10">{children}</div>
       {/* Border highlight */}
-      <div className="absolute inset-0 rounded-lg border border-white/10 pointer-events-none"></div>
+      <div className="absolute inset-0 rounded-lg border border-border/20 pointer-events-none"></div>
     </div>
   );
 };

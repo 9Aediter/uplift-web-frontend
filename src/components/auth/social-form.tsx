@@ -61,7 +61,7 @@ export function SocialForm() {
       
       // Close LIFF if in LIFF browser
       if (liffHelper.isInClient()) {
-        setTimeout(() => liffHelper.closeLiffWindow(), 1000)
+        setTimeout(() => liffHelper.closeWindow(), 1000)
       } else {
         // Don't redirect if we're on a test page
         if (!window.location.pathname.includes('test-liff')) {

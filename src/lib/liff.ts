@@ -121,6 +121,33 @@ class LiffHelper {
       liff.closeWindow();
     }
   }
+
+  /**
+   * Get authentication data (profile and access token)
+   * Used for backend authentication
+   */
+  async getAuthData(): Promise<{ profile: LineProfile; accessToken: string } | null> {
+    try {
+      if (!liff.isLoggedIn()) {
+        return null;
+      }
+
+      const profile = await this.getProfile();
+      const accessToken = this.getAccessToken();
+
+      if (!profile || !accessToken) {
+        return null;
+      }
+
+      return {
+        profile,
+        accessToken
+      };
+    } catch (error) {
+      console.error('❌ Get auth data failed:', error);
+      return null;
+    }
+  }
 }
 
 // Export singleton

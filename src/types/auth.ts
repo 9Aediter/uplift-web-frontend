@@ -30,6 +30,7 @@ export interface AuthResponse {
   user: User;
   token: string;           // JWT access token
   refreshToken: string;    // Refresh token
+  message?: string;        // Optional success message
 }
 
 export interface RefreshTokenRequest {

@@ -2,13 +2,110 @@
   "title": "Our Story | UPLIFT",
   "description": "Discover the journey of UPLIFT Technology Co., Ltd. - A startup-culture software house transforming ideas into revolutionary solutions.",
   "hero": {
-    "title": "UPLIFT TECHNOLOGY CO., LTD.",
-    "subtitle": "Transforming Ideas into Revolutionary Solutions"
+    "title": "UPLIFT TECHNOLOGY",
+    "subtitle": "Transforming Ideas into Revolutionary Solutions",
+    "description": "A startup-culture software house with deep business understanding, combining real experience from ERP, WMS, POS, and Custom SaaS projects."
   },
   "companyInfo": {
     "registrationDate": "August 25, 2568",
     "location": "Chonburi Province",
     "capital": "1,000,000 THB",
     "founder": "Anon Suphatphon"
-  }
+  },
+  "founders": [
+    {
+      "id": 1,
+      "name": "Anon Suphatphon",
+      "title": "Founder & Major Shareholder",
+      "role": "Chief Technology & Strategy Officer",
+      "description": "A young engineer and entrepreneur who grew from freelancing on ERP, POS, and Booking Platform projects to establishing a full-scale company. Experienced in designing systems for various business types.",
+      "expertise": ["System Architecture", "Full-Stack Development", "Business Analysis", "Project Management"],
+      "vision": "Uplift's origin stems from the founder's desire to create a Software House that doesn't just follow specs, but truly understands business and helps clients design solutions that genuinely elevate their operations.",
+      "image": "/images/team/founder-1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Pisitvet Somsub",
+      "title": "Co-Founder & Head of Sales",
+      "role": "Strategic marketing, customer relationship building, and bridging technology with business needs",
+      "description": "Sales and marketing expert with extensive experience in brand building and digital market development. Focuses on understanding customer needs and value proposition to drive continuous business growth.",
+      "expertise": ["Sales Strategy", "Digital Marketing", "Customer Relationship Management", "Business Development"],
+      "vision": "Business success comes from genuine listening to customers and building authentic relationships, while delivering solutions that provide real value and long-term impact.",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&auto=format"
+    },
+    {
+      "id": 3,
+      "name": "Dr. Siriporn Chulalongkorn",
+      "title": "AI Engineer & Data Scientist",
+      "role": "AI/ML Solutions Architect & Research Lead",
+      "description": "AI Engineer with advanced degree from Chulalongkorn University, specializing in data modeling, machine learning, RAG (Retrieval-Augmented Generation), and LLM implementation. Expert in transforming complex data into intelligent business solutions.",
+      "expertise": ["Machine Learning", "Data Modeling", "RAG Systems", "LLM Development", "Deep Learning", "AI Architecture"],
+      "vision": "AI should enhance human capabilities, not replace them. Building intelligent systems that understand context and deliver meaningful insights to drive business innovation.",
+      "image": "https://images.unsplash.com/photo-1494790108755-2616b612b2c5?w=400&h=400&fit=crop&auto=format"
+    },
+    {
+      "id": 4,
+      "name": "Thanawat Techleader",
+      "title": "Chief Technology Officer",
+      "role": "Technology Leadership & Strategic Architecture",
+      "description": "Seasoned CTO with 7+ years of industry experience across diverse technology landscapes. Expert in microservices architecture, data warehouse design, cloud infrastructure, and enterprise-scale system development.",
+      "expertise": ["Enterprise Architecture", "Microservices", "Data Warehouse", "Cloud Strategy", "System Integration", "Technology Leadership"],
+      "vision": "Technology leadership means building systems that scale with business growth while maintaining reliability, security, and performance. Creating technology foundations that enable long-term success.",
+      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&auto=format"
+    }
+  ],
+  "timeline": [
+    {
+      "title": "2568 (2025)",
+      "period": "Present",
+      "content": "Officially incorporated UPLIFT TECHNOLOGY CO., LTD. with registered capital of 1 million THB located in Chonburi Province. Expanded services to AI-powered solutions, Cloud Infrastructure, and Advanced Analytics. Launched Custom ERP Platform supporting Multi-tenant and Multi-language with enterprise-grade security.",
+      "highlight": "Officially Registered Company",
+      "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/general/cb9ec9f5-7a66-406a-a0ca-a3c264b02b65.png",
+      "imageAlt": "UPLIFT TECHNOLOGY Company Sign",
+      "stats": [
+        { "value": "1M", "label": "Registered Capital", "icon": "FaAward" },
+        { "value": "AI", "label": "Solutions", "icon": "FaBrain" },
+        { "value": "50+", "label": "Clients", "icon": "FaUsers" }
+      ]
+    },
+    {
+      "title": "2567 (2024)",
+      "period": "Expansion",
+      "content": "The year of major expansion. Developed comprehensive Laundry & Logistics Tracking systems with RFID, Barcode, and IoT Integration deployed across 100+ laundry branches nationwide. Built advanced WMS (Warehouse Management) for large-scale factories and warehouses, including Transport Management System integrated with Automation and GPS Tracking.",
+      "highlight": "IoT & Automation Integration",
+      "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755080060582-s7qvzu2t2rh-view-laundromat-room-with-washing-machines.jpg",
+      "imageAlt": "Laundry Management System",
+      "stats": [
+        { "value": "100+", "label": "Laundry Branches", "icon": "FaCog" },
+        { "value": "IoT", "label": "Tracking Systems", "icon": "FaBrain" },
+        { "value": "RFID", "label": "Technology", "icon": "FaCog" }
+      ]
+    },
+    {
+      "title": "2566 (2023)",
+      "period": "SME Leader",
+      "content": "The year we became the leading solution provider for SMEs in Thailand. Developed our signature POS system supporting both in-store and online sales simultaneously. Created comprehensive Gym Management system for fitness centers, including 5-star Hotel Booking System with Dynamic Pricing Engine that actually increases RevPAR.",
+      "highlight": "Thailand's Leading SME Solution Provider",
+      "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/admin/1755081413583-r9a2lsfqpts-cashier-seller-operating-payment-process-with-pos-terminal-credit-card-cropped-shot-closeup-hands-shopping-purchase-concept.jpg",
+      "imageAlt": "POS System and Payment Processing",
+      "stats": [
+        { "value": "POS", "label": "Sales System", "icon": "FaCog" },
+        { "value": "5★", "label": "Hotels", "icon": "FaAward" },
+        { "value": "SME", "label": "Leader", "icon": "FaUsers" }
+      ]
+    },
+    {
+      "title": "2565 (2022)",
+      "period": "Foundation",
+      "content": "The beginning of a dream. Anon Suphatphon, a young engineer and entrepreneur, founded UPLIFT from freelance work developing ERP, POS, and Booking Platform systems with a different vision: to create a Software House that doesn't just follow specs, but deeply understands business and helps clients design solutions that genuinely elevate their operations.",
+      "highlight": "Born from a Different Vision",
+      "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&auto=format",
+      "imageAlt": "Technology Business Foundation",
+      "stats": [
+        { "value": "START", "label": "Founded", "icon": "FaRocket" },
+        { "value": "ERP", "label": "First System", "icon": "FaCog" },
+        { "value": "VISION", "label": "Vision", "icon": "FaLightbulb" }
+      ]
+    }
+  ]
 }

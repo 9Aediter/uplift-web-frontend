@@ -1,28 +1,106 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { authApi } from "@/lib/api/auth"
 import { Button } from "@/components/button/button"
 import { FaGoogle, FaFacebook } from "react-icons/fa"
 import { FaLine } from "react-icons/fa6"
+import { liffHelper } from "@/lib/liff"
+import { useAuthActions } from "@/lib/store/auth"
 
 export function SocialForm() {
   const [isLoading, setIsLoading] = useState<string | null>(null)
+  const [isLiffReady, setIsLiffReady] = useState(false)
   const router = useRouter()
+  const { login, setStatus, setError } = useAuthActions()
+
+  // Initialize LIFF on component mount
+  useEffect(() => {
+    const initLiff = async () => {
+      try {
+        if (typeof window !== 'undefined') {
+          const isLoggedIn = await liffHelper.init()
+          setIsLiffReady(true)
+          
+          // Auto-authenticate if already logged in to LINE
+          if (isLoggedIn) {
+            await handleLiffAuth()
+          }
+        }
+      } catch (error) {
+        console.warn('LIFF initialization failed:', error)
+        setIsLiffReady(true) // Still allow other social logins
+      }
+    }
+
+    initLiff()
+  }, [])
+
+  // Handle LIFF authentication
+  const handleLiffAuth = async () => {
+    try {
+      setStatus('loading')
+      
+      const authData = await liffHelper.getAuthData()
+      if (!authData) {
+        throw new Error('Failed to get LINE authentication data')
+      }
+
+      console.log('🔗 LINE LIFF Auth Data:', authData)
+
+      // Send to backend
+      const response = await authApi.lineAuth(authData.accessToken, authData.profile)
+      const { user, message } = response.data
+
+      // Update auth store
+      login(user)
+      
+      toast.success(message || 'Successfully signed in with LINE!')
+      
+      // Close LIFF if in LIFF browser
+      if (liffHelper.isInClient()) {
+        setTimeout(() => liffHelper.closeLiffWindow(), 1000)
+      } else {
+        // Don't redirect if we're on a test page
+        if (!window.location.pathname.includes('test-liff')) {
+          router.push('/dashboard')
+        } else {
+          console.log('📝 Test page detected - skipping redirect')
+        }
+      }
+      
+    } catch (error: any) {
+      console.error('❌ LINE LIFF Auth error:', error)
+      setError(error.message || 'LINE authentication failed')
+      toast.error('LINE authentication failed. Please try again.')
+      setStatus('unauthenticated')
+    }
+  }
 
   const handleSocialSignIn = async (provider: 'google' | 'facebook' | 'line') => {
     setIsLoading(provider)
 
     try {
-      // Redirect to OAuth provider via backend
-      const oauthUrl = authApi.getOAuthUrl(provider)
-      console.log(`🔗 Redirecting to ${provider} OAuth:`, oauthUrl)
+      if (provider === 'line') {
+        // Use LIFF for LINE authentication
+        if (!isLiffReady) {
+          toast.error('LINE authentication is not ready yet')
+          setIsLoading(null)
+          return
+        }
 
-      // Redirect to backend OAuth endpoint
-      window.location.href = oauthUrl
-    } catch (error) {
+        await liffHelper.login()
+        // Authentication will continue in handleLiffAuth after login
+        
+      } else {
+        // Use traditional OAuth for Google/Facebook
+        const oauthUrl = authApi.getOAuthUrl(provider)
+        console.log(`🔗 Redirecting to ${provider} OAuth:`, oauthUrl)
+        window.location.href = oauthUrl
+      }
+    } catch (error: any) {
       console.error(`❌ ${provider} OAuth error:`, error)
       toast.error(`An error occurred during ${provider} sign in`)
       setIsLoading(null)

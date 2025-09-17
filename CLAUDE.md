@@ -11,35 +11,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Linting**: `npm run lint`
 - **Type checking**: `npx tsc --noEmit` (no dedicated typecheck script in package.json)
 - **Storybook**: 
-  - `npm run storybook` - Start Storybook development server
+  - `npm run storybook` - Start Storybook development server on port 6006
   - `npm run build-storybook` - Build Storybook for production
 - **Testing**: Uses Vitest with browser testing via Playwright
+  - Test configuration in `vitest.config.ts`
+  - Storybook tests run with Chromium in headless mode
 
 ## Architecture Overview
 
 This is a Next.js 15 application for Uplift consulting services with sophisticated content management, user authentication, and file handling capabilities.
 
 ### Core Technologies
-- **Framework**: Next.js 15 with App Router and Turbopack
+- **Framework**: Next.js 15.3.5 with App Router and Turbopack
 - **Frontend**: React 19 with TypeScript 5
 - **Styling**: Tailwind CSS 4 with shadcn/ui components
-- **State Management**: Zustand stores for client-side state
+- **State Management**: Zustand 5 stores with persistence for client-side state
 - **3D Graphics**: Three.js with React Three Fiber (@react-three/fiber, @react-three/drei)
 - **Drag & Drop**: @dnd-kit for sortable interfaces
 - **Animations**: Motion (formerly Framer Motion), Lottie animations
 - **Icons**: Heroicons, Tabler Icons, React Icons, Lucide React
-- **Authentication**: Custom JWT-based system with social OAuth (Google, Facebook)
+- **Authentication**: Custom JWT-based system with httpOnly cookies and social OAuth (Google, Facebook)
 - **Internationalization**: next-intl for English/Thai localization
-- **External Integrations**: Google Analytics
+- **External Integrations**: Google Analytics, LINE LIFF
 
 ### Authentication System
 Custom JWT-based authentication system:
-- **JWT Tokens**: Access tokens stored in httpOnly cookies
-- **Social OAuth**: Google and Facebook integration via backend API
-- **Role-based Access**: USER, ADMIN role system with middleware protection
-- **State Management**: Zustand-based auth store with persistent session
-- **API Client**: Axios-based client with automatic cookie handling
-- **Route Protection**: Middleware validates JWT and roles for `/admin` routes
+- **JWT Tokens**: Access tokens stored in httpOnly cookies (name: `accessToken`)
+- **Social OAuth**: Google and Facebook integration via backend API endpoints
+- **Role-based Access**: Roles checked via `role.name === 'Admin'` or `role.pathRoles === 'admin'`
+- **State Management**: Zustand auth store with localStorage persistence
+- **API Client**: Axios client with `withCredentials: true` for cookie handling
+- **Route Protection**: Middleware decodes JWT payload to check user roles for `/admin` routes
+- **Auth Flow**: `useAuthInit` hook handles token refresh and session initialization
 
 ### Directory Structure & Routing
 Next.js 15 App Router with route groups:
@@ -116,17 +119,18 @@ Clean component structure in `/components/`:
 
 ### External Backend Integration
 This frontend connects to a separate NestJS backend:
-- **API Base**: Configurable via `NEXT_PUBLIC_API_URL` environment variable
-- **Client**: Axios-based API client with cookie authentication
-- **Error Handling**: Centralized error handling with toast notifications
+- **API Base**: Configurable via `NEXT_PUBLIC_API_URL` environment variable (default: `http://localhost:3000`)
+- **Client**: Axios-based API client (`/lib/api/client.ts`) with cookie authentication
+- **Error Handling**: Centralized error handling with Sonner toast notifications
 - **File Uploads**: S3 presigned URL system via backend API
+- **API Endpoints**: Backend handles auth, users, roles, products, services, website content, images
 
 ### Environment Variables
 ```env
 # Backend API
 NEXT_PUBLIC_API_URL=http://localhost:3000
 
-# Authentication (Legacy - may be removed)
+# Authentication (Legacy - NextAuth remnants)
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret
 
@@ -136,8 +140,16 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 FACEBOOK_CLIENT_ID=your-facebook-client-id
 FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
 
+# LINE LIFF Integration
+NEXT_PUBLIC_LINE_LIFF_ID=your-line-liff-id
+NEXT_PUBLIC_LINE_CHANNEL_ID=your-line-channel-id
+
 # Analytics
 NEXT_PUBLIC_GA_MEASUREMENT_ID=your-ga-id
+
+# AWS S3 (for file uploads)
+AWS_S3_BUCKET_NAME=uplift-uploads
+AWS_S3_REGION=ap-southeast-1
 ```
 
 ### Development Setup
@@ -174,3 +186,6 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=your-ga-id
 - **Optional Chaining**: Always use optional chaining for potentially undefined properties (e.g., `item.gradientFrom?.split()`)
 - **Type Conflicts**: Watch for duplicate type definitions between local interfaces and external types
 - **SSR vs Client Components**: Hero widgets have both SSR (`.ssr.tsx`) and client (`.component.tsx`) versions for optimal performance
+- **Node Modules Permission**: If you encounter EACCES errors with node_modules, delete and reinstall: `rm -rf node_modules package-lock.json && npm install`
+- **Image Optimization**: Next.js Image component configured with remote patterns for external sources (S3, Unsplash, etc.)
+- **Middleware JWT Decoding**: JWT payload structure has user roles at `payload.user.roles` array

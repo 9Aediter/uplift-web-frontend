@@ -107,6 +107,11 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Skip locale handling for LIFF test pages
+  if (pathname === '/test-liff' || pathname.startsWith('/test-liff/')) {
+    return NextResponse.next()
+  }
+
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`

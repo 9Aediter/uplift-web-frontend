@@ -46,11 +46,20 @@ export const authApi = {
     return `${baseUrl}/v1/auth/${provider}`;
   },
 
+  // LINE LIFF Authentication - send LIFF token to backend
+  lineAuth: async (accessToken: string, profile: any): Promise<{ data: AuthResponse }> => {
+    return api.post<AuthResponse>('/v1/auth/line/liff', {
+      accessToken,
+      profile
+    });
+  },
+
   // OAuth Callback endpoints (handled by backend redirects)
   // GET /v1/auth/google/callback
   // GET /v1/auth/facebook/callback  
   // GET /v1/auth/github/callback
   // GET /v1/auth/line/callback
+  // POST /v1/auth/line/liff (for LIFF token auth)
 };
 
 export default authApi;

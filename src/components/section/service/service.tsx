@@ -16,10 +16,37 @@ import {
   UsersIcon,
   FileTextIcon,
   SmartphoneIcon,
-  ZapIcon, // Added ZapIcon
-  BellIcon, // Added BellIcon
-  WifiIcon, // Added WifiIcon
-  // Add any other Lucide icons used in service-showcase.json here
+  ZapIcon,
+  BellIcon,
+  WifiIcon,
+  CloudIcon,
+  Wrench,
+  RefreshCwIcon,
+  GraduationCapIcon,
+  SparklesIcon,
+  ChartBarIcon,
+  PaletteIcon,
+  Code2Icon,
+  ShieldCheckIcon,
+  BuildingIcon,
+  ShoppingBagIcon,
+  CalendarDaysIcon,
+  MessageCircleIcon,
+  CalendarIcon,
+  KeyIcon,
+  CogIcon,
+  FileSearchIcon,
+  BoxIcon,
+  CheckCircleIcon,
+  RocketIcon,
+  LibraryIcon,
+  ClipboardCheckIcon,
+  PieChartIcon,
+  ShieldAlertIcon,
+  MessageSquareIcon,
+  LightbulbIcon,
+  BoltIcon,
+  BarChart3Icon
 } from 'lucide-react'
 
 // Unified IconMap for all icons used in this component
@@ -36,10 +63,37 @@ const IconMap: Record<string, React.ComponentType<any>> = {
   UsersIcon,
   FileTextIcon,
   SmartphoneIcon,
-  ZapIcon, // Added ZapIcon
-  BellIcon, // Added BellIcon
-  WifiIcon, // Added WifiIcon
-  // Add any other Lucide icons used in service-showcase.json here
+  ZapIcon,
+  BellIcon,
+  WifiIcon,
+  CloudIcon,
+  Wrench,
+  RefreshCwIcon,
+  GraduationCapIcon,
+  SparklesIcon,
+  ChartBarIcon,
+  PaletteIcon,
+  Code2Icon,
+  ShieldCheckIcon,
+  BuildingIcon,
+  ShoppingBagIcon,
+  CalendarDaysIcon,
+  MessageCircleIcon,
+  CalendarIcon,
+  KeyIcon,
+  CogIcon,
+  FileSearchIcon,
+  BoxIcon,
+  CheckCircleIcon,
+  RocketIcon,
+  LibraryIcon,
+  ClipboardCheckIcon,
+  PieChartIcon,
+  ShieldAlertIcon,
+  MessageSquareIcon,
+  LightbulbIcon,
+  BoltIcon,
+  BarChart3Icon
 };
 
 interface FeatureItem {

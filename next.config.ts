@@ -68,10 +68,7 @@ const nextConfig: NextConfig = {
   
   // Compress responses
   compress: true,
-  
-  // Enable SWC minification
-  swcMinify: true,
-  
+
   // Output configuration for standalone deployment
   output: 'standalone',
   

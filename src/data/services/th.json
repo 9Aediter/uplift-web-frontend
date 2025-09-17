@@ -1,100 +1,196 @@
 {
   "showcase_items": [
     {
-      "id": "erp-systems",
-      "title": "ระบบ ERP",
-      "description": "โซลูชั่นการวางแผนทรัพยากรองค์กรที่ครบครันเพื่อปรับปรุงการดำเนินงานทางธุรกิจและเพิ่มประสิทธิภาพ",
-      "icon": "MonitorIcon",
+      "id": "it-resource-service",
+      "title": "IT Resource Service",
+      "description": "บริการจัดหาและทำงานแทนบุคลากรด้าน IT ครอบคลุม BA, SA, UX/UI Designer, Software Engineer, DevOps และ QA เหมาะกับองค์กรที่ต้องการเสริมทีมชั่วคราวหรือ Outsource",
+      "icon": "UsersIcon",
       "iconColor": "blue-400",
       "gradientFrom": "blue-500",
-      "gradientTo": "purple-600",
+      "gradientTo": "indigo-600",
       "features": [
         {
-          "text": "การวิเคราะห์และรายงานธุรกิจแบบเรียลไทม์",
-          "icon": "BarChartIcon"
+          "text": "Business Analyst (BA) และ System Analyst (SA)",
+          "icon": "ChartBarIcon"
         },
         {
-          "text": "การจัดการทางการเงินแบบบูรณาการ",
-          "icon": "DatabaseIcon"
+          "text": "UX/UI Designer มืออาชีพ",
+          "icon": "PaletteIcon"
         },
         {
-          "text": "รองรับการทำงานหลายสถานที่",
-          "icon": "GlobeIcon"
+          "text": "Software Engineer และ DevOps",
+          "icon": "Code2Icon"
         },
         {
-          "text": "สถาปัตยกรรมบนคลาวด์",
-          "icon": "ServerIcon"
+          "text": "Quality Assurance (QA) Specialist",
+          "icon": "ShieldCheckIcon"
         }
       ],
-      "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=450&fit=crop&auto=format",
-      "image_alt": "แดชบอร์ดระบบ ERP",
+      "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "ทีม IT Resource Service",
       "layout": "image-right",
-      "read_more_text": "เรียนรู้เพิ่มเติมเกี่ยวกับ ERP",
-      "read_more_link": "/service/erp-system"
+      "read_more_text": "ดูรายละเอียดเพิ่มเติม",
+      "read_more_link": "/service/it-resource"
     },
     {
-      "id": "pos-solutions",
-      "title": "ระบบ POS",
-      "description": "ระบบขายหน้าร้านสมัยใหม่ที่ออกแบบมาเพื่อปรับปรุงประสบการณ์ลูกค้าและเพิ่มประสิทธิภาพการขาย",
-      "icon": "SmartphoneIcon",
-      "iconColor": "green-400",
-      "gradientFrom": "green-500",
-      "gradientTo": "teal-600",
-      "features": [
-        {
-          "text": "รองรับการชำระเงินหลายรูปแบบ",
-          "icon": "ZapIcon"
-        },
-        {
-          "text": "การจัดการสินค้าคงคลังแบบบูรณาการ",
-          "icon": "DatabaseIcon"
-        },
-        {
-          "text": "โปรแกรมสะสมคะแนนลูกค้า",
-          "icon": "UsersIcon"
-        },
-        {
-          "text": "การวิเคราะห์การขายแบบเรียลไทม์",
-          "icon": "BarChartIcon"
-        }
-      ],
-      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop&auto=format",
-      "image_alt": "อินเทอร์เฟซระบบ POS",
-      "layout": "image-left",
-      "read_more_text": "สำรวจคุณสมบัติ POS",
-      "read_more_link": "/service/pos-solution"
-    },
-    {
-      "id": "web-applications",
-      "title": "เว็บแอปพลิเคชัน",
-      "description": "โซลูชั่นการพัฒนาเว็บแบบกำหนดเองที่ปรับแต่งตามความต้องการและข้อกำหนดเฉพาะของธุรกิจคุณ",
-      "icon": "GlobeIcon",
+      "id": "saas-solutions",
+      "title": "SaaS (Software as a Service)",
+      "description": "บริการซอฟต์แวร์รูปแบบสมัครใช้งานรายเดือน/รายปี เหมือน Netflix รวมถึง Gym ERP, POS, CMS-Ecommerce, HRM, Booking, Warehouse และ LINE LIFF Solutions",
+      "icon": "CloudIcon",
       "iconColor": "purple-400",
       "gradientFrom": "purple-500",
       "gradientTo": "pink-600",
       "features": [
         {
-          "text": "การออกแบบที่รองรับทุกอุปกรณ์",
-          "icon": "SmartphoneIcon"
+          "text": "ระบบ Gym ERP และ POS",
+          "icon": "BuildingIcon"
         },
         {
-          "text": "ความสามารถในการเชื่อมต่อ API",
-          "icon": "LinkIcon"
+          "text": "CMS-Ecommerce และ HRM",
+          "icon": "ShoppingBagIcon"
         },
         {
-          "text": "การเพิ่มประสิทธิภาพการทำงาน",
-          "icon": "ZapIcon"
+          "text": "ระบบ Booking และ Warehouse",
+          "icon": "CalendarDaysIcon"
         },
         {
-          "text": "สถาปัตยกรรมที่เป็นมิตรกับ SEO",
-          "icon": "SearchIcon"
+          "text": "LINE LIFF Solutions",
+          "icon": "MessageCircleIcon"
         }
       ],
-      "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=450&fit=crop&auto=format",
-      "image_alt": "การพัฒนาเว็บแอปพลิเคชัน",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "SaaS Solutions Dashboard",
+      "layout": "image-left",
+      "read_more_text": "สำรวจบริการ SaaS",
+      "read_more_link": "/service/saas"
+    },
+    {
+      "id": "customization-project",
+      "title": "Customization Project",
+      "description": "ปรับแต่งและพัฒนาซอฟต์แวร์ตามความต้องการ (Requirement-based) พร้อมโมเดลการขายสิทธิ์แบบรายปี, ตลอดชีพ หรือขายขาด Source Code",
+      "icon": "Wrench",
+      "iconColor": "green-400",
+      "gradientFrom": "green-500",
+      "gradientTo": "teal-600",
+      "features": [
+        {
+          "text": "License รายปี (Yearly)",
+          "icon": "CalendarIcon"
+        },
+        {
+          "text": "Lifetime License ตลอดชีพ",
+          "icon": "KeyIcon"
+        },
+        {
+          "text": "ขายขาด Source Code",
+          "icon": "FileTextIcon"
+        },
+        {
+          "text": "พัฒนาตาม Requirement",
+          "icon": "CogIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "Customization Development",
       "layout": "image-right",
-      "read_more_text": "ดูโซลูชั่นเว็บ",
-      "read_more_link": "/service/web-application"
+      "read_more_text": "ดูรายละเอียดโปรเจกต์",
+      "read_more_link": "/service/customization"
+    },
+    {
+      "id": "sdlc-service",
+      "title": "SDLC / IT Department as a Service",
+      "description": "บริการพัฒนาโปรเจกต์แบบครบวงจร ทำหน้าที่เหมือน IT Department ของบริษัทคุณ ตั้งแต่ Requirement → Design → Development → QA → Deploy → Maintenance",
+      "icon": "RefreshCwIcon",
+      "iconColor": "indigo-400",
+      "gradientFrom": "indigo-500",
+      "gradientTo": "blue-600",
+      "features": [
+        {
+          "text": "Requirement Analysis",
+          "icon": "FileSearchIcon"
+        },
+        {
+          "text": "System Design & Development",
+          "icon": "BoxIcon"
+        },
+        {
+          "text": "Quality Assurance & Testing",
+          "icon": "CheckCircleIcon"
+        },
+        {
+          "text": "Deployment & Maintenance",
+          "icon": "RocketIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "SDLC Process Management",
+      "layout": "image-left",
+      "read_more_text": "เรียนรู้เพิ่มเติม",
+      "read_more_link": "/service/sdlc"
+    },
+    {
+      "id": "consulting-service",
+      "title": "Consulting Service",
+      "description": "ที่ปรึกษาด้าน IT และ Digital Transformation ครอบคลุม System Architecture, Requirement Analysis, Project Management, QA Process และ PDPA/GDPR Compliance",
+      "icon": "GraduationCapIcon",
+      "iconColor": "orange-400",
+      "gradientFrom": "orange-500",
+      "gradientTo": "red-600",
+      "features": [
+        {
+          "text": "System Architecture Design",
+          "icon": "LibraryIcon"
+        },
+        {
+          "text": "Requirement Analysis",
+          "icon": "ClipboardCheckIcon"
+        },
+        {
+          "text": "Project Management",
+          "icon": "PieChartIcon"
+        },
+        {
+          "text": "PDPA/GDPR Compliance",
+          "icon": "ShieldAlertIcon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "IT Consulting Services",
+      "layout": "image-right",
+      "read_more_text": "ปรึกษาผู้เชี่ยวชาญ",
+      "read_more_link": "/service/consulting"
+    },
+    {
+      "id": "ai-transformation",
+      "title": "AI Transformation",
+      "description": "บริการให้คำปรึกษาและออกแบบการนำ AI เข้าไปใช้ในธุรกิจ เช่น AI Chatbot, Recommendation Engine, Automation, Data Analytics และ AI in ERP/POS",
+      "icon": "SparklesIcon",
+      "iconColor": "cyan-400",
+      "gradientFrom": "cyan-500",
+      "gradientTo": "blue-600",
+      "features": [
+        {
+          "text": "AI Chatbot & Virtual Assistant",
+          "icon": "MessageSquareIcon"
+        },
+        {
+          "text": "Recommendation Engine",
+          "icon": "LightbulbIcon"
+        },
+        {
+          "text": "Process Automation",
+          "icon": "BoltIcon"
+        },
+        {
+          "text": "Data Analytics & AI in ERP/POS",
+          "icon": "BarChart3Icon"
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop&auto=format",
+      "image_alt": "AI Transformation Solutions",
+      "layout": "image-left",
+      "read_more_text": "เข้าสู่ AI-Driven Company",
+      "read_more_link": "/service/ai-transformation"
     }
   ]
 }

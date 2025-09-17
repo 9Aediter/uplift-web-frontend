@@ -3,11 +3,11 @@ pipeline {
 
     environment {
         AWS_DEFAULT_REGION = 'ap-southeast-1'
-        ECR_REGISTRY = credentials('ecr-registry')
+        ECR_REGISTRY = '820242926004.dkr.ecr.ap-southeast-1.amazonaws.com'
         ECR_REPOSITORY = 'uplift-web-frontend'
         IMAGE_TAG = "${BUILD_NUMBER}"
-        NEXT_PUBLIC_API_URL = credentials('http://localhost:3000')
-        NEXT_PUBLIC_GA_MEASUREMENT_ID = credentials('ga-measurement-id')
+        NEXT_PUBLIC_API_URL = 'http://localhost:3000'
+        NEXT_PUBLIC_GA_MEASUREMENT_ID = 'G-QZPW51MJ4X'
     }
 
     stages {

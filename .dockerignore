@@ -43,9 +43,6 @@ coverage
 # Testing
 .jest
 
-# Storybook
-storybook-static
-
 # Temporary folders
 tmp/
 temp/

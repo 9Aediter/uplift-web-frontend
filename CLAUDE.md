@@ -10,12 +10,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Start production server**: `npm start`
 - **Linting**: `npm run lint`
 - **Type checking**: `npx tsc --noEmit` (no dedicated typecheck script in package.json)
-- **Storybook**: 
-  - `npm run storybook` - Start Storybook development server on port 6006
-  - `npm run build-storybook` - Build Storybook for production
-- **Testing**: Uses Vitest with browser testing via Playwright
+- **Testing**: Uses Vitest with jsdom environment
   - Test configuration in `vitest.config.ts`
-  - Storybook tests run with Chromium in headless mode
+  - Run tests: `npm test` (if configured) or `npx vitest`
 
 ## Architecture Overview
 
@@ -57,7 +54,6 @@ Sophisticated widget-based content system:
 - **Widget Categories**: Hero, Cards (Single, Three-Column, Four-Column, Grid, List, Problems)
 - **SSR Support**: Server-side rendering with `SSRWidgetRenderer`
 - **Dynamic Configuration**: Runtime widget configuration with field definitions
-- **Storybook Integration**: Component documentation and testing
 
 #### Widget File Structure Pattern (IMPORTANT)
 Each widget follows this exact structure:
@@ -173,13 +169,10 @@ AWS_S3_REGION=ap-southeast-1
 - Social OAuth credentials required for authentication
 - Google Analytics tracking configured
 - Next.js build optimization with Turbopack for faster development
-- Storybook documentation for component testing and development
 
 ### Testing Infrastructure
-- **Framework**: Vitest with browser testing capabilities
-- **Browser Testing**: Playwright integration via @vitest/browser
+- **Framework**: Vitest with jsdom environment
 - **Coverage**: @vitest/coverage-v8 for code coverage reports
-- **Component Testing**: Storybook for UI component documentation and testing
 
 ### Common Pitfalls & Solutions
 - **Dynamic Tailwind Classes**: Avoid template literals in className (e.g., `text-${color}-400`). Use complete class names or cn() utility
@@ -189,3 +182,6 @@ AWS_S3_REGION=ap-southeast-1
 - **Node Modules Permission**: If you encounter EACCES errors with node_modules, delete and reinstall: `rm -rf node_modules package-lock.json && npm install`
 - **Image Optimization**: Next.js Image component configured with remote patterns for external sources (S3, Unsplash, etc.)
 - **Middleware JWT Decoding**: JWT payload structure has user roles at `payload.user.roles` array
+- **TypeScript Path Aliases**: Use `@/*` to import from `src/*` directory
+- **Next.js Output**: Configured for standalone deployment mode
+- **Sitemap Generation**: Automatic generation via next-sitemap post-build with internationalization support

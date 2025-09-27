@@ -1,0 +1,204 @@
+name: 🚀 Uplift Web Frontend CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "22"
+  AWS_REGION: "ap-southeast-1"
+  ECR_REPOSITORY: "uplift-web-frontend"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  quality-gate:
+    name: 🔍 Quality Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🚀 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: 📦 Install Dependencies
+        run: npm ci --no-audit --prefer-offline
+
+      - name: 🔍 Lint Code
+        run: npm run lint
+
+      - name: 🔧 Type Check
+        run: npx tsc --noEmit
+
+      - name: 🏗️ Build Next.js
+        run: npm run build
+
+      - name: 🛡️ Security Audit
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+  docker-build:
+    name: 🐳 Build & Push to ECR
+    runs-on: ubuntu-latest
+    needs: quality-gate
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+
+    outputs:
+      image-tag: ${{ steps.pick.outputs.image_tag }}
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔐 Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: github-actions-uplift-frontend
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: 🔑 Login to ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: 🔧 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🏷️ Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}
+          tags: |
+            type=sha,format=short
+            type=raw,value=latest
+
+      - name: 🏗️ Build & Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+            NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 📌 Pick single image tag
+        id: pick
+        run: |
+          first_tag="$(echo "${{ steps.meta.outputs.tags }}" | head -n1)"
+          tag_only="${first_tag##*:}"
+          echo "image_tag=${tag_only}" >> "$GITHUB_OUTPUT"
+          echo "Using image tag: ${tag_only}"
+
+  update-gitops:
+    name: 🔄 Update GitOps Repository
+    runs-on: ubuntu-latest
+    needs: [quality-gate, docker-build]
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    environment: production
+
+    steps:
+      - name: 📥 Checkout GitOps Repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.GITOPS_REPO }}
+          token: ${{ secrets.GITOPS_TOKEN }}
+          path: gitops
+
+      - name: 🔄 Update Image Tag
+        run: |
+          cd gitops
+
+          # Update the image tag in the deployment manifest
+          MANIFEST_PATH="manifests/uplift/uplift-web-frontend/deployment.yaml"
+
+          if [ -f "$MANIFEST_PATH" ]; then
+              # Use sed to replace the image tag
+              sed -i "s|image: .*${{ env.ECR_REPOSITORY }}.*|image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ needs.docker-build.outputs.image-tag }}|g" "$MANIFEST_PATH"
+
+              echo "Updated image tag in $MANIFEST_PATH"
+              cat "$MANIFEST_PATH"
+          else
+              echo "⚠️ Deployment manifest not found at $MANIFEST_PATH"
+              echo "Available files:"
+              find . -name "*.yaml" -o -name "*.yml" | head -20
+          fi
+
+      - name: 📝 Commit and Push Changes
+        run: |
+          cd gitops
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add -A
+
+          if git diff --staged --quiet; then
+              echo "No changes to commit"
+          else
+              git commit -m "🚀 Update uplift-web-frontend image to ${{ needs.docker-build.outputs.image-tag }}
+
+              Deployed from commit: ${{ github.sha }}
+              Workflow: ${{ github.workflow }}
+              Run: ${{ github.run_number }}"
+
+              git push origin main
+              echo "✅ Successfully updated GitOps repository"
+          fi
+
+  health-check:
+    name: 🏥 Health Check
+    runs-on: ubuntu-latest
+    needs: [update-gitops]
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: ⏳ Wait for ArgoCD Sync
+        run: |
+          echo "⏳ Waiting for ArgoCD to sync changes..."
+          sleep 60
+
+      - name: 🏥 Check Application Health
+        run: |
+          max_attempts=12
+          attempt=1
+
+          echo "🔍 Starting health check for ${{ secrets.PRODUCTION_URL }}"
+
+          while [ $attempt -le $max_attempts ]; do
+            echo "🔄 Health check attempt $attempt/$max_attempts"
+
+            if curl -f -s "${{ secrets.PRODUCTION_URL }}/api/health" > /dev/null 2>&1; then
+              echo "✅ Health check passed!"
+              curl -s "${{ secrets.PRODUCTION_URL }}/api/health" || echo "API health endpoint responded successfully"
+              exit 0
+            elif curl -f -s "${{ secrets.PRODUCTION_URL }}" > /dev/null 2>&1; then
+              echo "✅ Main page is accessible!"
+              exit 0
+            fi
+
+            echo "⏳ Attempt $attempt/$max_attempts failed, retrying in 30 seconds..."
+            sleep 30
+            attempt=$((attempt + 1))
+          done
+
+          echo "❌ Health check failed after $max_attempts attempts"
+          echo "🔍 Attempting to get more information..."
+
+          # Try to get response code and headers for debugging
+          curl -I "${{ secrets.PRODUCTION_URL }}" || true
+          curl -I "${{ secrets.PRODUCTION_URL }}/api/health" || true
+
+          exit 1

@@ -10,7 +10,6 @@ on:
 env:
   NODE_VERSION: "22"
   AWS_REGION: "ap-southeast-1"
-  ECR_REPOSITORY: "uplift-web-frontend"
 
 permissions:
   id-token: write
@@ -67,41 +66,28 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: 🔑 Login to ECR
-        uses: aws-actions/amazon-ecr-login@v2
+      - name: 🔑 Login to Amazon ECR
+        run: aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin ${{ vars.ECR_REGISTRY }}
 
-      - name: 🔧 Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: 🏗️ Build Docker image
+        run: |
+          docker build --build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }} --build-arg NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }} -t ${{ vars.ECR_REPOSITORY }}:latest .
 
-      - name: 🏷️ Extract Metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}
-          tags: |
-            type=sha,format=short
-            type=raw,value=latest
+      - name: 🏷️ Tag image for ECR
+        run: |
+          docker tag ${{ vars.ECR_REPOSITORY }}:latest ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
+          docker tag ${{ vars.ECR_REPOSITORY }}:latest ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ github.sha }}
 
-      - name: 🏗️ Build & Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-            NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      - name: 🚀 Push image to ECR
+        run: |
+          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:latest
+          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ github.sha }}
 
-      - name: 📌 Pick single image tag
+      - name: 📌 Set image tag for GitOps
         id: pick
         run: |
-          first_tag="$(echo "${{ steps.meta.outputs.tags }}" | head -n1)"
-          tag_only="${first_tag##*:}"
-          echo "image_tag=${tag_only}" >> "$GITHUB_OUTPUT"
-          echo "Using image tag: ${tag_only}"
+          echo "image_tag=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          echo "Using image tag: ${{ github.sha }}"
 
   update-gitops:
     name: 🔄 Update GitOps Repository
@@ -114,7 +100,7 @@ jobs:
       - name: 📥 Checkout GitOps Repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ secrets.GITOPS_REPO }}
+          repository: ${{ vars.GITOPS_REPO }}
           token: ${{ secrets.GITOPS_TOKEN }}
           path: gitops
 
@@ -127,9 +113,9 @@ jobs:
 
           if [ -f "$MANIFEST_PATH" ]; then
               # Use sed to replace the image tag
-              sed -i "s|image: .*${{ env.ECR_REPOSITORY }}.*|image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ needs.docker-build.outputs.image-tag }}|g" "$MANIFEST_PATH"
+              sed -i "s|image: .*${{ vars.ECR_REPOSITORY }}.*|image: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ needs.docker-build.outputs.image-tag }}|g" "$MANIFEST_PATH"
 
-              echo "Updated image tag in $MANIFEST_PATH"
+              echo "Updated image tag in $MANIFEST_PATH to ${{ needs.docker-build.outputs.image-tag }}"
               cat "$MANIFEST_PATH"
           else
               echo "⚠️ Deployment manifest not found at $MANIFEST_PATH"
@@ -175,16 +161,16 @@ jobs:
           max_attempts=12
           attempt=1
 
-          echo "🔍 Starting health check for ${{ secrets.PRODUCTION_URL }}"
+          echo "🔍 Starting health check for ${{ vars.PRODUCTION_URL }}"
 
           while [ $attempt -le $max_attempts ]; do
             echo "🔄 Health check attempt $attempt/$max_attempts"
 
-            if curl -f -s "${{ secrets.PRODUCTION_URL }}/api/health" > /dev/null 2>&1; then
+            if curl -f -s "${{ vars.PRODUCTION_URL }}/api/health" > /dev/null 2>&1; then
               echo "✅ Health check passed!"
-              curl -s "${{ secrets.PRODUCTION_URL }}/api/health" || echo "API health endpoint responded successfully"
+              curl -s "${{ vars.PRODUCTION_URL }}/api/health" || echo "API health endpoint responded successfully"
               exit 0
-            elif curl -f -s "${{ secrets.PRODUCTION_URL }}" > /dev/null 2>&1; then
+            elif curl -f -s "${{ vars.PRODUCTION_URL }}" > /dev/null 2>&1; then
               echo "✅ Main page is accessible!"
               exit 0
             fi
@@ -198,7 +184,7 @@ jobs:
           echo "🔍 Attempting to get more information..."
 
           # Try to get response code and headers for debugging
-          curl -I "${{ secrets.PRODUCTION_URL }}" || true
-          curl -I "${{ secrets.PRODUCTION_URL }}/api/health" || true
+          curl -I "${{ vars.PRODUCTION_URL }}" || true
+          curl -I "${{ vars.PRODUCTION_URL }}/api/health" || true
 
           exit 1

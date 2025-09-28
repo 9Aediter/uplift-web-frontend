@@ -10,7 +10,7 @@ on:
 env:
   NODE_VERSION: "22"
   AWS_REGION: "ap-southeast-1"
-  ECR_REPOSITORY: "uplift-web-frontend"
+  ECR_REPOSITORY: "uplifttech/uplift-web-frontend"
 
 permissions:
   id-token: write
@@ -78,7 +78,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}
+          images: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}
           tags: |
             type=sha,format=short
             type=raw,value=latest
@@ -128,7 +128,7 @@ jobs:
 
           if [ -f "$MANIFEST_PATH" ]; then
               # Use sed to replace the image tag
-              sed -i "s|image: .*${{ env.ECR_REPOSITORY }}.*|image: ${{ vars.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ needs.docker-build.outputs.image-tag }}|g" "$MANIFEST_PATH"
+              sed -i "s|image: .*uplift-web-frontend.*|image: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ needs.docker-build.outputs.image-tag }}|g" "$MANIFEST_PATH"
 
               echo "Updated image tag in $MANIFEST_PATH to ${{ needs.docker-build.outputs.image-tag }}"
               cat "$MANIFEST_PATH"

@@ -2,6 +2,9 @@
 FROM node:22-alpine AS builder
 WORKDIR /app
 
+# Install build dependencies for multi-platform compatibility
+RUN apk add --no-cache libc6-compat
+
 # Install dependencies
 COPY package.json package-lock.json ./
 RUN npm ci
@@ -25,6 +28,9 @@ RUN npm run build
 # Run stage
 FROM node:22-alpine AS runner
 WORKDIR /app
+
+# Install runtime dependencies for multi-platform compatibility
+RUN apk add --no-cache libc6-compat
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1

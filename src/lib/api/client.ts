@@ -1,9 +1,8 @@
 // API Client for NestJS Backend
 import axios from "axios";
+import type { ApiResponse } from '@/types/models/api';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-
-console.log("🌐 API Base URL:", API_BASE_URL);
 
 // Create axios instance
 export const apiClient = axios.create({
@@ -16,18 +15,12 @@ export const apiClient = axios.create({
 });
 
 
-// Request interceptor for logging
+// Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    console.log(`🔄 API Request: ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`)
-    console.log("📤 Request data:", config.data)
-    console.log("🍪 Cookies will be sent:", document.cookie)
-    console.log("🔧 WithCredentials:", config.withCredentials)
-    
     return config;
   },
   (error) => {
-    console.error("❌ Request interceptor error:", error)
     return Promise.reject(error);
   }
 );
@@ -37,34 +30,31 @@ apiClient.interceptors.request.use(
 // Simple response interceptor - no auto refresh (handled by useAuthInit)
 apiClient.interceptors.response.use(
   (response) => {
-    console.log(`✅ API Response: ${response.status} ${response.config.method?.toUpperCase()} ${response.config.url}`)
     return response;
   },
   async (error) => {
     // Just pass through errors - let useAuthInit handle authentication flow
-    console.log(`❌ API Error: ${error.response?.status} ${error.config?.method?.toUpperCase()} ${error.config?.url}`)
     return Promise.reject(error);
   }
 );
 
-// API Response wrapper
-export interface ApiResponse<T = any> {
-  success: boolean;
-  data?: T;
-  message?: string;
-  error?: string;
-}
+// Export ApiResponse from types
+export type { ApiResponse } from '@/types/models/api';
 
 // Helper function to format error message
-const formatErrorMessage = (error: any): string => {
-  if (error.response) {
-    const status = error.response.status;
-    const statusText = error.response.statusText;
-    const message = error.response.data?.message || error.response.data?.error || statusText;
-    
-    return `Error ${status} ${statusText} - ${message}`;
+const formatErrorMessage = (error: unknown): string => {
+  if (error && typeof error === 'object' && 'response' in error) {
+    const axiosError = error as { response?: { status: number; statusText: string; data?: { message?: string; error?: string } } };
+    if (axiosError.response) {
+      const { status, statusText, data } = axiosError.response;
+      const message = data?.message || data?.error || statusText;
+      return `Error ${status} ${statusText} - ${message}`;
+    }
   }
-  return error.message;
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return 'Unknown error';
 };
 
 // Generic API methods
@@ -76,7 +66,7 @@ export const api = {
         success: true,
         data: response.data,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
         error: formatErrorMessage(error),
@@ -84,14 +74,14 @@ export const api = {
     }
   },
 
-  post: async <T>(url: string, data?: any): Promise<ApiResponse<T>> => {
+  post: async <T>(url: string, data?: unknown): Promise<ApiResponse<T>> => {
     try {
       const response = await apiClient.post(url, data);
       return {
         success: true,
         data: response.data,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
         error: formatErrorMessage(error),
@@ -99,14 +89,14 @@ export const api = {
     }
   },
 
-  put: async <T>(url: string, data?: any): Promise<ApiResponse<T>> => {
+  put: async <T>(url: string, data?: unknown): Promise<ApiResponse<T>> => {
     try {
       const response = await apiClient.put(url, data);
       return {
         success: true,
         data: response.data,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
         error: formatErrorMessage(error),
@@ -121,7 +111,7 @@ export const api = {
         success: true,
         data: response.data,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
         error: formatErrorMessage(error),

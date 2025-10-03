@@ -1,11 +1,6 @@
 // API service for website management using Axios
 import { apiClient } from './client'
-// TODO: Remove widget system dependencies (legacy CMS code)
-// import { SectionData, WidgetData } from '@/lib/widgets/core/types'
-
-// Temporary types (replacing widget types)
-type SectionData = any
-type WidgetData = any
+import type { SectionData, WidgetData } from '@/types/models/widget'
 
 export interface ApiWebsitePageData {
   id: string
@@ -32,8 +27,8 @@ export interface ApiSectionData {
   titleTh: string
   orderIndex: number
   isActive: boolean
-  widgetDataEn: Record<string, any>
-  widgetDataTh: Record<string, any>
+  widgetDataEn: WidgetData
+  widgetDataTh: WidgetData
   createdAt: string
   updatedAt: string
 }
@@ -84,8 +79,8 @@ export interface CreateSectionRequest {
   titleTh: string
   orderIndex: number
   isActive?: boolean
-  widgetDataEn: Record<string, any>
-  widgetDataTh: Record<string, any>
+  widgetDataEn: WidgetData
+  widgetDataTh: WidgetData
 }
 
 export interface ReorderSectionsRequest {

@@ -110,15 +110,6 @@ export const imagesApi = {
 
     // Use direct fetch for file upload instead of api wrapper
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-    console.log('🔍 Uploading to:', `${apiUrl}/v1/images/upload`);
-    console.log('🔍 FormData contents:', {
-      file: imageData.file.name,
-      size: imageData.file.size,
-      type: imageData.file.type,
-      category: imageData.category,
-      tags: imageData.tags,
-      altText: imageData.altText
-    });
 
     const response = await fetch(`${apiUrl}/v1/images/upload`, {
       method: 'POST',
@@ -126,16 +117,13 @@ export const imagesApi = {
       body: formData,
     });
 
-    console.log('🔍 Upload response status:', response.status);
-    
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({ message: 'Upload failed' }));
-      console.error('🔍 Upload error response:', errorData);
+      console.error('Upload error:', errorData);
       throw new Error(errorData.message || `Upload failed with status ${response.status}`);
     }
 
     const data = await response.json();
-    console.log('🔍 Upload success response:', data);
     return { data };
   },
 

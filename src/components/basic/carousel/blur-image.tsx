@@ -46,7 +46,25 @@ export const BlurImage = ({
     );
   }
 
-  return (
+  return fill ? (
+    <Image
+      className={cn(
+        "h-full w-full transition duration-300 object-cover",
+        isLoading ? "blur-sm scale-105" : "blur-0 scale-100",
+        className,
+      )}
+      onLoad={() => setLoading(false)}
+      onError={() => {
+        setLoading(false);
+        setImageError(true);
+      }}
+      src={src}
+      fill
+      style={style}
+      loading="lazy"
+      alt={alt || "Background of a beautiful view"}
+    />
+  ) : (
     <Image
       className={cn(
         "h-full w-full transition duration-300 object-cover",
@@ -61,7 +79,6 @@ export const BlurImage = ({
       src={src}
       width={typeof width === 'number' ? width : parseInt(String(width)) || 800}
       height={typeof height === 'number' ? height : parseInt(String(height)) || 600}
-      fill={fill}
       style={style}
       loading="lazy"
       alt={alt || "Background of a beautiful view"}

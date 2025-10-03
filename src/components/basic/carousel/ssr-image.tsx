@@ -12,13 +12,20 @@ interface SSRImageProps {
 }
 
 export const SSRImage = ({ src, alt, className, fill, width, height }: SSRImageProps) => {
-  return (
+  return fill ? (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      className={cn("object-cover", className)}
+      loading="lazy"
+    />
+  ) : (
     <Image
       src={src}
       alt={alt}
       width={width || 800}
       height={height || 600}
-      fill={fill}
       className={cn("object-cover", className)}
       loading="lazy"
     />

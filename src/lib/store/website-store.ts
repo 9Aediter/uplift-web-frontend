@@ -1,8 +1,13 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { SectionData, WidgetData } from '@/lib/widgets/core/types'
-import { getWidgetRegistry } from '@/lib/widgets'
+// TODO: Remove widget system dependencies (legacy CMS code)
+// import { SectionData, WidgetData } from '@/lib/widgets/core/types'
+// import { getWidgetRegistry } from '@/lib/widgets'
 import { WebsiteApiService, ApiWebsitePageData } from '@/lib/api/website'
+
+// Temporary types (replacing widget types)
+type SectionData = Record<string, unknown>
+type WidgetData = Record<string, unknown>
 
 export interface WebsitePageData {
   id: string
@@ -32,7 +37,7 @@ interface WebsiteState {
   pages: WebsitePageData[]
   
   // Widget management
-  availableWidgets: any[]
+  availableWidgets: Record<string, unknown>[]
   
   // UI state
   previewMode: 'desktop' | 'tablet' | 'mobile'
@@ -50,7 +55,7 @@ interface WebsiteActions {
   setPageMetadata: (metadata: Partial<WebsitePageData>) => void
   
   // Section management
-  addSection: (widgetType: string, insertAfter?: string) => string
+  addSection: (_widgetType: string, _insertAfter?: string) => string
   updateSection: (sectionId: string, data: Partial<SectionData>) => void
   updateSectionData: (sectionId: string, data: WidgetData) => void
   deleteSection: (sectionId: string) => void
@@ -93,23 +98,14 @@ export const useWebsiteStore = create<WebsiteStore>()(
       // Page management
       loadPagesList: async () => {
         set({ isLoading: true })
-        
+
         try {
-          // console.log('📝 [STORE] Calling API to load pages list...')
-          
           // Use API service
           const response = await WebsiteApiService.getPages({
             page: 1,
             limit: 50
           })
-          
-          // console.log('✅ [STORE] API Response received:', response)
-          // console.log('📊 [STORE] Response structure:', {
-          //   hasPages: !!response?.pages,
-          //   pagesCount: response?.pages?.length || 0,
-          //   firstPage: response?.pages?.[0]
-          // })
-          
+
           // Transform API response to local format
           const pages: WebsitePageData[] = response.pages.map((apiPage: ApiWebsitePageData) => ({
             id: apiPage.id,
@@ -118,7 +114,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
             description: apiPage.descriptionEn,
             seoTitle: apiPage.seo?.titleEn,
             seoDescription: apiPage.seo?.descriptionEn,
-            sections: apiPage.sections?.map(section => 
+            sections: apiPage.sections?.map(section =>
               WebsiteApiService.apiSectionToLocal(section, 'en')
             ) || [],
             metadata: {
@@ -128,17 +124,14 @@ export const useWebsiteStore = create<WebsiteStore>()(
               status: apiPage.status.toLowerCase() as 'draft' | 'published' | 'archived'
             }
           }))
-          
-          console.log('🔄 [STORE] Transformed pages:', pages)
-          console.log('🎯 [STORE] Setting pages in store, count:', pages.length)
-          
+
           set({
             pages,
             isLoading: false
           })
         } catch (error) {
           console.error('🚫 [STORE] Failed to load pages list:', error)
-          console.error('🚫 [STORE] Error details:', (error as any)?.response?.data)
+          console.error('🚫 [STORE] Error details:', (error as Record<string, unknown>)?.response)
           // Set empty pages array instead of mock data
           set({ pages: [], isLoading: false })
         }
@@ -146,16 +139,11 @@ export const useWebsiteStore = create<WebsiteStore>()(
 
       loadPage: async (id: string) => {
         set({ isLoading: true })
-        
+
         try {
-          console.log('📝 [STORE] Loading single page by id:', id)
-          
           // Load page by ID from API
           const apiPage = await WebsiteApiService.getPage(id)
-          
-          console.log('✅ [STORE] Single page API response:', apiPage)
-          console.log('📊 [STORE] Page sections count:', apiPage.sections?.length || 0)
-          
+
           // Transform API response to local format
           const pageData: WebsitePageData = {
             id: apiPage.id,
@@ -164,7 +152,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
             description: apiPage.descriptionEn,
             seoTitle: apiPage.seo?.titleEn,
             seoDescription: apiPage.seo?.descriptionEn,
-            sections: apiPage.sections?.map(section => 
+            sections: apiPage.sections?.map(section =>
               WebsiteApiService.apiSectionToLocal(section, 'en')
             ) || [],
             metadata: {
@@ -174,14 +162,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
               status: apiPage.status.toLowerCase() as 'draft' | 'published' | 'archived'
             }
           }
-          
-          console.log('🔄 [STORE] Transformed page data:', pageData)
-          console.log('🎯 [STORE] Setting current page and sections:', {
-            pageTitle: pageData.title,
-            sectionsCount: pageData.sections.length,
-            sections: pageData.sections.map(s => ({ id: s.id, type: s.widgetType, title: s.title }))
-          })
-          
+
           set({
             currentPage: pageData,
             sections: pageData.sections,
@@ -191,7 +172,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
           })
         } catch (error) {
           console.error('🚫 [STORE] Failed to load page from API:', error)
-          console.error('🚫 [STORE] Load page error details:', (error as any)?.response?.data)
+          console.error('🚫 [STORE] Load page error details:', (error as Record<string, unknown>)?.response)
           // Page not found - return null
           set({
             currentPage: null,
@@ -229,7 +210,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
         if (!currentPage) return
 
         set({ isLoading: true })
-        
+
         try {
           const updatedPage: WebsitePageData = {
             ...currentPage,
@@ -239,7 +220,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
               updatedAt: new Date().toISOString()
             }
           }
-          
+
           // Try to save via API
           try {
             await WebsiteApiService.updatePage(currentPage.id, {
@@ -249,21 +230,20 @@ export const useWebsiteStore = create<WebsiteStore>()(
               descriptionEn: currentPage.description,
               descriptionTh: currentPage.description
             })
-            console.log('Saved to API:', updatedPage.title, updatedPage.sections.length, 'sections')
           } catch (apiError) {
             console.warn('API save failed, using local state:', apiError)
           }
-          
+
           // Update local state
-          const updatedPages = pages.map(p => 
+          const updatedPages = pages.map(p =>
             p.id === updatedPage.id ? updatedPage : p
           )
-          
+
           // If page doesn't exist, add it
           if (!pages.find(p => p.id === updatedPage.id)) {
             updatedPages.push(updatedPage)
           }
-          
+
           set({
             currentPage: updatedPage,
             pages: updatedPages,
@@ -281,19 +261,18 @@ export const useWebsiteStore = create<WebsiteStore>()(
         if (!currentPage) return
 
         set({ isLoading: true })
-        
+
         try {
           // First save the page
           await get().savePage()
-          
+
           // Try to publish via API
           try {
             await WebsiteApiService.publishPage(currentPage.id)
-            console.log('Published via API:', currentPage.title)
           } catch (apiError) {
             console.warn('API publish failed, using local state:', apiError)
           }
-          
+
           // Update local state
           const publishedPage: WebsitePageData = {
             ...currentPage,
@@ -305,7 +284,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
               updatedAt: new Date().toISOString()
             }
           }
-          
+
           set({
             currentPage: publishedPage,
             isDirty: false,
@@ -357,8 +336,11 @@ export const useWebsiteStore = create<WebsiteStore>()(
         return Math.max(...sections.map(s => s.order || 0)) + 1
       },
 
-      addSection: (widgetType: string, insertAfter?: string) => {
-        const registry = getWidgetRegistry()
+      addSection: (_widgetType: string, _insertAfter?: string) => {
+        // TODO: Legacy widget system - needs refactoring
+        console.warn('addSection: Widget system removed')
+        return ''
+        /* const registry = getWidgetRegistry()
         const widget = registry.get(widgetType)
         
         if (!widget) {
@@ -540,21 +522,24 @@ export const useWebsiteStore = create<WebsiteStore>()(
 
       // Validation
       validateSectionData: (sectionId: string) => {
-        const { sections } = get()
+        // TODO: Legacy widget system - needs refactoring
+        console.warn('validateSectionData: Widget system removed')
+        return { isValid: true, errors: [] }
+        /* const { sections } = get()
         const section = sections.find(s => s.id === sectionId)
-        
+
         if (!section) {
           return { isValid: false, errors: ['Section not found'] }
         }
 
         const registry = getWidgetRegistry()
         const widget = registry.get(section.widgetType)
-        
+
         if (!widget) {
           return { isValid: false, errors: [`Widget ${section.widgetType} not found`] }
         }
 
-        return widget.validateData(section.data)
+        return widget.validateData(section.data) */
       }
     }),
     {

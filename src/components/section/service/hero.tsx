@@ -10,7 +10,7 @@ import {
   CircleStackIcon
 } from '@heroicons/react/24/outline'
 import { ArrowDownIcon } from '@heroicons/react/24/solid'
-import '@/styles/animations.css'
+import '@/style/animations.css'
 
 export const HeroSection = () => {
   const services = [

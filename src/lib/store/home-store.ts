@@ -53,7 +53,7 @@ const convertApiToHomeHeroData = (heroData: HeroData | null): HomeHeroData => {
   }
 
   return {
-    heroWidgetType: (heroData as any).heroWidgetType || 'hero-simple',
+    heroWidgetType: (heroData as Record<string, unknown>).heroWidgetType as string || 'hero-simple',
     titleEn: heroData.titleEn || '',
     titleTh: heroData.titleTh || '',
     subtitleEn: heroData.subtitleEn || '',
@@ -93,7 +93,7 @@ const convertHomeToApiHeroData = (homeData: HomeHeroData, pageId: string): Parti
 
   // Add heroWidgetType as extended field if present
   if (homeData.heroWidgetType) {
-    (apiData as any).heroWidgetType = homeData.heroWidgetType
+    (apiData as Record<string, unknown>).heroWidgetType = homeData.heroWidgetType
   }
 
   return apiData
@@ -108,22 +108,18 @@ export const useHomeStore = create<HomeState>((set, get) => ({
   
   loadHeroData: async (pageId: string) => {
     set({ isLoading: true, currentPageId: pageId })
-    
+
     try {
-      console.log('📝 [HOME STORE] Loading hero data for page:', pageId)
-      
       // Load hero data from API
       const heroData = await WebsiteApiService.getHero(pageId)
-      console.log('✅ [HOME STORE] Hero data received:', heroData)
-      
+
       // Convert API data to HomeHeroData format
       const homeHeroData = convertApiToHomeHeroData(heroData)
-      console.log('🔄 [HOME STORE] Converted hero data:', homeHeroData)
-      
-      set({ 
+
+      set({
         heroData: homeHeroData,
         status: 'draft', // Hero data is always in draft mode
-        isLoading: false 
+        isLoading: false
       })
     } catch (error) {
       console.error('🚫 [HOME STORE] Failed to load hero data:', error)
@@ -144,27 +140,22 @@ export const useHomeStore = create<HomeState>((set, get) => ({
   
   saveHeroData: async () => {
     const { heroData, currentPageId } = get()
-    
+
     if (!currentPageId) {
       throw new Error('No page ID available for saving hero data')
     }
-    
+
     try {
-      console.log('💾 [HOME STORE] Saving hero data for page:', currentPageId)
-      console.log('💾 [HOME STORE] Hero data to save:', heroData)
-      
       // Convert HomeHeroData to API format
       const apiHeroData = convertHomeToApiHeroData(heroData, currentPageId)
-      console.log('🔄 [HOME STORE] Converted API data:', apiHeroData)
-      
+
       // Save to API
       const savedData = await WebsiteApiService.updateHero(currentPageId, apiHeroData)
-      console.log('✅ [HOME STORE] Hero data saved successfully:', savedData)
-      
+
       // Update local state with saved data
       const updatedHeroData = convertApiToHomeHeroData(savedData)
       set({ heroData: updatedHeroData })
-      
+
     } catch (error) {
       console.error('🚫 [HOME STORE] Failed to save hero data:', error)
       throw error
@@ -173,23 +164,20 @@ export const useHomeStore = create<HomeState>((set, get) => ({
   
   publishHeroData: async () => {
     const { currentPageId } = get()
-    
+
     if (!currentPageId) {
       throw new Error('No page ID available for publishing hero data')
     }
-    
+
     try {
-      console.log('📰 [HOME STORE] Publishing page with hero data:', currentPageId)
-      
       // First save the current hero data
       await get().saveHeroData()
-      
+
       // Then publish the entire page (this will handle hero data publishing)
       await WebsiteApiService.publishPage(currentPageId, 'Published hero section')
-      console.log('✅ [HOME STORE] Page published successfully')
-      
+
       set({ status: 'published' })
-      
+
     } catch (error) {
       console.error('🚫 [HOME STORE] Failed to publish hero data:', error)
       throw error

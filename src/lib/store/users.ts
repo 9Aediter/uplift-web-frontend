@@ -52,21 +52,21 @@ export interface UsersState {
 export interface UsersActions {
   // Fetch operations
   fetchUsers: (params?: { page?: number; limit?: number; search?: string }) => Promise<void>;
-  
+
   // CRUD operations (optimistic updates)
-  createUser: (userData: any) => Promise<{ success: boolean; data?: any; error?: string }>;
-  updateUser: (userId: string, userData: any) => Promise<{ success: boolean; data?: any; error?: string }>;
+  createUser: (userData: Record<string, unknown>) => Promise<{ success: boolean; data?: StoreUser; error?: string }>;
+  updateUser: (userId: string, userData: Record<string, unknown>) => Promise<{ success: boolean; data?: StoreUser; error?: string }>;
   deleteUser: (userId: string) => Promise<{ success: boolean; error?: string }>;
-  updateUserStatus: (userId: string, status: 'ACTIVE' | 'INACTIVE') => Promise<{ success: boolean; data?: any; error?: string }>;
-  
+  updateUserStatus: (userId: string, status: 'ACTIVE' | 'INACTIVE') => Promise<{ success: boolean; data?: StoreUser; error?: string }>;
+
   // State management
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   clearError: () => void;
-  
+
   // Helper methods
   getUserById: (userId: string) => StoreUser | undefined;
-  transformBackendUser: (backendUser: any) => StoreUser;
+  transformBackendUser: (backendUser: Record<string, unknown>) => StoreUser;
 }
 
 type UsersStore = UsersState & UsersActions;
@@ -83,17 +83,22 @@ export const useUsersStore = create<UsersStore>()(
       error: null,
 
       // Transform backend user format to store format (flat structure)
-      transformBackendUser: (backendUser: any): StoreUser => ({
-        id: backendUser.id,
-        email: backendUser.email,
-        name: backendUser.profile?.name || 'Unknown User',
-        avatarUrl: backendUser.profile?.avatarUrl,
-        phone: backendUser.profile?.phone,
-        roles: backendUser.roles?.map((role: any) => role.name).join(', ') || '',
-        createdAt: backendUser.createdAt,
-        updatedAt: backendUser.updatedAt,
-        status: backendUser.status || (backendUser.roles?.some((role: any) => role.active) ? 'ACTIVE' : 'INACTIVE'),
-      }),
+      transformBackendUser: (backendUser: Record<string, unknown>): StoreUser => {
+        const profile = backendUser.profile as { name?: string; avatarUrl?: string; phone?: string } | undefined;
+        const roles = backendUser.roles as Array<{ name: string; active: boolean }> | undefined;
+
+        return {
+          id: backendUser.id as string,
+          email: backendUser.email as string,
+          name: profile?.name || 'Unknown User',
+          avatarUrl: profile?.avatarUrl,
+          phone: profile?.phone,
+          roles: roles?.map(role => role.name).join(', ') || '',
+          createdAt: backendUser.createdAt as string,
+          updatedAt: backendUser.updatedAt as string,
+          status: (backendUser.status as 'ACTIVE' | 'INACTIVE') || (roles?.some(role => role.active) ? 'ACTIVE' : 'INACTIVE'),
+        };
+      },
 
       // Fetch users from API
       fetchUsers: async (params = {}) => {
@@ -105,8 +110,6 @@ export const useUsersStore = create<UsersStore>()(
             limit: params.limit || 10,
             search: params.search,
           });
-
-          // console.log('🔍 Users API response:', response);
 
           if (response.success && response.data) {
             const transformedUsers = response.data.users.map(get().transformBackendUser);
@@ -121,18 +124,19 @@ export const useUsersStore = create<UsersStore>()(
           } else {
             throw new Error(response.error || 'Failed to fetch users');
           }
-        } catch (error: any) {
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : 'Failed to fetch users';
           console.error('❌ Failed to fetch users:', error);
-          set({ 
-            error: error.message || 'Failed to fetch users',
-            loading: false 
+          set({
+            error: errorMessage,
+            loading: false
           });
           // Don't throw error - let UI handle via error state
         }
       },
 
       // Create user - no loading state, just add to list
-      createUser: async (userData: any) => {
+      createUser: async (userData: Record<string, unknown>) => {
         try {
           // No loading state - keep UI responsive
           const response = await usersApi.createUser(userData);
@@ -151,14 +155,15 @@ export const useUsersStore = create<UsersStore>()(
             // Don't set store error, let UI handle it
             return { success: false, error: response.error || 'Failed to create user' };
           }
-        } catch (error: any) {
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : 'Failed to create user';
           console.error('❌ Failed to create user:', error);
-          return { success: false, error: error.message || 'Failed to create user' };
+          return { success: false, error: errorMessage };
         }
       },
 
       // Update user with optimistic update
-      updateUser: async (userId: string, userData: any) => {
+      updateUser: async (userId: string, userData: Record<string, unknown>) => {
         try {
           set({ loading: true, error: null });
 
@@ -167,7 +172,7 @@ export const useUsersStore = create<UsersStore>()(
           if (!originalUser) throw new Error('User not found');
 
           // Optimistic update
-          const optimisticUser = { ...originalUser, ...userData };
+          const optimisticUser = { ...originalUser, ...userData as Partial<StoreUser> };
           set((state) => ({
             users: state.users.map(u => u.id === userId ? optimisticUser : u),
           }));
@@ -191,19 +196,20 @@ export const useUsersStore = create<UsersStore>()(
             }));
             return { success: false, error: response.error || 'Failed to update user' };
           }
-        } catch (error: any) {
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : 'Failed to update user';
           console.error('❌ Failed to update user:', error);
-          
+
           // Rollback to original user
           const originalUser = get().users.find(u => u.id === userId);
           if (originalUser) {
             set((state) => ({
               users: state.users.map(u => u.id === userId ? originalUser : u),
-              error: error.message || 'Failed to update user',
+              error: errorMessage,
               loading: false,
             }));
           }
-          return { success: false, error: error.message || 'Failed to update user' };
+          return { success: false, error: errorMessage };
         }
       },
 
@@ -239,9 +245,10 @@ export const useUsersStore = create<UsersStore>()(
             }));
             return { success: false, error: response.error || 'Failed to delete user' };
           }
-        } catch (error: any) {
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : 'Failed to delete user';
           console.error('❌ Failed to delete user:', error);
-          
+
           // Rollback - add user back
           const originalUser = get().users.find(u => u.id === userId);
           if (!originalUser) {
@@ -251,7 +258,7 @@ export const useUsersStore = create<UsersStore>()(
               if (userResponse.success && userResponse.data) {
                 const restoredUser = get().transformBackendUser(userResponse.data);
                 set((state) => ({
-                  users: [...state.users, restoredUser].sort((a, b) => 
+                  users: [...state.users, restoredUser].sort((a, b) =>
                     new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
                   ),
                   total: state.total + 1,
@@ -261,12 +268,12 @@ export const useUsersStore = create<UsersStore>()(
               console.error('❌ Failed to restore user after failed delete:', fetchError);
             }
           }
-          
-          set({ 
-            error: error.message || 'Failed to delete user',
-            loading: false 
+
+          set({
+            error: errorMessage,
+            loading: false
           });
-          return { success: false, error: error.message || 'Failed to delete user' };
+          return { success: false, error: errorMessage };
         }
       },
 
@@ -278,7 +285,7 @@ export const useUsersStore = create<UsersStore>()(
 
           if (response.success && response.data) {
             const updatedUser = get().transformBackendUser(response.data);
-            
+
             // Update only on success
             set((state) => ({
               users: state.users.map(u => u.id === userId ? updatedUser : u),
@@ -288,9 +295,10 @@ export const useUsersStore = create<UsersStore>()(
           } else {
             return { success: false, error: response.error || 'Failed to update user status' };
           }
-        } catch (error: any) {
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : 'Failed to update user status';
           console.error('❌ Failed to update user status:', error);
-          return { success: false, error: error.message || 'Failed to update user status' };
+          return { success: false, error: errorMessage };
         }
       },
 

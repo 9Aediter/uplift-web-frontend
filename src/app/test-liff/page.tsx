@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { liffHelper, LineProfile } from '@/lib/liff';
-import { Button } from '@/components/button/button';
+import { liffHelper, LineProfile } from '@/lib/integrations/liff';
+import { Button } from '@/components/basic/button/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function TestLiffPage() {
@@ -15,30 +15,30 @@ export default function TestLiffPage() {
   const main = async () => {
     try {
       console.log('🚀 Starting LIFF main function...');
-      
+
       const isLoggedIn = await liffHelper.init();
-      
+
       if (isLoggedIn) {
         console.log('✅ User is logged in');
-        
+
         // Get profile
         const userProfile = await liffHelper.getProfile();
         const token = liffHelper.getAccessToken();
-        
+
         // Update state
         setProfile(userProfile);
         setAccessToken(token);
-        
+
         console.log('👤 Profile:', userProfile);
         console.log('🔑 Access Token:', token ? 'Got token' : 'No token');
-        
+
       } else {
         console.log('❌ User not logged in - calling login()');
         liffHelper.login();
       }
-      
+
       setIsReady(true);
-      
+
     } catch (error: any) {
       console.error('❌ Main function error:', error);
       setError(error.message);
@@ -73,7 +73,7 @@ export default function TestLiffPage() {
           <CardTitle>LINE LIFF Test (Simple Version)</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          
+
           {/* Environment Info */}
           <div className="bg-muted/30 border border-border p-4 rounded-lg">
             <h3 className="font-semibold mb-3 text-foreground">📋 Configuration</h3>
@@ -104,15 +104,15 @@ export default function TestLiffPage() {
               <h3 className="font-semibold text-green-800 dark:text-green-200 mb-4">✅ Successfully Logged In!</h3>
               <div className="flex items-start space-x-4">
                 {profile.pictureUrl && (
-                  <img 
-                    src={profile.pictureUrl} 
-                    alt="Profile" 
-                    className="w-16 h-16 rounded-full border-2 border-green-300 dark:border-green-600" 
+                  <img
+                    src={profile.pictureUrl}
+                    alt="Profile"
+                    className="w-16 h-16 rounded-full border-2 border-green-300 dark:border-green-600"
                   />
                 )}
                 <div className="flex-1 space-y-2 text-sm">
-                  <p><span className="font-medium text-green-800 dark:text-green-200">Display Name:</span> 
-                     <span className="text-green-700 dark:text-green-300 ml-2">{profile.displayName}</span></p>
+                  <p><span className="font-medium text-green-800 dark:text-green-200">Display Name:</span>
+                    <span className="text-green-700 dark:text-green-300 ml-2">{profile.displayName}</span></p>
                   <div>
                     <span className="font-medium text-green-800 dark:text-green-200">User ID:</span>
                     <code className="bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-200 px-2 py-1 rounded text-xs block mt-1 break-all">
@@ -120,8 +120,8 @@ export default function TestLiffPage() {
                     </code>
                   </div>
                   {profile.statusMessage && (
-                    <p><span className="font-medium text-green-800 dark:text-green-200">Status:</span> 
-                       <span className="text-green-700 dark:text-green-300 ml-2">{profile.statusMessage}</span></p>
+                    <p><span className="font-medium text-green-800 dark:text-green-200">Status:</span>
+                      <span className="text-green-700 dark:text-green-300 ml-2">{profile.statusMessage}</span></p>
                   )}
                 </div>
               </div>
@@ -159,11 +159,11 @@ export default function TestLiffPage() {
                 🚪 Logout
               </Button>
             )}
-            
+
             <Button variant="outline" onClick={handleRefresh}>
               🔄 Refresh Status
             </Button>
-            
+
             {liffHelper.isInClient() && (
               <Button variant="outline" onClick={() => liffHelper.closeWindow()}>
                 ❌ Close LIFF
@@ -196,7 +196,7 @@ export default function TestLiffPage() {
               </div>
             </div>
           </div>
-          
+
         </CardContent>
       </Card>
     </div>

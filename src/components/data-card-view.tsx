@@ -1,10 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Badge } from "@/components/button/badge"
-import { Button } from "@/components/button/button"
+import { Badge } from "@/components/basic/button/badge"
+import { Button } from "@/components/basic/button/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Checkbox } from "@/components/input/checkbox"
+import { Checkbox } from "@/components/basic/input/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,

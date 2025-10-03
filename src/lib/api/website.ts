@@ -1,6 +1,11 @@
 // API service for website management using Axios
 import { apiClient } from './client'
-import { SectionData, WidgetData } from '@/lib/widgets/core/types'
+// TODO: Remove widget system dependencies (legacy CMS code)
+// import { SectionData, WidgetData } from '@/lib/widgets/core/types'
+
+// Temporary types (replacing widget types)
+type SectionData = any
+type WidgetData = any
 
 export interface ApiWebsitePageData {
   id: string

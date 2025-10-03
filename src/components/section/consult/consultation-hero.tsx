@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Users, Lightbulb, Sparkles, ArrowRight, Calendar } from 'lucide-react';
-import { Button } from '@/components/button/button';
+import { Button } from '@/components/basic/button/button';
 
 const features = [
   {

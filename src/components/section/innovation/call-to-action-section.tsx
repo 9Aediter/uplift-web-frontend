@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '@/components/ui/section';
-import { Button } from "@/components/button/button";
+import { Button } from "@/components/basic/button/button";
 import { RocketIcon } from 'lucide-react';
 
 interface CallToActionSectionProps {

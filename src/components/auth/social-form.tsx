@@ -4,10 +4,10 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { authApi } from "@/lib/api/auth"
-import { Button } from "@/components/button/button"
+import { Button } from "@/components/basic/button/button"
 import { FaGoogle, FaFacebook } from "react-icons/fa"
 import { FaLine } from "react-icons/fa6"
-import { liffHelper } from "@/lib/liff"
+import { liffHelper } from "@/lib/integrations/liff"
 import { useAuthActions } from "@/lib/store/auth"
 
 export function SocialForm() {
@@ -23,7 +23,7 @@ export function SocialForm() {
         if (typeof window !== 'undefined') {
           const isLoggedIn = await liffHelper.init()
           setIsLiffReady(true)
-          
+
           // Auto-authenticate if already logged in to LINE
           if (isLoggedIn) {
             await handleLiffAuth()
@@ -42,7 +42,7 @@ export function SocialForm() {
   const handleLiffAuth = async () => {
     try {
       setStatus('loading')
-      
+
       const authData = await liffHelper.getAuthData()
       if (!authData) {
         throw new Error('Failed to get LINE authentication data')
@@ -56,9 +56,9 @@ export function SocialForm() {
 
       // Update auth store
       login(user)
-      
+
       toast.success(message || 'Successfully signed in with LINE!')
-      
+
       // Close LIFF if in LIFF browser
       if (liffHelper.isInClient()) {
         setTimeout(() => liffHelper.closeWindow(), 1000)
@@ -70,7 +70,7 @@ export function SocialForm() {
           console.log('📝 Test page detected - skipping redirect')
         }
       }
-      
+
     } catch (error: any) {
       console.error('❌ LINE LIFF Auth error:', error)
       setError(error.message || 'LINE authentication failed')
@@ -93,7 +93,7 @@ export function SocialForm() {
 
         await liffHelper.login()
         // Authentication will continue in handleLiffAuth after login
-        
+
       } else {
         // Use traditional OAuth for Google/Facebook
         const oauthUrl = authApi.getOAuthUrl(provider)

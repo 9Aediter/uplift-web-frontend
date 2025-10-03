@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppleCardsCarousel } from "@/components/carousel";
+import { AppleCardsCarousel } from "@/components/basic/carousel";
 
 interface WhatIsSectionCard {
   id: string;

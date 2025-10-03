@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { Button } from "@/components/button/button";
+import { Button } from "@/components/basic/button/button";
 import {
   RocketIcon,
   ExternalLinkIcon,
@@ -105,8 +105,8 @@ export const ProductHeroCTA: React.FC<ProductHeroCTAProps> = ({ buttons }) => {
                   size="lg"
                   variant={button.variant || "default"}
                   className={`flex w-full px-4 sm:px-6 py-3 text-sm sm:text-base ${button.variant === "outline"
-                      ? "border-border text-foreground hover:bg-muted"
-                      : "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700"
+                    ? "border-border text-foreground hover:bg-muted"
+                    : "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700"
                     }`}
                 >
                   <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />

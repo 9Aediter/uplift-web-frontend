@@ -23,7 +23,7 @@ interface ProcessedFooterData {
 }
 
 interface FooterState {
-  rawFooterData: any | null;
+  rawFooterData: Record<string, unknown> | null;
   processedFooterData: ProcessedFooterData | null;
   loading: boolean;
   error: string | null;
@@ -39,10 +39,8 @@ export const useFooterStore = create<FooterState>((set) => ({
     set({ loading: true, error: null });
     try {
       const data = await fetchFooterData();
-      //console.log("Raw data from API (footer-store):", data);
       if (data && data.data) {
         const contractRaw = data.data.Contract && Array.isArray(data.data.Contract) && data.data.Contract.length > 0 ? data.data.Contract[0] : null;
-        //console.log("Extracted contractRaw:", contractRaw);
         const processedContract: ProcessedContractItem[] = [];
 
         if (contractRaw) {
@@ -52,37 +50,27 @@ export const useFooterStore = create<FooterState>((set) => ({
                     return;
                 }
 
-                const url = (contractRaw as any)[key];
+                const url = (contractRaw as Record<string, string>)[key];
                 // ใช้ชื่อ key จาก API เป็นชื่อ platform โดยตรง
                 const platformName = key;
-                //console.log(`Processing key: ${key}, url: ${url}, platformName: ${platformName}`);
                 processedContract.push({ platform: platformName, url: url });
             });
         }
 
         // ประมวลผลข้อมูล Services
-        //console.log("Starting services processing...");
         const processedServices: ProcessedServiceItem[] = [];
         // ตรวจสอบว่ามี data.data.services และเป็น array
         if (data.data.services && Array.isArray(data.data.services)) {
-            //console.log("Found services data in API response:", data.data.services);
-            data.data.services.forEach((service: any) => {
-                //console.log("Processing service item:", service);
+            data.data.services.forEach((service: Record<string, string>) => {
                 // ตรวจสอบว่า service item มี title และ slug โดยตรง
                 if (service.title && service.slug) {
-                    //console.log(`Extracted service: Title - ${service.title}, Slug - ${service.slug}`);
                     processedServices.push({
                         title: service.title,
                         link: `/services/${service.slug}`,
                     });
-                } else {
-                    //console.log("Service item missing title or slug:", service);
                 }
             });
-        } else {
-            //console.log("No services data found or invalid structure in data.data.services");
         }
-        //console.log("Processed services array:", processedServices);
 
         // ประมวลผลข้อมูล Product
         let processedProduct: ProcessedProductItem | null = null;
@@ -93,20 +81,19 @@ export const useFooterStore = create<FooterState>((set) => ({
             };
         }
 
-        //console.log("Processed contract array:", processedContract);
         const processedData: ProcessedFooterData = {
             contract: processedContract,
             services: processedServices,
             product: processedProduct,
         };
-        //console.log("Final processed data (footer-store):", processedData);
 
         set({ rawFooterData: data, processedFooterData: processedData, loading: false });
       } else {
         set({ rawFooterData: data, processedFooterData: null, loading: false, error: "Invalid data structure or missing data" });
       }
-    } catch (error: any) {
-      set({ loading: false, error: error.message });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      set({ loading: false, error: errorMessage });
     }
   },
 }));

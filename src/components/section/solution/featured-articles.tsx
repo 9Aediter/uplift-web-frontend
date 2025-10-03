@@ -3,7 +3,7 @@ import { Section } from '@/components/ui/section'
 import { Card } from '@/components/card'
 import { CalendarIcon, UserIcon, ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
-import { Article } from '@/types/article'
+import { Article } from '@/types/models/article'
 
 const featuredArticles: Article[] = [
     {

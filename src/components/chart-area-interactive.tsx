@@ -24,7 +24,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/input/select"
+} from "@/components/basic/input/select"
 import {
   ToggleGroup,
   ToggleGroupItem,

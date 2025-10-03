@@ -1,13 +1,13 @@
-Copyright (c) 2025 Anon Suphatphon
+Copyright (c) 2025 UPLIFT TECHNOLOGY COMPANY LIMITED
 
 All rights reserved.
 
-This source code and all content on uplifttech.store are proprietary and owned by Anon Suphatphon.
+This source code and all content on uplifttech.store are proprietary and owned by UPLIFT TECHNOLOGY COMPANY LIMITED.
 
-Unauthorized copying, modification, reproduction, or distribution of this code or website  
+Unauthorized copying, modification, reproduction, or distribution of this code or website
 in any form is strictly prohibited without prior written permission.
 
-Certain open-source components (e.g., shadcn/ui, Tailwind CSS) are used under their respective licenses.  
+Certain open-source components (e.g., shadcn/ui, Tailwind CSS) are used under their respective licenses.
 This does not grant any rights to reuse, copy, or distribute this website as a whole.
 
-For inquiries or permission requests, contact: mr.anonsuphatphon@gmail.com
+For inquiries or permission requests, contact: official@uplifttech.dev

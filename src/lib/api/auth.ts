@@ -1,13 +1,13 @@
 // Authentication API functions
 import { apiClient as api } from './client';
-import { 
-  LoginRequest, 
-  RegisterRequest, 
+import {
+  LoginRequest,
+  RegisterRequest,
   AuthResponse,
   RefreshTokenRequest,
   RefreshTokenResponse,
-  User 
-} from '@/types/auth';
+  User
+} from '@/types/models/auth';
 
 export const authApi = {
   // Check auth status - ตรวจสอบสถานะ authentication

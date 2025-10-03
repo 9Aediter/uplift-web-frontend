@@ -85,8 +85,10 @@ export const useRolesStore = create<RolesStore>((set) => ({
           isLoading: false,
         });
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Failed to fetch roles';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error && 'response' in error
+        ? ((error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Failed to fetch roles')
+        : 'Failed to fetch roles';
       set({ error: errorMessage, isLoading: false });
       toast.error(errorMessage);
     }
@@ -96,12 +98,14 @@ export const useRolesStore = create<RolesStore>((set) => ({
   fetchSimpleRoles: async () => {
     try {
       const response = await rolesApi.getSimpleRoles();
-      
+
       if (response.data) {
         set({ simpleRoles: response.data.roles });
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Failed to fetch simple roles';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error && 'response' in error
+        ? ((error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Failed to fetch simple roles')
+        : 'Failed to fetch simple roles';
       set({ error: errorMessage });
       toast.error(errorMessage);
     }
@@ -112,8 +116,10 @@ export const useRolesStore = create<RolesStore>((set) => ({
     try {
       const response = await rolesApi.getRole(id);
       return response.data || null;
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Failed to fetch role';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error && 'response' in error
+        ? ((error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Failed to fetch role')
+        : 'Failed to fetch role';
       toast.error(errorMessage);
       return null;
     }
@@ -123,20 +129,22 @@ export const useRolesStore = create<RolesStore>((set) => ({
   createRole: async (roleData) => {
     try {
       const response = await rolesApi.createRole(roleData);
-      
+
       if (response.data) {
         const transformedRole = transformBackendRole(response.data);
-        
+
         // Add to current roles list
         set((state) => ({
           roles: [...state.roles, transformedRole],
           total: state.total + 1,
         }));
-        
+
         toast.success('Role created successfully');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Failed to create role';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error && 'response' in error
+        ? ((error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Failed to create role')
+        : 'Failed to create role';
       toast.error(errorMessage);
       throw error;
     }
@@ -146,21 +154,23 @@ export const useRolesStore = create<RolesStore>((set) => ({
   updateRole: async (id, roleData) => {
     try {
       const response = await rolesApi.updateRole(id, roleData);
-      
+
       if (response.data) {
         const transformedRole = transformBackendRole(response.data);
-        
+
         // Update role in current list
         set((state) => ({
-          roles: state.roles.map(role => 
+          roles: state.roles.map(role =>
             role.id === id ? transformedRole : role
           ),
         }));
-        
+
         toast.success('Role updated successfully');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Failed to update role';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error && 'response' in error
+        ? ((error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Failed to update role')
+        : 'Failed to update role';
       toast.error(errorMessage);
       throw error;
     }
@@ -170,16 +180,18 @@ export const useRolesStore = create<RolesStore>((set) => ({
   deleteRole: async (id) => {
     try {
       await rolesApi.deleteRole(id);
-      
+
       // Remove from current roles list
       set((state) => ({
         roles: state.roles.filter(role => role.id !== id),
         total: state.total - 1,
       }));
-      
+
       toast.success('Role deleted successfully');
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Failed to delete role';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error && 'response' in error
+        ? ((error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Failed to delete role')
+        : 'Failed to delete role';
       toast.error(errorMessage);
       throw error;
     }

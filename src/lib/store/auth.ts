@@ -1,7 +1,7 @@
 // Authentication Store using Zustand
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AuthState, User, AuthStatus } from '@/types/auth';
+import { AuthState, User, AuthStatus } from '@/types/models/auth';
 
 interface AuthStore extends AuthState {
   // Actions
@@ -18,7 +18,7 @@ interface AuthStore extends AuthState {
 
 export const useAuthStore = create<AuthStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // Initial state
       user: null,
       status: 'idle',

@@ -1,144 +1,117 @@
 import type { Metadata } from "next";
-import { Inter, Kanit } from "next/font/google";
+import localFont from "next/font/local";
 import Script from 'next/script';
-import AnalyticsProvider from "@/lib/analytics-provider";
-import { SonnerProvider } from "@/lib/sonner-provider";
-import { ModalProvider } from "@/lib/modal-provider";
-import { ThemeProvider } from "@/lib/theme-provider";
+import AnalyticsProvider from "@/lib/providers/analytics";
+import { SonnerProvider } from "@/lib/providers/sonner";
+import { ModalProvider } from "@/lib/providers/modal";
+import { ThemeProvider } from "@/lib/providers/theme";
 import { ErrorHandler } from "@/components/error-handler";
 import { AuthInitializer } from "@/components/auth/auth-initializer";
-import { getDictionary } from '@/lib/i18n'
-import { headers } from 'next/headers'
-import { jsonLd, organizationSchema, websiteSchema, breadcrumbSchema, abs } from '@/lib/schema'
+import { jsonLd, organizationSchema, websiteSchema, breadcrumbSchema, abs } from '@/lib/seo/schema'
 import "@/style/globals.css";
 
-// Font Inter - Critical font loading
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
+// Font LINESeedSans - WOFF2 for better performance (~35% smaller than OTF)
+const lineSeedSans = localFont({
+  src: [
+    {
+      path: '../../public/fonts/LINESeedSans/LINESeedSansTH_W_Th.woff2',
+      weight: '100',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/LINESeedSans/LINESeedSansTH_W_He.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/LINESeedSans/LINESeedSansTH_W_Rg.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/LINESeedSans/LINESeedSansTH_W_Bd.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/LINESeedSans/LINESeedSansTH_W_XBd.woff2',
+      weight: '900',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-line-seed',
+  display: 'swap',
   preload: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-  adjustFontFallback: true,
 });
 
-// Font Kanit - Optimized for LCP performance
-const kanit = Kanit({
-  subsets: ["latin", "thai"],
-  weight: ["400", "600"],
-  variable: "--font-kanit",
-  display: "swap",
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-  adjustFontFallback: true,
-  preload: true,
-});
-
-// Metadata (Title and meta tags) generation for the root layout
-export async function generateMetadata(): Promise<Metadata> {
-  const headersList = headers()
-  const locale = (await headersList).get('x-next-locale') || 'en'
-  const dict = await getDictionary(locale)
-  const baseURL = 'https://uplifttech.store'
-
-  return {
-    title: {
-      default: dict.title,
-      template: `%s | UPLIFTTECH`
-    },
-    description: dict.description,
-    keywords: dict.keywords,
-    authors: [{ name: 'Uplift Team', url: `${baseURL}/about` }],
-    creator: 'UPLIFTTECH',
-    publisher: 'UPLIFTTECH',
-    metadataBase: new URL(`${baseURL}`),
-    openGraph: {
-      title: dict.title,
-      description: dict.description,
-      url: `${baseURL}/${locale === 'en' ? '' : locale}`,
-      siteName: 'UPLIFTTECH',
-      type: 'website',
-      locale: locale === 'th' ? 'th_TH' : 'en_US',
-      images: [
-        {
-          url: `${baseURL}/og/cover.jpg`,
-          width: 1200,
-          height: 630,
-          alt: dict.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: dict.title,
-      description: dict.description,
-      images: [`${baseURL}/og/cover.jpg`],
-      creator: '@uplifttech',
-    },
-    robots: {
+// Root metadata - simple and static
+export const metadata: Metadata = {
+  title: {
+    default: 'UPLIFT TECHNOLOGY CO., LTD.',
+    template: `%s | UPLIFTTECH`
+  },
+  description: 'Software House สาย Startup Culture ที่เปลี่ยนความคิดสร้างสรรค์ให้กลายเป็นโซลูชันเชิงนวัตกรรม',
+  keywords: ['Software Development', 'ERP System', 'POS Solution', 'Web Application', 'Technology', 'Thailand'],
+  authors: [{ name: 'Uplift Team', url: 'https://uplifttech.store/about' }],
+  creator: 'UPLIFTTECH',
+  publisher: 'UPLIFTTECH',
+  metadataBase: new URL('https://uplifttech.store'),
+  openGraph: {
+    title: 'UPLIFT TECHNOLOGY CO., LTD.',
+    description: 'Software House สาย Startup Culture',
+    url: 'https://uplifttech.store',
+    siteName: 'UPLIFTTECH',
+    type: 'website',
+    locale: 'th_TH',
+    alternateLocale: ['en_US'],
+    images: [
+      {
+        url: '/og/cover.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'UPLIFT TECHNOLOGY',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'UPLIFT TECHNOLOGY CO., LTD.',
+    description: 'Software House สาย Startup Culture',
+    images: ['/og/cover.jpg'],
+    creator: '@uplifttech',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
       index: true,
       follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-snippet': -1,
-        'max-image-preview': 'large',
-        'max-video-preview': -1,
-      },
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
     },
-    alternates: {
-      canonical: `${baseURL}/${locale === 'en' ? '' : locale}`,
-      languages: {
-        en: `${baseURL}`,
-        th: `${baseURL}/th`,
-      },
+  },
+  alternates: {
+    canonical: 'https://uplifttech.store',
+    languages: {
+      'en': 'https://uplifttech.store/en',
+      'th': 'https://uplifttech.store/th',
     },
-  }
+  },
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await headers()
-  const locale = headersList.get('x-next-locale') || 'en'
-
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang="th" suppressHydrationWarning>
       <head>
-        {/* Preload critical fonts for better LCP */}
-        <link 
-          rel="preload" 
-          href="https://fonts.gstatic.com/s/kanit/v15/nKKV-Go6G5tXcoaSEQGodLxA.woff2" 
-          as="font" 
-          type="font/woff2" 
-          crossOrigin="anonymous"
-        />
-        <link 
-          rel="preload" 
-          href="https://fonts.gstatic.com/s/kanit/v15/nKKU-Go6G5tXcoaSEQGodL6Wt1-vE_GIILZLaQ.woff2" 
-          as="font" 
-          type="font/woff2" 
-          crossOrigin="anonymous"
-        />
-        <link 
-          rel="preload" 
-          href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2" 
-          as="font" 
-          type="font/woff2" 
-          crossOrigin="anonymous"
-        />
-        <link 
-          rel="preload" 
-          href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiJ-Ek.woff2" 
-          as="font" 
-          type="font/woff2" 
-          crossOrigin="anonymous"
-        />
         <link rel="icon" type="image/svg+xml" href="/svg/logo/logo.svg" />
       </head>
       <body
-        className={`${inter.variable} ${kanit.variable} antialiased w-full overflow-x-hidden max-w-full`}
+        className={`${lineSeedSans.variable} font-sans antialiased w-full overflow-x-hidden max-w-full`}
       >
         {/* Google Analytics - Global Site Tag (gtag.js) */}
         <Script
@@ -165,11 +138,11 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: jsonLd([
-              organizationSchema(locale),
-              websiteSchema(locale),
+              organizationSchema('th'),
+              websiteSchema('th'),
               breadcrumbSchema([{
-                name: locale === 'th' ? 'หน้าแรก' : 'Home',
-                item: abs(locale === 'en' ? '/' : `/${locale}`)
+                name: 'หน้าแรก',
+                item: abs('/th')
               }])
             ])
           }}
@@ -177,7 +150,7 @@ export default async function RootLayout({
 
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >

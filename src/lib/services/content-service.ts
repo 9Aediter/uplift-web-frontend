@@ -1,15 +1,15 @@
-import { 
-  Content, 
-  ContentStatus, 
-  ContentType, 
-  CreateContentRequest, 
+import {
+  Content,
+  ContentStatus,
+  ContentType,
+  CreateContentRequest,
   UpdateContentRequest,
   UpdateContentStatusRequest,
   ContentResponse,
   HeroSectionData,
   HeroFieldData,
   HeroButtonData
-} from "@/types/content"
+} from "@/types/models/content"
 
 class ContentService {
   private baseUrl = "/api/content"

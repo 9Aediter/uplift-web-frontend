@@ -1,0 +1,9 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#f3f4f6"/>
+  <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="24" fill="#9ca3af" text-anchor="middle" dominant-baseline="middle">
+    Image not available
+  </text>
+  <circle cx="600" cy="280" r="40" fill="#d1d5db" opacity="0.5"/>
+  <rect x="570" y="290" width="60" height="40" fill="#d1d5db" opacity="0.5" rx="5"/>
+  <polygon points="580,310 590,300 610,320 620,310" fill="#e5e7eb"/>
+</svg>

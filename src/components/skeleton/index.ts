@@ -1,5 +1,4 @@
 export { DemoAppSkeleton } from './demo-app-skeleton';
-export { DemoAdminSkeleton } from './demo-admin-skeleton';
 export { CtaSkeleton } from './cta-skeleton';
 export { FooterSkeleton } from './footer-skeleton';
 export { HeroAISkeleton } from './hero-ai-skeleton';

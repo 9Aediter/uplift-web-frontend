@@ -60,9 +60,9 @@ export function useAuthInit() {
         }
         
       } catch (error) {
-        console.error('❌ useAuthInit - Error during auth initialization:', error)
+        console.warn('⚠️ useAuthInit - Backend not available, skipping auth:', error instanceof Error ? error.message : 'Unknown error')
         setStatus('unauthenticated')
-        // Don't redirect on error - might be network issue
+        // Silently fail when backend is not running (for frontend-only testing)
       }
     }
 

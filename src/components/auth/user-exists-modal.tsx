@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { useModal } from "@/lib/modal-provider"
+import { useModal } from "@/lib/providers/modal"
 import {
   Dialog,
   DialogContent,
@@ -11,10 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/button/button"
-import { Input } from "@/components/input/input"
+import { Button } from "@/components/basic/button/button"
+import { Input } from "@/components/basic/input/input"
 import { Label } from "@/components/ui/label"
-import { PasswordInput } from "@/components/input/password-input"
+import { PasswordInput } from "@/components/basic/input/password-input"
 
 interface UserExistsModalProps {
   email: string

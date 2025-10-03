@@ -55,18 +55,17 @@ import { toast } from "sonner"
 import { z } from "zod"
 
 import { useIsMobile } from "@/hooks/use-mobile"
-import { Badge } from "@/components/button/badge"
-import { Button } from "@/components/button/button"
-import { Switch } from "@/components/input/switch"
+import { Badge } from "@/components/basic/button/badge"
+import { Button } from "@/components/basic/button/button"
+import { Switch } from "@/components/basic/input/switch"
 import { DataCardView } from "@/components/data-card-view"
-import { ImageCardView } from "@/components/image/image-card-view"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Checkbox } from "@/components/input/checkbox"
+import { Checkbox } from "@/components/basic/input/checkbox"
 import {
   Drawer,
   DrawerClose,
@@ -85,7 +84,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/input/input"
+import { Input } from "@/components/basic/input/input"
 import { Label } from "@/components/ui/label"
 import {
   Select,
@@ -93,7 +92,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/input/select"
+} from "@/components/basic/input/select"
 import { Separator } from "@/components/ui/separator"
 import {
   Table,
@@ -158,8 +157,11 @@ function createColumns(data: any[], callbacks?: {
       <div className="flex items-center justify-center">
         <Checkbox
           checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
+            table.getIsAllPageRowsSelected()
+              ? true
+              : table.getIsSomePageRowsSelected()
+                ? "indeterminate"
+                : false
           }
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
           aria-label="Select all"
@@ -668,44 +670,31 @@ export function DataTable({
         value="card"
         className="relative flex flex-col gap-4 overflow-auto"
       >
-        {entityName === "Image" && imagesData ? (
-          <ImageCardView
-            images={imagesData}
-            onImageClick={onImageClick}
-            onDelete={onImageDelete}
-            onToggleStatus={onImageToggleStatus}
-          />
-        ) : (
-          <DataCardView
-            data={data}
-            selectedRows={rowSelection}
-            onRowSelect={(id, selected) => {
-              setRowSelection(prev => ({
-                ...prev,
-                [id]: selected
-              }))
-            }}
-            onSelectAll={(selected) => {
-              if (selected) {
-                const newSelection: Record<string, boolean> = {}
-                data.forEach(item => {
-                  const id = item.id?.toString() || Math.random().toString()
-                  newSelection[id] = true
-                })
-                setRowSelection(newSelection)
-              } else {
-                setRowSelection({})
-              }
-            }}
-          />
-        )}
+        <DataCardView
+          data={data}
+          selectedRows={rowSelection}
+          onRowSelect={(id, selected) => {
+            setRowSelection(prev => ({
+              ...prev,
+              [id]: selected
+            }))
+          }}
+          onSelectAll={(selected) => {
+            if (selected) {
+              const newSelection: Record<string, boolean> = {}
+              data.forEach(item => {
+                const id = item.id?.toString() || Math.random().toString()
+                newSelection[id] = true
+              })
+              setRowSelection(newSelection)
+            } else {
+              setRowSelection({})
+            }
+          }}
+        />
         <div className="flex items-center justify-between px-4">
           <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-            {entityName === "Image" && imagesData ? (
-              `${imagesData.length} image(s) total.`
-            ) : (
-              `${Object.values(rowSelection).filter(Boolean).length} of ${data.length} item(s) selected.`
-            )}
+            {`${Object.values(rowSelection).filter(Boolean).length} of ${data.length} item(s) selected.`}
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
             <div className="hidden items-center gap-2 lg:flex">

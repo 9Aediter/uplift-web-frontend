@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface SSRImageProps {
   src: string;
@@ -11,18 +12,15 @@ interface SSRImageProps {
 }
 
 export const SSRImage = ({ src, alt, className, fill, width, height }: SSRImageProps) => {
-  const imgStyle = fill 
-    ? { position: 'absolute' as const, inset: 0, width: '100%', height: '100%' }
-    : { width: width || 'auto', height: height || 'auto' };
-
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
-      style={imgStyle}
+      width={width || 800}
+      height={height || 600}
+      fill={fill}
       className={cn("object-cover", className)}
       loading="lazy"
-      decoding="async"
     />
   );
 };

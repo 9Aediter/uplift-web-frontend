@@ -19,8 +19,8 @@ export const Newsletter = () => {
             <div className="max-w-4xl mx-auto">
                 {/* Animated background elements */}
                 <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-1/4 left-1/4 w-24 h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent rotate-45 animate-pulse"></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-32 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent -rotate-45 animate-pulse delay-1000"></div>
+                    <div className="absolute top-1/4 left-1/4 w-24 h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent rotate-45 animate-pulse" />
+                    <div className="absolute bottom-1/4 right-1/4 w-32 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent -rotate-45 animate-pulse delay-1000" />
                 </div>
 
                 <motion.div 
@@ -30,8 +30,8 @@ export const Newsletter = () => {
                     transition={{ duration: 0.6 }}
                 >
                     {/* Glow effects */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none"></div>
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
                     
                     <div className="relative z-10 text-center">
                         {/* Icon */}

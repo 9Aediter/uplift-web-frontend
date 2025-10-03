@@ -26,7 +26,7 @@ export const TableSkeleton: React.FC<TableSkeletonProps> = ({
             <TableRow>
               {skeletonColumns.map((col) => (
                 <TableHead key={col} className="h-12">
-                  <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+                  <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
                 </TableHead>
               ))}
             </TableRow>
@@ -69,17 +69,17 @@ export const DataTableSkeleton: React.FC<DataTableSkeletonProps> = ({
       {showTabs && (
         <div className="flex items-center justify-between px-4 lg:px-6">
           <div className="flex space-x-4">
-            <div className="h-8 w-16 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-            <div className="h-8 w-16 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="h-8 w-16 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+            <div className="h-8 w-16 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
           </div>
           
           {/* Toolbar skeleton */}
           {showToolbar && (
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-20 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-              <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-              <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-              <div className="h-8 w-24 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+              <div className="h-8 w-20 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+              <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+              <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+              <div className="h-8 w-24 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
             </div>
           )}
         </div>
@@ -92,16 +92,16 @@ export const DataTableSkeleton: React.FC<DataTableSkeletonProps> = ({
 
       {/* Pagination skeleton */}
       <div className="flex items-center justify-between px-4 lg:px-6">
-        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
         <div className="flex items-center space-x-2">
-          <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-          <div className="h-8 w-12 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-          <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+          <div className="h-8 w-12 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+          <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
           <div className="flex space-x-1">
-            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
           </div>
         </div>
       </div>

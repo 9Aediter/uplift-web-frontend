@@ -135,15 +135,15 @@ export function ConsultationHero() {
           <p className="text-gray-400 text-sm mb-4">Trusted by 200+ companies worldwide</p>
           <div className="flex items-center justify-center gap-8 text-gray-500">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               <span className="text-sm">500+ Projects Delivered</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
               <span className="text-sm">4.9/5 Client Rating</span>
             </div>
             <div className="hidden md:flex items-center gap-2">
-              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
               <span className="text-sm">10+ Years Experience</span>
             </div>
           </div>

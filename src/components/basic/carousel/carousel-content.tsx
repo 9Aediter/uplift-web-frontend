@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import Image from "next/image";
 
 export type Card = {
   src: string;
@@ -33,7 +34,7 @@ export const CarouselContent = ({ cards, className }: CarouselContentProps) => {
               <div className="relative z-40 p-8 text-left">
                 {/* Category */}
                 <div className="mb-4 inline-flex items-center px-4 py-1 rounded-full bg-gray-800/80 border border-gray-700">
-                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2"></span>
+                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2" />
                   <span className="text-sm font-medium text-white">
                     {card.category}
                   </span>
@@ -46,9 +47,11 @@ export const CarouselContent = ({ cards, className }: CarouselContentProps) => {
               </div>
               
               {/* Hidden image for SEO */}
-              <img
+              <Image
                 src={card.src}
                 alt={card.title}
+                width={800}
+                height={600}
                 className="sr-only"
                 loading="eager"
               />

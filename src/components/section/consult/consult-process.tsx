@@ -126,8 +126,8 @@ export function ConsultProcess() {
           </span>
         </h2>
         <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Our streamlined consultation process is designed to maximize value while respecting your time. 
-          Here's exactly what happens during your 30-minute session.
+          Our streamlined consultation process is designed to maximize value while respecting your time.
+          {"Here's"} exactly what happens during your 30-minute session.
         </p>
       </motion.div>
 
@@ -200,7 +200,7 @@ export function ConsultProcess() {
       >
         <div className="bg-gradient-to-r from-gray-800/40 to-gray-900/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 md:p-12">
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center">
-            What You'll Get From The{' '}
+            {"What You'll Get From The"}{' '}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
               Consultation
             </span>

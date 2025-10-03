@@ -9,7 +9,7 @@ const World = dynamic(() => import("@/components/ui/globe").then((m) => m.World)
     loading: () => (
         <div className="flex items-center justify-center h-full w-full">
             <div className="w-32 h-32 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
-                <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
+                <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
             </div>
         </div>
     )

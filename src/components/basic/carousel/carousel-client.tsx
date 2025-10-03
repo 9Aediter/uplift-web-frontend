@@ -194,7 +194,7 @@ export const Card = ({
               className="mb-4 inline-flex items-center px-4 py-1 rounded-full bg-gray-800/80 
      border border-gray-700"
             >
-              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2"></span>
+              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2" />
               <span className="text-sm font-medium text-white">
                 {card.category}
               </span>

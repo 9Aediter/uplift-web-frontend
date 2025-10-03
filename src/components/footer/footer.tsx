@@ -54,8 +54,8 @@ const Footer = () => {
     <footer className="bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border-t border-slate-200/50 dark:border-slate-800/50 text-slate-900 dark:text-slate-100 relative overflow-hidden">
       {/* Modern Gradient Background */}
       <div className="absolute inset-0 opacity-30 dark:opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-transparent to-purple-50 dark:from-blue-950/20 dark:via-transparent dark:to-purple-950/20"></div>
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-transparent to-purple-50 dark:from-blue-950/20 dark:via-transparent dark:to-purple-950/20" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
@@ -260,7 +260,7 @@ const Footer = () => {
               <p className="text-slate-600 dark:text-slate-400 text-sm">
                 © {new Date().getFullYear()} UPLIFT TECHNOLOGY CO., LTD. All rights reserved.
               </p>
-              <div className="hidden sm:block w-px h-4 bg-slate-300 dark:bg-slate-600"></div>
+              <div className="hidden sm:block w-px h-4 bg-slate-300 dark:bg-slate-600" />
               <p className="text-sm">
                 <span className="text-slate-500 dark:text-slate-400">Made with</span>
                 <span className="mx-1 text-red-500">❤️</span>
@@ -273,9 +273,9 @@ const Footer = () => {
             <div className="bg-slate-900 dark:bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-mono text-sm shadow-lg">
               <div className="flex items-center space-x-2">
                 <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-red-500 rounded-full" />
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full" />
                 </div>
                 <span className="text-green-400 ml-2">~$</span>
                 <span className="text-blue-400">pnpm</span>

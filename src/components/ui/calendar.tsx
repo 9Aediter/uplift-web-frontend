@@ -142,15 +142,15 @@ export function Calendar({ selectedDate, onDateSelect, minDate }: CalendarProps)
       <div className="mt-4 pt-3 border-t border-gray-700">
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-cyan-500 rounded"></div>
+            <div className="w-3 h-3 bg-cyan-500 rounded" />
             <span className="text-gray-400">Selected</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-cyan-100 border-2 border-cyan-500 rounded"></div>
+            <div className="w-3 h-3 bg-cyan-100 border-2 border-cyan-500 rounded" />
             <span className="text-gray-400">Today</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-gray-600 rounded"></div>
+            <div className="w-3 h-3 bg-gray-600 rounded" />
             <span className="text-gray-400">Unavailable</span>
           </div>
         </div>

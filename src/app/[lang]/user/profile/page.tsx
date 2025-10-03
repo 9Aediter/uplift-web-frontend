@@ -34,7 +34,7 @@ interface UserData {
   lastLoginAt?: string;
   roles: string[];
   profile?: UserProfile;
-  accounts: any[];
+  accounts: unknown[];
   createdAt: string;
   updatedAt: string;
 }
@@ -109,7 +109,7 @@ export default function ProfilePage() {
   if (status === "loading" || fetchLoading) {
     return (
       <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white" />
       </div>
     );
   }

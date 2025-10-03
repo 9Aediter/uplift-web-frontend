@@ -95,9 +95,9 @@ export function TimePicker({ selectedTime, onTimeSelect, selectedDate }: TimePic
         <div className="flex items-center justify-between text-sm text-gray-400">
           <span>All times shown in Bangkok timezone (UTC+7)</span>
           <div className="flex items-center gap-1">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div className="w-2 h-2 bg-green-500 rounded-full" />
             <span>Available</span>
-            <div className="w-2 h-2 bg-gray-600 rounded-full ml-3"></div>
+            <div className="w-2 h-2 bg-gray-600 rounded-full ml-3" />
             <span>Booked</span>
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface BlurImageProps {
   height?: number | string;
@@ -45,12 +46,8 @@ export const BlurImage = ({
     );
   }
 
-  const imgStyle = fill 
-    ? { position: 'absolute' as const, inset: 0, width: '100%', height: '100%', ...style }
-    : { width: width || 'auto', height: height || 'auto', ...style };
-
   return (
-    <img
+    <Image
       className={cn(
         "h-full w-full transition duration-300 object-cover",
         isLoading ? "blur-sm scale-105" : "blur-0 scale-100",
@@ -62,10 +59,12 @@ export const BlurImage = ({
         setImageError(true);
       }}
       src={src}
-      style={imgStyle}
+      width={typeof width === 'number' ? width : parseInt(String(width)) || 800}
+      height={typeof height === 'number' ? height : parseInt(String(height)) || 600}
+      fill={fill}
+      style={style}
       loading="lazy"
-      decoding="async"
-      alt={alt ? alt : "Background of a beautiful view"}
+      alt={alt || "Background of a beautiful view"}
     />
   );
 };

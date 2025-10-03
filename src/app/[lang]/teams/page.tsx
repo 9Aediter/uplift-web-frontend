@@ -3,7 +3,7 @@ import Nav from "@/components/basic/nav/resnav";
 import Footer from "@/components/footer/footer";
 // import Image from 'next/image';
 // import Link from 'next/link';
-import { MapPin, Mail, Github, Linkedin, Award, Globe, Users, Clock, CheckCircle, ArrowRight } from 'lucide-react';
+import { Mail, Users, ArrowRight } from 'lucide-react';
 
 
 

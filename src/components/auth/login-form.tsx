@@ -37,9 +37,6 @@ export function LoginForm({
         rememberMe,
       })
 
-      console.log('🔍 Login response:', response)
-      console.log('🔍 Login user data:', response.data?.user)
-
       if (response.data?.user) {
         // Login successful, store user (tokens are now in httpOnly cookies)
         login(response.data.user)

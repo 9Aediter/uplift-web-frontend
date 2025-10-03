@@ -27,10 +27,7 @@ export function OAuthSuccessHandler() {
           // Backend should have set JWT tokens after OAuth callback
           // Call /auth/me to get user info and verify authentication
           const response = await authApi.me()
-          
-          console.log('🔍 OAuth /auth/me response:', response)
-          console.log('🔍 User data:', response.data)
-          
+
           if (response.data) {
             login(response.data)
             toast.success(`Successfully signed in with ${provider || 'social account'}!`)

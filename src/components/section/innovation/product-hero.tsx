@@ -138,7 +138,7 @@ const FeaturesList: React.FC<{ features: (Feature | string)[] }> = ({ features }
                   <div className="text-muted-foreground mt-1">{featureDescription}</div>
                 )}
                 {/* Arrow */}
-                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45"></div>
+                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45" />
               </div>
             </div>
 
@@ -180,7 +180,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
       )}
 
       {/* Mobile Gradient Overlay - Above background image */}
-      <div className="absolute inset-0 z-5 bg-gradient-to-r from-background/70 via-background/5 to-transparent sm:hidden"></div>
+      <div className="absolute inset-0 z-5 bg-gradient-to-r from-background/70 via-background/5 to-transparent sm:hidden" />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl h-[100vh] mx-auto px-8 sm:px-10 py-0 sm:py-16 md:py-24 flex justify-start items-center">

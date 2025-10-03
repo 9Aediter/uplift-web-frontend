@@ -22,7 +22,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ service }) => {
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ backgroundImage: `url('${backgroundImage}')` }}
       >
-        <div className="absolute inset-0 bg-black/60"></div> {/* Overlay for readability */}
+        <div className="absolute inset-0 bg-black/60" /> {/* Overlay for readability */}
       </div>
 
       {/* Content Wrapper */}

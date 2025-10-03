@@ -100,7 +100,7 @@ const ProductsSection = ({ products: propsProducts }: ProductsSectionProps) => {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority={index === 0}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                   <div
                     className="absolute top-4 left-4 w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg"
                   >

@@ -4,7 +4,6 @@ import Nav from '@/components/basic/nav/resnav'
 import Hero from '@/components/section/innovation/hero'
 import ProductsSection from '@/components/section/innovation/products-section'
 import FinalCtaSection from '@/components/section/innovation/final-cta'
-import dynamic from 'next/dynamic'
 
 // Import from progressive loader
 import { Particles } from "@/components/progressive-loader"

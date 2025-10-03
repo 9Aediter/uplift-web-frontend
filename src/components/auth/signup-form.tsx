@@ -49,13 +49,8 @@ export function SignupForm({
       password: formPassword
     }
 
-    console.log("🚀 Attempting to register user:", { email, name })
-    console.log("📡 API call data:", data)
-
     try {
-      console.log("📞 Calling authApi.register...")
       const response = await authApi.register(data)
-      console.log("✅ Registration successful:", response.data)
 
       if (response.data?.user) {
         // Registration successful, store user (tokens are now in httpOnly cookies)
@@ -69,13 +64,6 @@ export function SignupForm({
         router.push("/")
       }
     } catch (error: any) {
-      console.error("❌ Registration error:", error)
-      console.error("📍 Error details:", {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message
-      })
-
       if (error.response?.data?.message) {
         toast.error(error.response.data.message)
       } else if (error.response?.status === 409) {

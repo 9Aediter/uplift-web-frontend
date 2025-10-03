@@ -75,7 +75,7 @@ export const websiteSchema = (locale: string) => ({
 export const breadcrumbSchema = (items: Array<{ name: string; item: string }>) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  itemListElement: items.map((it) => ({
+  itemListElement: items.map((it, idx) => ({
     '@type': 'ListItem',
     position: idx + 1,
     name: it.name,

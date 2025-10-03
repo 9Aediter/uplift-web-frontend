@@ -105,7 +105,7 @@ export const DemoApp = () => {
                 <div className="w-64 h-[500px] md:w-72 md:h-[550px] bg-black rounded-[3rem] p-3 shadow-2xl">
                   <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
                     {/* Notch */}
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-xl z-20"></div>
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-xl z-20" />
                     
                     {/* Screen Content */}
                     <div className="w-full h-full bg-gradient-to-br from-cyan-400 to-blue-600 flex flex-col">
@@ -113,9 +113,9 @@ export const DemoApp = () => {
                       <div className="h-12 flex items-center justify-between px-6 pt-6">
                         <span className="text-white text-sm font-medium">9:41</span>
                         <div className="flex items-center space-x-1">
-                          <div className="w-4 h-2 bg-white rounded-sm opacity-60"></div>
-                          <div className="w-4 h-2 bg-white rounded-sm opacity-80"></div>
-                          <div className="w-4 h-2 bg-white rounded-sm"></div>
+                          <div className="w-4 h-2 bg-white rounded-sm opacity-60" />
+                          <div className="w-4 h-2 bg-white rounded-sm opacity-80" />
+                          <div className="w-4 h-2 bg-white rounded-sm" />
                         </div>
                       </div>
                       
@@ -129,9 +129,9 @@ export const DemoApp = () => {
                         
                         {/* Mock UI Elements */}
                         <div className="w-full space-y-3">
-                          <div className="h-12 bg-white/20 rounded-xl"></div>
-                          <div className="h-12 bg-white/20 rounded-xl"></div>
-                          <div className="h-12 bg-white rounded-xl"></div>
+                          <div className="h-12 bg-white/20 rounded-xl" />
+                          <div className="h-12 bg-white/20 rounded-xl" />
+                          <div className="h-12 bg-white rounded-xl" />
                         </div>
                       </div>
                     </div>
@@ -143,7 +143,7 @@ export const DemoApp = () => {
               <div className="absolute left-0 top-8 z-0 opacity-30 scale-90 rotate-12">
                 <div className="w-56 h-[450px] bg-gray-800 rounded-[2.5rem] p-3">
                   <div className="w-full h-full bg-gray-100 rounded-[2rem] overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-500"></div>
+                    <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-500" />
                   </div>
                 </div>
               </div>
@@ -152,14 +152,14 @@ export const DemoApp = () => {
               <div className="absolute right-0 top-12 z-0 opacity-30 scale-90 -rotate-12">
                 <div className="w-56 h-[450px] bg-gray-800 rounded-[2.5rem] p-3">
                   <div className="w-full h-full bg-gray-100 rounded-[2rem] overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-br from-green-400 to-cyan-500"></div>
+                    <div className="w-full h-full bg-gradient-to-br from-green-400 to-cyan-500" />
                   </div>
                 </div>
               </div>
 
               {/* Decorative Elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-cyan-500/20 rounded-full opacity-60 animate-pulse"></div>
-              <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-500/20 rounded-full opacity-40 animate-pulse delay-1000"></div>
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-cyan-500/20 rounded-full opacity-60 animate-pulse" />
+              <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-500/20 rounded-full opacity-40 animate-pulse delay-1000" />
             </div>
           </div>
 

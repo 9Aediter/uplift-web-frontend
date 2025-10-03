@@ -41,8 +41,8 @@ const Hero = () => {
                     {/* Abstract graphic */}
                     <div className="relative mx-auto">
                         <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                            <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
-                            <div className="absolute w-0.5 h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent"></div>
+                            <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+                            <div className="absolute w-0.5 h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
                         </div>
                         <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
                             {['cyan', 'blue', 'magenta', 'lime'].map((color, index) => (

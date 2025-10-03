@@ -47,9 +47,9 @@ const mockServices = {
 export default async function ServiceDetailPage({
   params
 }: {
-  params: Promise<{ lang: string; id: string }>; // Remove lang from params type
+  params: Promise<{ lang: string; id: string }>;
 }) {
-  const { lang, id } = await params;
+  const { id } = await params;
 
   // Get mock service data
   const service = mockServices[id as keyof typeof mockServices];

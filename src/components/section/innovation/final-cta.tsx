@@ -9,12 +9,12 @@ const FinalCtaSection = () => {
     return (
         <Section className="relative py-24 overflow-hidden">
             {/* Background effects */}
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
             
             {/* Animated elements */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-700"></div>
+                <div className="absolute -top-10 -right-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-700" />
             </div>
 
             <div className="relative z-10 max-w-5xl mx-auto px-6">
@@ -25,7 +25,7 @@ const FinalCtaSection = () => {
                     transition={{ duration: 0.6 }}
                 >
                     {/* Decorative top border */}
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
                     
                     <div className="text-center space-y-8">
                         {/* Icon */}

@@ -40,7 +40,7 @@ export const Card = ({
       {/* Content */}
       <div className="relative z-10">{children}</div>
       {/* Border highlight */}
-      <div className="absolute inset-0 rounded-lg border border-border/20 pointer-events-none"></div>
+      <div className="absolute inset-0 rounded-lg border border-border/20 pointer-events-none" />
     </div>
   );
 };

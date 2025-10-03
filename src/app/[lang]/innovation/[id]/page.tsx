@@ -60,16 +60,7 @@ const mockInnovationDetails = {
 };
 import { InnovationImageAnimate } from '@/components/section/innovation/innovation-image-animate';
 
-// Import all new section components
-import { OverviewSection } from '@/components/section/innovation/overview-section';
-import { CoreFeaturesSection } from '@/components/section/innovation/core-features-section';
-import { WhatIsSection } from '@/components/section/innovation/what-is-section';
-import { WhyNeedItSection } from '@/components/section/innovation/why-need-it-section';
-import { HowUpliftBuildsItSection } from '@/components/section/innovation/how-uplift-builds-it-section';
-import { TechStackSection } from '@/components/section/innovation/tech-stack-section';
-import { ExampleScreensSection } from '@/components/section/innovation/example-screens-section';
-import { FAQSection } from '@/components/section/innovation/faq-section';
-import { CallToActionSection } from '@/components/section/innovation/call-to-action-section';
+// Import section components
 import { ProductHero } from '@/components/section/innovation/product-hero';
 
 export default async function Page({

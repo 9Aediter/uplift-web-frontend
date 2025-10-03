@@ -3,7 +3,7 @@ import Nav from "@/components/basic/nav/resnav";
 import Footer from "@/components/footer/footer";
 // import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Mail, Github, Linkedin } from 'lucide-react';
+import { ArrowLeft, Mail, Github, Linkedin, CheckCircle } from 'lucide-react';
 import CertificateCarousel from '@/components/team/certificate-carousel';
 import { notFound } from 'next/navigation';
 

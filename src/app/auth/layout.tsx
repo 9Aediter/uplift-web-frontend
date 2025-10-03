@@ -1,8 +1,9 @@
 "use client"
 
 import { GalleryVerticalEnd } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
+import Link from "next/link"
 
 const World = dynamic(() => import("@/components/ui/globe").then((m) => m.World), {
   ssr: false,
@@ -123,12 +124,12 @@ export default function AuthLayout({
       {/* Left Panel - Auth Form */}
       <div className="flex flex-col gap-4 p-6 md:p-10 relative z-10">
         <div className="flex justify-center gap-2 md:justify-start">
-          <a href="/" className="flex items-center gap-2 font-medium text-white">
+          <Link href="/" className="flex items-center gap-2 font-medium text-white">
             <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
               <GalleryVerticalEnd className="size-4" />
             </div>
             UPLIFTTECH
-          </a>
+          </Link>
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-lg">

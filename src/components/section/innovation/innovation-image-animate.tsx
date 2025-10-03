@@ -9,7 +9,7 @@ interface InnovationImageAnimateProps {
 export const InnovationImageAnimate: React.FC<InnovationImageAnimateProps> = ({ imageUrl }) => {
   return (
     <div className="relative w-full h-[100vh]">
-      <div className="absolute inset-0 z-0"></div>
+      <div className="absolute inset-0 z-0" />
       <AnimatePresence initial={false}>
         <motion.div
           key={imageUrl}
@@ -31,7 +31,7 @@ export const InnovationImageAnimate: React.FC<InnovationImageAnimateProps> = ({ 
         ></motion.div>
       </AnimatePresence>
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 z-5 bg-gradient-to-b from-transparent via-background/30 to-background/60"></div>
+      <div className="absolute inset-0 z-5 bg-gradient-to-b from-transparent via-background/30 to-background/60" />
     </div>
   );
 };

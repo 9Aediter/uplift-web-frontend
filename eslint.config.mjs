@@ -35,6 +35,12 @@ const eslintConfig = [
       // React best practices
       'react/jsx-no-target-blank': 'error',
       'react/self-closing-comp': 'warn',
+      'react/no-unescaped-entities': ['error', {
+        forbid: [
+          { char: '>', alternatives: ['&gt;'] },
+          { char: '}', alternatives: ['&rbrace;'] }
+        ]
+      }],
 
       // Next.js specific (already included but explicitly listed for clarity)
       '@next/next/no-img-element': 'error',

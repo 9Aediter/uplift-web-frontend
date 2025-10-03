@@ -39,7 +39,7 @@ const CarouselAnimate: React.FC<CarouselAnimateProps> = ({ carouselItems }) => {
               layout="fill"
               objectFit="cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6">
               <p className="text-xl font-medium text-white">
                 {item.caption}

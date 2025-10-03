@@ -30,7 +30,7 @@ export const VisionHero = () => {
                             </span>
                         </h1>
                         {/* Line */}
-                        <div className="w-20 h-1 bg-gradient-to-r from-blue-400 to-cyan-300 mx-auto mb-8"></div>
+                        <div className="w-20 h-1 bg-gradient-to-r from-blue-400 to-cyan-300 mx-auto mb-8" />
                         {/* Describe */}
                         <div className="text-3xl md:text-4xl font-light text-white max-w-4xl mx-auto leading-tight">
                             เราสร้างเทคโนโลยี<br></br>เพื่อเปลี่ยนแปลงให้
@@ -53,25 +53,25 @@ export const VisionHero = () => {
                             <ul className="space-y-4 text-xl text-gray-300 leading-relaxed">
                                 <li className="flex items-start">
                                     <div className="w-6 h-6 rounded-full bg-cyan-900/50 flex items-center justify-center mt-1 mr-3">
-                                        <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                        <div className="w-2 h-2 rounded-full bg-cyan-400" />
                                     </div>
                                     <p>พัฒนาซอฟต์แวร์ที่สร้างการเปลี่ยนแปลงเชิงบวก</p>
                                 </li>
                                 <li className="flex items-start">
                                     <div className="w-6 h-6 rounded-full bg-cyan-900/50 flex items-center justify-center mt-1 mr-3">
-                                        <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                        <div className="w-2 h-2 rounded-full bg-cyan-400" />
                                     </div>
                                     <p>ช่วยให้องค์กรทำงานอย่างมีประสิทธิภาพและลดต้นทุน</p>
                                 </li>
                                 <li className="flex items-start">
                                     <div className="w-6 h-6 rounded-full bg-cyan-900/50 flex items-center justify-center mt-1 mr-3">
-                                        <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                        <div className="w-2 h-2 rounded-full bg-cyan-400" />
                                     </div>
                                     <p>เพิ่มศักยภาพในการแข่งขัน</p>
                                 </li>
                                 <li className="flex items-start">
                                     <div className="w-6 h-6 rounded-full bg-cyan-900/50 flex items-center justify-center mt-1 mr-3">
-                                        <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                        <div className="w-2 h-2 rounded-full bg-cyan-400" />
                                     </div>
                                     <p>เป็นพาร์ทเนอร์เทคโนโลยีที่เชื่อถือได้และเติบโตยั่งยืน</p>
                                 </li>
@@ -88,7 +88,7 @@ export const VisionHero = () => {
                             <ul className="space-y-6">
                                 <li className="flex items-start">
                                     <div className="w-6 h-6 rounded-full bg-cyan-900/50 flex items-center justify-center mt-1 mr-3">
-                                        <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                        <div className="w-2 h-2 rounded-full bg-cyan-400" />
                                     </div>
                                     <p className="text-xl text-gray-300">
                                         สร้างซอฟต์แวร์ที่ใช้งานง่ายและสวยงาม
@@ -96,7 +96,7 @@ export const VisionHero = () => {
                                 </li>
                                 <li className="flex items-start">
                                     <div className="w-6 h-6 rounded-full bg-cyan-900/50 flex items-center justify-center mt-1 mr-3">
-                                        <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                        <div className="w-2 h-2 rounded-full bg-cyan-400" />
                                     </div>
                                     <p className="text-xl text-gray-300">
                                         ให้บริการเกินความคาดหวังด้วยทีมงานที่เข้าใจธุรกิจ
@@ -104,7 +104,7 @@ export const VisionHero = () => {
                                 </li>
                                 <li className="flex items-start">
                                     <div className="w-6 h-6 rounded-full bg-cyan-900/50 flex items-center justify-center mt-1 mr-3">
-                                        <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                        <div className="w-2 h-2 rounded-full bg-cyan-400" />
                                     </div>
                                     <p className="text-xl text-gray-300">
                                         นำเทคโนโลยีล่าสุดมาสร้างความได้เปรียบทางธุรกิจ

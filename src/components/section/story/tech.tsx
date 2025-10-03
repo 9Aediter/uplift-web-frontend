@@ -11,7 +11,7 @@ export const Skills = () => {
             id="skills"
             className="max-w-7xl w-full relative"
         >
-            {/* <div className="w-[100px] h-[100px] bg-violet-100 rounded-full absolute top-6 left-[42%] translate-x-1/2 filter blur-3xl  opacity-20"></div> */}
+            {/* <div className="w-[100px] h-[100px] bg-violet-100 rounded-full absolute top-6 left-[42%] translate-x-1/2 filter blur-3xl  opacity-20" /> */}
 
             <div className="w-full">
                 <Marquee

@@ -118,7 +118,7 @@ export function ServiceModalExample() {
     <ReusableModal
       trigger={
         <div className="group relative p-6 bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-xl cursor-pointer overflow-hidden">
-          <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+          <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity" />
           <h3 className="text-xl font-bold mb-2">Web Development</h3>
           <p className="text-purple-100">Professional web solutions</p>
         </div>

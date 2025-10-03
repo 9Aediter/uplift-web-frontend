@@ -27,11 +27,11 @@ export const HeroAnimate: React.FC<HeroAnimateProps> = ({ children, containerRef
 // Floating Tech Elements
 const FloatingTechElements = () => (
     <div className="absolute right-10 md:right-20 bottom-20 hidden md:block z-21">
-        <div className="w-64 h-64 border border-cyan-500/30 rounded-full animate-spin-slow opacity-30"></div>
-        <div className="w-48 h-48 border border-blue-500/30 rounded-full animate-spin-reverse absolute top-8 left-8 opacity-30"></div>
-        <div className="w-32 h-32 border border-fuchsia-500/30 rounded-full animate-pulse absolute top-16 left-16 opacity-30"></div>
+        <div className="w-64 h-64 border border-cyan-500/30 rounded-full animate-spin-slow opacity-30" />
+        <div className="w-48 h-48 border border-blue-500/30 rounded-full animate-spin-reverse absolute top-8 left-8 opacity-30" />
+        <div className="w-32 h-32 border border-fuchsia-500/30 rounded-full animate-pulse absolute top-16 left-16 opacity-30" />
         <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-4 w-4 rounded-full bg-cyan-400 animate-ping"></div>
+            <div className="h-4 w-4 rounded-full bg-cyan-400 animate-ping" />
         </div>
     </div>
 );

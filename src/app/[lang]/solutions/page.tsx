@@ -10,8 +10,8 @@ import { FileTextIcon, BarChartIcon, ZapIcon, LayoutIcon, TrendingUpIcon } from 
 import { Particles } from '@/components/home/hero/particles'
 
 const SolutionsPage = () => {
-    const [searchTerm, setSearchTerm] = useState('')
-    const [activeCategory, setActiveCategory] = useState('all')
+    const [searchTerm] = useState('')
+    const [activeCategory] = useState('all')
 
     const categories = [
         {

@@ -10,6 +10,7 @@ import { Building2, Code, Award } from 'lucide-react';
 import { personalData } from '@/data/personal-data';
 import { getPageSEO, generatePageMetadata } from '@/lib/seo';
 import type { Metadata } from "next";
+import type { StoryFounder, TimelineItem, TimelineStat } from '@/types/models/story';
 
 // Import story data
 import storyDataTh from '@/data/story/th.json';
@@ -40,7 +41,7 @@ const getStoryData = (locale: string) => {
     const data = locale === 'th' ? storyDataTh : storyDataEn;
 
     // Update founder image with personalData if available
-    const updatedFounders = data.founders.map((founder: any) => {
+    const updatedFounders = data.founders.map((founder: StoryFounder) => {
         if (founder.id === 1 && personalData?.profile) {
             return { ...founder, image: personalData.profile };
         }
@@ -57,7 +58,7 @@ const StoryPage = async ({ params }: { params: Promise<{ lang: string }> }) => {
     const { lang } = await params;
     const storyData = getStoryData(lang);
 
-    const data = storyData.timeline.map((item: any) => ({
+    const data = storyData.timeline.map((item: TimelineItem) => ({
         title: item.title,
         content: (
             <div>
@@ -91,7 +92,7 @@ const StoryPage = async ({ params }: { params: Promise<{ lang: string }> }) => {
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-3 gap-3 mt-6">
-                    {item.stats?.map((stat: any, index: number) => (
+                    {item.stats?.map((stat: TimelineStat, index: number) => (
                         <div key={index} className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-lg p-3 text-center border border-slate-200 dark:border-slate-700">
                             <div className="flex items-center justify-center mb-2 text-blue-600 dark:text-blue-400">
                                 {stat.icon === 'FaAward' && <FaAward className="w-4 h-4" />}

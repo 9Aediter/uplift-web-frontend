@@ -48,8 +48,6 @@ export function SocialForm() {
         throw new Error('Failed to get LINE authentication data')
       }
 
-      console.log('🔗 LINE LIFF Auth Data:', authData)
-
       // Send to backend
       const response = await authApi.lineAuth(authData.accessToken, authData.profile)
       const { user, message } = response.data
@@ -66,13 +64,10 @@ export function SocialForm() {
         // Don't redirect if we're on a test page
         if (!window.location.pathname.includes('test-liff')) {
           router.push('/dashboard')
-        } else {
-          console.log('📝 Test page detected - skipping redirect')
         }
       }
 
     } catch (error: any) {
-      console.error('❌ LINE LIFF Auth error:', error)
       setError(error.message || 'LINE authentication failed')
       toast.error('LINE authentication failed. Please try again.')
       setStatus('unauthenticated')
@@ -97,11 +92,9 @@ export function SocialForm() {
       } else {
         // Use traditional OAuth for Google/Facebook
         const oauthUrl = authApi.getOAuthUrl(provider)
-        console.log(`🔗 Redirecting to ${provider} OAuth:`, oauthUrl)
         window.location.href = oauthUrl
       }
     } catch (error: any) {
-      console.error(`❌ ${provider} OAuth error:`, error)
       toast.error(`An error occurred during ${provider} sign in`)
       setIsLoading(null)
     }

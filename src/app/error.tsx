@@ -239,9 +239,9 @@ export default function Error({
               href="/auth/signin"
               className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-500/50"
             >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-600/20 backdrop-blur-xl border border-white/20 shadow-2xl transition-all duration-300 group-hover:from-red-500/30 group-hover:to-orange-600/30 group-hover:border-white/30"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-600/20 backdrop-blur-xl border border-white/20 shadow-2xl transition-all duration-300 group-hover:from-red-500/30 group-hover:to-orange-600/30 group-hover:border-white/30" />
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer"></div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer" />
               </div>
               <span className="relative z-10 flex items-center gap-2">
                 🔑 Try Sign In Again
@@ -252,9 +252,9 @@ export default function Error({
               onClick={() => reset()}
               className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-500/50"
             >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-600/20 backdrop-blur-xl border border-white/20 shadow-2xl transition-all duration-300 group-hover:from-red-500/30 group-hover:to-orange-600/30 group-hover:border-white/30"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-600/20 backdrop-blur-xl border border-white/20 shadow-2xl transition-all duration-300 group-hover:from-red-500/30 group-hover:to-orange-600/30 group-hover:border-white/30" />
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer"></div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer" />
               </div>
               <span className="relative z-10 flex items-center gap-2">
                 🔄 Try Again
@@ -267,9 +267,9 @@ export default function Error({
             href="/"
             className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
           >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-purple-600/20 backdrop-blur-xl border border-white/20 shadow-2xl transition-all duration-300 group-hover:from-blue-500/30 group-hover:to-purple-600/30 group-hover:border-white/30"></div>
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-purple-600/20 backdrop-blur-xl border border-white/20 shadow-2xl transition-all duration-300 group-hover:from-blue-500/30 group-hover:to-purple-600/30 group-hover:border-white/30" />
             <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer" />
             </div>
             <span className="relative z-10 flex items-center gap-2">
               🏠 Go Home

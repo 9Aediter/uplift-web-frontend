@@ -61,7 +61,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const heroContent = homepageData.hero;
   const homePageContent = homepageData.home;
   const servicesContent = homepageData.services;
-  const problemsContent = homepageData.problems;
   const solutionContent = homepageData.solution;
 
   // Data should always be available, but add safety checks

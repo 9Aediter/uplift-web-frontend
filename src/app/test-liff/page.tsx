@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { liffHelper, LineProfile } from '@/lib/integrations/liff';
 import { Button } from '@/components/basic/button/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
 
 export default function TestLiffPage() {
   const [profile, setProfile] = useState<LineProfile | null>(null);
@@ -14,13 +15,9 @@ export default function TestLiffPage() {
   // Main LIFF function - simple like your example
   const main = async () => {
     try {
-      console.log('🚀 Starting LIFF main function...');
-
       const isLoggedIn = await liffHelper.init();
 
       if (isLoggedIn) {
-        console.log('✅ User is logged in');
-
         // Get profile
         const userProfile = await liffHelper.getProfile();
         const token = liffHelper.getAccessToken();
@@ -28,19 +25,13 @@ export default function TestLiffPage() {
         // Update state
         setProfile(userProfile);
         setAccessToken(token);
-
-        console.log('👤 Profile:', userProfile);
-        console.log('🔑 Access Token:', token ? 'Got token' : 'No token');
-
       } else {
-        console.log('❌ User not logged in - calling login()');
         liffHelper.login();
       }
 
       setIsReady(true);
 
     } catch (error: any) {
-      console.error('❌ Main function error:', error);
       setError(error.message);
       setIsReady(true);
     }
@@ -104,9 +95,11 @@ export default function TestLiffPage() {
               <h3 className="font-semibold text-green-800 dark:text-green-200 mb-4">✅ Successfully Logged In!</h3>
               <div className="flex items-start space-x-4">
                 {profile.pictureUrl && (
-                  <img
+                  <Image
                     src={profile.pictureUrl}
                     alt="Profile"
+                    width={64}
+                    height={64}
                     className="w-16 h-16 rounded-full border-2 border-green-300 dark:border-green-600"
                   />
                 )}

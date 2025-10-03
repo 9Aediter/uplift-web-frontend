@@ -55,7 +55,6 @@ export class SpecializedButtonSystem extends ButtonSystem {
             onClick(e)
           } else if (variant === 'consult') {
             // Default consult behavior
-            console.log("Consult button clicked!")
             window.location.href = '/consult'
           }
         }

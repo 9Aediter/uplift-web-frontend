@@ -47,7 +47,7 @@ export class NavbarButtonSystem extends ButtonSystem {
               href={href}
               className={generatedClassName}
               ref={ref as React.Ref<HTMLAnchorElement>}
-              onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
+              onClick={onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>}
             >
               {children}
             </Link>

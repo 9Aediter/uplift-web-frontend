@@ -64,13 +64,18 @@ const nextConfig: NextConfig = {
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', '@heroicons/react'],
+    optimizeCss: true, // Enable CSS optimization
   },
-  
+
   // Compress responses
   compress: true,
 
   // Output configuration for standalone deployment
   output: 'standalone',
+
+  // Performance optimizations
+  poweredByHeader: false,
+  reactStrictMode: true,
   
 };
 

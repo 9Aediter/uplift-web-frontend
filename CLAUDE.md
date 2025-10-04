@@ -47,40 +47,6 @@ Next.js 15 App Router with route groups:
 - `src/app/auth/`: Authentication pages (signin, signup)
 - `src/app/api/`: API endpoints (currently pointing to external NestJS backend)
 
-### Widget System Architecture
-Sophisticated widget-based content system:
-- **Widget Registry**: Type-safe widget registration with `WidgetFactory` and `WidgetRegistry`
-- **Widget Categories**: Hero, Cards (Single, Three-Column, Four-Column, Grid, List, Problems)
-- **SSR Support**: Server-side rendering with `SSRWidgetRenderer`
-- **Dynamic Configuration**: Runtime widget configuration with field definitions
-
-#### Widget File Structure Pattern (IMPORTANT)
-Each widget follows this exact structure:
-```
-/src/lib/widgets/[category]/[WidgetName]/
-  ├── WidgetName.widget.ts     # OOP class with config/validation
-  ├── WidgetName.ssr.tsx       # SSR component (production)
-  ├── WidgetName.component.tsx # Client component (admin preview)
-  └── WidgetName.skeleton.tsx  # Loading skeleton
-```
-
-**Critical Implementation Rules:**
-- **render()** method uses `.component.tsx` (client-side for admin preview)
-- **renderSSR()** method uses `.ssr.tsx` (server-side for production)
-- **Both components MUST produce identical output** - only difference is animation capability
-- **SSR components import animated components** from `/components/widgets/[name]/` folder
-- **Animated components are "use client"** and contain motion/framer-motion code
-- **Never use styled-jsx in SSR components** - it breaks server rendering
-- **Hero Widgets**: OOP-based HeroAI widget in `/lib/widgets/hero/HeroAI/` with SSR and client components
-
-### Content Management System
-Database-driven CMS (pointing to external backend):
-- **Content Types**: Hero sections, problem sections, features, etc.
-- **Workflow States**: DRAFT → REVIEW → PUBLISHED → ARCHIVED
-- **Multi-language**: English/Thai content support via locale system
-- **Dynamic Fields**: Configurable field types with validation
-- **API Integration**: RESTful endpoints for content CRUD operations
-
 ### State Management Architecture
 Zustand stores for different domains:
 - `auth.ts`: Authentication state and user management
@@ -157,7 +123,6 @@ AWS_S3_REGION=ap-southeast-1
 - **Dynamic Routes**: `[lang]` parameter for language routing without i18n library
 - **Middleware Protection**: Authentication and role-based access control via middleware
 - **API Integration**: Frontend-only with external backend dependency
-- **Widget System**: Modular, reusable content components with type safety
 - **State Management**: Domain-driven Zustand stores for different app areas
 - **Error Handling**: Global error boundary and toast notifications via Sonner
 - **Image Optimization**: Next.js Image component with remote patterns for external sources
@@ -223,7 +188,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 - **Dynamic Tailwind Classes**: Avoid template literals in className (e.g., `text-${color}-400`). Use complete class names or cn() utility
 - **Optional Chaining**: Always use optional chaining for potentially undefined properties (e.g., `item.gradientFrom?.split()`)
 - **Type Conflicts**: Watch for duplicate type definitions between local interfaces and external types
-- **SSR vs Client Components**: Hero widgets have both SSR (`.ssr.tsx`) and client (`.component.tsx`) versions for optimal performance
+- **SSR vs Client Components**: Animated components use "use client" directive, while static components can be server-side
 - **Node Modules Permission**: If you encounter EACCES errors with node_modules, delete and reinstall: `rm -rf node_modules package-lock.json && npm install`
 - **Image Optimization**: Next.js Image component configured with remote patterns for external sources (S3, Unsplash, etc.)
 - **Middleware JWT Decoding**: JWT payload structure has user roles at `payload.user.roles` array

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TechStack } from '@/components/section/techstack/tech';
+import { TechStack } from '@/components/page/techstack/tech';
 
 interface Technology {
   id: string;

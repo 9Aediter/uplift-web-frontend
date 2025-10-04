@@ -1,9 +1,9 @@
 import React from 'react'
-import Footer from '@/components/footer/footer'
+import Footer from '@/components/layout/footer/footer'
 import Nav from '@/components/basic/nav/resnav'
-import Hero from '@/components/section/innovation/hero'
-import ProductsSection from '@/components/section/innovation/products-section'
-import FinalCtaSection from '@/components/section/innovation/final-cta'
+import Hero from '@/components/page/innovation/hero'
+import ProductsSection from '@/components/page/innovation/products-section'
+import FinalCtaSection from '@/components/page/innovation/final-cta'
 
 // Import from progressive loader
 import { Particles } from "@/components/progressive-loader"

@@ -58,10 +58,10 @@ const mockInnovationDetails = {
     category: 'Web App'
   }
 };
-import { InnovationImageAnimate } from '@/components/section/innovation/innovation-image-animate';
+import { InnovationImageAnimate } from '@/components/page/innovation/innovation-image-animate';
 
 // Import section components
-import { ProductHero } from '@/components/section/innovation/product-hero';
+import { ProductHero } from '@/components/page/innovation/product-hero';
 
 export default async function Page({
   params,

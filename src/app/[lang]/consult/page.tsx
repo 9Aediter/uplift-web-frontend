@@ -1,11 +1,11 @@
 import React from 'react';
 import { ConsultationForm } from '@/components/basic/forms/consultation-form';
 import { Section } from '@/components/ui/section';
-import { ConsultationHero } from '@/components/section/consult/consultation-hero';
-import { Particles } from '@/components/home/hero/particles';
-import { FloatingElements } from '@/components/home/hero/floating-elements';
-import { ConsultBenefits } from '@/components/section/consult/consult-benefits';
-import { ConsultProcess } from '@/components/section/consult/consult-process';
+import { ConsultationHero } from '@/components/page/consult/consultation-hero';
+import { Particles } from '@/components/page/home/hero/particles';
+import { FloatingElements } from '@/components/page/home/hero/floating-elements';
+import { ConsultBenefits } from '@/components/page/consult/consult-benefits';
+import { ConsultProcess } from '@/components/page/consult/consult-process';
 import { Button } from '@/components/basic/button/button';
 import Link from 'next/link';
 

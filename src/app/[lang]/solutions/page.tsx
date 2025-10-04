@@ -1,13 +1,13 @@
 'use client'
 import React, { useState } from 'react'
 import Nav from '@/components/basic/nav/resnav'
-import Footer from '@/components/footer/footer'
-import { SolutionHero } from '@/components/section/solution/hero'
-import { FeaturedArticles } from '@/components/section/solution/featured-articles'
-import { AllArticles } from '@/components/section/solution/all-articles'
-import { Newsletter } from '@/components/section/solution/newsletter'
+import Footer from '@/components/layout/footer/footer'
+import { SolutionHero } from '@/components/page/solution/hero'
+import { FeaturedArticles } from '@/components/page/solution/featured-articles'
+import { AllArticles } from '@/components/page/solution/all-articles'
+import { Newsletter } from '@/components/page/solution/newsletter'
 import { FileTextIcon, BarChartIcon, ZapIcon, LayoutIcon, TrendingUpIcon } from 'lucide-react'
-import { Particles } from '@/components/home/hero/particles'
+import { Particles } from '@/components/page/home/hero/particles'
 
 const SolutionsPage = () => {
     const [searchTerm] = useState('')

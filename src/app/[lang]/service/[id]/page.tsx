@@ -4,15 +4,15 @@ import Nav from "@/components/basic/nav/resnav";
 import Footer from "@/components/footer/footer";
 
 // Import all refactored section components
-import HeroSection from '@/components/section/service/pagesection/HeroSection';
-// import CarouselSection from '@/components/section/service/pagesection/CarouselSection';
-// import QuickPitchSection from '@/components/section/service/pagesection/QuickPitchSection';
-// import ProblemStatementSection from '@/components/section/service/pagesection/ProblemStatementSection';
-// import InDepthFeaturesSection from '@/components/section/service/pagesection/InDepthFeaturesSection';
-// import BenefitsOutcomesSection from '@/components/section/service/pagesection/BenefitsOutcomesSection';
-// import CaseStudySection from '@/components/section/service/pagesection/CaseStudySection';
-// import PricingSection from '@/components/section/service/pagesection/PricingSection';
-// import FaqSection from '@/components/section/service/pagesection/FaqSection';
+import HeroSection from '@/components/page/service/pagesection/HeroSection';
+// import CarouselSection from '@/components/page/service/pagesection/CarouselSection';
+// import QuickPitchSection from '@/components/page/service/pagesection/QuickPitchSection';
+// import ProblemStatementSection from '@/components/page/service/pagesection/ProblemStatementSection';
+// import InDepthFeaturesSection from '@/components/page/service/pagesection/InDepthFeaturesSection';
+// import BenefitsOutcomesSection from '@/components/page/service/pagesection/BenefitsOutcomesSection';
+// import CaseStudySection from '@/components/page/service/pagesection/CaseStudySection';
+// import PricingSection from '@/components/page/service/pagesection/PricingSection';
+// import FaqSection from '@/components/page/service/pagesection/FaqSection';
 
 // Assuming getServiceById is available from serviceActions
 // Mock data for services

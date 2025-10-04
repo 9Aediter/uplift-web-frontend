@@ -70,7 +70,7 @@ const nextConfig: NextConfig = {
   // Compress responses
   compress: true,
 
-  // Output configuration for standalone deployment
+  // Output configuration for standalone deployment (required for Docker)
   output: 'standalone',
 
   // Performance optimizations

@@ -28,7 +28,6 @@ This is a Next.js 15 application for Uplift consulting services with sophisticat
 - **Animations**: Motion (formerly Framer Motion), Lottie animations
 - **Icons**: Heroicons, Tabler Icons, React Icons, Lucide React
 - **Authentication**: Custom JWT-based system with httpOnly cookies and social OAuth (Google, Facebook)
-- **Internationalization**: next-intl for English/Thai localization
 - **External Integrations**: Google Analytics, LINE LIFF
 
 ### Authentication System
@@ -43,7 +42,7 @@ Custom JWT-based authentication system:
 
 ### Directory Structure & Routing
 Next.js 15 App Router with route groups:
-- `src/app/(Public)/`: Public marketing pages (home, services, solutions, etc.)
+- `src/app/[lang]/`: Dynamic route for language-specific pages (en/th) - uses static JSON data, not next-intl
 - `src/app/admin/`: Role-protected admin dashboard with full CRUD management
 - `src/app/auth/`: Authentication pages (signin, signup)
 - `src/app/api/`: API endpoints (currently pointing to external NestJS backend)
@@ -90,16 +89,16 @@ Zustand stores for different domains:
 - `landing-store.ts`: Landing page configuration
 - `footer-store.ts`: Footer content management
 
-### Internationalization (i18n)
-- **Languages**: English (default) and Thai support
-- **Locale Handling**: Middleware-based locale detection and routing
-- **URL Structure**: 
-  - Default (Thai): `/` 
+### Language Support (No i18n Library)
+- **Languages**: English and Thai support via `[lang]` dynamic route
+- **URL Structure**:
+  - Thai: `/th/`
   - English: `/en/`
-- **File Structure**: 
-  - `src/lib/dictionaries/en.json` - English translations
-  - `src/lib/dictionaries/th.json` - Thai translations
-- **Implementation**: Uses `next-intl` with custom middleware for locale routing
+- **Implementation**:
+  - Dynamic route parameter `[lang]` in `src/app/[lang]/`
+  - Static JSON data files in `src/data/homepage/en.json` and `src/data/homepage/th.json`
+  - No i18n library (next-intl removed) - uses simple dynamic imports based on lang param
+  - `generateStaticParams()` exports static paths for both languages
 
 ### Component Organization
 Clean component structure in `/components/`:
@@ -155,7 +154,7 @@ AWS_S3_REGION=ap-southeast-1
 4. **Backend dependency**: Requires separate NestJS backend running on configured API URL
 
 ### Key Architecture Patterns
-- **Route Groups**: App Router organizes routes with `(Public)` for marketing pages and `admin` for protected functionality
+- **Dynamic Routes**: `[lang]` parameter for language routing without i18n library
 - **Middleware Protection**: Authentication and role-based access control via middleware
 - **API Integration**: Frontend-only with external backend dependency
 - **Widget System**: Modular, reusable content components with type safety
@@ -184,4 +183,4 @@ AWS_S3_REGION=ap-southeast-1
 - **Middleware JWT Decoding**: JWT payload structure has user roles at `payload.user.roles` array
 - **TypeScript Path Aliases**: Use `@/*` to import from `src/*` directory
 - **Next.js Output**: Configured for standalone deployment mode
-- **Sitemap Generation**: Automatic generation via next-sitemap post-build with internationalization support
+- **Sitemap Generation**: Automatic generation via next-sitemap post-build for both /en and /th routes

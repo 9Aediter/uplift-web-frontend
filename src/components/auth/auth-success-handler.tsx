@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { useAuth, useAuthActions } from "@/lib/store/auth"
+import { useAuth } from "@/lib/store/auth"
 import { toast } from "sonner"
 
 export function AuthSuccessHandler() {

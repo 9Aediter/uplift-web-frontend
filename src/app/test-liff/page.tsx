@@ -31,8 +31,9 @@ export default function TestLiffPage() {
 
       setIsReady(true);
 
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      const err = error instanceof Error ? error : new Error('Unknown error');
+      setError(err.message);
       setIsReady(true);
     }
   };

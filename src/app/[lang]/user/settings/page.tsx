@@ -5,12 +5,11 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/basic/button/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/basic/input/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/basic/input/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/basic/input/select";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeftIcon, ShieldIcon, BellIcon, PaletteIcon, GlobeIcon, KeyIcon } from "lucide-react";
+import { ArrowLeftIcon, ShieldIcon, BellIcon, PaletteIcon, KeyIcon } from "lucide-react";
 import { toast } from "sonner";
 
 export default function SettingsPage() {
@@ -59,7 +58,7 @@ export default function SettingsPage() {
       // const response = await fetch('/api/user/settings', { ... });
 
       toast.success("Settings updated successfully!");
-    } catch (error) {
+    } catch {
       toast.error("Failed to update settings");
     } finally {
       setLoading(false);

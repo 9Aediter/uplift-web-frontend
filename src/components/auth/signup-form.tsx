@@ -63,10 +63,11 @@ export function SignupForm({
         // Navigate without full page reload - auth state already updated
         router.push("/")
       }
-    } catch (error: any) {
-      if (error.response?.data?.message) {
-        toast.error(error.response.data.message)
-      } else if (error.response?.status === 409) {
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { message?: string }; status?: number } };
+      if (axiosError.response?.data?.message) {
+        toast.error(axiosError.response.data.message)
+      } else if (axiosError.response?.status === 409) {
         // User already exists - show modal for verification
         openModal(
           "user-exists",

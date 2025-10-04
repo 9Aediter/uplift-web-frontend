@@ -67,8 +67,9 @@ export function SocialForm() {
         }
       }
 
-    } catch (error: any) {
-      setError(error.message || 'LINE authentication failed')
+    } catch (error: unknown) {
+      const err = error instanceof Error ? error : new Error('LINE authentication failed');
+      setError(err.message)
       toast.error('LINE authentication failed. Please try again.')
       setStatus('unauthenticated')
     }
@@ -94,7 +95,7 @@ export function SocialForm() {
         const oauthUrl = authApi.getOAuthUrl(provider)
         window.location.href = oauthUrl
       }
-    } catch (error: any) {
+    } catch {
       toast.error(`An error occurred during ${provider} sign in`)
       setIsLoading(null)
     }

@@ -48,12 +48,12 @@ export function LoginForm({
         // Navigate without full page reload - auth state already updated
         router.push("/")
       }
-    } catch (error: any) {
-      console.error("Login error:", error)
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { message?: string }; status?: number } };
 
-      if (error.response?.data?.message) {
-        toast.error(error.response.data.message)
-      } else if (error.response?.status === 401) {
+      if (axiosError.response?.data?.message) {
+        toast.error(axiosError.response.data.message)
+      } else if (axiosError.response?.status === 401) {
         toast.error("Invalid email or password")
       } else {
         toast.error("An error occurred during sign in")

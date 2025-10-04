@@ -1,5 +1,4 @@
 // Main Button Component - SSR Compatible
-import React from 'react'
 import { ShadcnButton, ShadcnButtonProps } from './systems/ShadcnButtonSystem'
 import { CustomButton, CustomButtonProps } from './systems/CustomButtonSystem'
 import { NavbarButton, NavbarButtonProps } from './systems/NavbarButtonSystem'

@@ -37,17 +37,17 @@ export class NavbarButtonSystem extends ButtonSystem {
 
   createComponent() {
     return forwardRef<HTMLButtonElement | HTMLAnchorElement, NavbarButtonProps>(
-      ({ className, variant, size, href, children, ...props }, ref) => {
+      ({ className, variant, size, href, children, onClick, ...props }, ref) => {
         const generatedClassName = this.generateClassName(variant, size, className)
 
         if (href) {
-          // Render as Link
+          // Render as Link - only pass compatible props
           return (
-            <Link 
-              href={href} 
+            <Link
+              href={href}
               className={generatedClassName}
               ref={ref as React.Ref<HTMLAnchorElement>}
-              {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+              onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
             >
               {children}
             </Link>
@@ -59,7 +59,8 @@ export class NavbarButtonSystem extends ButtonSystem {
           <button
             className={generatedClassName}
             ref={ref as React.Ref<HTMLButtonElement>}
-            {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+            onClick={onClick}
+            {...props}
           >
             {children}
           </button>

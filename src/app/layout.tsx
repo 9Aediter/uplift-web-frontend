@@ -11,6 +11,15 @@ import { AuthInitializer } from "@/components/auth/auth-initializer";
 import { jsonLd, organizationSchema, websiteSchema, breadcrumbSchema, abs } from '@/lib/seo/schema'
 import "@/style/globals.css";
 
+// Inline critical CSS to prevent render blocking
+const criticalCSS = `
+:root{--radius:0.625rem;--background:oklch(0.95 0.004 285.823);--foreground:oklch(0.141 0.005 285.823);}
+.dark{--background:oklch(0.141 0.005 285.823);--foreground:oklch(0.95 0.004 285.823);}
+*{border-color:var(--border);}
+html,body{background-color:var(--background);color:var(--foreground);max-width:100vw;overflow-x:hidden;}
+body{font-family:var(--font-line-seed),system-ui,-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;}
+`;
+
 // Font LINESeedSans - WOFF2 for better performance (~35% smaller than OTF)
 const lineSeedSans = localFont({
   src: [
@@ -110,6 +119,8 @@ export default function RootLayout({
     <html lang="th" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/svg+xml" href="/svg/logo/logo.svg" />
+        {/* Inline critical CSS to prevent render blocking */}
+        <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
       </head>
       <body
         className={`${lineSeedSans.variable} font-sans antialiased w-full overflow-x-hidden max-w-full`}

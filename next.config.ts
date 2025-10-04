@@ -64,11 +64,17 @@ const nextConfig: NextConfig = {
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', '@heroicons/react'],
-    optimizeCss: true, // Enable CSS optimization
   },
 
   // Compress responses
   compress: true,
+
+  // Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+  },
 
   // Output configuration for standalone deployment (required for Docker)
   output: 'standalone',

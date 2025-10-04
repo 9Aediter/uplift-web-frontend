@@ -58,7 +58,7 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/basic/button/badge"
 import { Button } from "@/components/basic/button/button"
 import { Switch } from "@/components/basic/input/switch"
-import { DataCardView } from "@/components/data-card-view"
+import { DataCardView } from "@/components/features/data-card-view"
 import {
   ChartConfig,
   ChartContainer,

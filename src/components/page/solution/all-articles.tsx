@@ -1,6 +1,6 @@
 import React, { JSX } from 'react'
 import { Section } from '@/components/ui/section'
-import { Card } from '@/components/card'
+import { Card } from '@/components/common/card'
 import { CalendarIcon, SearchIcon } from 'lucide-react'
 import Link from 'next/link'
 

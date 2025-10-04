@@ -1,13 +1,13 @@
 import React from "react";
 import { Particles } from "./particles";
-import Globe from "@/components/home/globe";
+import Globe from "@/components/page/home/globe";
 import { ScrollIndicator } from "./scroll-indicator";
 import { HeroAnimate, AnimatedContent } from "./hero-animate";
 import { Badge, Heading, Subheading, ActionButtons } from "./content";
 import { MouseFollowEffect } from "./mouse-follow-effect";
 import { FloatingElements } from "./floating-elements";
 import { GlobeWithStats } from "./hover-stats";
-import { StatsCards } from "@/components/home/stats-cards";
+import { StatsCards } from "@/components/page/home/stats-cards";
 
 interface HeroProps {
   heroContent: any; // Define a more specific type if needed

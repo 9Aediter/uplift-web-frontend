@@ -5,7 +5,7 @@ import AnalyticsProvider from "@/lib/providers/analytics";
 import { SonnerProvider } from "@/lib/providers/sonner";
 import { ModalProvider } from "@/lib/providers/modal";
 import { ThemeProvider } from "@/lib/providers/theme";
-import { ErrorHandler } from "@/components/error-handler";
+import { ErrorHandler } from "@/components/common/error-handler";
 import { AuthInitializer } from "@/components/auth/auth-initializer";
 import { jsonLd, organizationSchema, websiteSchema, breadcrumbSchema, abs } from '@/lib/seo/schema'
 import "@/style/globals.css";

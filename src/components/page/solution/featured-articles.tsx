@@ -1,6 +1,6 @@
 import React from 'react'
 import { Section } from '@/components/ui/section'
-import { Card } from '@/components/card'
+import { Card } from '@/components/common/card'
 import { CalendarIcon, UserIcon, ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
 import { Article } from '@/types/models/article'

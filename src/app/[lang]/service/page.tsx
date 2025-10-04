@@ -1,8 +1,8 @@
 import React from 'react';
 import Nav from "@/components/basic/nav/resnav";
-import Footer from "@/components/footer/footer";
-import { ServiceShowcaseSection } from "@/components/section/service/service";
-import { HeroSection } from "@/components/section/service/hero"
+import Footer from "@/components/layout/footer/footer";
+import { ServiceShowcaseSection } from "@/components/page/service/service";
+import { HeroSection } from "@/components/page/service/hero"
 import type { ShowcaseSectionContent } from '@/types/models/service';
 
 // Dynamic import of services data

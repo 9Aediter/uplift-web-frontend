@@ -1,7 +1,7 @@
 // Users Store using Zustand for admin user management
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { usersApi } from '@/lib/api/users';
+import { usersApi, type CreateUserRequest } from '@/lib/api/users';
 
 export interface UserProfile {
   id: string;
@@ -54,8 +54,8 @@ export interface UsersActions {
   fetchUsers: (params?: { page?: number; limit?: number; search?: string }) => Promise<void>;
 
   // CRUD operations (optimistic updates)
-  createUser: (userData: Record<string, unknown>) => Promise<{ success: boolean; data?: StoreUser; error?: string }>;
-  updateUser: (userId: string, userData: Record<string, unknown>) => Promise<{ success: boolean; data?: StoreUser; error?: string }>;
+  createUser: (userData: CreateUserRequest) => Promise<{ success: boolean; data?: StoreUser; error?: string }>;
+  updateUser: (userId: string, userData: Partial<StoreUser>) => Promise<{ success: boolean; data?: StoreUser; error?: string }>;
   deleteUser: (userId: string) => Promise<{ success: boolean; error?: string }>;
   updateUserStatus: (userId: string, status: 'ACTIVE' | 'INACTIVE') => Promise<{ success: boolean; data?: StoreUser; error?: string }>;
 
@@ -66,7 +66,7 @@ export interface UsersActions {
 
   // Helper methods
   getUserById: (userId: string) => StoreUser | undefined;
-  transformBackendUser: (backendUser: Record<string, unknown>) => StoreUser;
+  transformBackendUser: (backendUser: unknown) => StoreUser;
 }
 
 type UsersStore = UsersState & UsersActions;
@@ -83,20 +83,21 @@ export const useUsersStore = create<UsersStore>()(
       error: null,
 
       // Transform backend user format to store format (flat structure)
-      transformBackendUser: (backendUser: Record<string, unknown>): StoreUser => {
-        const profile = backendUser.profile as { name?: string; avatarUrl?: string; phone?: string } | undefined;
-        const roles = backendUser.roles as Array<{ name: string; active: boolean }> | undefined;
+      transformBackendUser: (backendUser: unknown): StoreUser => {
+        const user = backendUser as Record<string, unknown>;
+        const profile = user.profile as { name?: string; avatarUrl?: string; phone?: string } | undefined;
+        const roles = user.roles as Array<{ name: string; active: boolean }> | undefined;
 
         return {
-          id: backendUser.id as string,
-          email: backendUser.email as string,
+          id: user.id as string,
+          email: user.email as string,
           name: profile?.name || 'Unknown User',
           avatarUrl: profile?.avatarUrl,
           phone: profile?.phone,
           roles: roles?.map(role => role.name).join(', ') || '',
-          createdAt: backendUser.createdAt as string,
-          updatedAt: backendUser.updatedAt as string,
-          status: (backendUser.status as 'ACTIVE' | 'INACTIVE') || (roles?.some(role => role.active) ? 'ACTIVE' : 'INACTIVE'),
+          createdAt: user.createdAt as string,
+          updatedAt: user.updatedAt as string,
+          status: (user.status as 'ACTIVE' | 'INACTIVE') || (roles?.some(role => role.active) ? 'ACTIVE' : 'INACTIVE'),
         };
       },
 
@@ -136,7 +137,7 @@ export const useUsersStore = create<UsersStore>()(
       },
 
       // Create user - no loading state, just add to list
-      createUser: async (userData: Record<string, unknown>) => {
+      createUser: async (userData: CreateUserRequest) => {
         try {
           // No loading state - keep UI responsive
           const response = await usersApi.createUser(userData);
@@ -163,7 +164,7 @@ export const useUsersStore = create<UsersStore>()(
       },
 
       // Update user with optimistic update
-      updateUser: async (userId: string, userData: Record<string, unknown>) => {
+      updateUser: async (userId: string, userData: Partial<StoreUser>) => {
         try {
           set({ loading: true, error: null });
 

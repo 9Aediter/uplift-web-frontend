@@ -4,7 +4,7 @@ import {
   AnimatedTitle,
   AnimatedSubtitle,
   AnimatedProblemCard
-} from "@/components/home/animated-components";
+} from "@/components/page/home/animated-components";
 
 interface ProblemItem {
   id: number;

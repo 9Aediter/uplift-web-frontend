@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '@/components/ui/section';
-import { Card } from "@/components/card";
+import { Card } from "@/components/common/card";
 import { LightbulbIcon, TrendingUpIcon, CodeIcon } from 'lucide-react';
 
 interface WhyNeedItCard {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '@/components/ui/section';
-import { Card } from "@/components/card";
+import { Card } from "@/components/common/card";
 
 export const FAQSection = () => (
   <Section className="py-12 md:py-20 bg-gray-900/50">

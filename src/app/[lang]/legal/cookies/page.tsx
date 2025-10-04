@@ -1,6 +1,6 @@
 import React from "react";
 import Nav from "@/components/basic/nav/resnav";
-import Footer from "@/components/footer/footer";
+import Footer from "@/components/layout/footer/footer";
 import { Cookie, Settings, BarChart3, Info } from 'lucide-react';
 
 const getCookiesData = (locale: string) => {

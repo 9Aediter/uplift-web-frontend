@@ -1,7 +1,7 @@
 "use client";
 import dynamic from 'next/dynamic';
-import Problems from "@/components/home/problems";
-import { SolutionSSR } from "@/components/home/solution";
+import Problems from "@/components/page/home/problems";
+import { SolutionSSR } from "@/components/page/home/solution";
 
 interface ProblemItem {
   id: number;
@@ -33,7 +33,7 @@ export const SolutionAnimated = ({ data }: { data: SolutionData }) => {
   return <SolutionSSR data={data} />;
 };
 
-const Particles = dynamic(() => import('@/components/home/hero/particles').then(mod => ({ default: mod.Particles })), {
+const Particles = dynamic(() => import('@/components/page/home/hero/particles').then(mod => ({ default: mod.Particles })), {
   ssr: false,
   loading: () => <div className="fixed inset-0 pointer-events-none" />
 });

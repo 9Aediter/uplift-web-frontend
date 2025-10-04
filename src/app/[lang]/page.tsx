@@ -2,19 +2,19 @@
 // Main landing page for Uplift Technology co., LTD website with i18n support
 
 import Nav from "@/components/basic/nav/resnav";
-import Footer from "@/components/footer/footer";
+import Footer from "@/components/layout/footer/footer";
 
 // Home Components
-import { Hero } from "@/components/home/hero/heroai";
-import Problems from "@/components/home/problems";
-import { SolutionSSR as Solution } from "@/components/home/solution";
-import { DemoApp } from "@/components/home/demo-app";
-import { Product } from "@/components/home/product";
-import { CalltoAction as CTA } from "@/components/home/cta";
+import { Hero } from "@/components/page/home/hero/heroai";
+import Problems from "@/components/page/home/problems";
+import { SolutionSSR as Solution } from "@/components/page/home/solution";
+import { DemoApp } from "@/components/page/home/demo-app";
+import { Product } from "@/components/page/home/product";
+import { CalltoAction as CTA } from "@/components/page/home/cta";
 
 import { AuthSuccessHandler } from "@/components/auth/auth-success-handler";
 import { OAuthSuccessHandler } from "@/components/auth/oauth-success-handler";
-import FloatingActionButton from "@/components/floating-action-button";
+import FloatingActionButton from "@/components/layout/floating-action-button";
 
 // Valid languages
 const VALID_LANGS = ['en', 'th'] as const;

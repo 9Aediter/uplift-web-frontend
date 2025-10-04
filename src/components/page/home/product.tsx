@@ -1,7 +1,7 @@
 import React from "react";
 import { AppleCardsCarousel } from "@/components/basic/carousel";
 import { Section } from "@/components/ui/section";
-import { AnimateEffect } from "@/components/animate-effect";
+import { AnimateEffect } from "@/components/common/animate-effect";
 
 // Mock data for products/innovations
 const mockProducts = [

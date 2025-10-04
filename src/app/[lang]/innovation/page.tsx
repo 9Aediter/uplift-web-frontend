@@ -6,7 +6,7 @@ import ProductsSection from '@/components/page/innovation/products-section'
 import FinalCtaSection from '@/components/page/innovation/final-cta'
 
 // Import from progressive loader
-import { Particles } from "@/components/progressive-loader"
+import { Particles } from "@/components/common/progressive-loader"
 
 const Innovation = () => {
   return (

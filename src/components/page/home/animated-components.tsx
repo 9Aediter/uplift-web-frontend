@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { AnimateEffect } from "@/components/animate-effect";
+import { AnimateEffect } from "@/components/common/animate-effect";
 
 interface AnimatedTitleProps {
   title: string;

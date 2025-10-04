@@ -1,7 +1,7 @@
 import React from 'react';
 import { Section } from '@/components/ui/section';
 import { FaMobile, FaCode, FaPalette, FaRocket } from 'react-icons/fa';
-import { AnimateEffect } from '@/components/animate-effect';
+import { AnimateEffect } from '@/components/common/animate-effect';
 
 export const DemoApp = () => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Nav from "@/components/basic/nav/resnav";
-import Footer from "@/components/footer/footer";
+import Footer from "@/components/layout/footer/footer";
 
 // Import all refactored section components
 import HeroSection from '@/components/page/service/pagesection/HeroSection';

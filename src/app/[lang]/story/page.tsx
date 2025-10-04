@@ -1,9 +1,9 @@
 import React from "react";
 import { Timeline } from "@/components/ui/timeline";
 import Nav from "@/components/basic/nav/resnav";
-import AboutSection from "@/components/section/story/me";
-import Footer from "@/components/footer/footer";
-import { Skills } from "@/components/section/story/tech";
+import AboutSection from "@/components/page/story/me";
+import Footer from "@/components/layout/footer/footer";
+import { Skills } from "@/components/page/story/tech";
 import Image from "next/image";
 import { FaRocket, FaLightbulb, FaBrain, FaCog, FaAward, FaUsers } from 'react-icons/fa';
 import { Building2, Code, Award } from 'lucide-react';

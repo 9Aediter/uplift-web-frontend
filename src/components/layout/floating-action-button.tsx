@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { MoreHorizontal, MessageCircle, Globe, X } from 'lucide-react';
-import { useLanguageSwitcher } from './language-switcher';
+import { useLanguageSwitcher } from '@/components/common/language-switcher';
 
 export default function FloatingActionButton() {
   const [isOpen, setIsOpen] = useState(false);

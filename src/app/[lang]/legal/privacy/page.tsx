@@ -1,6 +1,6 @@
 import React from "react";
 import Nav from "@/components/basic/nav/resnav";
-import Footer from "@/components/footer/footer";
+import Footer from "@/components/layout/footer/footer";
 import { Shield, Eye, Lock, UserCheck, Database, FileText } from 'lucide-react';
 
 const getPrivacyData = (locale: string) => {

@@ -53,7 +53,7 @@ const convertApiToHomeHeroData = (heroData: HeroData | null): HomeHeroData => {
   }
 
   return {
-    heroWidgetType: (heroData as Record<string, unknown>).heroWidgetType as string || 'hero-simple',
+    heroWidgetType: (heroData as unknown as Record<string, unknown>).heroWidgetType as string || 'hero-simple',
     titleEn: heroData.titleEn || '',
     titleTh: heroData.titleTh || '',
     subtitleEn: heroData.subtitleEn || '',
@@ -93,7 +93,7 @@ const convertHomeToApiHeroData = (homeData: HomeHeroData, pageId: string): Parti
 
   // Add heroWidgetType as extended field if present
   if (homeData.heroWidgetType) {
-    (apiData as Record<string, unknown>).heroWidgetType = homeData.heroWidgetType
+    (apiData as unknown as Record<string, unknown>).heroWidgetType = homeData.heroWidgetType
   }
 
   return apiData

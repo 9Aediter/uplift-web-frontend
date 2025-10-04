@@ -143,3 +143,6 @@ class LiffHelper {
 // Export singleton
 export const liffHelper = new LiffHelper();
 export default liffHelper;
+
+// Re-export types for convenience
+export type { LineProfile, LineLiffAuthData } from '@/types/external/line';

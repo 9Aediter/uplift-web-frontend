@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from 'next/script';
+import { Suspense } from 'react';
 import AnalyticsProvider from "@/lib/providers/analytics";
 import { SonnerProvider } from "@/lib/providers/sonner";
 import { ModalProvider } from "@/lib/providers/modal";
@@ -157,7 +158,10 @@ export default function RootLayout({
           <AnalyticsProvider />
           <ModalProvider>
             <SonnerProvider />
-            <ErrorHandler />
+            {/* ErrorHandler ใช้ useSearchParams ต้อง wrap ด้วย Suspense */}
+            <Suspense fallback={null}>
+              <ErrorHandler />
+            </Suspense>
             {/* Auth initializer - runs on every page */}
             <AuthInitializer />
             {/* Main content */}

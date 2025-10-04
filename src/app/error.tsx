@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import dynamic from "next/dynamic"
@@ -28,21 +28,14 @@ interface Star {
   twinkleSpeed: number
 }
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [stars, setStars] = useState<Star[]>([])
+// Component ที่ใช้ useSearchParams - ต้อง wrap ด้วย Suspense
+function AuthErrorHandler({ error }: { error: Error & { digest?: string } }) {
   const searchParams = useSearchParams()
   const authError = searchParams.get("error")
 
   useEffect(() => {
     console.error(error)
-    
+
     // Handle auth errors
     if (authError) {
       let errorMessage = "Authentication error occurred"
@@ -63,10 +56,24 @@ export default function Error({
         default:
           errorMessage = `Authentication error: ${authError}`
       }
-      
+
+
       toast.error(errorMessage)
     }
   }, [error, authError])
+
+  return null
+}
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string }
+  reset: () => void
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [stars, setStars] = useState<Star[]>([])
 
   useEffect(() => {
     // Generate background stars (stationary)
@@ -175,6 +182,11 @@ export default function Error({
 
   return (
     <div className="relative min-h-screen bg-gray-950 overflow-hidden flex flex-col items-center justify-center">
+      {/* Auth Error Handler with Suspense */}
+      <Suspense fallback={null}>
+        <AuthErrorHandler error={error} />
+      </Suspense>
+
       {/* Background Stars (stationary) */}
       <div className="absolute inset-0 z-0">
         {stars.map(star => (
@@ -221,34 +233,17 @@ export default function Error({
         {/* Message */}
         <div className="space-y-4">
           <h2 className="text-2xl md:text-3xl font-semibold text-gray-200">
-            {authError ? "Authentication Error" : "Oops! Something went wrong"}
+            Oops! Something went wrong
           </h2>
           <p className="text-lg text-gray-400 max-w-md mx-auto leading-relaxed">
-            {authError 
-              ? "There was a problem with signing in. Please try again."
-              : error.message || "An unexpected error occurred. Don't worry, we're on it!"
-            }
+            {error.message || "An unexpected error occurred. Don't worry, we're on it!"}
           </p>
         </div>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-          {/* Try Again Button / Sign In Button */}
-          {authError ? (
-            <Link
-              href="/auth/signin"
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-500/50"
-            >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-600/20 backdrop-blur-xl border border-white/20 shadow-2xl transition-all duration-300 group-hover:from-red-500/30 group-hover:to-orange-600/30 group-hover:border-white/30" />
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer" />
-              </div>
-              <span className="relative z-10 flex items-center gap-2">
-                🔑 Try Sign In Again
-              </span>
-            </Link>
-          ) : (
-            <button
+          {/* Try Again Button */}
+          <button
               onClick={() => reset()}
               className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-500/50"
             >
@@ -260,7 +255,6 @@ export default function Error({
                 🔄 Try Again
               </span>
             </button>
-          )}
 
           {/* Go Home Button */}
           <Link

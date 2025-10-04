@@ -1,6 +1,7 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /admin
 Disallow: /api
 Disallow: /test
 Disallow: /private

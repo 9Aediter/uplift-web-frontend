@@ -4,12 +4,13 @@ import { useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 
+// Hook ที่ใช้ useSearchParams - ต้อง wrap ด้วย Suspense เมื่อใช้งาน
 export function useErrorHandler() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
     const error = searchParams.get("error")
-    
+
     if (error) {
       switch (error.toLowerCase()) {
         case "forbidden":

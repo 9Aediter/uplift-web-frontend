@@ -125,14 +125,14 @@ export default function RootLayout({
       <body
         className={`${lineSeedSans.variable} font-sans antialiased w-full overflow-x-hidden max-w-full`}
       >
-        {/* Google Analytics - Global Site Tag (gtag.js) */}
+        {/* Google Analytics - Lazy load after page is interactive */}
         <Script
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
         />
         <Script
           id="gtag-init"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];

@@ -1,20 +1,46 @@
 // Home Page - src/app/[lang]/page.tsx
 // Main landing page for Uplift Technology co., LTD website with i18n support
 
+import dynamic from "next/dynamic";
 import Nav from "@/components/basic/nav/resnav";
 import Footer from "@/components/layout/footer/footer";
 
-// Home Components
+// ============================================
+// ABOVE-THE-FOLD (Load immediately + SSR)
+// ============================================
 import { Hero } from "@/components/page/home/hero/heroai";
-import Problems from "@/components/page/home/problems";
-import { SolutionSSR as Solution } from "@/components/page/home/solution";
-import { DemoApp } from "@/components/page/home/demo-app";
-import { Product } from "@/components/page/home/product";
-import { CalltoAction as CTA } from "@/components/page/home/cta";
-
 import { AuthSuccessHandler } from "@/components/auth/auth-success-handler";
 import { OAuthSuccessHandler } from "@/components/auth/oauth-success-handler";
-import FloatingActionButton from "@/components/layout/floating-action-button";
+
+// ============================================
+// BELOW-THE-FOLD (Dynamic + SSR for SEO)
+// ============================================
+const Problems = dynamic(() => import("@/components/page/home/problems"), {
+  loading: () => <div className="min-h-[400px]" /> // Skeleton placeholder
+});
+
+const Solution = dynamic(() => import("@/components/page/home/solution").then(mod => ({ default: mod.SolutionSSR })), {
+  loading: () => <div className="min-h-[400px]" />
+});
+
+const Product = dynamic(() => import("@/components/page/home/product").then(mod => ({ default: mod.Product })), {
+  loading: () => <div className="min-h-[400px]" />
+});
+
+const CTA = dynamic(() => import("@/components/page/home/cta").then(mod => ({ default: mod.CalltoAction })), {
+  loading: () => <div className="min-h-[200px]" />
+});
+
+// ============================================
+// INTERACTIVE ONLY (Lazy loaded - less critical)
+// ============================================
+const DemoApp = dynamic(() => import("@/components/page/home/demo-app").then(mod => ({ default: mod.DemoApp })), {
+  loading: () => <div className="min-h-[500px]" />
+});
+
+const FloatingActionButton = dynamic(() => import("@/components/layout/floating-action-button"), {
+  loading: () => null
+});
 
 // Valid languages
 const VALID_LANGS = ['en', 'th'] as const;

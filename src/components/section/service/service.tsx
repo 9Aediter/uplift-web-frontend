@@ -3,6 +3,7 @@ import React from 'react'
 import Link from "next/link"
 import Image from "next/image";
 import { Section } from "@/components/ui/section"
+import type { ShowcaseItem, ShowcaseSectionContent, FeatureItem } from '@/types/models/service'
 import {
   MonitorIcon,
   GlobeIcon,
@@ -95,31 +96,6 @@ const IconMap: Record<string, React.ComponentType<any>> = {
   BoltIcon,
   BarChart3Icon
 };
-
-interface FeatureItem {
-  text: string;
-  icon: string;
-}
-
-interface ShowcaseItem {
-  id: string;
-  title: string;
-  description: string;
-  icon: string; // Main icon for the section
-  iconColor?: string; // Tailwind color class for the main icon (optional)
-  gradientFrom: string; // Tailwind color class for gradient background
-  gradientTo: string; // Tailwind color class for gradient background
-  features: FeatureItem[];
-  image: string;
-  image_alt: string;
-  layout: 'image-left' | 'image-right'; // To control image/text order
-  read_more_text: string;
-  read_more_link: string;
-}
-
-interface ShowcaseSectionContent {
-  showcase_items: ShowcaseItem[];
-}
 
 interface ServiceShowcaseProps {
   showcaseContent: ShowcaseSectionContent;

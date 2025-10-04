@@ -173,6 +173,52 @@ AWS_S3_REGION=ap-southeast-1
 - **Framework**: Vitest with jsdom environment
 - **Coverage**: @vitest/coverage-v8 for code coverage reports
 
+### Code Quality & Standards
+
+#### ESLint Configuration
+Project uses Next.js style guide with strict rules:
+- **React Hooks**: Enforced rules of hooks, exhaustive deps warnings
+- **TypeScript**: Warn on unused vars (except `_` prefixed), warn on `any` types
+- **Code Quality**: No console (except warn/error), prefer const over let
+- **React Best Practices**: Self-closing components, no target blank without rel, escaped entities
+- **Next.js Specific**: No img element (use next/image), no HTML links for pages
+
+**When writing code:**
+- Always run `npm run lint` before committing
+- Fix all errors, address warnings when possible
+- Follow ESLint rules strictly - they're configured for optimal Next.js performance
+
+#### SEO Requirements for [lang] Routes
+All pages in `src/app/[lang]/` MUST be SEO-friendly:
+- **Metadata Export**: Every page must export `generateMetadata()` function
+- **Dynamic Metadata**: Use lang parameter to load language-specific titles/descriptions
+- **Structured Data**: Include JSON-LD schema where applicable (Organization, WebPage, BreadcrumbList)
+- **Open Graph**: Define OG tags for social sharing
+- **Canonical URLs**: Set proper canonical with lang prefix
+- **Alt Text**: All images must have descriptive alt attributes
+- **Semantic HTML**: Use proper heading hierarchy (h1 → h2 → h3)
+- **Mobile Optimization**: Ensure viewport meta and responsive design
+
+**SEO Checklist for new pages:**
+```typescript
+// Required: generateMetadata function
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return {
+    title: 'Page Title',
+    description: 'Page description',
+    openGraph: { ... },
+    alternates: {
+      canonical: `/${lang}/page-path`,
+      languages: {
+        'en': '/en/page-path',
+        'th': '/th/page-path',
+      }
+    }
+  };
+}
+```
+
 ### Common Pitfalls & Solutions
 - **Dynamic Tailwind Classes**: Avoid template literals in className (e.g., `text-${color}-400`). Use complete class names or cn() utility
 - **Optional Chaining**: Always use optional chaining for potentially undefined properties (e.g., `item.gradientFrom?.split()`)

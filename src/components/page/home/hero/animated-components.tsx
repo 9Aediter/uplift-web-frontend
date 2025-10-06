@@ -10,7 +10,7 @@ import { HeroStaggerAnimations } from "./stagger-animations";
 interface BadgeProps { text: string; }
 interface HeadingProps { title: string; titleGradient: string; }
 interface SubheadingProps { text: string; }
-interface ActionButtonsProps { launchText: string; exploreText: string; }
+interface ActionButtonsProps { launchText: string; exploreText: string; lang?: string; }
 
 export const AnimatedBadge: React.FC<BadgeProps> = ({ text }) => (
     <motion.div
@@ -57,7 +57,7 @@ export const AnimatedSubheading: React.FC<SubheadingProps> = ({ text }) => (
     </motion.p>
 );
 
-export const AnimatedActionButtons: React.FC<ActionButtonsProps> = ({ launchText, exploreText }) => (
+export const AnimatedActionButtons: React.FC<ActionButtonsProps> = ({ launchText, exploreText, lang = 'th' }) => (
     <motion.div
         variants={HeroStaggerAnimations.buttonsContainer}
         initial="hidden"
@@ -65,14 +65,14 @@ export const AnimatedActionButtons: React.FC<ActionButtonsProps> = ({ launchText
         className="flex flex-wrap gap-4 justify-start"
     >
         {[
-            <Link key="launch" href="">
-                <Button size="lg" variant="default" className="flex px-6 py-6">
+            <Link key="launch" href={`/${lang}/consult`}>
+                <Button size="lg" variant="default" className="flex px-8 py-6 rounded-full min-w-[180px] justify-center" style={{ backgroundColor: '#0175BC' }}>
                     <RocketIcon className="w-5 h-5 mr-2" />
                     {launchText}
                 </Button>
             </Link>,
-            <Link key="explore" href="/innovation">
-                <Button variant="outline" size="lg" className="hidden md:flex px-6 py-6">
+            <Link key="explore" href={`/${lang}/innovation`}>
+                <Button variant="outline" size="lg" className="hidden md:flex px-8 py-6 rounded-full border-2 min-w-[180px] justify-center" style={{ borderColor: '#0175BC', color: '#0175BC' }}>
                     {exploreText}
                 </Button>
             </Link>

@@ -80,7 +80,7 @@ export const AnimatedContent: React.FC<AnimatedContentProps> = ({ className, bad
     };
 
     return (
-        <div className={cn("w-full h-full flex py-20 items-end relative", className)}>
+        <div className={cn("w-full h-full flex py-20 items-center relative", className)}>
             <motion.div
                 initial="visible"
                 animate={controls}

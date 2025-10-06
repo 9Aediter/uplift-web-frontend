@@ -28,75 +28,54 @@
       "description": "Always available"
     }
   ],
-  "team": [
+  "founders": [
     {
-      "id": "anon-suphatphon",
+      "id": 1,
       "name": "Anon Suphatphon",
-      "position": "Founder & CEO",
-      "department": "Leadership",
-      "bio": "Visionary leader with extensive experience in software development and business strategy. Founded UPLIFT to bridge the gap between technology and business needs.",
-      "image": "/images/team/anon.jpg",
-      "skills": ["System Architecture", "Business Strategy", "Full-Stack Development", "Project Management"],
-      "social": {
-        "linkedin": "https://linkedin.com/in/anon-suphatphon",
-        "github": "https://github.com/anonsuphatphon",
-        "email": "anon@uplifttechbiz.com"
-      },
-      "certifications": ["AWS Solutions Architect", "Scrum Master", "Google Cloud Professional"],
-      "experience": "8+ years",
-      "languages": ["Thai", "English"],
-      "specialties": ["ERP Systems", "POS Solutions", "Cloud Architecture"]
+      "title": "Founder & CEO",
+      "role": "Chief Technology & Strategy Officer",
+      "description": "A young engineer and entrepreneur who grew from freelancing on ERP, POS, and Booking Platform projects to establishing a full-scale company. Experienced in designing systems for various business types.",
+      "expertise": ["System Architecture", "Full-Stack Development", "Business Analysis", "Project Management"],
+      "vision": "Born from frustration watching projects fail because teams didn't truly understand the business - just following specs and moving on. I decided to build a different kind of Software House - one that cares about both clients and team members, creating software that actually works, not just sounds good.",
+      "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/anon_01.png"
     },
     {
-      "id": "somchai-developer",
-      "name": "Somchai Techsavvy",
-      "position": "Lead Developer",
-      "department": "Engineering",
-      "bio": "Expert full-stack developer specializing in modern web technologies. Passionate about clean code and scalable architectures.",
-      "image": "/images/team/somchai.jpg",
-      "skills": ["React/Next.js", "Node.js", "TypeScript", "Database Design"],
-      "social": {
-        "github": "https://github.com/somchai-dev",
-        "email": "somchai@uplifttechbiz.com"
-      },
-      "certifications": ["Microsoft Azure Developer", "MongoDB Certified Developer"],
-      "experience": "6+ years",
-      "languages": ["Thai", "English"],
-      "specialties": ["Web Applications", "API Development", "DevOps"]
+      "id": 2,
+      "name": "Pisitvet Somsub",
+      "title": "Co-Founder & Head of Sales",
+      "role": "Strategic marketing, customer relationship building, and bridging technology with business needs",
+      "description": "Sales and marketing expert with extensive experience in brand building and digital market development. Focuses on understanding customer needs and value proposition to drive continuous business growth.",
+      "expertise": ["Sales Strategy", "Digital Marketing", "Customer Relationship Management", "Business Development"],
+      "vision": "Business success comes from genuine listening to customers and building authentic relationships, while delivering solutions that provide real value and long-term impact.",
+      "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/pisitvej_01.png"
     },
     {
-      "id": "malee-designer",
-      "name": "Malee Creative",
-      "position": "UI/UX Designer",
-      "department": "Design",
-      "bio": "Creative designer focused on user-centered design principles. Creates beautiful and functional interfaces that users love.",
-      "image": "/images/team/malee.jpg",
-      "skills": ["UI/UX Design", "Figma", "Adobe Creative Suite", "User Research"],
-      "social": {
-        "behance": "https://behance.net/malee-creative",
-        "email": "malee@uplifttechbiz.com"
-      },
-      "certifications": ["Google UX Design Certificate", "Adobe Certified Expert"],
-      "experience": "4+ years",
-      "languages": ["Thai", "English"],
-      "specialties": ["Mobile Design", "Web Design", "Brand Identity"]
+      "id": 3,
+      "name": "Pattapon Tanankakorn",
+      "title": "Co-Founder & Head of AI Engineer & Data Scientist",
+      "role": "AI/ML Solutions Architect & Research Lead",
+      "description": "AI Engineer with Master's degree from Skolkovo Institute of Science and Technology, Russia. Specializing in data modeling, machine learning, RAG (Retrieval-Augmented Generation), and LLM implementation. Expert in transforming complex data into intelligent business solutions.",
+      "expertise": ["Machine Learning", "Data Modeling", "RAG Systems", "LLM Development", "Deep Learning", "AI Architecture"],
+      "vision": "AI should enhance human capabilities, not replace them. Building intelligent systems that understand context and deliver meaningful insights to drive business innovation.",
+      "image": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/pon_01.png"
     },
     {
-      "id": "niran-backend",
-      "name": "Niran Backend",
-      "position": "Backend Engineer",
-      "department": "Engineering",
-      "bio": "Backend specialist with expertise in microservices and cloud infrastructure. Ensures scalable and reliable system architecture.",
-      "image": "/images/team/niran.jpg",
-      "skills": ["Java", "Spring Boot", "Docker", "Kubernetes"],
-      "social": {
-        "github": "https://github.com/niran-backend",
-        "email": "niran@uplifttechbiz.com"
-      },
-      "certifications": ["Oracle Java Certification", "Kubernetes Administrator"],
-      "experience": "5+ years",
-      "languages": ["Thai", "English"],
-      "specialties": ["Microservices", "Cloud Infrastructure", "API Design"]
+      "id": 4,
+      "name": "Supawit Srichompoo",
+      "title": "Chief Technology Officer",
+      "role": "Technology Leadership & Strategic Architecture",
+      "description": "Seasoned CTO with 7+ years of industry experience across diverse technology landscapes. Expert in Full-Stack Development, DevOps, microservices architecture, data warehouse design, cloud infrastructure, and enterprise-scale system development.",
+      "expertise": ["Full-Stack Development", "DevOps", "Enterprise Architecture", "Microservices", "Data Warehouse", "Cloud Strategy", "System Integration", "Technology Leadership"],
+      "vision": "Technology leadership means building systems that scale with business growth while maintaining reliability, security, and performance. Creating technology foundations that enable long-term success."
+    },
+    {
+      "id": 5,
+      "name": "Thirawut Khanphan",
+      "title": "Tech Lead & Hardware Engineer",
+      "role": "Technical Team Leadership & Hardware Specialist",
+      "description": "Tech Lead with expertise in both software and hardware development. Specializes in IoT systems design, Embedded Systems, and hardware-software integration. Leads teams in developing solutions that seamlessly blend hardware and software technologies.",
+      "expertise": ["IoT Systems", "Embedded Systems", "Hardware Integration", "Technical Leadership", "System Architecture", "Software Development"],
+      "vision": "The seamless integration of hardware and software is key to creating innovative solutions that deliver real business value. Designing systems that bridge the physical and digital worlds without boundaries."
     }
   ]
 }

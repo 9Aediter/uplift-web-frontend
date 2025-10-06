@@ -1,6 +1,6 @@
 export const personalData = {
   name: "Anon Suphatphon",
-  profile: "/profile.png",
+  profile: "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/anon_01.png",
   designation: "Business Analyst",
   description:
     "Transitioned from **Biomedical Engineer** to **Senior Business Analyst** in under a year, demonstrating rapid learning and adaptability in a new field. Starting with a strong foundation in biomedical engineering, I quickly applied my analytical and problem-solving skills to business analysis, where I have successfully driven key projects. Most notably, I led the development of a **comprehensive ERP system** for a company within the **Laguna group**, integrating complex systems to enhance decision-making and operational efficiency. I’m passionate about leveraging my unique blend of technical expertise and business acumen to tackle new challenges and drive impactful solutions.",

@@ -55,14 +55,14 @@ export const CoreValues = () => {
         },
     ]
     return (
-        <Section className="bg-gradient-to-b from-gray-900/30 to-black py-20">
+        <Section className="bg-gradient-to-b from-blue-50 to-slate-50 dark:from-gray-900/30 dark:to-black py-20">
             <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                    <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500 bg-clip-text text-transparent">
                         Core Values
                     </span>
                 </h2>
-                <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                <p className="text-xl text-slate-700 dark:text-gray-300 max-w-2xl mx-auto">
                     หลักการสำคัญที่หล่อหลอมตัวตนและการทำงานของเรา
                 </p>
             </div>
@@ -74,11 +74,11 @@ export const CoreValues = () => {
                         glowColor={value.color as any}
                     >
                         <div className="flex flex-col items-center text-center">
-                            <div className="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center mb-4">
+                            <div className="w-16 h-16 rounded-full bg-slate-200 dark:bg-gray-800 flex items-center justify-center mb-4">
                                 {value.icon}
                             </div>
-                            <h3 className="text-2xl font-bold mb-3">{value.title}</h3>
-                            <p className="text-gray-300">{value.description}</p>
+                            <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white">{value.title}</h3>
+                            <p className="text-slate-700 dark:text-gray-300">{value.description}</p>
                         </div>
                     </Card>
                 ))}

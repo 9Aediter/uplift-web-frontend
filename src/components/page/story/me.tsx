@@ -1,6 +1,6 @@
 'use client';
 
-import Image from "next/image";
+import { OptimizedImage } from "@/components/common/optimized-image";
 import { FaLightbulb, FaCode, FaUsers, FaCog, FaChartLine } from 'react-icons/fa';
 import { motion } from 'motion/react';
 
@@ -75,12 +75,14 @@ function AboutSection({ founders }: AboutSectionProps) {
                                     <div className={`absolute inset-0 bg-gradient-to-tl from-white/20 to-transparent rounded-2xl transform ${index % 2 === 0 ? 'rotate-2' : '-rotate-2'}`} />
                                     
                                     <div className="relative transform translate-x-2 translate-y-2">
-                                        <Image
+                                        <OptimizedImage
                                             src={founder.image}
                                             width={380}
                                             height={380}
                                             alt={founder.name}
                                             className="rounded-xl shadow-xl transition-all duration-500 hover:shadow-2xl border-4 border-white dark:border-slate-100"
+                                            fallbackSrc={`https://ui-avatars.com/api/?name=${encodeURIComponent(founder.name)}&size=380&background=0175BC&color=fff`}
+                                            timeout={10000}
                                         />
                                     </div>
                                     

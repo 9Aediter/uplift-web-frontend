@@ -7,7 +7,7 @@ import { AnimatedBadge, AnimatedHeading, AnimatedSubheading, AnimatedActionButto
 interface BadgeProps { text: string; }
 interface HeadingProps { title: string; titleGradient: string; }
 interface SubheadingProps { text: string; }
-interface ActionButtonsProps { launchText: string; exploreText: string; }
+interface ActionButtonsProps { launchText: string; exploreText: string; lang?: string; }
 
 // SSR-safe components that use animated versions
 export const Badge: React.FC<BadgeProps> = ({ text }) => (
@@ -22,8 +22,8 @@ export const Subheading: React.FC<SubheadingProps> = ({ text }) => (
     <AnimatedSubheading text={text} />
 );
 
-export const ActionButtons: React.FC<ActionButtonsProps> = ({ launchText, exploreText }) => (
-    <AnimatedActionButtons launchText={launchText} exploreText={exploreText} />
+export const ActionButtons: React.FC<ActionButtonsProps> = ({ launchText, exploreText, lang = 'th' }) => (
+    <AnimatedActionButtons launchText={launchText} exploreText={exploreText} lang={lang} />
 );
 
 // Static versions for fallback (if needed)

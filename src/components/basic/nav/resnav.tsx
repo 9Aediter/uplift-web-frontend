@@ -2,7 +2,7 @@
 
 import { LuExternalLink } from "react-icons/lu";
 import { useState } from "react";
-import { SearchIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { IconMenu2 } from "@tabler/icons-react";
 import { useAuth } from "@/lib/store/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -23,28 +23,34 @@ import {
     MobileNavHeader,
 } from "./index";
 import { Button } from "@/components/basic/button/button";
-import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { NavSheet } from "./nav-sheet";
 
 
 export default function DesktopNav() {
+    const pathname = usePathname();
+    const currentLang = pathname.split('/')[1] || 'en';
 
     const navItems = [
         {
             name: "Story",
-            link: "/story",
+            link: `/${currentLang}/story`,
+            subItems: [
+                { name: "Company", link: `/${currentLang}/company` },
+                { name: "Teams", link: `/${currentLang}/teams` },
+                { name: "Vision", link: `/${currentLang}/vision` },
+            ],
         },
         {
             name: "Service",
-            link: "/service",
+            link: `/${currentLang}/service`,
         },
         {
             name: "Solution",
-            link: "/solutions",
+            link: `/${currentLang}/solutions`,
         },
         {
             name: "Innovation",
-            link: "/innovation",
+            link: `/${currentLang}/innovation`,
         },
     ];
 
@@ -59,10 +65,8 @@ export default function DesktopNav() {
             <Navbar className="hidden lg:block">
                 {[<NavBody key="nav-body">
                     <NavLogo />
-                    <NavItems items={navItems} />
-                    <div className="flex items-center gap-4">
-                        {/* Theme toggle */}
-                        <ThemeToggle />
+                    <div className="flex items-center gap-2 ml-auto">
+                        <NavItems items={navItems} />
 
                         {/* Show avatar if logged in */}
                         {status === "authenticated" && user ? (
@@ -85,7 +89,7 @@ export default function DesktopNav() {
                                 </SheetContent>
                             </Sheet>
                         ) : (
-                            <NavbarButton href="/consult" variant="primary" className="flex items-center">Consult <LuExternalLink className="ml-2 h-4 w-4" /></NavbarButton>
+                            <NavbarButton href={`/${currentLang}/consult`} variant="primary" className="flex items-center rounded-full ml-2">Consult <LuExternalLink className="ml-2 h-4 w-4" /></NavbarButton>
                         )}
                     </div>
                 </NavBody>]}
@@ -96,12 +100,6 @@ export default function DesktopNav() {
                 <MobileNavHeader key="mobile-header">
                     <NavLogo />
                     <div className="flex items-center gap-2">
-                        <ThemeToggle />
-
-                        <Button variant="ghost" size="icon" onClick={() => console.log("Search clicked")}>
-                            <SearchIcon className="h-5 w-5" />
-                        </Button>
-
                         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                             <SheetTrigger asChild>
                                 {status === "authenticated" && user ? (

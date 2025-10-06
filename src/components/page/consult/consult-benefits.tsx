@@ -92,27 +92,27 @@ export function ConsultBenefits() {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6">
       {/* Header */}
-      <motion.div 
+      <motion.div
         className="text-center mb-16"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
           Why Choose Our{' '}
-          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 dark:from-cyan-400 dark:via-blue-500 dark:to-purple-500 bg-clip-text text-transparent">
             Consultation
           </span>
         </h2>
-        <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Get expert insights that can save you months of development time and thousands of dollars in potential mistakes. 
+        <p className="text-lg text-slate-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          Get expert insights that can save you months of development time and thousands of dollars in potential mistakes.
           Our consultation process is designed to deliver maximum value in minimum time.
         </p>
       </motion.div>
 
       {/* Stats Section */}
-      <motion.div 
+      <motion.div
         className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
         variants={containerVariants}
         initial="hidden"
@@ -125,18 +125,18 @@ export function ConsultBenefits() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 text-center group hover:border-gray-600/50 transition-all duration-300"
+              className="bg-white/70 dark:bg-gray-800/40 backdrop-blur-sm border border-slate-200 dark:border-gray-700/50 rounded-xl p-6 text-center group hover:border-slate-300 dark:hover:border-gray-600/50 transition-all duration-300"
             >
               <IconComponent className={`h-8 w-8 ${stat.color} mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`} />
-              <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.number}</div>
-              <div className="text-sm text-gray-400">{stat.label}</div>
+              <div className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-1">{stat.number}</div>
+              <div className="text-sm text-slate-600 dark:text-gray-400">{stat.label}</div>
             </motion.div>
           );
         })}
       </motion.div>
 
       {/* Benefits Grid */}
-      <motion.div 
+      <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         variants={containerVariants}
         initial="hidden"
@@ -153,22 +153,22 @@ export function ConsultBenefits() {
             >
               {/* Background Gradient */}
               <div className={`absolute inset-0 bg-gradient-to-r ${benefit.gradient} rounded-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 blur-xl`} />
-              
+
               {/* Card */}
-              <div className="relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 h-full group-hover:border-gray-600/50 transition-all duration-300">
+              <div className="relative bg-white/70 dark:bg-gray-800/40 backdrop-blur-sm border border-slate-200 dark:border-gray-700/50 rounded-xl p-6 h-full group-hover:border-slate-300 dark:group-hover:border-gray-600/50 transition-all duration-300">
                 {/* Icon */}
                 <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${benefit.gradient} rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <IconComponent className="h-6 w-6 text-white" />
                 </div>
-                
+
                 {/* Content */}
-                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors duration-300">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-slate-700 dark:text-gray-300 leading-relaxed">
                   {benefit.description}
                 </p>
-                
+
                 {/* Hover Effect */}
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>

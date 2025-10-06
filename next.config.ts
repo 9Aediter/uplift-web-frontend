@@ -33,6 +33,12 @@ const nextConfig: NextConfig = {
         hostname: "*.amazonaws.com",
         port: "",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+        port: "",
+        pathname: "/**",
       }
     ],
     
@@ -43,14 +49,17 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    
+
     // Size limits
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    
+
     // Cache settings
     minimumCacheTTL: 60,
-    
+
+    // Disable optimization for S3 images (avoid timeout)
+    unoptimized: false, // Keep optimization but handle errors gracefully
+
     // Domain-specific configurations
     domains: [], // Keep empty, use remotePatterns instead
     

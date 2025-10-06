@@ -1,11 +1,10 @@
 import React from "react";
 import Nav from "@/components/basic/nav/resnav";
 import Footer from "@/components/layout/footer/footer";
-// import Image from 'next/image';
-// import Link from 'next/link';
+import AboutSection from "@/components/page/story/me";
+import AgileSection from "@/components/page/teams/agile-section";
 import { Mail, Users, ArrowRight } from 'lucide-react';
-
-
+import { personalData } from '@/data/personal-data';
 
 // Dynamic import of team data
 const getTeamsData = async (locale: string) => {
@@ -33,7 +32,6 @@ const TeamsPage = async ({ params }: { params: Promise<{ lang: string }> }) => {
     const { lang } = await params;
     const teamsData = await getTeamsData(lang);
 
-
     return (
         <>
             <Nav />
@@ -59,128 +57,11 @@ const TeamsPage = async ({ params }: { params: Promise<{ lang: string }> }) => {
                     </div>
                 </section>
 
-                {/* Stats Section */}
-                {/* <section className="py-16 bg-white dark:bg-slate-900">
-                    <div className="max-w-6xl mx-auto px-4">
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                            {teamsData.stats.map((stat, index) => (
-                                <div key={index} className="text-center">
-                                    <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-                                        {stat.value}
-                                    </div>
-                                    <div className="text-lg font-semibold text-slate-900 dark:text-white mb-1">
-                                        {stat.label}
-                                    </div>
-                                    <div className="text-sm text-slate-500 dark:text-slate-400">
-                                        {stat.description}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section> */}
+                {/* Team Section */}
+                <AboutSection founders={teamsData.founders} />
 
-                {/* Team Members */}
-                {/* <section className="py-16 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950/50">
-                    <div className="max-w-6xl mx-auto px-4">
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
-                                {lang === 'th' ? 'ทีมงานของเรา' : 'Our Team'}
-                            </h2>
-                            <p className="text-lg text-slate-600 dark:text-slate-300">
-                                {lang === 'th'
-                                    ? 'พบกับผู้เชี่ยวชาญที่มีประสบการณ์และความหลงใหลในการสร้างนวัตกรรม'
-                                    : 'Meet the experts who are experienced and passionate about creating innovations'
-                                }
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                            {teamsData.team.map((member, index) => (
-                                <div key={member.id} className="group bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                                    
-                                    <div className="relative h-64 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30">
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                                                {member.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                                            </div>
-                                        </div>
-
-                                        
-                                        <div className="absolute top-4 left-4">
-                                            <span className="px-3 py-1 bg-white/90 dark:bg-slate-800/90 rounded-full text-xs font-medium text-slate-700 dark:text-slate-300">
-                                                {member.department}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
-                                            {member.name}
-                                        </h3>
-                                        <p className="text-blue-600 dark:text-blue-400 font-medium mb-3">
-                                            {member.position}
-                                        </p>
-                                        <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-3">
-                                            {member.bio}
-                                        </p>
-
-                                        
-                                        <div className="flex flex-wrap gap-1 mb-4">
-                                            {member.skills.slice(0, 3).map((skill, idx) => (
-                                                <span key={idx} className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-xs rounded text-slate-600 dark:text-slate-400">
-                                                    {skill}
-                                                </span>
-                                            ))}
-                                            {member.skills.length > 3 && (
-                                                <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-xs rounded text-slate-600 dark:text-slate-400">
-                                                    +{member.skills.length - 3}
-                                                </span>
-                                            )}
-                                        </div>
-
-                                        
-                                        <div className="flex items-center text-sm text-slate-500 dark:text-slate-400 mb-4">
-                                            <Clock className="h-4 w-4 mr-2" />
-                                            {member.experience}
-                                        </div>
-
-                                        
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex space-x-2">
-                                                {member.social.github && (
-                                                    <a href={member.social.github} target="_blank" rel="noopener noreferrer"
-                                                        className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
-                                                        <Github className="h-4 w-4 text-slate-600 dark:text-slate-400" />
-                                                    </a>
-                                                )}
-                                                {member.social.linkedin && (
-                                                    <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer"
-                                                        className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
-                                                        <Linkedin className="h-4 w-4 text-slate-600 dark:text-slate-400" />
-                                                    </a>
-                                                )}
-                                                {member.social.email && (
-                                                    <a href={`mailto:${member.social.email}`}
-                                                        className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
-                                                        <Mail className="h-4 w-4 text-slate-600 dark:text-slate-400" />
-                                                    </a>
-                                                )}
-                                            </div>
-
-                                            <Link href={`/teams/${member.id}`}
-                                                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium group-hover:translate-x-1 transition-transform">
-                                                {lang === 'th' ? 'ดูรายละเอียด' : 'View Profile'}
-                                                <ArrowRight className="h-4 w-4 ml-1" />
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section> */}
+                {/* Agile Methodology Section */}
+                <AgileSection lang={lang} />
 
                 {/* Join Our Team CTA - Enhanced from home page */}
                 <section className="relative py-24 bg-background overflow-hidden">

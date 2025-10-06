@@ -35,7 +35,7 @@ module.exports = {
     } else if (['/innovation', '/service', '/solutions'].includes(path)) {
       priority = 0.9
       changefreq = 'daily'
-    } else if (['/story', '/vision', '/company'].includes(path)) {
+    } else if (['/story', '/vision'].includes(path)) {
       priority = 0.8
       changefreq = 'monthly'
     } else if (path.startsWith('/legal/')) {

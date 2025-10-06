@@ -68,13 +68,18 @@ export const BentoGridItemClient = ({
           {/* Background Image with gradient overlay */}
           {image && (
             <div className="absolute inset-0 z-0 overflow-hidden">
-              <Image 
+              <Image
                 src={image}
-                alt={typeof title === 'string' ? title : 'Solution'} 
+                alt={typeof title === 'string' ? title : 'Solution'}
                 fill
                 className="object-cover rounded-xl w-full max-w-full"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 priority={false}
+                unoptimized
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 rounded-xl" />
             </div>

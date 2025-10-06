@@ -1,16 +1,14 @@
 import React from "react";
 import { Timeline } from "@/components/ui/timeline";
 import Nav from "@/components/basic/nav/resnav";
-import AboutSection from "@/components/page/story/me";
 import Footer from "@/components/layout/footer/footer";
 import { Skills } from "@/components/page/story/tech";
 import Image from "next/image";
 import { FaRocket, FaLightbulb, FaBrain, FaCog, FaAward, FaUsers } from 'react-icons/fa';
 import { Building2, Code, Award } from 'lucide-react';
-import { personalData } from '@/data/personal-data';
 import { getPageSEO, generatePageMetadata } from '@/lib/seo';
 import type { Metadata } from "next";
-import type { StoryFounder, TimelineItem, TimelineStat } from '@/types/models/story';
+import type { TimelineItem, TimelineStat } from '@/types/models/story';
 
 // Import story data
 import storyDataTh from '@/data/story/th.json';
@@ -39,19 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 // Helper function to get story data based on locale
 const getStoryData = (locale: string) => {
     const data = locale === 'th' ? storyDataTh : storyDataEn;
-
-    // Update founder image with personalData if available
-    const updatedFounders = data.founders.map((founder: StoryFounder) => {
-        if (founder.id === 1 && personalData?.profile) {
-            return { ...founder, image: personalData.profile };
-        }
-        return founder;
-    });
-
-    return {
-        ...data,
-        founders: updatedFounders
-    };
+    return data;
 };
 
 const StoryPage = async ({ params }: { params: Promise<{ lang: string }> }) => {
@@ -114,7 +100,7 @@ const StoryPage = async ({ params }: { params: Promise<{ lang: string }> }) => {
     return (
         <>
             <Nav />
-            <main className="relative w-full overflow-x-hidden">
+            <main className="w-full">
 
 
                 <Timeline data={data} />
@@ -202,7 +188,6 @@ const StoryPage = async ({ params }: { params: Promise<{ lang: string }> }) => {
                     </div>
                 </section>
 
-                <AboutSection founders={storyData.founders} />
                 <Skills />
 
             </main>

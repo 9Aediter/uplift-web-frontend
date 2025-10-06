@@ -1,12 +1,18 @@
 // Layout for [lang] routes
 import { ReactNode } from 'react';
+import FloatingActionButton from '@/components/layout/floating-action-button';
 
 export default function LangLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <FloatingActionButton />
+    </>
+  );
 }
 
 // Generate static params for supported languages

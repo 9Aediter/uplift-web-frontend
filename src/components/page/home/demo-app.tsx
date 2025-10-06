@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import { Section } from '@/components/ui/section';
 import { FaMobile, FaCode, FaPalette, FaRocket } from 'react-icons/fa';
 import { AnimateEffect } from '@/components/common/animate-effect';
+import { motion } from 'motion/react';
 
 export const DemoApp = () => {
   return (
@@ -15,10 +18,19 @@ export const DemoApp = () => {
           <div className="order-2 lg:order-1 space-y-8">
             <AnimateEffect index={0}>
               <div className="space-y-6">
-                <div className="w-fit mb-8 inline-flex items-center bg-primary/5 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/20">
-                  <FaMobile className="h-4 w-4 text-cyan-400 mr-2" />
-                  <span className="text-sm font-medium text-cyan-300">Mobile Development</span>
-                </div>
+                <motion.div
+                  className="w-fit mb-8 inline-flex items-center bg-cyan-500/10 dark:bg-primary/5 backdrop-blur-sm px-4 py-2 rounded-full border border-cyan-400/30 dark:border-primary/20 shadow-lg shadow-cyan-500/10"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <FaMobile className="h-4 w-4 text-cyan-600 dark:text-cyan-400 mr-2" />
+                  </motion.div>
+                  <span className="text-sm font-semibold text-cyan-700 dark:text-cyan-300">Mobile Development</span>
+                </motion.div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                   <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                     Mobile Apps
@@ -99,9 +111,14 @@ export const DemoApp = () => {
           {/* Left Side - Smartphone Mockups */}
           <div className="order-1 lg:order-2 relative">
             <div className="relative flex justify-center items-center">
-              
+
               {/* Main Phone */}
-              <div className="relative z-10">
+              <motion.div
+                className="relative z-10"
+                initial={{ y: 0 }}
+                animate={{ y: [-10, 10, -10] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <div className="w-64 h-[500px] md:w-72 md:h-[550px] bg-black rounded-[3rem] p-3 shadow-2xl">
                   <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
                     {/* Notch */}
@@ -137,29 +154,45 @@ export const DemoApp = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Background Phone (Left) */}
-              <div className="absolute left-0 top-8 z-0 opacity-30 scale-90 rotate-12">
+              <motion.div
+                className="absolute left-0 top-8 z-0 opacity-30 scale-90 rotate-12"
+                animate={{ y: [-5, 5, -5], rotate: [12, 15, 12] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <div className="w-56 h-[450px] bg-gray-800 rounded-[2.5rem] p-3">
                   <div className="w-full h-full bg-gray-100 rounded-[2rem] overflow-hidden">
                     <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-500" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Background Phone (Right) */}
-              <div className="absolute right-0 top-12 z-0 opacity-30 scale-90 -rotate-12">
+              <motion.div
+                className="absolute right-0 top-12 z-0 opacity-30 scale-90 -rotate-12"
+                animate={{ y: [5, -5, 5], rotate: [-12, -15, -12] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <div className="w-56 h-[450px] bg-gray-800 rounded-[2.5rem] p-3">
                   <div className="w-full h-full bg-gray-100 rounded-[2rem] overflow-hidden">
                     <div className="w-full h-full bg-gradient-to-br from-green-400 to-cyan-500" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Decorative Elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-cyan-500/20 rounded-full opacity-60 animate-pulse" />
-              <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-500/20 rounded-full opacity-40 animate-pulse delay-1000" />
+              <motion.div
+                className="absolute -top-4 -right-4 w-24 h-24 bg-cyan-500/20 rounded-full"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.6, 0.8, 0.6] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-500/20 rounded-full"
+                animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.6, 0.4] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              />
             </div>
           </div>
 

@@ -1,0 +1,53 @@
+[
+  {
+    "id": "somchai-developer",
+    "name": "Somchai Techsavvy",
+    "position": "Lead Developer",
+    "department": "Engineering",
+    "bio": "Expert full-stack developer specializing in modern web technologies. Passionate about clean code and scalable architecture.",
+    "image": "/images/team/somchai.jpg",
+    "skills": ["React/Next.js", "Node.js", "TypeScript", "Database Design"],
+    "social": {
+      "github": "https://github.com/somchai-dev",
+      "email": "somchai@uplifttechbiz.com"
+    },
+    "certifications": ["Microsoft Azure Developer", "MongoDB Certified Developer"],
+    "experience": "6+ years",
+    "languages": ["Thai", "English"],
+    "specialties": ["Web Applications", "API Development", "DevOps"]
+  },
+  {
+    "id": "malee-designer",
+    "name": "Malee Creative",
+    "position": "UI/UX Designer",
+    "department": "Design",
+    "bio": "Creative designer focused on user-centered design principles. Creates beautiful and functional interfaces that users love.",
+    "image": "/images/team/malee.jpg",
+    "skills": ["UI/UX Design", "Figma", "Adobe Creative Suite", "User Research"],
+    "social": {
+      "behance": "https://behance.net/malee-creative",
+      "email": "malee@uplifttechbiz.com"
+    },
+    "certifications": ["Google UX Design Certificate", "Adobe Certified Expert"],
+    "experience": "4+ years",
+    "languages": ["Thai", "English"],
+    "specialties": ["Mobile Design", "Web Design", "Brand Identity"]
+  },
+  {
+    "id": "niran-backend",
+    "name": "Niran Backend",
+    "position": "Backend Engineer",
+    "department": "Engineering",
+    "bio": "Backend specialist with expertise in microservices and cloud infrastructure. Ensures scalable and reliable system architecture.",
+    "image": "/images/team/niran.jpg",
+    "skills": ["Java", "Spring Boot", "Docker", "Kubernetes"],
+    "social": {
+      "github": "https://github.com/niran-backend",
+      "email": "niran@uplifttechbiz.com"
+    },
+    "certifications": ["Oracle Java Certification", "Kubernetes Administrator"],
+    "experience": "5+ years",
+    "languages": ["Thai", "English"],
+    "specialties": ["Microservices", "Cloud Infrastructure", "API Design"]
+  }
+]

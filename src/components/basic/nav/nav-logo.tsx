@@ -2,11 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export const NavLogo = () => {
+  const pathname = usePathname();
+  const currentLang = pathname.split('/')[1] || 'en';
+
   return (
     <Link
-      href="/"
+      href={`/${currentLang}`}
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <Image

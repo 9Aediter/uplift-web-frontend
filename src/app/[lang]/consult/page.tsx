@@ -3,7 +3,6 @@ import { ConsultationForm } from '@/components/basic/forms/consultation-form';
 import { Section } from '@/components/ui/section';
 import { ConsultationHero } from '@/components/page/consult/consultation-hero';
 import { Particles } from '@/components/page/home/hero/particles';
-import { FloatingElements } from '@/components/page/home/hero/floating-elements';
 import { ConsultBenefits } from '@/components/page/consult/consult-benefits';
 import { ConsultProcess } from '@/components/page/consult/consult-process';
 import { Button } from '@/components/basic/button/button';
@@ -16,11 +15,11 @@ export const metadata = {
 
 export default function ConsultPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-t from-black via-black/90 to-black/70 relative overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-t from-slate-50 via-blue-50 to-white dark:from-black dark:via-black/90 dark:to-black/70 relative overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 dark:opacity-100 opacity-30">
         <Particles />
-        <FloatingElements />
+
       </div>
 
       {/* Hero Section */}
@@ -41,11 +40,11 @@ export default function ConsultPage() {
       {/* Member Registration CTA */}
       <Section className="py-16 md:py-20 relative z-10">
         <div className="max-w-4xl mx-auto px-4 md:px-6 text-center">
-          <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 md:p-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Join Our <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Community</span>
+          <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 backdrop-blur-sm border border-slate-200 dark:border-gray-700/50 rounded-2xl p-8 md:p-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+              Join Our <span className="bg-gradient-to-r from-cyan-600 to-purple-600 dark:from-cyan-400 dark:to-purple-500 bg-clip-text text-transparent">Community</span>
             </h2>
-            <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-700 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
               Get exclusive access to premium resources, priority support, and special discounts on our services.
             </p>
             <Link href="/auth/signin">
@@ -61,10 +60,10 @@ export default function ConsultPage() {
       <Section className="pb-20 relative z-10">
         <div className="max-w-sm md:max-w-7xl mx-auto px-4 md:px-6">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Ready to <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Transform</span> Your Business?
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              Ready to <span className="bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500 bg-clip-text text-transparent">Transform</span> Your Business?
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-700 dark:text-gray-300 max-w-2xl mx-auto">
               Start your journey with a free consultation. Our experts are ready to discuss your needs and provide tailored solutions.
             </p>
           </div>

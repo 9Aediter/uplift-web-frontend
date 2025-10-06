@@ -112,27 +112,27 @@ export function ConsultProcess() {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6">
       {/* Header */}
-      <motion.div 
+      <motion.div
         className="text-center mb-16"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
           How Our{' '}
-          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 dark:from-cyan-400 dark:via-blue-500 dark:to-purple-500 bg-clip-text text-transparent">
             Consultation Works
           </span>
         </h2>
-        <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg text-slate-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
           Our streamlined consultation process is designed to maximize value while respecting your time.
           {"Here's"} exactly what happens during your 30-minute session.
         </p>
       </motion.div>
 
       {/* Process Steps */}
-      <motion.div 
+      <motion.div
         className="relative mb-20"
         variants={containerVariants}
         initial="hidden"
@@ -141,11 +141,11 @@ export function ConsultProcess() {
       >
         {/* Connection Line */}
         <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500/50 via-purple-500/50 to-transparent hidden md:block" />
-        
+
         {processSteps.map((step, index) => {
           const IconComponent = step.icon;
           const isLast = index === processSteps.length - 1;
-          
+
           return (
             <motion.div
               key={step.step}
@@ -157,33 +157,33 @@ export function ConsultProcess() {
                 <div className={`w-16 h-16 bg-gradient-to-r ${step.color} rounded-full flex items-center justify-center shadow-lg`}>
                   <IconComponent className="h-8 w-8 text-white" />
                 </div>
-                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gray-900 px-2 py-1 rounded text-xs text-white font-medium">
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-slate-900 dark:bg-gray-900 px-2 py-1 rounded text-xs text-white font-medium">
                   {step.step}
                 </div>
               </div>
-              
+
               {/* Content */}
               <div className="flex-1 pt-2">
-                <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 group hover:border-gray-600/50 transition-all duration-300">
+                <div className="bg-white/70 dark:bg-gray-800/40 backdrop-blur-sm border border-slate-200 dark:border-gray-700/50 rounded-xl p-6 group hover:border-slate-300 dark:hover:border-gray-600/50 transition-all duration-300">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xl font-semibold text-white group-hover:text-cyan-300 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors duration-300">
                       {step.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-gray-400 text-sm">
                       <Clock className="h-4 w-4" />
                       {step.duration}
                     </div>
                   </div>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-slate-700 dark:text-gray-300 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
               </div>
-              
+
               {/* Arrow */}
               {!isLast && (
                 <div className="absolute right-0 top-8 transform translate-x-full hidden lg:block">
-                  <ArrowRight className="h-6 w-6 text-gray-600" />
+                  <ArrowRight className="h-6 w-6 text-slate-400 dark:text-gray-600" />
                 </div>
               )}
             </motion.div>
@@ -198,15 +198,15 @@ export function ConsultProcess() {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="bg-gradient-to-r from-gray-800/40 to-gray-900/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 md:p-12">
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center">
+        <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-gray-800/40 dark:to-gray-900/40 backdrop-blur-sm border border-slate-200 dark:border-gray-700/50 rounded-2xl p-8 md:p-12">
+          <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">
             {"What You'll Get From The"}{' '}
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500 bg-clip-text text-transparent">
               Consultation
             </span>
           </h3>
-          
-          <motion.div 
+
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
             variants={containerVariants}
             initial="hidden"
@@ -219,24 +219,24 @@ export function ConsultProcess() {
                 <motion.div
                   key={index}
                   variants={cardVariants}
-                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-700/30 transition-colors duration-300"
+                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-white/50 dark:hover:bg-gray-700/30 transition-colors duration-300"
                 >
                   <IconComponent className="h-6 w-6 text-green-400 flex-shrink-0 mt-1" />
                   <div>
-                    <h4 className="text-white font-semibold mb-2">{item.title}</h4>
-                    <p className="text-gray-300 text-sm">{item.description}</p>
+                    <h4 className="text-slate-900 dark:text-white font-semibold mb-2">{item.title}</h4>
+                    <p className="text-slate-700 dark:text-gray-300 text-sm">{item.description}</p>
                   </div>
                 </motion.div>
               );
             })}
           </motion.div>
-          
+
           {/* Call to Action */}
-          <div className="text-center mt-10 pt-8 border-t border-gray-700/50">
-            <p className="text-lg text-gray-300 mb-4">
+          <div className="text-center mt-10 pt-8 border-t border-slate-200 dark:border-gray-700/50">
+            <p className="text-lg text-slate-700 dark:text-gray-300 mb-4">
               Ready to get started? The consultation is completely free with no obligations.
             </p>
-            <div className="flex items-center justify-center gap-4 text-cyan-400">
+            <div className="flex items-center justify-center gap-4 text-cyan-600 dark:text-cyan-400">
               <Clock className="h-5 w-5" />
               <span className="font-medium">30 minutes • Free • No commitment</span>
             </div>

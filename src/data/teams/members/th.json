@@ -1,0 +1,53 @@
+[
+  {
+    "id": "somchai-developer",
+    "name": "สมชาย เทคแสวี",
+    "position": "นักพัฒนาอาวุโส",
+    "department": "วิศวกรรม",
+    "bio": "นักพัฒนา full-stack ผู้เชี่ยวชาญที่เชี่ยวชาญด้านเทคโนโลยีเว็บสมัยใหม่ หลงใหลในโค้ดที่สะอาดและสถาปัตยกรรมที่ขยายได้",
+    "image": "/images/team/somchai.jpg",
+    "skills": ["React/Next.js", "Node.js", "TypeScript", "การออกแบบฐานข้อมูล"],
+    "social": {
+      "github": "https://github.com/somchai-dev",
+      "email": "somchai@uplifttechbiz.com"
+    },
+    "certifications": ["Microsoft Azure Developer", "MongoDB Certified Developer"],
+    "experience": "6+ ปี",
+    "languages": ["ไทย", "อังกฤษ"],
+    "specialties": ["แอปพลิเคชันเว็บ", "การพัฒนา API", "DevOps"]
+  },
+  {
+    "id": "malee-designer",
+    "name": "มาลี ครีเอทีฟ",
+    "position": "นักออกแบบ UI/UX",
+    "department": "ดิไซน์",
+    "bio": "นักออกแบบเชิงสร้างสรรค์ที่มุ่งเน้นหลักการออกแบบที่เป็นศูนย์กลางของผู้ใช้ สร้างอินเตอร์เฟซที่สวยงามและใช้งานได้จริงที่ผู้ใช้รัก",
+    "image": "/images/team/malee.jpg",
+    "skills": ["การออกแบบ UI/UX", "Figma", "Adobe Creative Suite", "การวิจัยผู้ใช้"],
+    "social": {
+      "behance": "https://behance.net/malee-creative",
+      "email": "malee@uplifttechbiz.com"
+    },
+    "certifications": ["Google UX Design Certificate", "Adobe Certified Expert"],
+    "experience": "4+ ปี",
+    "languages": ["ไทย", "อังกฤษ"],
+    "specialties": ["การออกแบบมือถือ", "การออกแบบเว็บ", "อัตลักษณ์แบรนด์"]
+  },
+  {
+    "id": "niran-backend",
+    "name": "นิรันดร์ แบ็กเอนด์",
+    "position": "วิศวกรแบ็กเอนด์",
+    "department": "วิศวกรรม",
+    "bio": "ผู้เชี่ยวชาญแบ็กเอนด์ที่มีความเชี่ยวชาญในไมโครเซอร์วิสและโครงสร้างพื้นฐานคลาวด์ ดูแลให้มั่นใจในสถาปัตยกรรมระบบที่ขยายได้และเชื่อถือได้",
+    "image": "/images/team/niran.jpg",
+    "skills": ["Java", "Spring Boot", "Docker", "Kubernetes"],
+    "social": {
+      "github": "https://github.com/niran-backend",
+      "email": "niran@uplifttechbiz.com"
+    },
+    "certifications": ["Oracle Java Certification", "Kubernetes Administrator"],
+    "experience": "5+ ปี",
+    "languages": ["ไทย", "อังกฤษ"],
+    "specialties": ["ไมโครเซอร์วิส", "โครงสร้างพื้นฐานคลาวด์", "การออกแบบ API"]
+  }
+]

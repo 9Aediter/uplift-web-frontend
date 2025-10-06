@@ -1,12 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import { MoreHorizontal, MessageCircle, Globe, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { MoreHorizontal, MessageCircle, Globe, X, Moon, Sun } from 'lucide-react';
 import { useLanguageSwitcher } from '@/components/common/language-switcher';
+import { useTheme } from 'next-themes';
 
 export default function FloatingActionButton() {
   const [isOpen, setIsOpen] = useState(false);
   const { currentLocale, switchLanguage } = useLanguageSwitcher();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -28,13 +35,21 @@ export default function FloatingActionButton() {
         switchLanguage(newLocale);
       },
     },
+    {
+      icon: mounted && theme === 'dark' ? Sun : Moon,
+      label: mounted && theme === 'dark' ? 'Light' : 'Dark',
+      color: '#F59E0B',
+      onClick: () => {
+        setTheme(theme === 'dark' ? 'light' : 'dark');
+      },
+    },
   ];
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Menu Items - Appear above the main button */}
       <div
-        className={`flex flex-col-reverse gap-3 mb-3 transition-all duration-300 ${
+        className={`flex flex-col-reverse gap-3 mb-3 transition-all duration-300 items-end ${
           isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
@@ -51,13 +66,13 @@ export default function FloatingActionButton() {
             }}
           >
             {/* Label */}
-            <span className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg text-sm font-medium text-gray-800 whitespace-nowrap border border-gray-200 group-hover:shadow-xl transition-shadow">
+            <span className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg text-sm font-medium text-gray-800 dark:text-gray-200 whitespace-nowrap border border-gray-200 dark:border-gray-700 group-hover:shadow-xl transition-shadow">
               {item.label}
             </span>
 
             {/* Icon Button */}
             <div
-              className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:rotate-12"
+              className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:rotate-12 flex-shrink-0"
               style={{ backgroundColor: item.color }}
             >
               <item.icon className="w-6 h-6 text-white" strokeWidth={2} />

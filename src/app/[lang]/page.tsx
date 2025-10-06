@@ -27,8 +27,16 @@ const Product = dynamic(() => import("@/components/page/home/product").then(mod 
   loading: () => <div className="min-h-[400px]" />
 });
 
-const CTA = dynamic(() => import("@/components/page/home/cta").then(mod => ({ default: mod.CalltoAction })), {
-  loading: () => <div className="min-h-[200px]" />
+const FAQ = dynamic(() => import("@/components/page/home/faq").then(mod => ({ default: mod.FAQ })), {
+  loading: () => <div className="min-h-[400px]" />
+});
+
+const BestPractice = dynamic(() => import("@/components/page/home/best-practice").then(mod => ({ default: mod.BestPractice })), {
+  loading: () => <div className="min-h-[600px]" />
+});
+
+const FounderVision = dynamic(() => import("@/components/page/home/founder-vision").then(mod => ({ default: mod.FounderVision })), {
+  loading: () => <div className="min-h-[600px]" />
 });
 
 // ============================================
@@ -36,10 +44,6 @@ const CTA = dynamic(() => import("@/components/page/home/cta").then(mod => ({ de
 // ============================================
 const DemoApp = dynamic(() => import("@/components/page/home/demo-app").then(mod => ({ default: mod.DemoApp })), {
   loading: () => <div className="min-h-[500px]" />
-});
-
-const FloatingActionButton = dynamic(() => import("@/components/layout/floating-action-button"), {
-  loading: () => null
 });
 
 // Valid languages
@@ -110,7 +114,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
       <main className="w-full inset-0 overflow-x-hidden max-w-full">
         {/* Hero Section */}
-        <Hero heroContent={heroContent} />
+        <Hero heroContent={heroContent} lang={lang} />
 
         {/* Problems Section */}
         <Problems />
@@ -118,20 +122,23 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         {/* Solution Section */}
         <Solution data={solutionContent} />
 
+        {/* Best Practice Section */}
+        <BestPractice />
+
         {/* Demo App Section */}
         <DemoApp />
 
         {/* Product Section */}
         <Product />
 
-        {/* CTA Section */}
-        <CTA />
+        {/* Founder Vision Section */}
+        <FounderVision lang={lang} />
+
+        {/* FAQ Section */}
+        <FAQ />
       </main>
 
       <Footer />
-
-      {/* Floating Action Button */}
-      <FloatingActionButton />
     </div>
   );
 }

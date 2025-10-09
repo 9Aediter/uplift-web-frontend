@@ -46,6 +46,14 @@ const DemoApp = dynamic(() => import("@/components/page/home/demo-app").then(mod
   loading: () => <div className="min-h-[500px]" />
 });
 
+const TechStack = dynamic(() => import("@/components/page/home/tech-stack").then(mod => ({ default: mod.TechStack })), {
+  loading: () => <div className="min-h-[500px]" />
+});
+
+const SolutionArchitecture = dynamic(() => import("@/components/page/home/solution-architecture").then(mod => ({ default: mod.SolutionArchitecture })), {
+  loading: () => <div className="min-h-[500px]" />
+});
+
 // Valid languages
 const VALID_LANGS = ['en', 'th'] as const;
 type Lang = typeof VALID_LANGS[number];
@@ -127,6 +135,12 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
         {/* Demo App Section */}
         <DemoApp />
+
+        {/* Tech Stack Section */}
+        <TechStack />
+
+        {/* Solution Architecture Section */}
+        <SolutionArchitecture />
 
         {/* Product Section */}
         <Product />

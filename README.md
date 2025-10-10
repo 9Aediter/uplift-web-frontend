@@ -269,6 +269,56 @@ npx vitest
 
 ---
 
+
+## Data Architecture
+
+### Homepage Data Structure (Split by Section)
+
+**Location**: `src/data/homepage/[section]/[lang].json`
+
+Each homepage section has dedicated JSON files for English and Thai:
+
+```
+src/data/homepage/
+├── problems/
+│   ├── en.json       # Problem statements (EN)
+│   └── th.json       # Problem statements (TH)
+├── faq/
+│   ├── en.json       # FAQ content (EN)
+│   └── th.json       # FAQ content (TH)
+├── techstack/
+│   ├── en.json       # Tech stack (EN)
+│   └── th.json       # Tech stack (TH)
+└── portfolio/
+    ├── en.json       # Portfolio/Best Practices (EN)
+    └── th.json       # Portfolio/Best Practices (TH)
+```
+
+### Data Loaders
+
+Located in `src/app/[lang]/page.tsx`:
+
+- `getProblemsData(locale)` - Load problem statements
+- `getFAQData(locale)` - Load FAQ content
+- `getTechStackData(locale)` - Load technology stack
+- `getPortfolioData(locale)` - Load portfolio/best practices
+
+**Features**: Automatic English fallback, type-safe interfaces, server-side loading
+
+### Icon Mapping System
+
+**Location**: `src/lib/utils/icon-mapper.tsx`
+
+Maps technology names (strings in JSON) to React icon components. Must be a client component with `'use client'` directive. Supports 30+ technologies with React Icons (Si*, Ai*, Fa*).
+
+**Usage**:
+```typescript
+import { getTechIcon } from '@/lib/utils/icon-mapper'
+const icon = getTechIcon('React') // Returns <SiReact className="w-8 h-8" />
+```
+
+---
+
 ## Deployment & CI/CD
 
 ### Architecture Overview

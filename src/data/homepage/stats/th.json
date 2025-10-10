@@ -1,0 +1,54 @@
+{
+  "items": [
+    {
+      "id": "apps",
+      "title": "แอปฯ",
+      "value": 150,
+      "suffix": "+",
+      "description": "ส่งมอบแล้ว",
+      "icon": "FaMobileAlt",
+      "color": "from-blue-500 to-cyan-500",
+      "bgGradient": "bg-gradient-to-br from-blue-500/5 to-cyan-500/5"
+    },
+    {
+      "id": "users",
+      "title": "ผู้ใช้",
+      "value": 50000,
+      "suffix": "+",
+      "description": "ใช้งานจริง",
+      "icon": "FaUsers",
+      "color": "from-purple-500 to-pink-500",
+      "bgGradient": "bg-gradient-to-br from-purple-500/5 to-pink-500/5"
+    },
+    {
+      "id": "clients",
+      "title": "ลูกค้า",
+      "value": 200,
+      "suffix": "+",
+      "description": "ไว้วางใจ",
+      "icon": "FaHandshake",
+      "color": "from-green-500 to-emerald-500",
+      "bgGradient": "bg-gradient-to-br from-green-500/5 to-emerald-500/5"
+    },
+    {
+      "id": "success",
+      "title": "ความสำเร็จ",
+      "value": 98,
+      "suffix": "%",
+      "description": "อัตรา",
+      "icon": "FaChartLine",
+      "color": "from-orange-500 to-red-500",
+      "bgGradient": "bg-gradient-to-br from-orange-500/5 to-red-500/5"
+    },
+    {
+      "id": "experience",
+      "title": "ปี",
+      "value": 8,
+      "suffix": "+",
+      "description": "ประสบการณ์",
+      "icon": "FaStar",
+      "color": "from-yellow-500 to-amber-500",
+      "bgGradient": "bg-gradient-to-br from-yellow-500/5 to-amber-500/5"
+    }
+  ]
+}

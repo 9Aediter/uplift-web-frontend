@@ -1,0 +1,104 @@
+{
+  "title": "Best Practice",
+  "subtitle": "สำรวจผลงานที่ประสบความสำเร็จและโซลูชันที่เป็นนวัตกรรมที่เปลี่ยนแปลงธุรกิจในหลากหลายอุตสาหกรรม",
+  "projects": [
+    {
+      "id": 1,
+      "title": "โลโก้แอปมือถือ",
+      "description": "การออกแบบโลโก้แอปพลิเคชันมือถือแบบมืออาชีพ แสดงถึงโซลูชันเทคโนโลยีที่เป็นนวัตกรรมและเอกลักษณ์แบรนด์สมัยใหม่ของบริษัท",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_01.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 2,
+      "title": "ป้ายบริษัท",
+      "description": "ป้ายบริษัทและวัสดุแบรนด์สมัยใหม่ที่แสดงถึงการมีอยู่และเอกลักษณ์ทางวิชาชีพของบริษัท",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_02.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 3,
+      "title": "แอปอีคอมเมิร์ซ",
+      "description": "แอปพลิเคชันอีคอมเมิร์ซบนมือถือฟีเจอร์ครบพร้อมประสบการณ์การช็อปปิ้งที่ราบรื่น การผสานรวมการชำระเงิน และการจัดการสินค้าคงคลัง",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_03.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 4,
+      "title": "แอป Backoffice สำหรับ iPad",
+      "description": "แอปพลิเคชันจัดการ backoffice ครบวงจรสำหรับ iPad พร้อมการวิเคราะห์แบบเรียลไทม์ การรายงาน และการควบคุมการบริหาร",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_04.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 5,
+      "title": "โซลูชันการจัดส่ง",
+      "description": "โซลูชันการจัดการการจัดส่งขั้นสูงพร้อมการปรับแต่งเส้นทาง การติดตามแบบเรียลไทม์ และระบบจัดส่งอัตโนมัติ",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_05.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 6,
+      "title": "นามบัตรธุรกิจ",
+      "description": "การออกแบบนามบัตรธุรกิจแบบมืออาชีพที่สะท้อนเอกลักษณ์องค์กรและค่านิยมแบรนด์ด้วยสุนทรียภาพสมัยใหม่",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_06.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 8,
+      "title": "เว็บไซต์ Backoffice Desktop",
+      "description": "ระบบ backoffice บนเว็บเดสก์ท็อปที่ทรงพลังสำหรับการจัดการธุรกิจที่ครอบคลุมและการวิเคราะห์ข้อมูล",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_08.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 9,
+      "title": "ปกเอกสาร TOR",
+      "description": "การออกแบบปกเอกสารข้อกำหนดอ้างอิง (TOR) แบบมืออาชีพสำหรับข้อตกลงองค์กร",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_09.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 10,
+      "title": "แอปจองรถ",
+      "description": "แอปพลิเคชันจองรถตามต้องการคล้าย Grab พร้อมการติดตามคนขับแบบเรียลไทม์และการผสานรวมการชำระเงินที่ราบรื่น",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_10.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 13,
+      "title": "โซลูชันร้านซักรีด",
+      "description": "โซลูชันการจัดการร้านซักรีดครบวงจรพร้อมการติดตามคำสั่งซื้อ การจัดตารางการจัดส่ง และระบบจัดการลูกค้า",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_13.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 14,
+      "title": "โซลูชันการขนส่ง",
+      "description": "ระบบจัดการการขนส่งที่ครอบคลุมพร้อมการติดตามยานพาหนะ การปรับแต่งเส้นทาง และการประสานงานโลจิสติกส์",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_14.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 15,
+      "title": "แพลตฟอร์มอีคอมเมิร์ซ",
+      "description": "แพลตฟอร์มอีคอมเมิร์ซขนาดใหญ่พร้อมฟีเจอร์ขั้นสูงรวมถึงการสนับสนุนผู้ขายหลายราย เกตเวย์การชำระเงิน และการวิเคราะห์",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_15.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 16,
+      "title": "Laundry AI",
+      "description": "โซลูชันร้านซักรีดที่ขับเคลื่อนด้วย AI พร้อมการจัดเรียงอัจฉริยะ การปรับราคา และการจัดการเวิร์กโฟลว์อัตโนมัติ",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_16.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 17,
+      "title": "โซลูชันธุรกิจ",
+      "description": "พอร์ตโฟลิโอโซลูชันธุรกิจแบบบูรณาการที่แสดงบริการเทคโนโลยีที่ครอบคลุมและความสามารถของเรา",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_17.png",
+      "className": "col-span-1"
+    }
+  ]
+}

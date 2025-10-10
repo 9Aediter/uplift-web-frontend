@@ -1,0 +1,104 @@
+{
+  "title": "Best Practice",
+  "subtitle": "Explore our portfolio of successful projects and innovative solutions that have transformed businesses across industries.",
+  "projects": [
+    {
+      "id": 1,
+      "title": "Mobile App Logo Design",
+      "description": "Professional mobile application logo design representing our company's innovative technology solutions and modern brand identity.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_01.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 2,
+      "title": "Corporate Signage",
+      "description": "Modern corporate signage and branding materials showcasing our company presence and professional identity.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_02.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 3,
+      "title": "E-Commerce Application",
+      "description": "Full-featured e-commerce mobile application with seamless shopping experience, payment integration, and inventory management.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_03.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 4,
+      "title": "iPad Backoffice App",
+      "description": "Comprehensive backoffice management application for iPad with real-time analytics, reporting, and administrative controls.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_04.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 5,
+      "title": "Delivery Solution",
+      "description": "Advanced delivery management solution with route optimization, real-time tracking, and automated dispatch system.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_05.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 6,
+      "title": "Corporate Business Card",
+      "description": "Professional business card design reflecting our corporate identity and brand values with modern aesthetics.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_06.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 8,
+      "title": "Website Backoffice Desktop",
+      "description": "Powerful desktop web backoffice system for comprehensive business management and data analytics.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_08.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 9,
+      "title": "TOR Contract Cover",
+      "description": "Professional Terms of Reference (TOR) contract documentation cover design for corporate agreements.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_09.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 10,
+      "title": "Ride Booking App",
+      "description": "On-demand ride booking application similar to Grab with real-time driver tracking and seamless payment integration.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_10.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 13,
+      "title": "Laundry Solution",
+      "description": "Complete laundry management solution with order tracking, delivery scheduling, and customer management system.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_13.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 14,
+      "title": "Transportation Solution",
+      "description": "Comprehensive transportation management system with fleet tracking, route optimization, and logistics coordination.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_14.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 15,
+      "title": "E-Commerce Platform",
+      "description": "Full-scale e-commerce platform with advanced features including multi-vendor support, payment gateway, and analytics.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_15.png",
+      "className": "col-span-1"
+    },
+    {
+      "id": 16,
+      "title": "Laundry AI",
+      "description": "AI-powered laundry solution with intelligent sorting, pricing optimization, and automated workflow management.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_16.png",
+      "className": "md:col-span-2"
+    },
+    {
+      "id": 17,
+      "title": "Business Solutions",
+      "description": "Integrated business solutions portfolio showcasing our comprehensive technology services and capabilities.",
+      "imageUrl": "https://uplift-uploads.s3.ap-southeast-1.amazonaws.com/IM_01_17.png",
+      "className": "col-span-1"
+    }
+  ]
+}

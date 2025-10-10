@@ -1,0 +1,32 @@
+{
+  "title": "Frequently Asked Questions",
+  "subtitle": "Got questions? We've got answers. Find everything you need to know about our services.",
+  "ctaText": "Still have questions?",
+  "ctaButton": "Get in Touch",
+  "items": [
+    {
+      "question": "What services does UPLIFT Technology provide?",
+      "answer": "We provide comprehensive technology solutions including web development, mobile app development, cloud solutions, ERP systems, POS solutions, and custom software development tailored to your business needs."
+    },
+    {
+      "question": "How long does it take to develop a custom software solution?",
+      "answer": "Development time varies based on project complexity. Typically, a basic web application takes 2-3 months, while more complex enterprise solutions may take 4-6 months or more. We'll provide a detailed timeline during the consultation phase."
+    },
+    {
+      "question": "Do you offer maintenance and support after project completion?",
+      "answer": "Yes, we offer comprehensive maintenance and support packages. Our team provides ongoing technical support, security updates, feature enhancements, and performance optimization to ensure your solution runs smoothly."
+    },
+    {
+      "question": "What technologies do you specialize in?",
+      "answer": "We specialize in modern tech stacks including Next.js, React, Node.js, TypeScript, Python, and cloud platforms like AWS and Azure. We always use the best technology suited for your specific requirements."
+    },
+    {
+      "question": "Can you integrate with existing systems?",
+      "answer": "Absolutely! We have extensive experience integrating new solutions with legacy systems, third-party APIs, and existing databases. We ensure seamless data flow and minimal disruption to your current operations."
+    },
+    {
+      "question": "What is your pricing model?",
+      "answer": "We offer flexible pricing models including fixed-price projects, time & materials, and dedicated team arrangements. Pricing depends on project scope, complexity, and timeline. Contact us for a detailed quote."
+    }
+  ]
+}

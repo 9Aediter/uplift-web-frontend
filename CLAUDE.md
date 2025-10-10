@@ -184,11 +184,46 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 }
 ```
 
+### Data Management & JSON Structure
+
+**Homepage Data Architecture** (Split by Section):
+- **Location**: `src/data/homepage/[section]/[lang].json`
+- **Pattern**: Each section has separate `en.json` and `th.json` files
+- **Sections**:
+  - `problems/` - Problem statements and impact metrics
+  - `faq/` - Frequently asked questions
+  - `techstack/` - Technology stack showcase
+  - `portfolio/` - Project showcase (best practices)
+  - `stats/` - Statistics cards (to be migrated)
+  - `solution/` - Solution architecture (to be migrated)
+
+**Data Loaders** (in `src/app/[lang]/page.tsx`):
+```typescript
+async function getProblemsData(locale: string): Promise<ProblemData>
+async function getFAQData(locale: string): Promise<FAQData>
+async function getTechStackData(locale: string): Promise<TechStackData>
+async function getPortfolioData(locale: string): Promise<PortfolioData>
+```
+
+**Icon Mapping System**:
+- **Location**: `src/lib/utils/icon-mapper.tsx`
+- **Purpose**: Maps technology names (strings in JSON) to React icon components
+- **Usage**: `getTechIcon('React')` returns `<SiReact className="w-8 h-8" />`
+- **Important**: Must be a client component (`'use client'` directive)
+- **Supported Icons**: React Icons (Si*, Ai*, Fa*), custom fallback for unknown icons
+
+**Best Practices**:
+- All data loaders have automatic English fallback with console warnings
+- Icons stored as strings in JSON, converted to components via icon mapper
+- Components receive data via props (not hardcoded)
+- Each section is independently loadable and cacheable
+
 ### Common Pitfalls & Solutions
 - **Dynamic Tailwind Classes**: Avoid template literals in className (e.g., `text-${color}-400`). Use complete class names or cn() utility
 - **Optional Chaining**: Always use optional chaining for potentially undefined properties (e.g., `item.gradientFrom?.split()`)
 - **Type Conflicts**: Watch for duplicate type definitions between local interfaces and external types
 - **SSR vs Client Components**: Animated components use "use client" directive, while static components can be server-side
+- **Icon Mapper**: Must include `'use client'` directive when importing React Icons (client-side only)
 - **Node Modules Permission**: If you encounter EACCES errors with node_modules, delete and reinstall: `rm -rf node_modules package-lock.json && npm install`
 - **Image Optimization**: Next.js Image component configured with remote patterns for external sources (S3, Unsplash, etc.)
 - **Middleware JWT Decoding**: JWT payload structure has user roles at `payload.user.roles` array

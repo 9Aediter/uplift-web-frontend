@@ -9,35 +9,21 @@ interface FAQItem {
   answer: string;
 }
 
-const faqData: FAQItem[] = [
-  {
-    question: "What services does UPLIFT Technology provide?",
-    answer: "We provide comprehensive technology solutions including web development, mobile app development, cloud solutions, ERP systems, POS solutions, and custom software development tailored to your business needs.",
-  },
-  {
-    question: "How long does it take to develop a custom software solution?",
-    answer: "Development time varies based on project complexity. Typically, a basic web application takes 2-3 months, while more complex enterprise solutions may take 4-6 months or more. We'll provide a detailed timeline during the consultation phase.",
-  },
-  {
-    question: "Do you offer maintenance and support after project completion?",
-    answer: "Yes, we offer comprehensive maintenance and support packages. Our team provides ongoing technical support, security updates, feature enhancements, and performance optimization to ensure your solution runs smoothly.",
-  },
-  {
-    question: "What technologies do you specialize in?",
-    answer: "We specialize in modern tech stacks including Next.js, React, Node.js, TypeScript, Python, and cloud platforms like AWS and Azure. We always use the best technology suited for your specific requirements.",
-  },
-  {
-    question: "Can you integrate with existing systems?",
-    answer: "Absolutely! We have extensive experience integrating new solutions with legacy systems, third-party APIs, and existing databases. We ensure seamless data flow and minimal disruption to your current operations.",
-  },
-  {
-    question: "What is your pricing model?",
-    answer: "We offer flexible pricing models including fixed-price projects, time & materials, and dedicated team arrangements. Pricing depends on project scope, complexity, and timeline. Contact us for a detailed quote.",
-  },
-];
+interface FAQData {
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaButton: string;
+  items: FAQItem[];
+}
 
-export function FAQ() {
+interface FAQProps {
+  data: FAQData;
+}
+
+export function FAQ({ data }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { title, subtitle, ctaText, ctaButton, items } = data;
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -59,23 +45,23 @@ export function FAQ() {
               <HelpCircle className="w-6 h-6 text-primary" />
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Frequently Asked Questions
+              {title}
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Got questions? We've got answers. Find everything you need to know about our services.
+              {subtitle}
             </p>
 
             {/* CTA - Visible on Desktop */}
             <div className="hidden lg:block">
               <p className="text-muted-foreground mb-4">
-                Still have questions?
+                {ctaText}
               </p>
               <a
                 href="/consult"
                 className="inline-flex items-center px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105"
                 style={{ backgroundColor: '#0175BC', color: 'white' }}
               >
-                Get in Touch
+                {ctaButton}
               </a>
             </div>
           </motion.div>
@@ -83,7 +69,7 @@ export function FAQ() {
           {/* Right Side - FAQ Items */}
           <div className="lg:col-span-8">
             <div className="space-y-4">
-              {faqData.map((faq, index) => (
+              {items.map((faq, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -134,14 +120,14 @@ export function FAQ() {
               className="mt-12 text-center lg:hidden"
             >
               <p className="text-muted-foreground mb-4">
-                Still have questions?
+                {ctaText}
               </p>
               <a
                 href="/consult"
                 className="inline-flex items-center px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105"
                 style={{ backgroundColor: '#0175BC', color: 'white' }}
               >
-                Get in Touch
+                {ctaButton}
               </a>
             </motion.div>
           </div>

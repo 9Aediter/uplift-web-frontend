@@ -1,6 +1,7 @@
 // Layout for [lang] routes
 import { ReactNode } from 'react';
 import FloatingActionButton from '@/components/layout/floating-action-button';
+import { TechModalProvider } from '@/lib/providers/tech-modal-provider';
 
 export default function LangLayout({
   children,
@@ -8,10 +9,10 @@ export default function LangLayout({
   children: ReactNode;
 }) {
   return (
-    <>
+    <TechModalProvider>
       {children}
       <FloatingActionButton />
-    </>
+    </TechModalProvider>
   );
 }
 

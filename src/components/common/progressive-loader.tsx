@@ -26,7 +26,7 @@ interface SolutionData {
 
 // Progressive enhancement wrapper components with data props
 export const ProblemsAnimated = ({ data }: { data: ProblemData }) => {
-  return <Problems />;
+  return <Problems data={data} />;
 };
 
 export const SolutionAnimated = ({ data }: { data: SolutionData }) => {

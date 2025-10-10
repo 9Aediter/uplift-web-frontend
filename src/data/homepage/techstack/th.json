@@ -1,0 +1,255 @@
+{
+  "badge": "เทคโนโลยีล่าสุด",
+  "title": "Modern Tech Stack",
+  "subtitle": "เราใช้เทคโนโลยีล่าสุดและทันสมัยที่สุด เพื่อสร้างระบบที่มีประสิทธิภาพสูงสุดให้กับลูกค้า",
+  "categories": {
+    "frontend": [
+      {
+        "name": "React",
+        "tagline": "Modern UI Library",
+        "category": "frontend",
+        "color": "from-cyan-500 to-blue-500",
+        "usedIn": ["เว็บแอป", "แอดมินแพนเนล", "มือถือ"]
+      },
+      {
+        "name": "Next.js",
+        "tagline": "Full-Stack Framework",
+        "category": "frontend",
+        "color": "from-gray-800 to-gray-600",
+        "usedIn": ["เว็บไซต์องค์กร", "อีคอมเมิร์ซ"]
+      },
+      {
+        "name": "TypeScript",
+        "tagline": "Type-Safe Development",
+        "category": "frontend",
+        "color": "from-blue-600 to-blue-400",
+        "usedIn": ["ทุกโปรเจค"]
+      },
+      {
+        "name": "Tailwind CSS",
+        "tagline": "Utility-First CSS",
+        "category": "frontend",
+        "color": "from-cyan-400 to-teal-500",
+        "usedIn": ["UI สมัยใหม่", "Responsive Design"]
+      },
+      {
+        "name": "Vue.js",
+        "tagline": "Progressive Framework",
+        "category": "frontend",
+        "color": "from-green-500 to-emerald-500",
+        "usedIn": ["SPAs", "แอปองค์กร"]
+      },
+      {
+        "name": "Nuxt.js",
+        "tagline": "Vue.js Framework",
+        "category": "frontend",
+        "color": "from-green-600 to-teal-600",
+        "usedIn": ["SSR Apps", "เว็บไซต์สแตติก"]
+      },
+      {
+        "name": "React Native",
+        "tagline": "Cross-Platform Mobile",
+        "category": "frontend",
+        "color": "from-cyan-600 to-blue-600",
+        "usedIn": ["แอป iOS", "แอป Android"]
+      },
+      {
+        "name": "Flutter",
+        "tagline": "Beautiful Native Apps",
+        "category": "frontend",
+        "color": "from-blue-400 to-cyan-300",
+        "usedIn": ["แอปมือถือ", "Cross-Platform"]
+      },
+      {
+        "name": "Dart",
+        "tagline": "Flutter Language",
+        "category": "frontend",
+        "color": "from-blue-500 to-blue-300",
+        "usedIn": ["การพัฒนา Flutter"]
+      }
+    ],
+    "backend": [
+      {
+        "name": "Bun",
+        "tagline": "Fastest JS Runtime",
+        "category": "backend",
+        "color": "from-orange-400 to-pink-500",
+        "usedIn": ["API ประสิทธิภาพสูง", "บริการแบบเรียลไทม์"]
+      },
+      {
+        "name": "ElysiaJS",
+        "tagline": "Type-Safe Web Framework",
+        "category": "backend",
+        "color": "from-purple-500 to-pink-500",
+        "usedIn": ["REST APIs", "GraphQL Services"]
+      },
+      {
+        "name": "Golang",
+        "tagline": "Concurrent & Scalable",
+        "category": "backend",
+        "color": "from-cyan-600 to-blue-500",
+        "usedIn": ["Microservices", "ระบบโหลดสูง"]
+      },
+      {
+        "name": "Node.js",
+        "tagline": "JavaScript Runtime",
+        "category": "backend",
+        "color": "from-green-600 to-green-400",
+        "usedIn": ["APIs", "แอปเรียลไทม์"]
+      },
+      {
+        "name": "NestJS",
+        "tagline": "Progressive Node.js",
+        "category": "backend",
+        "color": "from-red-600 to-pink-500",
+        "usedIn": ["Enterprise APIs", "Microservices"]
+      },
+      {
+        "name": "Express",
+        "tagline": "Fast Web Framework",
+        "category": "backend",
+        "color": "from-gray-700 to-gray-500",
+        "usedIn": ["REST APIs", "เว็บแอป"]
+      },
+      {
+        "name": "Python",
+        "tagline": "Versatile Language",
+        "category": "backend",
+        "color": "from-blue-500 to-yellow-400",
+        "usedIn": ["AI/ML", "Data Science", "APIs"]
+      }
+    ],
+    "database": [
+      {
+        "name": "PostgreSQL",
+        "tagline": "Relational Database",
+        "category": "database",
+        "color": "from-blue-700 to-blue-500",
+        "usedIn": ["ระบบองค์กร", "Analytics"]
+      },
+      {
+        "name": "MongoDB",
+        "tagline": "Document Database",
+        "category": "database",
+        "color": "from-green-700 to-green-500",
+        "usedIn": ["จัดการเนื้อหา", "ข้อมูลเรียลไทม์"]
+      },
+      {
+        "name": "Redis",
+        "tagline": "In-Memory Cache",
+        "category": "database",
+        "color": "from-red-600 to-red-400",
+        "usedIn": ["Caching", "Session Storage"]
+      },
+      {
+        "name": "GraphQL",
+        "tagline": "Efficient Data Query",
+        "category": "database",
+        "color": "from-pink-600 to-purple-500",
+        "usedIn": ["Modern APIs", "Data Fetching"]
+      },
+      {
+        "name": "Prisma",
+        "tagline": "Next-Gen ORM",
+        "category": "database",
+        "color": "from-indigo-600 to-blue-500",
+        "usedIn": ["Type-Safe Database", "Modern ORMs"]
+      }
+    ],
+    "infrastructure": [
+      {
+        "name": "Docker",
+        "tagline": "Containerization",
+        "category": "infrastructure",
+        "color": "from-blue-500 to-cyan-400",
+        "usedIn": ["Deployment", "Development"]
+      },
+      {
+        "name": "AWS",
+        "tagline": "Cloud Infrastructure",
+        "category": "infrastructure",
+        "color": "from-orange-500 to-yellow-500",
+        "usedIn": ["Hosting", "Storage", "CDN"]
+      },
+      {
+        "name": "Kubernetes",
+        "tagline": "Container Orchestration",
+        "category": "infrastructure",
+        "color": "from-blue-600 to-blue-400",
+        "usedIn": ["Microservices", "Auto-scaling"]
+      },
+      {
+        "name": "Terraform",
+        "tagline": "Infrastructure as Code",
+        "category": "infrastructure",
+        "color": "from-purple-600 to-purple-400",
+        "usedIn": ["Cloud Automation", "IaC"]
+      },
+      {
+        "name": "GitHub Actions",
+        "tagline": "CI/CD Automation",
+        "category": "infrastructure",
+        "color": "from-gray-800 to-blue-600",
+        "usedIn": ["DevOps", "Automation"]
+      },
+      {
+        "name": "Kafka",
+        "tagline": "Event Streaming",
+        "category": "infrastructure",
+        "color": "from-gray-900 to-gray-700",
+        "usedIn": ["ข้อมูลเรียลไทม์", "Message Queue"]
+      }
+    ],
+    "ai": [
+      {
+        "name": "Claude",
+        "tagline": "AI Assistant",
+        "category": "ai",
+        "color": "from-orange-500 to-amber-400",
+        "usedIn": ["พัฒนา AI", "สร้างโค้ด"]
+      },
+      {
+        "name": "ChatGPT",
+        "tagline": "AI Language Model",
+        "category": "ai",
+        "color": "from-green-500 to-emerald-400",
+        "usedIn": ["AI Chat", "สร้างเนื้อหา"]
+      },
+      {
+        "name": "Ollama",
+        "tagline": "Local AI Models",
+        "category": "ai",
+        "color": "from-slate-700 to-slate-500",
+        "usedIn": ["AI ในองค์กร", "ความเป็นส่วนตัว"]
+      },
+      {
+        "name": "Anaconda",
+        "tagline": "Data Science Platform",
+        "category": "ai",
+        "color": "from-green-600 to-green-400",
+        "usedIn": ["พัฒนา ML", "วิเคราะห์ข้อมูล"]
+      },
+      {
+        "name": "n8n",
+        "tagline": "Workflow Automation",
+        "category": "ai",
+        "color": "from-pink-500 to-rose-400",
+        "usedIn": ["Automation", "Integration"]
+      },
+      {
+        "name": "RAG Model",
+        "tagline": "Retrieval Augmented",
+        "category": "ai",
+        "color": "from-purple-600 to-pink-500",
+        "usedIn": ["AI Search", "ฐานความรู้"]
+      },
+      {
+        "name": "DeepSeek",
+        "tagline": "Deep Learning AI",
+        "category": "ai",
+        "color": "from-indigo-600 to-purple-500",
+        "usedIn": ["วิจัย AI", "Deep Learning"]
+      }
+    ]
+  }
+}
